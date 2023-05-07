@@ -7,7 +7,7 @@ node_modules/
 .pnp.js
 .vscode
 
-# testing
+# testin
 /coverage
 
 # production
