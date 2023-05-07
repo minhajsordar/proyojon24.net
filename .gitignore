@@ -10,7 +10,7 @@ node_modules/
 # testin
 /coverage
 
-# production
+# productio
 /frontend/node_modules
 
 # misc
