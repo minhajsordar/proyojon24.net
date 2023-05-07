@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node backend/server.js",
     "start-dev": "npx nodemon backend/server.js",
-    "build": "cd ./frontend && npm install && npm quasar build",
+    "build": "cd ./frontend && npm install && quasar build",
     "client": "quasar dev --prefix frontend",
     "dev": "npm run start-dev && cd /frontend && quasar dev",
     "data:import": "node backend/seeder",
