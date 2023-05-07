@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="text-h2 text-bold text-white text-uppercase">Comming Soon...</div>
+    <div class="text-h4 text-bold text-white text-uppercase">Coming Soon...</div>
   </q-page>
 </template>
 
