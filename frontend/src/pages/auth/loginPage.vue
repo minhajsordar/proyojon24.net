@@ -124,6 +124,7 @@ const loginManager = ()=>{
   authStore.loginFunc()
 }
 onMounted(() => {
+  authStore.checkLogin()
   if (suggestUserData.value instanceof Object) {
     console.log("null value");
   } else {
