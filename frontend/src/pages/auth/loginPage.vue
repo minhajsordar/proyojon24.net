@@ -108,6 +108,8 @@ import { ref,onMounted } from "vue";
 import { useAuthStore, suggestUserData } from "src/stores/auth/authStore";
 import {isEmail, required } from 'src/global_js/utils'
 import {decode64} from 'src/global_js/utils'
+import { useRouter } from "vue-router";
+const router = useRouter()
 
 const isPwd = ref(true);
 const emailEl = ref(null);
@@ -124,7 +126,9 @@ const loginManager = ()=>{
   authStore.loginFunc()
 }
 onMounted(() => {
-  authStore.checkLogin()
+  if(authStore.checkLogin()){
+    router.push('/user')
+  }
   if (suggestUserData.value instanceof Object) {
     console.log("null value");
   } else {
