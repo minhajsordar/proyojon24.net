@@ -3,5 +3,5 @@ division
 district
 subDistrict
 Union
-Ward
+Wards
 git add . && git commit -m "msdsdfasdsasaf" && git push hostinger main
