@@ -29,19 +29,14 @@ export const useAuthStore = defineStore('auth store', ()=>{
       suggestUserData.value = null
     } else {
       suggestUserData.value = encode64(userAuthInfo.email + 'seperator' + userAuthInfo.password + 'seperator' + rememberMe.value)
-      userAuthInfo.password = null
-      userAuthInfo.password2 = null
-      userAuthInfo.oldPassword = null
-      userAuthInfo.email = null
     }
   }
   const loginFunc = async()=>{
     loader.showLoader()
     const config = {
       method: "post",
-      url: "api/users/login/",
+      url: "api/users/login",
       headers: {
-        Authorization: `Bearer ${true}`,
         "Content-Type": "application/json"
       },
       data: {
@@ -50,7 +45,6 @@ export const useAuthStore = defineStore('auth store', ()=>{
       }
     };
 
-    rememberUserData()
     try {
       const responseData = await api.request(config);
       loginUser.value = responseData.data;
@@ -58,11 +52,14 @@ export const useAuthStore = defineStore('auth store', ()=>{
       loader.hideLoader()
       router.push('/user')
       isAuthorized.value = true
+      rememberUserData()
     } catch (error) {
       console.log(error);
       loader.hideLoader()
+      rememberUserData()
 
     }
+
   }
   const logoutFunc = ()=>{
     loginUser.value = null
