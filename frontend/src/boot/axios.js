@@ -7,7 +7,7 @@ import axios from 'axios'
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: 'http://156.67.217.198:5002/' })
+const api = axios.create({ baseURL: 'https://156.67.217.198:5002/' })
 // const api = axios.create({ baseURL: 'http://127.0.0.1:5002' })
 
 export default boot(({ app }) => {
