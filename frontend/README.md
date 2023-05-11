@@ -3,7 +3,7 @@
 Proyojonio Services
 
 ## Install the dependencies
-```bash
+```bashs
 yarn
 # or
 npm install
