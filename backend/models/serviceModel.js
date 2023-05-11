@@ -12,15 +12,15 @@ const reviewsSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
-const serviceProviderSchema = new mongoose.Schema({
+const serviceSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
     },
     name: {
-        bangla: { type: String, required: true },
-        english: { type: String, required: true },
+        bn: { type: String, required: true },
+        en: { type: String, required: true },
     },
     image: {
         type: [String],
@@ -32,8 +32,8 @@ const serviceProviderSchema = new mongoose.Schema({
     },
     serviceLocation: [
         {
-            bangla: { type: String, required: true },
-            english: { type: String, required: true }
+            bn: { type: String, required: true },
+            en: { type: String, required: true }
         }
     ],
     rankCount: {
@@ -61,5 +61,5 @@ const serviceProviderSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const ServiceProvider = mongoose.model('ServiceProvider', serviceProviderSchema);
-export default ServiceProvider
+const Service = mongoose.model('Service', serviceSchema);
+export default Service

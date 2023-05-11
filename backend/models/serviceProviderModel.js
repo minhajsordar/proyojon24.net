@@ -20,8 +20,8 @@ const serviceProviderSchema = new mongoose.Schema({
         ref: 'User'
     },
     name: {
-        bangla: { type: String, required: true },
-        english: { type: String, required: true },
+        bn: { type: String, required: true },
+        en: { type: String, required: true },
     },
     image: {
         type: String,
@@ -29,27 +29,45 @@ const serviceProviderSchema = new mongoose.Schema({
     },
     serviceProviderLocation: [
             {
-                bangla: { type: String, required: true },
-                english: { type: String, required: true }
+                division: {
+                    bn: { type: String, required: true },
+                    en: { type: String, required: true }
+                },
+                district: {
+                    bn: { type: String, required: true },
+                    en: { type: String, required: true }
+                },
+                upazila: {
+                    bn: { type: String, required: true },
+                    en: { type: String, required: true }
+                },
+                union: {
+                    bn: { type: String, required: true },
+                    en: { type: String, required: true }
+                },
+                ward: {
+                    bn: { type: String, required: true },
+                    en: { type: String, required: true }
+                },
             }
         ]
     ,
     degree: [
         {
-            bangla: { type: String },
-            english: { type: String }
+            bn: { type: String },
+            en: { type: String }
         }
     ],
     extra_cources: [
         {
-            bangla: { type: String },
-            english: { type: String }
+            bn: { type: String },
+            en: { type: String }
         }
     ],
     phone_number: [
         {
-            bangla: { type: String, required: true },
-            english: { type: String, required: true }
+            bn: { type: String, required: true },
+            en: { type: String, required: true }
         }
     ],
     rankCount: {

@@ -3,16 +3,45 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
     name: {
-        type: String,
-        required: true,
+        bn: { type: String, required: true },
+        en: { type: String, required: true },
     },
     email: {
         type: String,
         required: true,
         unique: true
     },
+    phone: [{
+        type: String,
+        required: true,
+    }],
+    nidNo: [{
+        type: String,
+        required: true,
+    }],
+    nidImage: [{
+        type: String,
+        required: true,
+    }],
+    presentAddress: [
+        {
+            bn: { type: String, required: true },
+            en: { type: String, required: true },
+        }
+    ],
+    permanentAddress: [
+        {
+            bn: { type: String, required: true },
+            en: { type: String, required: true },
+        }
+    ],
     password: {
         type: String,
+        required: true,
+    },
+    isActive: {
+        type: Boolean,
+        default: true,
         required: true,
     },
     isAdmin: {

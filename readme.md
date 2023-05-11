@@ -1,8 +1,6 @@
 # updating
-updatingj;klasfssd
-
 division
 district
-Upazila
+subDistrict
 Union
 Ward

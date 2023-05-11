@@ -11,8 +11,14 @@ const authUser =  expressAsyncHandler(async (req, res) => {
           _id: user._id,
           name: user.name,
           email: user.email,
+          phone: user.phone,
+          nidNo: user.nidNo,
+          nidImage: user.nidImage,
+          presentAddress: user.presentAddress,
+          permanentAddress: user.permanentAddress,
           isAdmin: user.isAdmin,
-          isAuth: user.isAuth,
+          isSuperAdmin: user.isSuperAdmin,
+          isActive: user.isActive,
           token: generateToken(user._id),
         })
       }else{
@@ -25,20 +31,23 @@ const authUser =  expressAsyncHandler(async (req, res) => {
 
 const registerUser = expressAsyncHandler(async (req, res) => {
     const { name, email, password } = req.body
-  
     const userExists = await User.findOne({ email })
     
-  
     if (userExists) {
         res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
       res.status(400)
-      throw new Error('User already exists')
+      throw new Error('User already exists with this email.')
     }
   
     const user = await User.create({
       name,
       email,
       password,
+      phone,
+      nidNo,
+      nidImage,
+      presentAddress,
+      permanentAddress,
     })
   
     if (user) {
@@ -47,7 +56,11 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        isAdmin: user.isAdmin,
+        phone: user.phone,
+        nidNo: user.nidNo,
+        nidImage: user.nidImage,
+        presentAddress: user.presentAddress,
+        permanentAddress: user.permanentAddress,
         token: generateToken(user._id),
       })
     } else {
@@ -66,7 +79,14 @@ const getUserProfile =  expressAsyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone,
+            nidNo: user.nidNo,
+            nidImage: user.nidImage,
+            presentAddress: user.presentAddress,
+            permanentAddress: user.permanentAddress,
             isAdmin: user.isAdmin,
+            isSuperAdmin: user.isSuperAdmin,
+            isActive: user.isActive,
         })
     }else{
         res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -79,10 +99,24 @@ const getUserProfile =  expressAsyncHandler(async (req, res) => {
 // acess Privet
 const updateUserProfile =  expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id)
-
     if(user){
-      user.name = req.body.name ||user.name
-      user.email = req.body.email ||user.email
+      user.name = req.body.name || user.name
+      user.email = req.body.email || user.email
+      if(req.body.nidNo){
+        user.nidNo = req.body.nidNo
+      }
+      if(req.body.nidImage){
+        user.nidImage = req.body.nidImage
+      }
+      if(req.body.phone){
+        user.phone.push(req.body.phone)
+      }
+      if(req.body.presentAddress){
+        user.presentAddress.push(req.body.presentAddress)
+      }
+      if(req.body.permanentAddress){
+        user.permanentAddress.push(req.body.permanentAddress)
+      }
       if(req.body.password){
         user.password = req.body.password
       }
@@ -92,8 +126,15 @@ const updateUserProfile =  expressAsyncHandler(async (req, res) => {
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
+            phone: updatedUser.phone,
+            nidNo: updatedUser.nidNo,
+            nidImage: updatedUser.nidImage,
+            presentAddress: updatedUser.presentAddress,
+            permanentAddress: updatedUser.permanentAddress,
             isAdmin: updatedUser.isAdmin,
-            token: generateToken(updatedUser._id)
+            isSuperAdmin: updatedUser.isSuperAdmin,
+            isActive: updatedUser.isActive,
+            token: generateToken(updatedUser._id),
         })
     }else{
         res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -116,7 +157,7 @@ const getUsers =  expressAsyncHandler(async (req, res) => {
 const deleteUser =  expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id)
     if(user){
-      await user.remove()
+      await user.deleteOne()
       res.json({message: 'User removed'})
     }else{
       res.status(404)
@@ -145,14 +186,35 @@ const updateUser =  expressAsyncHandler(async (req, res) => {
   if(user){
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
-    user.isAdmin = req.body.isAdmin
+    if(req.body.nidNo){
+      user.nidNo = req.body.nidNo
+    }
+    if(req.body.nidImage){
+      user.nidImage = req.body.nidImage
+    }
+    if(req.body.phone){
+      user.phone.push(req.body.phone)
+    }
+    if(req.body.presentAddress){
+      user.presentAddress.push(req.body.presentAddress)
+    }
+    if(req.body.permanentAddress){
+      user.permanentAddress.push(req.body.permanentAddress)
+    }
     const updatedUser = await user.save()
       res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
       res.json({
-          _id: updatedUser._id,
-          name: updatedUser.name,
-          email: updatedUser.email,
-          isAdmin: updatedUser.isAdmin
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        phone: updatedUser.phone,
+        nidNo: updatedUser.nidNo,
+        nidImage: updatedUser.nidImage,
+        presentAddress: updatedUser.presentAddress,
+        permanentAddress: updatedUser.permanentAddress,
+        isAdmin: updatedUser.isAdmin,
+        isSuperAdmin: updatedUser.isSuperAdmin,
+        isActive: updatedUser.isActive,
       })
   }else{
       res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
