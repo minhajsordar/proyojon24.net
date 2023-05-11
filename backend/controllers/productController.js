@@ -15,7 +15,7 @@ const getProducts =  expressAsyncHandler(async (req, res) => {
     }:{}
     const count = await Product.countDocuments({...keyword})
     const products = await Product.find({...keyword}).limit(pageSize).skip(pageSize * (page-1))
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({products, page, pages: Math.ceil(count / pageSize)})
 })
 
@@ -25,10 +25,10 @@ const getProducts =  expressAsyncHandler(async (req, res) => {
 const getProductById = expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
     if (product) {
-        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json(product)
     } else {
-        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.status(404)
         throw new Error('Product not found')
     }
@@ -41,10 +41,10 @@ const deleteProduct = expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
     if (product) {
         await product.remove()
-        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json({message: 'Product removed'})
     } else {
-        res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.status(404)
         throw new Error('Product not found')
     }

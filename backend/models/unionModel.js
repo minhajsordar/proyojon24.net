@@ -9,6 +9,10 @@ const unionSchema = new mongoose.Schema({
     name: {
         bn: { type: String, required: true },
         en: { type: String, required: true },
+    },
+    parent: {
+        bn: { type: String, required: true },
+        en: { type: String, required: true },
     }
 }, {
     timestamps: true

@@ -4,7 +4,16 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') }
+      { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '/login', component: () => import('pages/auth/loginPage.vue') }
+    ]
+  },
+  {
+    path: '/',
+    component: () => import('layouts/ProfileLayout.vue'),
+    children: [
+      { path: '/user', component: () => import('pages/user/profilePage.vue') },
+      { path: '/settings', component: () => import('pages/user/settingsPage.vue') }
     ]
   },
 
