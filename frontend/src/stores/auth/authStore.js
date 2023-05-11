@@ -33,32 +33,59 @@ export const useAuthStore = defineStore('auth store', ()=>{
   }
   const loginFunc = async()=>{
     loader.showLoader()
-    const config = {
-      method: "post",
-      url: "api/users/login",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      data: {
-        email:userAuthInfo.email,
-        password:userAuthInfo.password
+    // const config = {
+    //   method: "post",
+    //   url: "api/users/login",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   data: {
+    //     email:userAuthInfo.email,
+    //     password:userAuthInfo.password
+    //   }
+    // };
+
+    // try {
+    //   const responseData = await api.request(config);
+    //   loginUser.value = responseData.data;
+    //   loginUserInfo.value = responseData.data;
+    //   loader.hideLoader()
+    //   router.push('/user')
+    //   isAuthorized.value = true
+    //   rememberUserData()
+    // } catch (error) {
+    //   console.log(error);
+    //   loader.hideLoader()
+    //   rememberUserData()
+
+    // }
+    if(userAuthInfo.email == "mdnoor@gmail.com" &&
+      userAuthInfo.password == '1234'){
+
+        loginUser.value = {
+          name: {
+            bn: 'নুর মোহাম্মাদ',
+            en: 'Noor Mohammad'
+        },
+        email: 'mdnoor@gmail.com',
+        phone: '+8801756853831',
+        nidNo: '123456789123',
+        nidImage: '123456789123',
+        presentAddress: {
+            bn: 'গোয়ালন্দ',
+            en: 'Goalonda'
+        },
+        permanentAddress: {
+            bn: 'গোয়ালন্দ',
+            en: 'Goalonda'
+        },
+        isActive: true,
+        isAdmin: true,
+        isSuperAdmin: true
+        }
+        router.push('/user')
+        loader.hideLoader()
       }
-    };
-
-    try {
-      const responseData = await api.request(config);
-      loginUser.value = responseData.data;
-      loginUserInfo.value = responseData.data;
-      loader.hideLoader()
-      router.push('/user')
-      isAuthorized.value = true
-      rememberUserData()
-    } catch (error) {
-      console.log(error);
-      loader.hideLoader()
-      rememberUserData()
-
-    }
 
   }
   const logoutFunc = ()=>{
@@ -91,6 +118,7 @@ export const useAuthStore = defineStore('auth store', ()=>{
     // actions
     rememberUserData,
     loginFunc,
-    checkLogin
+    checkLogin,
+    logoutFunc
   }
 });

@@ -1,1 +1,0 @@
-import{u as a,l as r}from"./authStore.e0bf6a76.js";import{o as s,j as n,O as l,af as e,D as t}from"./index.a6160fe1.js";import"./axios.b3554f4e.js";const _={__name:"profilePage",setup(c){const o=a();return console.log("page sw"),s(()=>{o.checkLogin()}),(i,p)=>(n(),l("div",null,e(t(r).email)+" "+e(t(o).loginUserInfo),1))}};export{_ as default};
