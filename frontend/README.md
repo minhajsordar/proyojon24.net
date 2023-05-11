@@ -13,7 +13,9 @@ npm install
 ```bash
 quasar dev
 quasar dev -m android --ide
+quasar dev -m cordova -T android
 quasar dev -m ios --ide
+quasar dev -m cordova -T ios
 ```
 
 

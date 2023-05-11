@@ -2,19 +2,33 @@ import bcryptjs from "bcryptjs";
 
 const users = [
     {
+        name: 'NoorMohammad',
+        email: 'mdnoor@gmail.com',
+        phone: '+8801756853831',
+        nidCard: '123456789123',
+        presentAddress: 'Goalonda More, Rajbari',
+        permanentAddress: 'Goalonda More, Rajbari',
+        password: bcryptjs.hashSync('1234', 10),
+        isAdmin: true,
+        isSuperAdmin: true
+    },
+    {
         name: 'Minhaj',
-        email: 'minhaj@gmail.com',
+        email: 'minhajsorder8567@gmail.com',
+        phone: '+8801835158205',
+        nidCard: '123456789123',
+        presentAddress: 'Rajbari Sadar, Rajbari',
+        permanentAddress: 'Rajbari Sadar, Rajbari',
         password: bcryptjs.hashSync('1234', 10),
-        isAdmin: true
+        isAdmin:true,
     },
     {
-        name: 'Mujahid',
-        email: 'mujahid@gmail.com',
-        password: bcryptjs.hashSync('1234', 10),
-    },
-    {
-        name: 'Ruma',
-        email: 'ruma@gmail.com',
+        name: 'Noor',
+        email: 'noor@gmail.com',
+        phone: '+8801756853831',
+        nidCard: '123456789123',
+        presentAddress: 'Goalonda More, Rajbari',
+        permanentAddress: 'Goalonda More, Rajbari',
         password: bcryptjs.hashSync('1234', 10),
     },
 ]
