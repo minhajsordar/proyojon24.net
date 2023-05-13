@@ -1,8 +1,8 @@
 <template >
   <div>
     <q-btn label="Logout" color="red" @click="authStore.logoutFunc()"/>
-    {{ loginUser.email }}
-    {{ authStore.loginUserInfo }}
+    {{ loginUser?.email }}
+    {{ authStore?.loginUserInfo }}
   </div>
 </template>
 <script setup>
