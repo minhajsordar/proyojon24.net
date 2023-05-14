@@ -126,9 +126,6 @@ const loginManager = ()=>{
   authStore.loginFunc2()
 }
 onMounted(() => {
-  if(authStore.checkLogin()){
-    router.push('/user')
-  }
   if (suggestUserData.value instanceof Object) {
     console.log("null value");
   } else {
@@ -136,7 +133,7 @@ onMounted(() => {
     authStore.userAuthInfo.email = userinfo[0];
     authStore.userAuthInfo.password = userinfo[1];
     authStore.rememberMe = Boolean(userinfo[2]);
-    console.log(userinfo);
+    // console.log(userinfo);
   }
 });
 </script>

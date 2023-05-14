@@ -2,7 +2,7 @@
       <q-toolbar class="q-py-sm q-px-md">
         <q-btn v-if="!($q.screen.gt.sm)" icon="visibility" round dense flat size="19px" color="white" class="q-mr-sm" no-caps />
 
-        <q-select
+        <!-- <q-select
           ref="search" dark dense standout use-input hide-selected
           class="GL__toolbar-select"
           color="black" :stack-label="false" label="Search or jump to..."
@@ -45,9 +45,9 @@
               </q-item-section>
             </q-item>
           </template>
-        </q-select>
+        </q-select> -->
 
-        <div v-if="$q.screen.gt.sm" class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap">
+        <!-- <div v-if="$q.screen.gt.sm" class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap">
           <a href="javascript:void(0)" class="text-white">
             Pull requests
           </a>
@@ -60,20 +60,20 @@
           <a href="javascript:void(0)" class="text-white">
             Explore
           </a>
-        </div>
+        </div> -->
 
         <q-space />
 
         <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-          <q-btn
+          <!-- <q-btn
             v-if="$q.screen.gt.xs"
             dense
             flat
             round
             size="sm"
             icon="notifications"
-          />
-          <q-btn v-if="$q.screen.gt.xs" dense flat>
+          /> -->
+          <q-btn dense flat>
             <div class="row items-center no-wrap">
               <q-icon name="add" size="20px" />
               <q-icon
@@ -83,18 +83,21 @@
               />
             </div>
             <q-menu auto-close>
-              <q-list dense style="min-width: 100px">
+              <q-list dense style="min-width: 140px">
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>New repository</q-item-section>
+                  <q-item-section>New Division</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>Import repository</q-item-section>
+                  <q-item-section>New District</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>New gist</q-item-section>
+                  <q-item-section>New Sub District</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>New organization</q-item-section>
+                  <q-item-section>New Union</q-item-section>
+                </q-item>
+                <q-item clickable class="GL__menu-link">
+                  <q-item-section>New Ward</q-item-section>
                 </q-item>
                 <q-separator />
                 <q-item-label header>This repository</q-item-label>
@@ -107,7 +110,7 @@
 
           <q-btn dense flat no-wrap>
             <q-avatar rounded size="20px">
-              <img src="https://cdn.quasar.dev/img/avatar3.jpg" />
+              <img src="https://cdn.quasar.dev/img/avatar1.jpg" />
             </q-avatar>
             <q-icon name="arrow_drop_down" size="16px" />
 
@@ -118,7 +121,7 @@
                     <div>Signed in as <strong>{{ authStore?.loginUserInfo?.name.bn }}</strong></div>
                   </q-item-section>
                 </q-item>
-                <q-separator />
+                <!-- <q-separator />
                 <q-item clickable class="GL__menu-link-status">
                   <q-item-section>
                     <div>
@@ -127,8 +130,8 @@
                     </div>
                   </q-item-section>
                 </q-item>
-                <q-separator />
-                <q-item clickable class="GL__menu-link">
+                <q-separator /> -->
+                <q-item clickable class="GL__menu-link" @click="router.push('/profile')">
                   <q-item-section>Profile</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
@@ -144,7 +147,7 @@
                   <q-item-section>Settings</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>Sign out</q-item-section>
+                  <q-item-section @click="logoutFunc">Sign out</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
@@ -159,6 +162,13 @@ import { onMounted, ref } from "vue";
 
 import { useRouter } from "vue-router";
 import { useLocalStorage } from "@vueuse/core";
+import { useAuthStore } from "src/stores/auth/authStore";
+const authStore = useAuthStore();
+const router = useRouter()
+const logoutFunc =()=>{
+  authStore.logoutFunc()
+  router.push('/login')
+}
 const stringOptions = [
   "quasarframework/quasar",
   "quasarframework/quasar-awesome",
