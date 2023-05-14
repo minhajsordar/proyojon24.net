@@ -13,6 +13,10 @@ const routes = [
     component: () => import('layouts/ProfileLayout.vue'),
     children: [
       { path: '/profile', component: () => import('pages/user/profilePage.vue') },
+      { path: '/locations', component: () => import('pages/location/locationsPage.vue') },
+      { path: '/users', component: () => import('pages/user/userListPage.vue') },
+      { path: '/help', component: () => import('pages/contact/helpPage.vue') },
+      { path: '/services', component: () => import('pages/services/servicesList.vue') },
       { path: '/settings', component: () => import('pages/user/settingsPage.vue') }
     ]
   },

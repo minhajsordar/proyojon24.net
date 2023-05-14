@@ -2,7 +2,7 @@
   <div class="container-section-py-sm">
     <div class="inner-section">
       <div class="full-width  text-blue-grey-8">
-        <q-card class="q-pa-md q-mb-lg">
+        <q-card class="q-pa-md q-mb-lg border-primary">
           <div class="flex q-mb-md">
             <div >
               <q-avatar rounded size="130px">
@@ -28,10 +28,13 @@
             </div>
           </div>
         </q-card>
-        <q-card class="q-pa-md">
+        <q-card class="q-pa-md border-primary">
           <div class="flex justify-between q-mb-md">
             <div class="fs-20 text-bold">Profile Details</div>
             <q-btn label="Edit" color="primary"/>
+          </div>
+          <div class="full-width">
+            <q-seperator/>
           </div>
           <div class="row q-mb-md">
             <div class="col-12">

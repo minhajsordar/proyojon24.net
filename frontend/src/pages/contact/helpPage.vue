@@ -1,10 +1,11 @@
-<template >
+<template>
   <div class="container-section-py-sm">
     <div class="inner-section">
-    Setting page
+      Help Page
     </div>
     </div>
 </template>
+
 <script setup>
 import { useAuthStore } from "src/stores/auth/authStore";
 import { onMounted } from "vue";
@@ -13,6 +14,6 @@ onMounted(()=>{
   authStore.checkLogin()
 })
 </script>
-<style>
+<style scoped>
 
 </style>

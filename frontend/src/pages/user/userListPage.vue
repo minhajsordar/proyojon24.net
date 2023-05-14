@@ -1,7 +1,7 @@
 <template >
   <div class="container-section-py-sm">
     <div class="inner-section">
-    Setting page
+    User Lists
     </div>
     </div>
 </template>

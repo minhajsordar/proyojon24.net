@@ -1,7 +1,12 @@
 # updating
+Division
+District
+SubDistrict
+Union
+Ward
 division
 district
-subDistrict
-Union
-Wardssf
+subdistrict
+union
+ward
 git add . && git commit -m "msdsdfasdsasaf" && git push hostinger main

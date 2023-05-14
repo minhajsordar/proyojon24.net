@@ -47,20 +47,17 @@
           </template>
         </q-select> -->
 
-        <!-- <div v-if="$q.screen.gt.sm" class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap">
-          <a href="javascript:void(0)" class="text-white">
-            Pull requests
-          </a>
-          <a href="javascript:void(0)" class="text-white">
-            Issues
-          </a>
-          <a href="javascript:void(0)" class="text-white">
-            Marketplace
-          </a>
-          <a href="javascript:void(0)" class="text-white">
-            Explore
-          </a>
-        </div> -->
+        <div v-if="$q.screen.gt.sm" class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap cursor-pointer">
+          <span class="text-white" @click="router.push('/locations')">
+            Locations
+          </span>
+          <span class="text-white" @click="router.push('/users')">
+            Users
+          </span>
+          <span class="text-white" @click="router.push('/services')">
+            Services
+          </span>
+        </div>
 
         <q-space />
 
@@ -73,6 +70,28 @@
             size="sm"
             icon="notifications"
           /> -->
+          <q-btn dense flat>
+            <div class="row items-center no-wrap">
+              <q-icon name="language" size="20px" />
+              {{$t('language')}}
+              <q-icon
+                name="arrow_drop_down"
+                size="16px"
+                style="margin-left: -2px"
+              />
+            </div>
+            <q-menu auto-close>
+              <q-list dense style="min-width: 140px">
+
+                <q-item clickable class="GL__menu-link" @click="languageStore.switchToBn">
+                  <q-item-section>বাংলা</q-item-section>
+                </q-item>
+                <q-item clickable class="GL__menu-link" @click="languageStore.switchToEn">
+                  <q-item-section>English</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
           <q-btn dense flat>
             <div class="row items-center no-wrap">
               <q-icon name="add" size="20px" />
@@ -115,39 +134,33 @@
             <q-icon name="arrow_drop_down" size="16px" />
 
             <q-menu auto-close>
-              <q-list dense>
+              <q-list dense style="min-width: 140px">
                 <q-item class="GL__menu-link-signed-in">
                   <q-item-section>
-                    <div>Signed in as <strong>{{ authStore?.loginUserInfo?.name.bn }}</strong></div>
+                    <div><strong>{{ authStore?.loginUserInfo?.name.bn }}</strong></div>
                   </q-item-section>
                 </q-item>
-                <!-- <q-separator />
+                <q-separator />
                 <q-item clickable class="GL__menu-link-status">
                   <q-item-section>
                     <div>
-                      <q-icon name="tag_faces" color="blue-9" size="18px" />
-                      Set your status
+                      <q-icon name="account_circle" color="blue-9" size="18px" />
+                      {{ authStore.loginUserInfo?.isSuperAdmin ? 'Super Admin': authStore.loginUserInfo?.isAdmin? 'Admin' : 'Service Provider'}}
                     </div>
                   </q-item-section>
                 </q-item>
-                <q-separator /> -->
+                <q-separator />
                 <q-item clickable class="GL__menu-link" @click="router.push('/profile')">
                   <q-item-section>Profile</q-item-section>
                 </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Services</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Users</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
+                <q-item clickable class="GL__menu-link" @click="router.push('/help')">
                   <q-item-section>Help</q-item-section>
                 </q-item>
-                <q-item clickable class="GL__menu-link">
+                <q-item clickable class="GL__menu-link"  @click="router.push('/settings')">
                   <q-item-section>Settings</q-item-section>
                 </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section @click="logoutFunc">Sign out</q-item-section>
+                <q-item clickable class="GL__menu-link" @click="logoutFunc">
+                  <q-item-section>Sign out</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
@@ -163,6 +176,8 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useLocalStorage } from "@vueuse/core";
 import { useAuthStore } from "src/stores/auth/authStore";
+import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
+const languageStore =useLanguageStore()
 const authStore = useAuthStore();
 const router = useRouter()
 const logoutFunc =()=>{
