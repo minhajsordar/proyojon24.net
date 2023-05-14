@@ -3,6 +3,7 @@
     <q-btn label="Logout" color="red" @click="authStore.logoutFunc()"/>
     {{ loginUser?.email }}
     {{ authStore?.loginUserInfo }}
+    L
   </div>
 </template>
 <script setup>
