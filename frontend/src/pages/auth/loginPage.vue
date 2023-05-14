@@ -123,7 +123,7 @@ const loginManager = ()=>{
   if(emailEl.value.hasError || passwordEl.value.hasError){
     return
   }
-  authStore.loginFunc()
+  authStore.loginFunc2()
 }
 onMounted(() => {
   if(authStore.checkLogin()){

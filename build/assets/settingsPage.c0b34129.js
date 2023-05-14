@@ -1,1 +1,0 @@
-import{u as e}from"./authStore.359ec4a5.js";import{o,j as n,O as r}from"./index.323c6592.js";import"./axios.9b2ee746.js";const m={__name:"settingsPage",setup(a){const t=e();return o(()=>{t.checkLogin()}),(s,c)=>(n(),r("div",null," Setting page "))}};export{m as default};
