@@ -1,0 +1,79 @@
+import { defineStore } from 'pinia';
+import { api } from 'src/boot/axios';
+import loader from 'loader-animation'
+import { useRouter } from 'vue-router'
+import {encode64} from 'src/global_js/utils'
+import { useLocalStorage } from '@vueuse/core';
+import { reactive, ref } from 'vue';
+export const suggestUserData = useLocalStorage('proyojonuserkey',{})
+export const loginUser = useLocalStorage('proyojonloginuser',{})
+loader.title = 'Requesting To Server...'
+export const useUnionStore = defineStore('union store', ()=>{
+
+      const router = useRouter(),
+      unionList = ref([
+        {
+          id:123,
+          name:{
+            bn: "সজ্জনকান্দ",
+            en:"Sajjankanda"
+          },
+          parent:{
+            bn: "রাজবাড় সদর",
+            en:"Rajbari Sadar"
+          },
+        },
+        {
+          id:123,
+          name:{
+            bn: "সজ্জনকান্দ",
+            en:"Sajjankanda"
+          },
+          parent:{
+            bn: "রাজবাড় সদর",
+            en:"Rajbari Sadar"
+          },
+        },
+        {
+          id:123,
+          name:{
+            bn: "সজ্জনকান্দ",
+            en:"Sajjankanda"
+          },
+          parent:{
+            bn: "রাজবাড় সদর",
+            en:"Rajbari Sadar"
+          },
+        },
+      ]),
+      unionInfo = reactive({
+       id: null,
+       name: null,
+       parent: null,
+     })
+    const getUnionList= async()=>{
+      const config = {
+        method: "get",
+        url: "api/users/login",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        unionList.value = responseData.data;
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+
+      }
+
+    }
+     return{
+      unionList,
+      unionInfo,
+      getUnionList,
+     }
+});

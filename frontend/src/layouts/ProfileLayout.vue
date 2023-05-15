@@ -17,7 +17,9 @@
 
 <script setup>
 import userProfileHeader from "src/components/headers/userProfileHeader.vue";
-
+import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
+const languageStore = useLanguageStore()
+languageStore.switchToBn()
 </script>
 
 <style lang="sass">

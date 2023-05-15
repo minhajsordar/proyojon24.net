@@ -10,8 +10,10 @@ node_modules/
 # testin
 /coverage
 
-# productio
+# production
 /frontend/node_modules
+/frontend/src-cordova
+/frontend/src-ssr
 
 # misc
 .DS_Store

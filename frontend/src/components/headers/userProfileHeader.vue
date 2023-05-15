@@ -48,15 +48,18 @@
         </q-select> -->
 
         <div v-if="$q.screen.gt.sm" class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap cursor-pointer">
-          <span class="text-white" @click="router.push('/locations')">
-            Locations
-          </span>
-          <span class="text-white" @click="router.push('/users')">
-            Users
-          </span>
-          <span class="text-white" @click="router.push('/services')">
-            Services
-          </span>
+          <!-- <span class="text-white" @click="router.push('/locations')" >
+            {{$t('headermenus.locations')}}
+          </span> -->
+          <router-link to="/locations" active-class="text-white">{{$t('headermenus.locations')}}</router-link>
+          <!-- <span class="text-white" @click="router.push('/users')">
+            {{$t('headermenus.users')}}
+          </span> -->
+          <router-link to="/users" active-class="text-white">{{$t('headermenus.users')}}</router-link>
+          <!-- <span class="text-white" @click="router.push('/services')">
+            {{$t('headermenus.services')}}
+          </span> -->
+          <router-link to="/services" active-class="text-white">{{$t('headermenus.services')}}</router-link>
         </div>
 
         <q-space />
@@ -104,25 +107,31 @@
             <q-menu auto-close>
               <q-list dense style="min-width: 140px">
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>New Division</q-item-section>
+                  <q-item-section>{{$t('headermenus.addnew_users')}}</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>New District</q-item-section>
+                  <q-item-section>{{$t('headermenus.addnew_services')}}</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>New Sub District</q-item-section>
+                  <q-item-section>{{$t('location.addnew_division')}}</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>New Union</q-item-section>
+                  <q-item-section>{{$t('location.addnew_district')}}</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>New Ward</q-item-section>
+                  <q-item-section>{{$t('location.addnew_subdistrict')}}</q-item-section>
                 </q-item>
-                <q-separator />
-                <q-item-label header>This repository</q-item-label>
+                <q-item clickable class="GL__menu-link">
+                  <q-item-section>{{$t('location.addnew_union')}}</q-item-section>
+                </q-item>
+                <q-item clickable class="GL__menu-link">
+                  <q-item-section>{{$t('location.addnew_ward')}}</q-item-section>
+                </q-item>
+                <!-- <q-separator />
+                <q-item-label header>This location</q-item-label>
                 <q-item clickable class="GL__menu-link">
                   <q-item-section>New issue</q-item-section>
-                </q-item>
+                </q-item> -->
               </q-list>
             </q-menu>
           </q-btn>
@@ -151,16 +160,16 @@
                 </q-item>
                 <q-separator />
                 <q-item clickable class="GL__menu-link" @click="router.push('/profile')">
-                  <q-item-section>Profile</q-item-section>
+                  <q-item-section>{{$t('usermenus.profile')}}</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link" @click="router.push('/help')">
-                  <q-item-section>Help</q-item-section>
+                  <q-item-section>{{$t('usermenus.help')}}</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link"  @click="router.push('/settings')">
-                  <q-item-section>Settings</q-item-section>
+                  <q-item-section>{{$t('usermenus.settings')}}</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link" @click="logoutFunc">
-                  <q-item-section>Sign out</q-item-section>
+                  <q-item-section>{{$t('usermenus.signout')}}</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
@@ -172,7 +181,6 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-
 import { useRouter } from "vue-router";
 import { useLocalStorage } from "@vueuse/core";
 import { useAuthStore } from "src/stores/auth/authStore";
@@ -240,7 +248,7 @@ function filter(val, update) {
         visibility: visible
   &__toolbar-link
     a
-      color: white
+      color: rgb(209, 233, 255)
       text-decoration: none
       &:hover
         opacity: 0.7

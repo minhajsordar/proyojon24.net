@@ -3,7 +3,6 @@ import { useLocalStorage } from '@vueuse/core';
 import { ref } from 'vue';
 import { useI18n } from "vue-i18n";
 export const suggestLanguage = useLocalStorage('proyojon24language',{})
-suggestLanguage.value = 'en'
 export const useLanguageStore = defineStore('language store', ()=>{
   const $i18n = useI18n()
       const language = ref('bn')

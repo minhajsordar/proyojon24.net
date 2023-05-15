@@ -47,6 +47,16 @@ export const capitalizeText = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+const toEn = n => n.replace(/[০-৯]/g, d => "০১২৩৪৫৬৭৮৯".indexOf(d));
+const toBn = n => n.replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d])
+export const enToBnToEn = (n,l)=>{
+if(l=='en'){
+  return toEn(n)
+}
+if(l=='bn'){
+  return toBn(n)
+}
+}
 var keyStr = "ABCDEFGHIJKLMNOP" +
   "QRSTUVWXYZabcdef" +
   "ghijklmnopqrstuv" +

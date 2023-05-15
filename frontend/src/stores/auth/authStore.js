@@ -5,12 +5,14 @@ import { useRouter } from 'vue-router'
 import {encode64} from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
+import { useLanguageStore } from '../lang/languageSettingsStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 loader.title = 'Requesting To Server...'
 export const useAuthStore = defineStore('auth store', ()=>{
 
       const router = useRouter(),
+      languageStore = useLanguageStore(),
       rememberMe=ref(false),
       loginUserInfo = ref(null),
       isAuthorized = ref(false),
@@ -53,6 +55,7 @@ export const useAuthStore = defineStore('auth store', ()=>{
         loader.hideLoader()
         isAuthorized.value = true
         rememberUserData()
+        languageStore.switchToBn()
         router.push('/profile')
       } catch (error) {
         console.log(error);

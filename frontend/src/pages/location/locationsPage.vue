@@ -22,22 +22,27 @@
           <q-tab-panels v-model="tab" animated>
             <q-tab-panel name="division">
               <div class="text-h6">{{ $t('location.divisionList') }}</div>
+      <q-separator class="q-my-sm"/>
               <divisionTable/>
             </q-tab-panel>
             <q-tab-panel name="district">
               <div class="text-h6">{{$t('location.districtList')}}</div>
+      <q-separator class="q-my-sm"/>
               <districtTable/>
             </q-tab-panel>
             <q-tab-panel name="subdistrict">
               <div class="text-h6">{{$t('location.subdistrictList')}}</div>
+      <q-separator class="q-my-sm"/>
               <subDistrictTable/>
             </q-tab-panel>
             <q-tab-panel name="union">
               <div class="text-h6">{{$t('location.unionList')}}</div>
+      <q-separator class="q-my-sm"/>
               <unionTable/>
             </q-tab-panel>
             <q-tab-panel name="ward">
               <div class="text-h6">{{$t('location.wardList')}}</div>
+      <q-separator class="q-my-sm"/>
               <wardTable/>
             </q-tab-panel>
           </q-tab-panels>
