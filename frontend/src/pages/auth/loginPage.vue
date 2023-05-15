@@ -128,7 +128,7 @@ const loginManager = ()=>{
 onMounted(() => {
   if (suggestUserData.value instanceof Object) {
     console.log("null value");
-  } else {
+  } else if(suggestUserData.value){
     const userinfo = decode64(suggestUserData.value).split("seperator");
     authStore.userAuthInfo.email = userinfo[0];
     authStore.userAuthInfo.password = userinfo[1];
