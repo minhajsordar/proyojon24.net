@@ -138,7 +138,7 @@
 
           <q-btn dense flat no-wrap>
             <q-avatar rounded size="20px">
-              <img src="https://cdn.quasar.dev/img/avatar1.jpg" />
+              <img src="/images/noormohammad.jpeg" />
             </q-avatar>
             <q-icon name="arrow_drop_down" size="16px" />
 

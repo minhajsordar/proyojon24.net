@@ -6,7 +6,7 @@
           <div class="flex q-mb-md">
             <div >
               <q-avatar rounded size="130px">
-              <img src="https://cdn.quasar.dev/img/avatar1.jpg" />
+              <img src="/images/noormohammad.jpeg" />
             </q-avatar>
             </div>
             <div class="q-ml-md">
