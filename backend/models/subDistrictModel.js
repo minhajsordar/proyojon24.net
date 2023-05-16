@@ -11,8 +11,9 @@ const subDistrictSchema = new mongoose.Schema({
         en: { type: String, required: true },
     },
     parent: {
-        bn: { type: String, required: true },
-        en: { type: String, required: true },
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'District'
     }
 }, {
     timestamps: true

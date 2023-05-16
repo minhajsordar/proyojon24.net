@@ -11,6 +11,7 @@ const authUser =  expressAsyncHandler(async (req, res) => {
           _id: user._id,
           name: user.name,
           email: user.email,
+          profileImage: user.profileImage,
           phone: user.phone,
           nidNo: user.nidNo,
           nidImage: user.nidImage,
@@ -30,7 +31,17 @@ const authUser =  expressAsyncHandler(async (req, res) => {
 })
 
 const registerUser = expressAsyncHandler(async (req, res) => {
-    const { name, email, password } = req.body
+    const {
+      name,
+      email,
+      profileImage,
+      password,
+      phone,
+      nidNo,
+      nidImage,
+      presentAddress,
+      permanentAddress,
+    } = req.body
     const userExists = await User.findOne({ email })
     
     if (userExists) {
@@ -42,6 +53,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     const user = await User.create({
       name,
       email,
+      profileImage,
       password,
       phone,
       nidNo,
@@ -56,6 +68,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        profileImage: user.profileImage,
         phone: user.phone,
         nidNo: user.nidNo,
         nidImage: user.nidImage,
@@ -79,6 +92,7 @@ const getUserProfile =  expressAsyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            profileImage: user.profileImage,
             phone: user.phone,
             nidNo: user.nidNo,
             nidImage: user.nidImage,
@@ -102,6 +116,9 @@ const updateUserProfile =  expressAsyncHandler(async (req, res) => {
     if(user){
       user.name = req.body.name || user.name
       user.email = req.body.email || user.email
+      if(req.body.profileImage){
+        user.profileImage = req.body.profileImage
+      }
       if(req.body.nidNo){
         user.nidNo = req.body.nidNo
       }
@@ -125,6 +142,7 @@ const updateUserProfile =  expressAsyncHandler(async (req, res) => {
         res.json({
             _id: updatedUser._id,
             name: updatedUser.name,
+            profileImage: updatedUser.profileImage,
             email: updatedUser.email,
             phone: updatedUser.phone,
             nidNo: updatedUser.nidNo,
@@ -186,11 +204,14 @@ const updateUser =  expressAsyncHandler(async (req, res) => {
   if(user){
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
+    if(req.body.profileImage){
+      user.profileImage = req.body.profileImage
+    }
     if(req.body.nidNo){
-      user.nidNo = req.body.nidNo
+      user.nidNo.push(req.body.nidNo)
     }
     if(req.body.nidImage){
-      user.nidImage = req.body.nidImage
+      user.nidImage.push(req.body.nidImage)
     }
     if(req.body.phone){
       user.phone.push(req.body.phone)
@@ -206,6 +227,7 @@ const updateUser =  expressAsyncHandler(async (req, res) => {
       res.json({
         _id: updatedUser._id,
         name: updatedUser.name,
+        profileImage: updatedUser.profileImage,
         email: updatedUser.email,
         phone: updatedUser.phone,
         nidNo: updatedUser.nidNo,

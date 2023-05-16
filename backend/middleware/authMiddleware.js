@@ -39,7 +39,16 @@ const admin = (req, res, next)=>{
     throw new Error('Not authorized as an admin')
   }
 }
+const superAdmin = (req, res, next)=>{
+  if(req.user && req.user.isSuperAdmin){
+    next()
+  }else{
+    res.status(401)
+    throw new Error('Not authorized as an super admin')
+  }
+}
 export {
     protect,
-    admin
+    admin,
+    superAdmin
 }

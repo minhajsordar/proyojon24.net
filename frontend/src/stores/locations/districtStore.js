@@ -5,12 +5,14 @@ import { useRouter } from 'vue-router'
 import {encode64} from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
+import { useAuthStore } from '../auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 loader.title = 'Requesting To Server...'
 export const useDistrictStore = defineStore('district store', ()=>{
 
-      const router = useRouter(),
+  const router = useRouter(),
+   authStore = useAuthStore(),
       openDistrictCreateDialog = ref(false),
       districtList = ref([
         {
@@ -50,7 +52,6 @@ export const useDistrictStore = defineStore('district store', ()=>{
       districtInfo = reactive({
        id: null,
        name: null,
-       parent: null,
      })
     const getDistrictList= async()=>{
       const config = {
@@ -70,10 +71,56 @@ export const useDistrictStore = defineStore('district store', ()=>{
         loader.hideLoader()
       }
     }
+    const createNewDistrict= async()=>{
+      const data = {}
+      data.name = districtInfo.name
+      const config = {
+        method: "post",
+        url: "api/users/login",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        },
+        data
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        districtList.value = responseData.data;
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
+    const updateDistrict= async()=>{
+      const data = {}
+      data.name = districtInfo.name
+      const config = {
+        method: "put",
+        url: "api/users/login/"+districtInfo.id+"/",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        },
+        data
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        districtList.value = responseData.data;
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
      return{
       openDistrictCreateDialog,
       districtList,
       districtInfo,
       getDistrictList,
+      createNewDistrict,
+updateDistrict
      }
 });

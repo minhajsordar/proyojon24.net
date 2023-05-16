@@ -19,6 +19,11 @@ const serviceProviderSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
+    userProfile: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'User'
+    },
     name: {
         bn: { type: String, required: true },
         en: { type: String, required: true },
@@ -37,7 +42,7 @@ const serviceProviderSchema = new mongoose.Schema({
                     bn: { type: String, required: true },
                     en: { type: String, required: true }
                 },
-                upazila: {
+                subDistrict: {
                     bn: { type: String, required: true },
                     en: { type: String, required: true }
                 },
@@ -58,13 +63,13 @@ const serviceProviderSchema = new mongoose.Schema({
             en: { type: String }
         }
     ],
-    extra_cources: [
+    extraCources: [
         {
             bn: { type: String },
             en: { type: String }
         }
     ],
-    phone_number: [
+    phoneNumber: [
         {
             bn: { type: String, required: true },
             en: { type: String, required: true }
