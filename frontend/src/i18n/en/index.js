@@ -9,7 +9,7 @@ export default {
   name: 'Name',
   action: 'Action',
   delete: 'Delete',
-  edit: 'Ddit',
+  edit: 'Edit',
   confirm: 'Confirm',
   confirm_delete_start: 'Are you sure? You are going to complitly delete ',
   confirm_delete_end: ' data.',
