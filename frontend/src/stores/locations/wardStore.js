@@ -11,6 +11,7 @@ loader.title = 'Requesting To Server...'
 export const useWardStore = defineStore('ward store', ()=>{
 
       const router = useRouter(),
+      openWardCreateDialog = ref(false),
       wardList = ref([
         {
           id:123,
@@ -72,6 +73,7 @@ export const useWardStore = defineStore('ward store', ()=>{
 
     }
      return{
+      openWardCreateDialog,
       wardList,
       wardInfo,
       getWardList,

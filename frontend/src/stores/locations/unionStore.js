@@ -11,6 +11,7 @@ loader.title = 'Requesting To Server...'
 export const useUnionStore = defineStore('union store', ()=>{
 
       const router = useRouter(),
+      openUnionCreateDialog = ref(false),
       unionList = ref([
         {
           id:123,
@@ -72,6 +73,7 @@ export const useUnionStore = defineStore('union store', ()=>{
 
     }
      return{
+      openUnionCreateDialog,
       unionList,
       unionInfo,
       getUnionList,

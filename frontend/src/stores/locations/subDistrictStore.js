@@ -11,6 +11,7 @@ loader.title = 'Requesting To Server...'
 export const useSubDistrictStore = defineStore('sub district store', ()=>{
 
       const router = useRouter(),
+      openSubDistrictCreateDialog = ref(false),
       subDistrictList = ref([
         {
           id:123,
@@ -72,6 +73,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
 
     }
      return{
+      openSubDistrictCreateDialog,
       subDistrictList,
       subDistrictInfo,
       getSubDistrictList,

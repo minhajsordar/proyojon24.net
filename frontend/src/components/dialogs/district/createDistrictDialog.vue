@@ -1,6 +1,6 @@
 <template>
   <q-dialog
-    v-model="divisionStore.openDivisionCreateDialog"
+    v-model="districtStore.openDistrictCreateDialog"
     persistent
     :maximized="maximizedToggle"
     transition-show="slide-up"
@@ -35,7 +35,7 @@
           <q-tooltip class="bg-white text-primary">Close</q-tooltip>
         </q-btn>
       </q-bar>
-      <q-card-section class="fs-18 text-bold"> {{ $t("location.addnew_division") }} </q-card-section>
+      <q-card-section class="fs-18 text-bold"> {{ $t("location.addnew_district") }} </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
           <div class="row q-col-gutter-sm">
@@ -63,8 +63,8 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import { useDivisionStore } from "src/stores/locations/divisionStore";
-const divisionStore = useDivisionStore();
+import { useDistrictStore } from "src/stores/locations/districtStore";
+const districtStore = useDistrictStore();
 const dialog = ref(false);
 const maximizedToggle = ref(true);
 </script>

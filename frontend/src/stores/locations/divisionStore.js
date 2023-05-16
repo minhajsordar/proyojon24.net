@@ -11,6 +11,7 @@ loader.title = 'Requesting To Server...'
 export const useDivisionStore = defineStore('division store', ()=>{
 
       const router = useRouter(),
+      openDivisionCreateDialog= ref(false),
       divisionList = ref([
         {
           id:123,
@@ -59,6 +60,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
 
     }
      return{
+      openDivisionCreateDialog,
       divisionList,
       divisionInfo,
       getDivisionList,

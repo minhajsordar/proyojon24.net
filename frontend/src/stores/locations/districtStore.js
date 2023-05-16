@@ -11,6 +11,7 @@ loader.title = 'Requesting To Server...'
 export const useDistrictStore = defineStore('district store', ()=>{
 
       const router = useRouter(),
+      openDistrictCreateDialog = ref(false),
       districtList = ref([
         {
           id:123,
@@ -70,6 +71,7 @@ export const useDistrictStore = defineStore('district store', ()=>{
       }
     }
      return{
+      openDistrictCreateDialog,
       districtList,
       districtInfo,
       getDistrictList,
