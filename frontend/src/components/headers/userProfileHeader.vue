@@ -1,8 +1,18 @@
 <template>
-      <q-toolbar class="q-py-sm q-px-md">
-        <q-btn v-if="!($q.screen.gt.sm)" icon="visibility" round dense flat size="19px" color="white" class="q-mr-sm" no-caps />
-
-        <!-- <q-select
+  <q-toolbar class="q-py-sm q-px-md">
+    <q-btn
+      v-if="!$q.screen.gt.sm"
+      icon="menu"
+      round
+      dense
+      flat
+      size="md"
+      color="white"
+      class="q-mr-sm"
+      no-caps
+      @click="menuControllerStore.headerMenuMobileScreen = true"
+    />
+    <!-- <q-select
           ref="search" dark dense standout use-input hide-selected
           class="GL__toolbar-select"
           color="black" :stack-label="false" label="Search or jump to..."
@@ -47,25 +57,34 @@
           </template>
         </q-select> -->
 
-        <div v-if="$q.screen.gt.sm" class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap cursor-pointer">
-          <!-- <span class="text-white" @click="router.push('/locations')" >
+    <div
+      v-if="$q.screen.gt.sm"
+      class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap cursor-pointer"
+    >
+      <!-- <span class="text-white" @click="router.push('/locations')" >
             {{$t('headermenus.locations')}}
           </span> -->
-          <router-link to="/locations" active-class="text-white">{{$t('headermenus.locations')}}</router-link>
-          <!-- <span class="text-white" @click="router.push('/users')">
+      <router-link to="/locations" active-class="text-white">{{
+        $t("headermenus.locations")
+      }}</router-link>
+      <!-- <span class="text-white" @click="router.push('/users')">
             {{$t('headermenus.users')}}
           </span> -->
-          <router-link to="/users" active-class="text-white">{{$t('headermenus.users')}}</router-link>
-          <!-- <span class="text-white" @click="router.push('/services')">
+      <router-link to="/users" active-class="text-white">{{
+        $t("headermenus.users")
+      }}</router-link>
+      <!-- <span class="text-white" @click="router.push('/services')">
             {{$t('headermenus.services')}}
           </span> -->
-          <router-link to="/services" active-class="text-white">{{$t('headermenus.services')}}</router-link>
-        </div>
+      <router-link to="/services" active-class="text-white">{{
+        $t("headermenus.services")
+      }}</router-link>
+    </div>
 
-        <q-space />
+    <q-space />
 
-        <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-          <!-- <q-btn
+    <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
+      <!-- <q-btn
             v-if="$q.screen.gt.xs"
             dense
             flat
@@ -73,109 +92,147 @@
             size="sm"
             icon="notifications"
           /> -->
-          <q-btn dense flat>
-            <div class="row items-center no-wrap">
-              <q-icon name="language" size="20px" />
-              {{$t('language')}}
-              <q-icon
-                name="arrow_drop_down"
-                size="16px"
-                style="margin-left: -2px"
-              />
-            </div>
-            <q-menu auto-close>
-              <q-list dense style="min-width: 140px">
-
-                <q-item clickable class="GL__menu-link" @click="languageStore.switchToBn">
-                  <q-item-section>বাংলা</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link" @click="languageStore.switchToEn">
-                  <q-item-section>English</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
-          <q-btn dense flat>
-            <div class="row items-center no-wrap">
-              <q-icon name="add" size="20px" />
-              <q-icon
-                name="arrow_drop_down"
-                size="16px"
-                style="margin-left: -2px"
-              />
-            </div>
-            <q-menu auto-close>
-              <q-list dense style="min-width: 140px">
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>{{$t('headermenus.addnew_users')}}</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>{{$t('headermenus.addnew_services')}}</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>{{$t('location.addnew_division')}}</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>{{$t('location.addnew_district')}}</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>{{$t('location.addnew_subdistrict')}}</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>{{$t('location.addnew_union')}}</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>{{$t('location.addnew_ward')}}</q-item-section>
-                </q-item>
-                <!-- <q-separator />
+      <q-btn dense flat>
+        <div class="row items-center no-wrap">
+          <q-icon name="language" size="20px" />
+          {{ $t("language") }}
+          <q-icon
+            name="arrow_drop_down"
+            size="16px"
+            style="margin-left: -2px"
+          />
+        </div>
+        <q-menu auto-close>
+          <q-list dense style="min-width: 140px">
+            <q-item
+              clickable
+              class="GL__menu-link"
+              @click="languageStore.switchToBn"
+            >
+              <q-item-section>বাংলা</q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              class="GL__menu-link"
+              @click="languageStore.switchToEn"
+            >
+              <q-item-section>English</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+      <q-btn dense flat>
+        <div class="row items-center no-wrap">
+          <q-icon name="add" size="20px" />
+          <q-icon
+            name="arrow_drop_down"
+            size="16px"
+            style="margin-left: -2px"
+          />
+        </div>
+        <q-menu auto-close>
+          <q-list dense style="min-width: 140px">
+            <q-item clickable class="GL__menu-link">
+              <q-item-section>{{
+                $t("headermenus.addnew_users")
+              }}</q-item-section>
+            </q-item>
+            <q-item clickable class="GL__menu-link">
+              <q-item-section>{{
+                $t("headermenus.addnew_services")
+              }}</q-item-section>
+            </q-item>
+            <q-item clickable class="GL__menu-link">
+              <q-item-section>{{
+                $t("location.addnew_division")
+              }}</q-item-section>
+            </q-item>
+            <q-item clickable class="GL__menu-link">
+              <q-item-section>{{
+                $t("location.addnew_district")
+              }}</q-item-section>
+            </q-item>
+            <q-item clickable class="GL__menu-link">
+              <q-item-section>{{
+                $t("location.addnew_subdistrict")
+              }}</q-item-section>
+            </q-item>
+            <q-item clickable class="GL__menu-link">
+              <q-item-section>{{ $t("location.addnew_union") }}</q-item-section>
+            </q-item>
+            <q-item clickable class="GL__menu-link">
+              <q-item-section>{{ $t("location.addnew_ward") }}</q-item-section>
+            </q-item>
+            <!-- <q-separator />
                 <q-item-label header>This location</q-item-label>
                 <q-item clickable class="GL__menu-link">
                   <q-item-section>New issue</q-item-section>
                 </q-item> -->
-              </q-list>
-            </q-menu>
-          </q-btn>
+          </q-list>
+        </q-menu>
+      </q-btn>
 
-          <q-btn dense flat no-wrap>
-            <q-avatar rounded size="20px">
-              <img src="/images/noormohammad.jpeg" />
-            </q-avatar>
-            <q-icon name="arrow_drop_down" size="16px" />
+      <q-btn dense flat no-wrap>
+        <q-avatar rounded size="20px">
+          <img src="/images/noormohammad.jpeg" />
+        </q-avatar>
+        <q-icon name="arrow_drop_down" size="16px" />
 
-            <q-menu auto-close>
-              <q-list dense style="min-width: 140px">
-                <q-item class="GL__menu-link-signed-in">
-                  <q-item-section>
-                    <div><strong>{{ authStore?.loginUserInfo?.name.bn }}</strong></div>
-                  </q-item-section>
-                </q-item>
-                <q-separator />
-                <q-item clickable class="GL__menu-link-status">
-                  <q-item-section>
-                    <div>
-                      <q-icon name="account_circle" color="blue-9" size="18px" />
-                      {{ authStore.loginUserInfo?.isSuperAdmin ? 'Super Admin': authStore.loginUserInfo?.isAdmin? 'Admin' : 'Service Provider'}}
-                    </div>
-                  </q-item-section>
-                </q-item>
-                <q-separator />
-                <q-item clickable class="GL__menu-link" @click="router.push('/profile')">
-                  <q-item-section>{{$t('usermenus.profile')}}</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link" @click="router.push('/help')">
-                  <q-item-section>{{$t('usermenus.help')}}</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link"  @click="router.push('/settings')">
-                  <q-item-section>{{$t('usermenus.settings')}}</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link" @click="logoutFunc">
-                  <q-item-section>{{$t('usermenus.signout')}}</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
-        </div>
-      </q-toolbar>
+        <q-menu auto-close>
+          <q-list dense style="min-width: 140px">
+            <q-item class="GL__menu-link-signed-in">
+              <q-item-section>
+                <div>
+                  <strong>{{ authStore?.loginUserInfo?.name.bn }}</strong>
+                </div>
+              </q-item-section>
+            </q-item>
+            <q-separator />
+            <q-item clickable class="GL__menu-link-status">
+              <q-item-section>
+                <div>
+                  <q-icon name="account_circle" color="blue-9" size="18px" />
+                  {{
+                    authStore.loginUserInfo?.isSuperAdmin
+                      ? "Super Admin"
+                      : authStore.loginUserInfo?.isAdmin
+                      ? "Admin"
+                      : "Service Provider"
+                  }}
+                </div>
+              </q-item-section>
+            </q-item>
+            <q-separator />
+            <q-item
+              clickable
+              class="GL__menu-link"
+              @click="router.push('/profile')"
+            >
+              <q-item-section>{{ $t("usermenus.profile") }}</q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              class="GL__menu-link"
+              @click="router.push('/help')"
+            >
+              <q-item-section>{{ $t("usermenus.help") }}</q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              class="GL__menu-link"
+              @click="router.push('/settings')"
+            >
+              <q-item-section>{{ $t("usermenus.settings") }}</q-item-section>
+            </q-item>
+            <q-item clickable class="GL__menu-link" @click="logoutFunc">
+              <q-item-section>{{ $t("usermenus.signout") }}</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+    </div>
+    <profileMobileMenus/>
+  </q-toolbar>
 
 </template>
 
@@ -185,13 +242,16 @@ import { useRouter } from "vue-router";
 import { useLocalStorage } from "@vueuse/core";
 import { useAuthStore } from "src/stores/auth/authStore";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
-const languageStore =useLanguageStore()
+import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
+import profileMobileMenus from "./mobileView/profileMobileMenus.vue";
+const menuControllerStore = useMenuControllerStore();
+const languageStore = useLanguageStore();
 const authStore = useAuthStore();
-const router = useRouter()
-const logoutFunc =()=>{
-  authStore.logoutFunc()
-  router.push('/login')
-}
+const router = useRouter();
+const logoutFunc = () => {
+  authStore.logoutFunc();
+  router.push("/login");
+};
 const stringOptions = [
   "quasarframework/quasar",
   "quasarframework/quasar-awesome",
