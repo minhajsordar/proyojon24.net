@@ -15,6 +15,9 @@ node_modules/
 /frontend/src-cordova
 /frontend/src-ssr
 
+http_requests
+/http_requests
+
 # misc
 .DS_Store
 .env

@@ -1,17 +1,17 @@
 import express from "express";
-import {    getUnions,
-    getUnionById,
-    deleteUnion,
-    updateUnion,
-    createUnion} from '../controllers/unionController.js'
+import {    getWards,
+    getWardById,
+    deleteWard,
+    updateWard,
+    createWard} from '../controllers/wardController.js'
     import { admin, protect } from "../middleware/authMiddleware.js"
 const router = express.Router()
 
-router.route('/').get(getUnions).post(protect, admin, createUnion)
+router.route('/').get(getWards).post(protect, admin, createWard)
 router.route('/:id')
-    .get(getUnionById)
-    .delete(protect,admin, deleteUnion)
-    .put(protect, admin, updateUnion)
+    .get(getWardById)
+    .delete(protect,admin, deleteWard)
+    .put(protect, admin, updateWard)
 
 
 

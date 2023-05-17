@@ -40,7 +40,7 @@ const getDivisionById = expressAsyncHandler(async (req, res) => {
 const deleteDivision = expressAsyncHandler(async (req, res) => {
     const division = await Division.findById(req.params.id)
     if (division) {
-        await division.remove()
+        await division.deleteOne()
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json({message: 'Division removed'})
     } else {
@@ -56,7 +56,6 @@ const deleteDivision = expressAsyncHandler(async (req, res) => {
 const updateDivision = expressAsyncHandler(async (req, res) => {
     const {
         name,
-        parent,
     } = req.body
     const division = await Division.findById(req.params.id)
     if(division){
@@ -75,11 +74,10 @@ const updateDivision = expressAsyncHandler(async (req, res) => {
 const createDivision = expressAsyncHandler(async (req, res) => {
     const division = new Division({
         user: req.user._id,
-        name: req.name,
+        name: req.body.name,
     })
     const createdDivision = await division.save()
     res.status(201).json(createdDivision)
-    
 })
 
 export {

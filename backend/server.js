@@ -5,6 +5,11 @@ import morgan from 'morgan'
 import cors from 'cors'
 import connectDB from './config/db.js'
 import userRouter from './routes/userRoutes.js'
+import divisionRouter from './routes/divisionRoutes.js'
+import districtRoutes from './routes/districtRoutes.js'
+import subDistrictRoutes from './routes/subDistrictRoutes.js'
+import unionRoutes from './routes/unionRoutes.js'
+import wardRoutes from './routes/wardRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import { importData } from './seeder.js'
@@ -39,6 +44,12 @@ app.get('/cors', (req, res) => {
 
 // User router
 app.use('/api/users', userRouter)
+app.use('/api/users', userRouter)
+app.use('/api/divisions',divisionRouter)
+app.use('/api/districts',districtRoutes)
+app.use('/api/subdistricts',subDistrictRoutes)
+app.use('/api/unions',unionRoutes)
+app.use('/api/wards',wardRoutes)
 app.get('/api/seeder', (req,res)=>{
     importData()
     res.send("data Imported")

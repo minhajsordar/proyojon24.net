@@ -10,4 +10,4 @@ subdistrict
 union
 ward
 git add . && git commit -m "msdsdfasdsasaf" && git push hostinger main
-git add . && git commit -m "model controller created" && git push -u origin main
+git add . && git commit -m "model controller updated" && git push -u origin main

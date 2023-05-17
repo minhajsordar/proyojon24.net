@@ -165,7 +165,7 @@ const updateUserProfile =  expressAsyncHandler(async (req, res) => {
 // @route PUT api/users
 // @acess Privet/Admin
 const getUsers =  expressAsyncHandler(async (req, res) => {
-    const users = await User.find({})
+    const users = await User.find({}).select(["-password","-isAdmin"])
     res.json(users)
 })
 
@@ -188,6 +188,13 @@ const deleteUser =  expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const getUserById =  expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id).select('-password')
+    if(!user.isSuperAdmin){
+      user.phone = user.phone[user.phone.length-1]
+      user.nidNo = user.nidNo[user.nidNo.length-1]
+      user.nidImage = user.nidImage[user.nidImage.length-1]
+      user.presentAddress = user.presentAddress[user.presentAddress.length-1]
+      user.permanentAddress = user.permanentAddress[user.permanentAddress.length-1]
+    }
     if(user){
       res.json(user)
     }else{

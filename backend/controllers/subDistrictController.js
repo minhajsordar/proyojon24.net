@@ -1,10 +1,10 @@
 import expressAsyncHandler from "express-async-handler";
 import SubDistrict from '../models/subDistrictModel.js'
-
+import District from '../models/districtModel.js'
 // @desc get products
 // @route Put api/products
 // @acess Privet
-const getSubDistricts =  expressAsyncHandler(async (req, res) => {
+const getSubDistricts = expressAsyncHandler(async (req, res) => {
     const pageSize = 10;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
@@ -12,11 +12,11 @@ const getSubDistricts =  expressAsyncHandler(async (req, res) => {
             $regex: req.query.keyword,
             $options: 'i'
         }
-    }:{}
-    const count = await SubDistrict.countDocuments({...keyword})
-    const subDistricts = await SubDistrict.find({...keyword}).limit(pageSize).skip(pageSize * (page-1))
+    } : {}
+    const count = await SubDistrict.countDocuments({ ...keyword })
+    const subDistricts = await SubDistrict.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(200).json({subDistricts, page, pages: Math.ceil(count / pageSize)})
+    res.status(200).json({ subDistricts, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc get product by id
@@ -40,9 +40,9 @@ const getSubDistrictById = expressAsyncHandler(async (req, res) => {
 const deleteSubDistrict = expressAsyncHandler(async (req, res) => {
     const subDistricts = await SubDistrict.findById(req.params.id)
     if (subDistricts) {
-        await subDistricts.remove()
+        await subDistricts.deleteOne()
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-        res.json({message: 'SubDistrict removed'})
+        res.json({ message: 'SubDistrict removed' })
     } else {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.status(404)
@@ -58,15 +58,21 @@ const updateSubDistrict = expressAsyncHandler(async (req, res) => {
         name,
         parent,
     } = req.body
-    const subDistricts = await SubDistrict.findById(req.params.id)
-    if(subDistricts){
-        subDistricts.name = name
-        subDistricts.parent = parent
-        const updatedSubDistrict = await subDistricts.save()
-        res.status(201).json(updatedSubDistrict)
-    }else{
+    const district = await District.findById(parent)
+    if (district) {
+        const subDistricts = await SubDistrict.findById(req.params.id)
+        if (subDistricts) {
+            subDistricts.name = name
+            subDistricts.parent = parent
+            const updatedSubDistrict = await subDistricts.save()
+            res.status(201).json(updatedSubDistrict)
+        } else {
+            res.status(404)
+            throw new Error('SubDistrict not found')
+        }
+    } else {
         res.status(404)
-        throw new Error('SubDistrict not found')
+        throw new Error('Parent District not found')
     }
 })
 
@@ -74,14 +80,19 @@ const updateSubDistrict = expressAsyncHandler(async (req, res) => {
 // @route create api/products/
 // @acess Privet/Admin
 const createSubDistrict = expressAsyncHandler(async (req, res) => {
-    const subDistricts = new SubDistrict({
-        user: req.user._id,
-        name: req.name,
-        parent: req.parent,
-    })
-    const createdSubDistrict = await subDistricts.save()
-    res.status(201).json(createdSubDistrict)
-    
+    const district = await District.findById(req.body.parent)
+    if (district) {
+        const subDistricts = new SubDistrict({
+            user: req.user._id,
+            name: req.body.name,
+            parent: req.body.parent,
+        })
+        const createdSubDistrict = await subDistricts.save()
+        res.status(201).json(createdSubDistrict)
+    } else {
+        res.status(404)
+        throw new Error('Parent District not found')
+    }
 })
 
 export {

@@ -1,10 +1,11 @@
 import expressAsyncHandler from "express-async-handler";
 import Union from '../models/unionModel.js'
+import SubDistrict from '../models/subDistrictModel.js'
 
 // @desc get products
 // @route Put api/products
 // @acess Privet
-const getUnions =  expressAsyncHandler(async (req, res) => {
+const getUnions = expressAsyncHandler(async (req, res) => {
     const pageSize = 10;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
@@ -12,11 +13,11 @@ const getUnions =  expressAsyncHandler(async (req, res) => {
             $regex: req.query.keyword,
             $options: 'i'
         }
-    }:{}
-    const count = await Union.countDocuments({...keyword})
-    const unions = await Union.find({...keyword}).limit(pageSize).skip(pageSize * (page-1))
+    } : {}
+    const count = await Union.countDocuments({ ...keyword })
+    const unions = await Union.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(200).json({unions, page, pages: Math.ceil(count / pageSize)})
+    res.status(200).json({ unions, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc get product by id
@@ -40,9 +41,9 @@ const getUnionById = expressAsyncHandler(async (req, res) => {
 const deleteUnion = expressAsyncHandler(async (req, res) => {
     const unions = await Union.findById(req.params.id)
     if (unions) {
-        await unions.remove()
+        await unions.deleteOne()
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-        res.json({message: 'Union removed'})
+        res.json({ message: 'Union removed' })
     } else {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.status(404)
@@ -58,15 +59,22 @@ const updateUnion = expressAsyncHandler(async (req, res) => {
         name,
         parent,
     } = req.body
-    const unions = await Union.findById(req.params.id)
-    if(unions){
-        unions.name = name
-        unions.parent = parent
-        const updatedUnion = await unions.save()
-        res.status(201).json(updatedUnion)
-    }else{
+    const subDistricts = await SubDistrict.findById(parent)
+    if (subDistricts) {
+        const unions = await Union.findById(req.params.id)
+        if (unions) {
+            unions.name = name
+            unions.parent = parent
+            const updatedUnion = await unions.save()
+            res.status(201).json(updatedUnion)
+        } else {
+            res.status(404)
+            throw new Error('Union not found')
+        }
+
+    } else {
         res.status(404)
-        throw new Error('Union not found')
+        throw new Error('Parent Sub District not found')
     }
 })
 
@@ -74,14 +82,19 @@ const updateUnion = expressAsyncHandler(async (req, res) => {
 // @route create api/products/
 // @acess Privet/Admin
 const createUnion = expressAsyncHandler(async (req, res) => {
-    const unions = new Union({
-        user: req.user._id,
-        name: req.name,
-        parent: req.parent,
-    })
-    const createdUnion = await unions.save()
-    res.status(201).json(createdUnion)
-    
+    const subDistricts = await SubDistrict.findById(req.body.parent)
+    if (subDistricts) {
+        const unions = new Union({
+            user: req.user._id,
+            name: req.body.name,
+            parent: req.body.parent,
+        })
+        const createdUnion = await unions.save()
+        res.status(201).json(createdUnion)
+    } else {
+        res.status(404)
+        throw new Error('Parent Sub District not found')
+    }
 })
 
 export {

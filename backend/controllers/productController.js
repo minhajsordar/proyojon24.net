@@ -40,7 +40,7 @@ const getProductById = expressAsyncHandler(async (req, res) => {
 const deleteProduct = expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
     if (product) {
-        await product.remove()
+        await product.deleteOne()
         res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json({message: 'Product removed'})
     } else {

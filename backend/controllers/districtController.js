@@ -1,10 +1,11 @@
 import expressAsyncHandler from "express-async-handler";
 import District from '../models/districtModel.js'
+import Division from '../models/divisionModel.js'
 
 // @desc get products
 // @route Put api/products
 // @acess Privet
-const getDistricts =  expressAsyncHandler(async (req, res) => {
+const getDistricts = expressAsyncHandler(async (req, res) => {
     const pageSize = 10;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
@@ -12,11 +13,11 @@ const getDistricts =  expressAsyncHandler(async (req, res) => {
             $regex: req.query.keyword,
             $options: 'i'
         }
-    }:{}
-    const count = await District.countDocuments({...keyword})
-    const districts = await District.find({...keyword}).limit(pageSize).skip(pageSize * (page-1))
+    } : {}
+    const count = await District.countDocuments({ ...keyword })
+    const districts = await District.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(200).json({districts, page, pages: Math.ceil(count / pageSize)})
+    res.status(200).json({ districts, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc get product by id
@@ -40,9 +41,9 @@ const getDistrictById = expressAsyncHandler(async (req, res) => {
 const deleteDistrict = expressAsyncHandler(async (req, res) => {
     const district = await District.findById(req.params.id)
     if (district) {
-        await district.remove()
+        await district.deleteOne()
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-        res.json({message: 'District removed'})
+        res.json({ message: 'District removed' })
     } else {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.status(404)
@@ -54,17 +55,23 @@ const deleteDistrict = expressAsyncHandler(async (req, res) => {
 // @route update api/products/
 // @acess Privet/Admin
 const updateDistrict = expressAsyncHandler(async (req, res) => {
+    const division = await Division.findById(req.body.parent)
     const {
         name,
         parent,
     } = req.body
     const district = await District.findById(req.params.id)
-    if(district){
-        district.name = name
-        district.parent = parent
-        const updatedDistrict = await district.save()
-        res.status(201).json(updatedDistrict)
-    }else{
+    if (district) {
+        if (division) {
+            district.name = name
+            district.parent = parent
+            const updatedDistrict = await district.save()
+            res.status(201).json(updatedDistrict)
+        } else {
+            res.status(404)
+            throw new Error('Parent Division not found')
+        }
+    } else {
         res.status(404)
         throw new Error('District not found')
     }
@@ -74,14 +81,19 @@ const updateDistrict = expressAsyncHandler(async (req, res) => {
 // @route create api/products/
 // @acess Privet/Admin
 const createDistrict = expressAsyncHandler(async (req, res) => {
-    const district = new District({
-        user: req.user._id,
-        name: req.name,
-        parent: req.parent,
-    })
-    const createdDistrict = await district.save()
-    res.status(201).json(createdDistrict)
-    
+    const division = await Division.findById(req.body.parent)
+    if (division) {
+        const district = new District({
+            user: req.user._id,
+            name: req.body.name,
+            parent: req.body.parent,
+        })
+        const createdDistrict = await district.save()
+        res.status(201).json(createdDistrict)
+    } else {
+        res.status(404)
+        throw new Error('Parent Division not found')
+    }
 })
 
 export {

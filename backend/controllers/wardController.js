@@ -1,5 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
 import Ward from '../models/wardModel.js'
+import Union from '../models/unionModel.js'
 
 // @desc get products
 // @route Put api/products
@@ -40,7 +41,7 @@ const getWardById = expressAsyncHandler(async (req, res) => {
 const deleteWard = expressAsyncHandler(async (req, res) => {
     const wards = await Ward.findById(req.params.id)
     if (wards) {
-        await wards.remove()
+        await wards.deleteOne()
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json({message: 'Ward removed'})
     } else {
@@ -58,15 +59,21 @@ const updateWard = expressAsyncHandler(async (req, res) => {
         name,
         parent,
     } = req.body
-    const wards = await Ward.findById(req.params.id)
-    if(wards){
-        wards.name = name
-        wards.parent = parent
-        const updatedWard = await wards.save()
-        res.status(201).json(updatedWard)
-    }else{
+    const union = await Union.findById(parent)
+    if (union) {
+        const wards = await Ward.findById(req.params.id)
+        if(wards){
+            wards.name = name
+            wards.parent = parent
+            const updatedWard = await wards.save()
+            res.status(201).json(updatedWard)
+        }else{
+            res.status(404)
+            throw new Error('Ward not found')
+        }
+    } else {
         res.status(404)
-        throw new Error('Ward not found')
+        throw new Error('Parent Union not found')
     }
 })
 
@@ -74,14 +81,19 @@ const updateWard = expressAsyncHandler(async (req, res) => {
 // @route create api/products/
 // @acess Privet/Admin
 const createWard = expressAsyncHandler(async (req, res) => {
-    const wards = new Ward({
-        user: req.user._id,
-        name: req.name,
-        parent: req.parent,
-    })
-    const createdWard = await wards.save()
-    res.status(201).json(createdWard)
-    
+    const union = await Union.findById(req.body.parent)
+    if (union) {
+        const wards = new Ward({
+            user: req.user._id,
+            name: req.body.name,
+            parent: req.body.parent,
+        })
+        const createdWard = await wards.save()
+        res.status(201).json(createdWard)
+    } else {
+        res.status(404)
+        throw new Error('Parent Union not found')
+    }
 })
 
 export {
