@@ -11,9 +11,11 @@ const unionSchema = new mongoose.Schema({
         en: { type: String, required: true },
     },
     parent: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref: 'SubDistrict'
+        _id:{type:String, required:true},
+        name: {
+            bn: { type: String, required: true },
+            en: { type: String, required: true },
+        }
     }
 }, {
     timestamps: true

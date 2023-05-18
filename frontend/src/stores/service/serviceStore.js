@@ -78,6 +78,7 @@ export const useServiceStore = defineStore('service store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
+        openServiceCreateDialog.value = false
         getServiceList()
         loader.hideLoader()
       } catch (error) {
@@ -113,6 +114,7 @@ export const useServiceStore = defineStore('service store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
+        openServiceEditDialog.value = false
         getServiceList()
         loader.hideLoader()
       } catch (error) {

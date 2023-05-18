@@ -59,7 +59,7 @@ const updateUnion = expressAsyncHandler(async (req, res) => {
         name,
         parent,
     } = req.body
-    const subDistricts = await SubDistrict.findById(parent)
+    const subDistricts = await SubDistrict.findById(parent._id)
     if (subDistricts) {
         const unions = await Union.findById(req.params.id)
         if (unions) {
@@ -82,7 +82,7 @@ const updateUnion = expressAsyncHandler(async (req, res) => {
 // @route create api/products/
 // @acess Privet/Admin
 const createUnion = expressAsyncHandler(async (req, res) => {
-    const subDistricts = await SubDistrict.findById(req.body.parent)
+    const subDistricts = await SubDistrict.findById(req.body.parent._id)
     if (subDistricts) {
         const unions = new Union({
             user: req.user._id,

@@ -58,7 +58,7 @@ const updateSubDistrict = expressAsyncHandler(async (req, res) => {
         name,
         parent,
     } = req.body
-    const district = await District.findById(parent)
+    const district = await District.findById(parent._id)
     if (district) {
         const subDistricts = await SubDistrict.findById(req.params.id)
         if (subDistricts) {
@@ -80,7 +80,7 @@ const updateSubDistrict = expressAsyncHandler(async (req, res) => {
 // @route create api/products/
 // @acess Privet/Admin
 const createSubDistrict = expressAsyncHandler(async (req, res) => {
-    const district = await District.findById(req.body.parent)
+    const district = await District.findById(req.body.parent._id)
     if (district) {
         const subDistricts = new SubDistrict({
             user: req.user._id,

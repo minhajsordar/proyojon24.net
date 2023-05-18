@@ -55,7 +55,7 @@ const deleteDistrict = expressAsyncHandler(async (req, res) => {
 // @route update api/products/
 // @acess Privet/Admin
 const updateDistrict = expressAsyncHandler(async (req, res) => {
-    const division = await Division.findById(req.body.parent)
+    const division = await Division.findById(req.body.parent._id)
     const {
         name,
         parent,
@@ -81,7 +81,7 @@ const updateDistrict = expressAsyncHandler(async (req, res) => {
 // @route create api/products/
 // @acess Privet/Admin
 const createDistrict = expressAsyncHandler(async (req, res) => {
-    const division = await Division.findById(req.body.parent)
+    const division = await Division.findById(req.body.parent._id)
     if (division) {
         const district = new District({
             user: req.user._id,

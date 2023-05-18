@@ -98,7 +98,7 @@ export const useUnionStore = defineStore('union store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
-        openUnionEditDialog.value = false
+        openUnionCreateDialog.value = false
         getUnionList()
         loader.hideLoader()
       } catch (error) {
@@ -112,18 +112,14 @@ export const useUnionStore = defineStore('union store', ()=>{
         "parent",
       ]
       const data = {}
-      unionInfoKeys.forEach((value,index)=>{
-        if(unionInfo[value] instanceof Object){
-          if(unionInfo[value].bn && unionInfo[value].bn){
-            data[value] = unionInfo[value]
-          }
-        }
-      })
 
+      if(unionInfo.name.en && unionInfo.name.bn){
+        data.name = unionInfo.name
+      }
       if(unionInfo.parent instanceof Object){
-        data.parent = unionInfo.parent._id
-      }else{
-        data.parent = unionInfo.parent
+        if(unionInfo.parent._id && unionInfo.parent.name.en && unionInfo.parent.name.bn){
+          data.parent = unionInfo.parent
+        }
       }
       const config = {
         method: "put",

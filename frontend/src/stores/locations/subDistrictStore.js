@@ -99,7 +99,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
-        openSubDistrictEditDialog.value = false
+        openSubDistrictCreateDialog.value = false
         getSubDistrictList()
         loader.hideLoader()
       } catch (error) {
@@ -112,18 +112,13 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
         "name",
       ]
       const data = {}
-      subDistrictInfoKeys.forEach((value,index)=>{
-        if(subDistrictInfo[value] instanceof Object){
-          if(subDistrictInfo[value].bn && subDistrictInfo[value].bn){
-            data[value] = subDistrictInfo[value]
-          }
-        }
-      })
-
+      if(subDistrictInfo.name.en && subDistrictInfo.name.bn){
+        data.name = subDistrictInfo.name
+      }
       if(subDistrictInfo.parent instanceof Object){
-        data.parent = subDistrictInfo.parent._id
-      }else{
-        data.parent = subDistrictInfo.parent
+        if(subDistrictInfo.parent._id && subDistrictInfo.parent.name.en && subDistrictInfo.parent.name.bn){
+          data.parent = subDistrictInfo.parent
+        }
       }
       const config = {
         method: "put",

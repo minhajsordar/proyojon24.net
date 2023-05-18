@@ -58,13 +58,19 @@ export const useDistrictStore = defineStore('district store', ()=>{
         bn: null,
         en: null
        },
-       parent:null,
+       parent:{
+        id: null,
+        name: {
+         bn: null,
+         en: null
+        }
+      }
      })
     const openDistrictEditDialogManager =(data)=>{
       openDistrictEditDialog.value = true
       districtInfo.id = data._id
       districtInfo.name = data.name
-      districtInfo.parent = divisionStore.divisionList.divisions.filter(e=>e._id == data.parent)[0]
+      districtInfo.parent = divisionStore.divisionList.divisions.filter(e=>e._id == data.parent._id)[0]
     }
     const getDistrictList= async()=>{
       const config = {
@@ -73,8 +79,6 @@ export const useDistrictStore = defineStore('district store', ()=>{
         headers: {
           "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
           "Content-Type": "application/json"
-        },params:{
-          keyword: "bn"
         }
       };
       loader.showLoader()
@@ -101,7 +105,7 @@ export const useDistrictStore = defineStore('district store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
-        openDistrictEditDialog.value = false
+        openDistrictCreateDialog.value = false
         getDistrictList()
         loader.hideLoader()
       } catch (error) {
@@ -110,21 +114,14 @@ export const useDistrictStore = defineStore('district store', ()=>{
       }
     }
     const updateDistrict= async()=>{
-      const districtInfoKeys = [
-        "name",
-      ]
       const data = {}
-      districtInfoKeys.forEach((value,index)=>{
-        if(districtInfo[value] instanceof Object){
-          if(districtInfo[value].bn && districtInfo[value].bn){
-            data[value] = districtInfo[value]
-          }
-        }
-      })
+      if(districtInfo.name.en && districtInfo.name.bn){
+        data.name = districtInfo.name
+      }
       if(districtInfo.parent instanceof Object){
-        data.parent = districtInfo.parent._id
-      }else{
-        data.parent = districtInfo.parent
+        if(districtInfo.parent._id && districtInfo.parent.name.en && districtInfo.parent.name.bn){
+          data.parent = districtInfo.parent
+        }
       }
       const config = {
         method: "put",

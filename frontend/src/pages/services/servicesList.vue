@@ -4,8 +4,19 @@
       <div class="full-width">
     <q-card class="border-primary q-pa-md">
       <div>
-      <div class="fs-18">{{ $t('headermenus.services') }}</div>
-      <q-separator class="q-my-sm"/>
+        <div class="flex justify-between">
+        <div class="fs-18">{{ $t('headermenus.services') }}</div>
+      <q-btn
+        class="btn-h-22"
+        color="positive"
+        :label="$t('addnew')"
+        icon="add"
+        dense
+        size="sm"
+        @click="districtStore.openDistrictCreateDialog = true"
+      />
+    </div>
+    <q-separator class="q-my-sm" />
         <q-markup-table flat bordered dense separator="cell" class="text-left ">
         <thead class="bg-blue-3">
           <tr>

@@ -86,7 +86,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
-        openDivisionEditDialog.value = false
+        openDivisionCreateDialog.value = false
         getDivisionList()
         loader.hideLoader()
       } catch (error) {

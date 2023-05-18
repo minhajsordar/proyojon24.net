@@ -59,7 +59,7 @@ const updateWard = expressAsyncHandler(async (req, res) => {
         name,
         parent,
     } = req.body
-    const union = await Union.findById(parent)
+    const union = await Union.findById(parent._id)
     if (union) {
         const wards = await Ward.findById(req.params.id)
         if(wards){
@@ -81,7 +81,7 @@ const updateWard = expressAsyncHandler(async (req, res) => {
 // @route create api/products/
 // @acess Privet/Admin
 const createWard = expressAsyncHandler(async (req, res) => {
-    const union = await Union.findById(req.body.parent)
+    const union = await Union.findById(req.body.parent._id)
     if (union) {
         const wards = new Ward({
             user: req.user._id,

@@ -98,7 +98,7 @@ export const useWardStore = defineStore('ward store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
-        openWardEditDialog.value = false
+        openWardCreateDialog.value = false
         getWardList()
         loader.hideLoader()
       } catch (error) {
@@ -107,23 +107,14 @@ export const useWardStore = defineStore('ward store', ()=>{
       }
     }
     const updateWard= async()=>{
-      const wardInfoKeys = [
-        "name",
-        "parent",
-      ]
       const data = {}
-      wardInfoKeys.forEach((value,index)=>{
-        if(wardInfo[value] instanceof Object){
-          if(wardInfo[value].bn && wardInfo[value].bn){
-            data[value] = wardInfo[value]
-          }
-        }
-      })
-
+      if(wardInfo.name.en && wardInfo.name.bn){
+        data.name = wardInfo.name
+      }
       if(wardInfo.parent instanceof Object){
-        data.parent = wardInfo.parent._id
-      }else{
-        data.parent = wardInfo.parent
+        if(wardInfo.parent._id && wardInfo.parent.name.en && wardInfo.parent.name.bn){
+          data.parent = wardInfo.parent
+        }
       }
       const config = {
         method: "put",
