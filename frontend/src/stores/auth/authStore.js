@@ -48,21 +48,21 @@ export const useAuthStore = defineStore('auth store', ()=>{
         }
       };
       loader.showLoader()
-      try {
-        const responseData = await api.request(config);
-        loginUser.value = responseData.data;
-        loginUserInfo.value = responseData.data;
-        loader.hideLoader()
-        isAuthorized.value = true
-        rememberUserData()
-        languageStore.switchToBn()
-        router.push('/profile')
-      } catch (error) {
-        console.log(error);
-        // loader.hideLoader()
-        rememberUserData()
+      // try {
+      //   const responseData = await api.request(config);
+      //   loginUser.value = responseData.data
+      //   loginUserInfo.value = responseData.data;
+      //   loader.hideLoader()
+      //   isAuthorized.value = true
+      //   rememberUserData()
+      //   languageStore.switchToBn()
+      //   router.push('/profile')
+      // } catch (error) {
+      //   console.log(error);
+      //   // loader.hideLoader()
+      //   rememberUserData()
 
-      }
+      // }
 
     }
     const logoutFunc =()=>{

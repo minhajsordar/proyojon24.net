@@ -6,6 +6,7 @@ import {encode64} from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
+import { useDivisionStore } from './divisionStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 loader.title = 'Requesting To Server...'
@@ -13,6 +14,7 @@ export const useDistrictStore = defineStore('district store', ()=>{
 
   const router = useRouter(),
    authStore = useAuthStore(),
+   divisionStore = useDivisionStore(),
       openDistrictCreateDialog = ref(false),
       openDistrictEditDialog = ref(false),
       districtList = ref([
@@ -60,16 +62,19 @@ export const useDistrictStore = defineStore('district store', ()=>{
      })
     const openDistrictEditDialogManager =(data)=>{
       openDistrictEditDialog.value = true
-      districtInfo.id = data.id
+      districtInfo.id = data._id
       districtInfo.name = data.name
-      districtInfo.parent = data.parent
+      districtInfo.parent = divisionStore.divisionList.divisions.filter(e=>e._id == data.parent)[0]
     }
     const getDistrictList= async()=>{
       const config = {
         method: "get",
-        url: "api/users/login",
+        url: "api/districts",
         headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
           "Content-Type": "application/json"
+        },params:{
+          keyword: "bn"
         }
       };
       loader.showLoader()
@@ -83,11 +88,10 @@ export const useDistrictStore = defineStore('district store', ()=>{
       }
     }
     const createNewDistrict= async()=>{
-      const data = {}
-      data.name = districtInfo.name
+      const data = districtInfo
       const config = {
         method: "post",
-        url: "api/users/login",
+        url: "api/districts",
         headers: {
           "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
           "Content-Type": "application/json"
@@ -97,7 +101,8 @@ export const useDistrictStore = defineStore('district store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
-        districtList.value = responseData.data;
+        openDistrictEditDialog.value = false
+        getDistrictList()
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -105,11 +110,25 @@ export const useDistrictStore = defineStore('district store', ()=>{
       }
     }
     const updateDistrict= async()=>{
+      const districtInfoKeys = [
+        "name",
+      ]
       const data = {}
-      data.name = districtInfo.name
+      districtInfoKeys.forEach((value,index)=>{
+        if(districtInfo[value] instanceof Object){
+          if(districtInfo[value].bn && districtInfo[value].bn){
+            data[value] = districtInfo[value]
+          }
+        }
+      })
+      if(districtInfo.parent instanceof Object){
+        data.parent = districtInfo.parent._id
+      }else{
+        data.parent = districtInfo.parent
+      }
       const config = {
         method: "put",
-        url: "api/users/login/"+districtInfo.id+"/",
+        url: "api/districts/"+districtInfo.id+"/",
         headers: {
           "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
           "Content-Type": "application/json"
@@ -119,7 +138,8 @@ export const useDistrictStore = defineStore('district store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
-        districtList.value = responseData.data;
+        openDistrictEditDialog.value = false
+        getDistrictList()
         loader.hideLoader()
       } catch (error) {
         console.log(error);

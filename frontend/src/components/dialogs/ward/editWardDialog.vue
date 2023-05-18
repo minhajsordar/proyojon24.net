@@ -36,7 +36,7 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("location.addnew_ward") }}
+        {{ $t("location.edit_ward") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
@@ -50,7 +50,8 @@
                   <q-select
                     ref="parentEl"
                     v-model="wardStore.wardInfo.parent"
-                    :options="['Dhaka', 'Rajsahi']"
+                    :options="unionStore.unionList?.unions"
+                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
                     options-dense
                     outlined
                     dense
@@ -93,7 +94,7 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('addnew')" @click="createWardManager"/>
+                <q-btn :label="$t('addnew')" @click="editWardManager"/>
               </div>
             </div>
           </div>
@@ -106,14 +107,17 @@
 import { ref } from "vue";
 import { useWardStore } from "src/stores/locations/wardStore";
 import { required, requiredSelector } from "src/global_js/utils";
+import { useUnionStore } from "src/stores/locations/unionStore";
+import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
+const languageStore = useLanguageStore();
+const unionStore = useUnionStore();
 const wardStore = useWardStore();
-const dialog = ref(false);
 const maximizedToggle = ref(true);
 const parentEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 
-const createWardManager = () => {
+const editWardManager = () => {
   parentEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
@@ -124,6 +128,6 @@ const createWardManager = () => {
   ) {
     return;
   }
-  console.log("passed");
+  wardStore.updateWard()
 };
 </script>

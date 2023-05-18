@@ -19,19 +19,17 @@
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("location.subdistrict") }}</th>
-          <th>{{ $t("location.district") }}</th>
           <th>{{ $t("action") }}</th>
         </tr>
       </thead>
       <tbody>
         <tr
-          v-for="(subDistrict, index) in subDistrictList"
+          v-for="(subDistrict, index) in subDistrictList?.subDistricts"
           :key="index"
           :class="{ 'bg-blue-1': index % 2 != 0 }"
         >
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
-          <td>{{ subDistrict.name[languageStore.language] }}</td>
-          <td>{{ subDistrict.parent[languageStore.language] }}</td>
+          <td>{{ subDistrict?.name[languageStore.language] }}</td>
           <td>
             <q-btn :label="$t('edit')" size="sm" dense color="positive"
             @click="subDistrictStore.openSubDistrictEditDialogManager(subDistrict)"
@@ -42,7 +40,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(subDistrict.name[languageStore.language])"
+              @click="confirm(subDistrict?.name[languageStore.language])"
             />
           </td>
         </tr>

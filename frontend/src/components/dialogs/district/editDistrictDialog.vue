@@ -36,7 +36,7 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("location.addnew_district") }}
+        {{ $t("location.edit_district") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
@@ -50,7 +50,7 @@
                   <q-select
                     ref="parentEl"
                     v-model="districtStore.districtInfo.parent"
-                    :options="divisionStore.divisionList"
+                    :options="divisionStore.divisionList.divisions"
                     :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
                     options-dense
                     outlined
@@ -128,6 +128,6 @@ const updateDistrictManager = () => {
   ) {
     return;
   }
-  console.log("passed");
+  districtStore.updateDistrict()
 };
 </script>

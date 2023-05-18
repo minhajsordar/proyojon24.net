@@ -45,18 +45,32 @@
 <script setup>
 import { useAuthStore } from "src/stores/auth/authStore";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
-import { onMounted, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import divisionTable from "src/components/locations/divisionTable.vue";
 import districtTable from "src/components/locations/districtTable.vue";
 import subDistrictTable from "src/components/locations/subDistrictTable.vue";
 import unionTable from "src/components/locations/unionTable.vue";
 import wardTable from "src/components/locations/wardTable.vue";
+import { useUnionStore } from "src/stores/locations/unionStore";
+import { useWardStore } from "src/stores/locations/wardStore";
+import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
+import { useDistrictStore } from "src/stores/locations/districtStore";
+import { useDivisionStore } from "src/stores/locations/divisionStore";
 const languageStore =useLanguageStore()
 const tab = ref("division")
 const authStore = useAuthStore()
-onMounted(()=>{
-  authStore.checkLogin()
-})
+const divisionStore = useDivisionStore()
+const districtStore = useDistrictStore()
+const subDistrictStore = useSubDistrictStore()
+const unionStore = useUnionStore()
+const wardStore = useWardStore()
+
+
+divisionStore.getDivisionList()
+districtStore.getDistrictList()
+subDistrictStore.getSubDistrictList()
+unionStore.getUnionList()
+wardStore.getWardList()
 </script>
 <style scoped>
 

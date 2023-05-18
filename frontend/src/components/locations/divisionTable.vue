@@ -23,12 +23,12 @@
       </thead>
       <tbody>
         <tr
-          v-for="(division, index) in divisionList"
+          v-for="(division, index) in divisionList?.divisions"
           :key="index"
           :class="{ 'bg-blue-1': index % 2 != 0 }"
         >
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
-          <td>{{ division.name[languageStore.language] }}</td>
+          <td>{{ division?.name[languageStore.language] }}</td>
           <td>
             <q-btn :label="$t('edit')" size="sm" dense color="positive"
             @click="divisionStore.openDivisionEditDialogManager(division)"
@@ -39,7 +39,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(division.name[languageStore.language])"
+              @click="confirm(division?.name[languageStore.language])"
             />
           </td>
         </tr>

@@ -37,7 +37,7 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("location.addnew_union") }}
+        {{ $t("location.edit_union") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
@@ -51,7 +51,8 @@
                   <q-select
                     ref="parentEl"
                     v-model="unionStore.unionInfo.parent"
-                    :options="['Dhaka', 'Rajsahi']"
+                    :options="subDistrictStore.subDistrictList.subDistricts"
+                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
                     options-dense
                     outlined
                     dense
@@ -107,6 +108,10 @@
 import { ref } from "vue";
 import { useUnionStore } from "src/stores/locations/unionStore";
 import { required, requiredSelector } from "src/global_js/utils";
+import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
+import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
+const languageStore = useLanguageStore();
+const subDistrictStore = useSubDistrictStore();
 const unionStore = useUnionStore();
 const maximizedToggle = ref(true);
 const parentEl = ref(null);
@@ -124,6 +129,6 @@ const editUnionManager = () => {
   ) {
     return;
   }
-  console.log("passed");
+  unionStore.updateUnion()
 };
 </script>

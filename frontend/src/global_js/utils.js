@@ -1,3 +1,4 @@
+import { Notify, Loading, QSpinnerGears } from "quasar";
 
 export const usernameRequired = (val) => {
   return (val && val.length > 0) ? true : "Required Feild";
@@ -45,6 +46,26 @@ export const addSessionEndTimeInMinutes = (d, minutes) => {
 }
 export const capitalizeText = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+
+export const quasarNotify = (notifData) => {
+  return Notify.create(notifData);
+};
+
+export const quasarBackDropShow = (message, gearSpinner, bg) => {
+  return Loading.show({
+    spinnerSize: 140,
+    spinnerColor: "white",
+    ...(gearSpinner && { spinner: QSpinnerGears }),
+    backgroundColor: bg || "primary",
+    messageColor: "white",
+    message: message,
+  });
+};
+
+export const quasarBackDropHide = () => {
+  return Loading.hide();
 };
 
 const toEn = n => n.replace(/[০-৯]/g, d => "০১২৩৪৫৬৭৮৯".indexOf(d));

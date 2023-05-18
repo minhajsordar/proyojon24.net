@@ -18,19 +18,17 @@
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("location.ward") }}</th>
-          <th>{{ $t("location.union") }}</th>
           <th>{{ $t("action") }}</th>
         </tr>
       </thead>
       <tbody>
         <tr
-          v-for="(ward, index) in wardList"
+          v-for="(ward, index) in wardList?.wards"
           :key="index"
           :class="{ 'bg-blue-1': index % 2 != 0 }"
         >
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
-          <td>{{ ward.name[languageStore.language] }}</td>
-          <td>{{ ward.parent[languageStore.language] }}</td>
+          <td>{{ ward?.name[languageStore.language] }}</td>
           <td>
             <q-btn :label="$t('edit')" size="sm" dense color="positive"
             @click="wardStore.openWardEditDialogManager(ward)"
@@ -41,7 +39,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(ward.name[languageStore.language])"
+              @click="confirm(ward?.name[languageStore.language])"
             />
           </td>
         </tr>

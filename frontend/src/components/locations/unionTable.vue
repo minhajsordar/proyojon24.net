@@ -18,19 +18,17 @@
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("location.union") }}</th>
-          <th>{{ $t("location.subdistrict") }}</th>
           <th>{{ $t("action") }}</th>
         </tr>
       </thead>
       <tbody>
         <tr
-          v-for="(union, index) in unionList"
+          v-for="(union, index) in unionList?.unions"
           :key="index"
           :class="{ 'bg-blue-1': index % 2 != 0 }"
         >
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
-          <td>{{ union.name[languageStore.language] }}</td>
-          <td>{{ union.parent[languageStore.language] }}</td>
+          <td>{{ union?.name[languageStore.language] }}</td>
           <td>
             <q-btn :label="$t('edit')" size="sm" dense color="positive" key=""
             @click="unionStore.openUnionEditDialogManager(union)"
@@ -41,7 +39,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(union.name[languageStore.language])"
+              @click="confirm(union?.name[languageStore.language])"
             />
           </td>
         </tr>

@@ -1,12 +1,12 @@
 <template>
   <q-dialog
-    v-model="subDistrictStore.openSubDistrictEditDialog"
+    v-model="serviceStore.openServiceCreateDialog"
     persistent
     :maximized="maximizedToggle"
     transition-show="slide-up"
     transition-hide="slide-down"
   >
-     <q-card class="text-primary">
+    <q-card class="text-primary">
       <q-bar class="bg-primary text-white">
         <q-space />
         <q-btn
@@ -36,30 +36,11 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("location.edit_subdistrict") }}
+        {{ $t("location.addnew_district") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
           <div class="row q-col-gutter-sm">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  Select District
-                </div>
-                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                  <q-select
-                    ref="parentEl"
-                    v-model="subDistrictStore.subDistrictInfo.parent"
-                    :options="districtStore.districtList?.districts"
-                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
-                    options-dense
-                    outlined
-                    dense
-                    :rules="[requiredSelector]"
-                  />
-                </div>
-              </div>
-            </div>
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
@@ -68,7 +49,7 @@
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
                     ref="nameEnEl"
-                    v-model="subDistrictStore.subDistrictInfo.name.en"
+                    v-model="serviceStore.serviceInfo.name.en"
                     outlined
                     dense
                     :rules="[required]"
@@ -84,7 +65,7 @@
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
                     ref="nameBnEl"
-                    v-model="subDistrictStore.subDistrictInfo.name.bn"
+                    v-model="serviceStore.serviceInfo.name.bn"
                     outlined
                     dense
                     :rules="[required]"
@@ -94,7 +75,15 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('addnew')" @click="editSubDistrictManager"/>
+                <q-file
+                  v-model="serviceStore.serviceInfo.icon"
+                  :rules="[fileValidate]"
+                />
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <q-btn :label="$t('addnew')" @click="createServiceManager"/>
               </div>
             </div>
           </div>
@@ -105,29 +94,27 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import { useDistrictStore } from "src/stores/locations/districtStore";
-import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
-import { required, requiredSelector } from "src/global_js/utils";
+import { requiredSelector, required, fileValidate } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
+import { useServiceStore } from "src/stores/service/serviceStore";
 const languageStore = useLanguageStore();
-const subDistrictStore = useSubDistrictStore();
-const districtStore = useDistrictStore();
+const serviceStore = useServiceStore();
 const maximizedToggle = ref(true);
-const parentEl = ref(null);
+const imageEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 
-const editSubDistrictManager = () => {
-  parentEl.value.validate();
+const createServiceManager = () => {
+  imageEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   if (
-    parentEl.value.hasError ||
+    imageEl.value.hasError ||
     nameEnEl.value.hasError ||
     nameBnEl.value.hasError
   ) {
     return;
   }
-  subDistrictStore.updateSubDistrict()
+  serviceStore.createService()
 };
 </script>

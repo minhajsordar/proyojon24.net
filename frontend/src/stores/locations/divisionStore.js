@@ -5,12 +5,14 @@ import { useRouter } from 'vue-router'
 import {encode64} from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
+import { useAuthStore } from 'src/stores/auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 loader.title = 'Requesting To Server...'
 export const useDivisionStore = defineStore('division store', ()=>{
 
       const router = useRouter(),
+      authStore = useAuthStore(),
       openDivisionCreateDialog= ref(false),
       openDivisionEditDialog= ref(false),
       divisionList = ref([
@@ -45,15 +47,16 @@ export const useDivisionStore = defineStore('division store', ()=>{
      })
      const openDivisionEditDialogManager =(data)=>{
       openDivisionEditDialog.value = true
-       divisionInfo.id = data.id
+       divisionInfo.id = data._id
        divisionInfo.name.en = data.name.en
        divisionInfo.name.bn = data.name.bn
      }
     const getDivisionList= async()=>{
       const config = {
         method: "get",
-        url: "api/users/login",
+        url: "api/divisions",
         headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
           "Content-Type": "application/json"
         }
       };
@@ -67,7 +70,64 @@ export const useDivisionStore = defineStore('division store', ()=>{
         loader.hideLoader()
 
       }
+    }
 
+    const createNewDivision= async()=>{
+      const data = divisionInfo
+      const config = {
+        method: "post",
+        url: "api/divisions",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        },
+        data
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        openDivisionEditDialog.value = false
+        getDivisionList()
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
+    const updateDivision= async()=>{
+      const divisionInfoKeys = [
+        "name",
+      ]
+      const data = {}
+      divisionInfoKeys.forEach((value,index)=>{
+        if(divisionInfo[value] instanceof Object){
+          if(divisionInfo[value].bn && divisionInfo[value].bn){
+            data[value] = divisionInfo[value]
+          }
+        }else if(divisionInfo[value]){
+            data[value] = divisionInfo[value]
+
+        }
+      })
+      const config = {
+        method: "put",
+        url: "api/divisions/"+divisionInfo.id+"/",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        },
+        data
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        openDivisionEditDialog.value = false
+        getDivisionList()
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
     }
      return{
       openDivisionCreateDialog,
@@ -76,5 +136,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
       divisionList,
       divisionInfo,
       getDivisionList,
+      createNewDivision,
+      updateDivision,
      }
 });

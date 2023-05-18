@@ -5,12 +5,14 @@ import { useRouter } from 'vue-router'
 import {encode64} from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
+import { useAuthStore } from '../auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 loader.title = 'Requesting To Server...'
 export const useUnionStore = defineStore('union store', ()=>{
 
       const router = useRouter(),
+      authStore = useAuthStore(),
       openUnionCreateDialog = ref(false),
       openUnionEditDialog = ref(false),
       unionList = ref([
@@ -58,14 +60,14 @@ export const useUnionStore = defineStore('union store', ()=>{
      })
      const openUnionEditDialogManager =(data)=>{
       openUnionEditDialog.value = true
-       unionInfo.id = data.id
+       unionInfo.id = data._id
        unionInfo.name = data.name
        unionInfo.parent = data.parent
      }
     const getUnionList= async()=>{
       const config = {
         method: "get",
-        url: "api/users/login",
+        url: "api/unions",
         headers: {
           "Content-Type": "application/json"
         }
@@ -82,6 +84,67 @@ export const useUnionStore = defineStore('union store', ()=>{
       }
 
     }
+    const createNewUnion = async()=>{
+      const data = unionInfo
+      const config = {
+        method: "post",
+        url: "api/unions",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        },
+        data
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        openUnionEditDialog.value = false
+        getUnionList()
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
+    const updateUnion= async()=>{
+      const unionInfoKeys = [
+        "name",
+        "parent",
+      ]
+      const data = {}
+      unionInfoKeys.forEach((value,index)=>{
+        if(unionInfo[value] instanceof Object){
+          if(unionInfo[value].bn && unionInfo[value].bn){
+            data[value] = unionInfo[value]
+          }
+        }
+      })
+
+      if(unionInfo.parent instanceof Object){
+        data.parent = unionInfo.parent._id
+      }else{
+        data.parent = unionInfo.parent
+      }
+      const config = {
+        method: "put",
+        url: "api/unions/"+unionInfo.id+"/",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        },
+        data
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        openUnionEditDialog.value = false
+       getUnionList()
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
      return{
       openUnionCreateDialog,
       openUnionEditDialog,
@@ -89,5 +152,7 @@ export const useUnionStore = defineStore('union store', ()=>{
       unionList,
       unionInfo,
       getUnionList,
+      createNewUnion,
+      updateUnion,
      }
 });

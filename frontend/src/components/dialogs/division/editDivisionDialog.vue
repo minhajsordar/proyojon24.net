@@ -37,7 +37,7 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("location.addnew_division") }}
+        {{ $t("location.edit_division") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
@@ -96,16 +96,14 @@ const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 
 const editDivisionManager = () => {
-  parentEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   if (
-    parentEl.value.hasError ||
     nameEnEl.value.hasError ||
     nameBnEl.value.hasError
   ) {
     return;
   }
-  console.log("passed");
+  divisionStore.updateDivision()
 };
 </script>

@@ -2,102 +2,203 @@ import { defineStore } from 'pinia';
 import { api } from 'src/boot/axios';
 import loader from 'loader-animation'
 import { useRouter } from 'vue-router'
-import {encode64} from 'src/global_js/utils'
+import { encode64 } from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
-export const suggestUserData = useLocalStorage('proyojonuserkey',{})
-export const loginUser = useLocalStorage('proyojonloginuser',{})
+export const suggestUserData = useLocalStorage('proyojonuserkey', {})
+export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
-export const useUserStore = defineStore('user store', ()=>{
-      const router = useRouter(),
-      userList = ref([
-        {
-            name: {
-                bn: 'নুর মোহাম্মাদ',
-                en: 'Noor Mohammad'
-            },
-            email: 'mdnoor@gmail.com',
-            phone: '+8801756853831',
-            nidNo: '123456789123',
-            nidImage: '123456789123',
-            presentAddress: {
-                bn: 'গোয়ালন্দ',
-                en: 'Goalonda'
-            },
-            permanentAddress: {
-                bn: 'গোয়ালন্দ',
-                en: 'Goalonda'
-            },
-            isActive: true,
-            isAdmin: true,
-            isSuperAdmin: true
+export const useUserStore = defineStore('user store', () => {
+  const router = useRouter(),
+    userList = ref([
+      {
+        name: {
+          bn: 'নুর মোহাম্মাদ',
+          en: 'Noor Mohammad'
         },
-        {
-            name: {
-                bn: 'মিনহাজ সরদার',
-                en: 'Minhaj Sorder'
-            },
-            email: 'minhajsorder8567@gmail.com',
-            phone: '+8801835158205',
-            nidNo: '123456789123',
-            nidImage: '123456789123',
-            presentAddress: {
-                bn: 'রাজবাড়ী',
-                en: 'Rajbari'
-            },
-            permanentAddress: {
-                bn: 'রাজবাড়ী',
-                en: 'Rajbari'
-            },
-            isActive: true,
-            isAdmin:true,
+        email: 'mdnoor@gmail.com',
+        phone: '+8801756853831',
+        nidNo: '123456789123',
+        nidImage: '123456789123',
+        presentAddress: {
+          bn: 'গোয়ালন্দ',
+          en: 'Goalonda'
         },
-        {
-            name: {
-                bn: 'নুর মোহাম্মাদ',
-                en: 'Noor Mohammad'
-            },
-            email: 'noor@gmail.com',
-            phone: '+8801756853831',
-            nidNo: '123456789123',
-            nidImage: '123456789123',
-            presentAddress: {
-                bn: 'গোয়ালন্দ',
-                en: 'Goalonda'
-            },
-            permanentAddress: {
-                bn: 'গোয়ালন্দ',
-                en: 'Goalonda'
-            },
-            isActive: true,
+        permanentAddress: {
+          bn: 'গোয়ালন্দ',
+          en: 'Goalonda'
         },
+        isActive: true,
+        isAdmin: true,
+        isSuperAdmin: true
+      },
+      {
+        name: {
+          bn: 'মিনহাজ সরদার',
+          en: 'Minhaj Sorder'
+        },
+        email: 'minhajsorder8567@gmail.com',
+        phone: '+8801835158205',
+        nidNo: '123456789123',
+        nidImage: '123456789123',
+        presentAddress: {
+          bn: 'রাজবাড়ী',
+          en: 'Rajbari'
+        },
+        permanentAddress: {
+          bn: 'রাজবাড়ী',
+          en: 'Rajbari'
+        },
+        isActive: true,
+        isAdmin: true,
+      },
+      {
+        name: {
+          bn: 'নুর মোহাম্মাদ',
+          en: 'Noor Mohammad'
+        },
+        email: 'noor@gmail.com',
+        phone: '+8801756853831',
+        nidNo: '123456789123',
+        nidImage: '123456789123',
+        presentAddress: {
+          bn: 'গোয়ালন্দ',
+          en: 'Goalonda'
+        },
+        permanentAddress: {
+          bn: 'গোয়ালন্দ',
+          en: 'Goalonda'
+        },
+        isActive: true,
+      },
     ]),
-      userInfo = reactive({
-       id: null,
-       name: null,
-       parent: null,
-     })
-    const getUserList= async()=>{
-      const config = {
-        method: "get",
-        url: "api/users/login",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      };
-      loader.showLoader()
-      try {
-        const responseData = await api.request(config);
-        userList.value = responseData.data;
-        loader.hideLoader()
-      } catch (error) {
-        console.log(error);
-        loader.hideLoader()
+    userInfo = reactive({
+      id: null,
+      name: {
+        bn: null,
+        en: null,
+      },
+      email: null,
+      profileImage: null,
+      phone: null,
+      nidNo: null,
+      nidImage: null,
+      presentAddress: null,
+      permanentAddress: null,
+      password: null,
+      isActive: true,
+      isSuperAdmin: false,
+      isAdmin: false,
+    })
+  const getUserList = async () => {
+    const config = {
+      method: "get",
+      url: "api/users/",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+
       }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      userList.value = responseData.data;
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
     }
-     return{
-      userList,
-      userInfo,
-      getUserList,
-     }
+  }
+  const createUser = async () => {
+    const data = userInfo
+    const config = {
+      method: "post",
+      url: "api/users",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+
+      }, data
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      getUserList()
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+    }
+  }
+  const updateUser = async () => {
+    const userInfoKeys = [
+      "name",
+      "email",
+      "profileImage",
+      "phone",
+      "nidNo",
+      "nidImage",
+      "presentAddress",
+      "permanentAddress",
+      "password",
+      "isActive",
+      "isSuperAdmin",
+      "isAdmin"
+    ]
+    const data = {}
+    userInfoKeys.forEach((value,index)=>{
+      if(userInfo[value] instanceof Object){
+        if(userInfo[value].bn && userInfo[value].bn){
+          data[value] = userInfo[value]
+        }
+      }else if(userInfo[value]){
+          data[value] = userInfo[value]
+
+      }
+    })
+    const config = {
+      method: "post",
+      url: "api/users/" + userInfo.id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      getUserList()
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+    }
+  }
+  const deleteUser = async () => {
+    const config = {
+      method: "delete",
+      url: "api/users/" + userInfo.id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      getUserList()
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+    }
+  }
+  return {
+    userList,
+    userInfo,
+    getUserList,
+  }
 });

@@ -50,7 +50,7 @@
                   <q-select
                     ref="parentEl"
                     v-model="districtStore.districtInfo.parent"
-                    :options="divisionStore.divisionList"
+                    :options="divisionStore.divisionList.divisions"
                     :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
                     options-dense
                     outlined
@@ -128,6 +128,6 @@ const createDistrictManager = () => {
   ) {
     return;
   }
-  console.log("passed");
+  districtStore.createNewDistrict()
 };
 </script>

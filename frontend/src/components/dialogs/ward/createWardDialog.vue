@@ -50,7 +50,8 @@
                   <q-select
                     ref="parentEl"
                     v-model="wardStore.wardInfo.parent"
-                    :options="['Dhaka', 'Rajsahi']"
+                    :options="unionStore.unionList?.unions"
+                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
                     options-dense
                     outlined
                     dense
@@ -106,6 +107,10 @@
 import { ref } from "vue";
 import { useWardStore } from "src/stores/locations/wardStore";
 import { required, requiredSelector } from "src/global_js/utils";
+import { useUnionStore } from "src/stores/locations/unionStore";
+import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
+const languageStore = useLanguageStore();
+const unionStore = useUnionStore();
 const wardStore = useWardStore();
 const dialog = ref(false);
 const maximizedToggle = ref(true);
@@ -124,6 +129,6 @@ const createWardManager = () => {
   ) {
     return;
   }
-  console.log("passed");
+  wardStore.createNewWard()
 };
 </script>

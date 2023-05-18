@@ -18,19 +18,17 @@
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("location.district") }}</th>
-          <th>{{ $t("location.division") }}</th>
           <th>{{ $t("action") }}</th>
         </tr>
       </thead>
       <tbody>
         <tr
-          v-for="(district, index) in districtList"
+          v-for="(district, index) in districtList?.districts"
           :key="index"
           :class="{ 'bg-blue-1': index % 2 != 0 }"
         >
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
-          <td>{{ district.name[languageStore.language] }}</td>
-          <td>{{ district.parent[languageStore.language] }}</td>
+          <td>{{ district?.name[languageStore.language] }}</td>
           <td>
             <q-btn :label="$t('edit')" size="sm" dense color="positive"
             @click="districtStore.openDistrictEditDialogManager(district)"
@@ -41,7 +39,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(district.name[languageStore.language])"
+              @click="confirm(district?.name[languageStore.language])"
             />
           </td>
         </tr>

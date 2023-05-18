@@ -91,21 +91,18 @@ import { useDivisionStore } from "src/stores/locations/divisionStore";
 import { required, requiredSelector } from "src/global_js/utils";
 const divisionStore = useDivisionStore();
 const maximizedToggle = ref(true);
-const parentEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 
 const createDivisionManager = () => {
-  parentEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   if (
-    parentEl.value.hasError ||
     nameEnEl.value.hasError ||
     nameBnEl.value.hasError
   ) {
     return;
   }
-  console.log("passed");
+  divisionStore.createNewDivision()
 };
 </script>

@@ -21,8 +21,11 @@
 import userProfileHeader from "src/components/headers/userProfileHeader.vue";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import profileLayoutAllDialogs from "src/components/dialogs/profileLayoutAllDialogs.vue"
+import { useAuthStore } from 'src/stores/auth/authStore';
 const languageStore = useLanguageStore()
 languageStore.switchToBn()
+const authStore = useAuthStore()
+authStore.checkLogin()
 </script>
 
 <style lang="sass">
