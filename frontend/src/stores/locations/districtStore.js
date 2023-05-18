@@ -14,6 +14,7 @@ export const useDistrictStore = defineStore('district store', ()=>{
   const router = useRouter(),
    authStore = useAuthStore(),
       openDistrictCreateDialog = ref(false),
+      openDistrictEditDialog = ref(false),
       districtList = ref([
         {
           id:123,
@@ -51,8 +52,18 @@ export const useDistrictStore = defineStore('district store', ()=>{
       ]),
       districtInfo = reactive({
        id: null,
-       name: null,
+       name: {
+        bn: null,
+        en: null
+       },
+       parent:null,
      })
+    const openDistrictEditDialogManager =(data)=>{
+      openDistrictEditDialog.value = true
+      districtInfo.id = data.id
+      districtInfo.name = data.name
+      districtInfo.parent = data.parent
+    }
     const getDistrictList= async()=>{
       const config = {
         method: "get",
@@ -117,6 +128,8 @@ export const useDistrictStore = defineStore('district store', ()=>{
     }
      return{
       openDistrictCreateDialog,
+      openDistrictEditDialog,
+      openDistrictEditDialogManager,
       districtList,
       districtInfo,
       getDistrictList,

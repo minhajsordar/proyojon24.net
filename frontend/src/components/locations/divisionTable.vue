@@ -30,7 +30,9 @@
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
           <td>{{ division.name[languageStore.language] }}</td>
           <td>
-            <q-btn :label="$t('edit')" size="sm" dense color="positive" />
+            <q-btn :label="$t('edit')" size="sm" dense color="positive"
+            @click="divisionStore.openDivisionEditDialogManager(division)"
+            />
             <q-btn
               class="q-ml-xs"
               :label="$t('delete')"

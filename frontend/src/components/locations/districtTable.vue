@@ -32,7 +32,9 @@
           <td>{{ district.name[languageStore.language] }}</td>
           <td>{{ district.parent[languageStore.language] }}</td>
           <td>
-            <q-btn :label="$t('edit')" size="sm" dense color="positive" />
+            <q-btn :label="$t('edit')" size="sm" dense color="positive"
+            @click="districtStore.openDistrictEditDialogManager(district)"
+            />
             <q-btn
               class="q-ml-xs"
               :label="$t('delete')"

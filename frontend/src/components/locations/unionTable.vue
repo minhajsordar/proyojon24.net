@@ -32,7 +32,9 @@
           <td>{{ union.name[languageStore.language] }}</td>
           <td>{{ union.parent[languageStore.language] }}</td>
           <td>
-            <q-btn :label="$t('edit')" size="sm" dense color="positive" />
+            <q-btn :label="$t('edit')" size="sm" dense color="positive" key=""
+            @click="unionStore.openUnionEditDialogManager(union)"
+            />
             <q-btn
               class="q-ml-xs"
               :label="$t('delete')"

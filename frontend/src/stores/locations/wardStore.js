@@ -12,6 +12,7 @@ export const useWardStore = defineStore('ward store', ()=>{
 
       const router = useRouter(),
       openWardCreateDialog = ref(false),
+      openWardEditDialog = ref(false),
       wardList = ref([
         {
           id:123,
@@ -48,10 +49,19 @@ export const useWardStore = defineStore('ward store', ()=>{
         },
       ]),
       wardInfo = reactive({
-       id: null,
-       name: null,
-       parent: null,
+        id: null,
+        name: {
+         bn: null,
+         en: null
+        },
+        parent:null,
      })
+     const openWardEditDialogManager =(data)=>{
+      openWardEditDialog.value = true
+       wardInfo.id = data.id
+       wardInfo.name = data.name
+       wardInfo.parent = data.parent
+     }
     const getWardList= async()=>{
       const config = {
         method: "get",
@@ -74,6 +84,8 @@ export const useWardStore = defineStore('ward store', ()=>{
     }
      return{
       openWardCreateDialog,
+      openWardEditDialog,
+      openWardEditDialogManager,
       wardList,
       wardInfo,
       getWardList,

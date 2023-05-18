@@ -1,6 +1,6 @@
 <template>
   <q-dialog
-    v-model="districtStore.openDistrictCreateDialog"
+    v-model="districtStore.openDistrictEditDialog"
     persistent
     :maximized="maximizedToggle"
     transition-show="slide-up"
@@ -94,7 +94,7 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('addnew')" @click="createDistrictManager"/>
+                <q-btn :label="$t('update')" @click="updateDistrictManager"/>
               </div>
             </div>
           </div>
@@ -117,7 +117,7 @@ const parentEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 
-const createDistrictManager = () => {
+const updateDistrictManager = () => {
   parentEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();

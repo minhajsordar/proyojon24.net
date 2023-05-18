@@ -12,6 +12,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
 
       const router = useRouter(),
       openDivisionCreateDialog= ref(false),
+      openDivisionEditDialog= ref(false),
       divisionList = ref([
         {
           id:123,
@@ -36,9 +37,18 @@ export const useDivisionStore = defineStore('division store', ()=>{
         },
       ]),
       divisionInfo = reactive({
-       id: null,
-       name: null,
+        id: null,
+        name: {
+         bn: null,
+         en: null
+        }
      })
+     const openDivisionEditDialogManager =(data)=>{
+      openDivisionEditDialog.value = true
+       divisionInfo.id = data.id
+       divisionInfo.name.en = data.name.en
+       divisionInfo.name.bn = data.name.bn
+     }
     const getDivisionList= async()=>{
       const config = {
         method: "get",
@@ -61,6 +71,8 @@ export const useDivisionStore = defineStore('division store', ()=>{
     }
      return{
       openDivisionCreateDialog,
+      openDivisionEditDialog,
+      openDivisionEditDialogManager,
       divisionList,
       divisionInfo,
       getDivisionList,

@@ -12,6 +12,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
 
       const router = useRouter(),
       openSubDistrictCreateDialog = ref(false),
+      openSubDistrictEditDialog = ref(false),
       subDistrictList = ref([
         {
           id:123,
@@ -48,10 +49,19 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
         },
       ]),
       subDistrictInfo = reactive({
-       id: null,
-       name: null,
-       parent: null,
+        id: null,
+        name: {
+         bn: null,
+         en: null
+        },
+        parent:null,
      })
+     const openSubDistrictEditDialogManager =(data)=>{
+      openSubDistrictEditDialog.value = true
+       subDistrictInfo.id = data.id
+       subDistrictInfo.name = data.name
+       subDistrictInfo.parent = data.parent
+     }
     const getSubDistrictList= async()=>{
       const config = {
         method: "get",
@@ -74,6 +84,8 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
     }
      return{
       openSubDistrictCreateDialog,
+      openSubDistrictEditDialog,
+      openSubDistrictEditDialogManager,
       subDistrictList,
       subDistrictInfo,
       getSubDistrictList,

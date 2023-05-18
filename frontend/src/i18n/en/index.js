@@ -10,6 +10,7 @@ export default {
   action: 'Action',
   delete: 'Delete',
   edit: 'Edit',
+  update: 'Update',
   confirm: 'Confirm',
   confirm_delete_start: 'Are you sure? You are going to complitly delete ',
   confirm_delete_end: ' data.',

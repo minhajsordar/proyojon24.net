@@ -10,6 +10,7 @@ export default {
   action: 'কর্ম',
   delete: 'মুছুন',
   edit: 'পরির্তন',
+  update: 'পরির্তন নিশ্তিত করুন',
   confirm: 'নিশ্তিত করুন',
   confirm_delete_start: 'আপনি কি নিশ্চিত? আপনি ',
   confirm_delete_end: ' তথ্যটি সম্পূর্ন রুপে মুছতে যাচ্ছেন',

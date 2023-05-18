@@ -32,7 +32,9 @@
           <td>{{ ward.name[languageStore.language] }}</td>
           <td>{{ ward.parent[languageStore.language] }}</td>
           <td>
-            <q-btn :label="$t('edit')" size="sm" dense color="positive" />
+            <q-btn :label="$t('edit')" size="sm" dense color="positive"
+            @click="wardStore.openWardEditDialogManager(ward)"
+            />
             <q-btn
               class="q-ml-xs"
               :label="$t('delete')"

@@ -1,6 +1,6 @@
 <template>
   <q-dialog
-    v-model="districtStore.openDistrictCreateDialog"
+    v-model="wardStore.openWardEditDialog"
     persistent
     :maximized="maximizedToggle"
     transition-show="slide-up"
@@ -36,7 +36,7 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("location.addnew_district") }}
+        {{ $t("location.addnew_ward") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
@@ -44,14 +44,13 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  Select Division
+                  Select Union
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-select
                     ref="parentEl"
-                    v-model="districtStore.districtInfo.parent"
-                    :options="divisionStore.divisionList"
-                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
+                    v-model="wardStore.wardInfo.parent"
+                    :options="['Dhaka', 'Rajsahi']"
                     options-dense
                     outlined
                     dense
@@ -68,7 +67,7 @@
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
                     ref="nameEnEl"
-                    v-model="districtStore.districtInfo.name.en"
+                    v-model="wardStore.wardInfo.name.en"
                     outlined
                     dense
                     :rules="[required]"
@@ -84,7 +83,7 @@
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
                     ref="nameBnEl"
-                    v-model="districtStore.districtInfo.name.bn"
+                    v-model="wardStore.wardInfo.name.bn"
                     outlined
                     dense
                     :rules="[required]"
@@ -94,7 +93,7 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('addnew')" @click="createDistrictManager"/>
+                <q-btn :label="$t('addnew')" @click="createWardManager"/>
               </div>
             </div>
           </div>
@@ -105,19 +104,16 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import { useDistrictStore } from "src/stores/locations/districtStore";
-import { requiredSelector, required } from "src/global_js/utils";
-import { useDivisionStore } from "src/stores/locations/divisionStore";
-import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
-const languageStore = useLanguageStore();
-const divisionStore = useDivisionStore();
-const districtStore = useDistrictStore();
+import { useWardStore } from "src/stores/locations/wardStore";
+import { required, requiredSelector } from "src/global_js/utils";
+const wardStore = useWardStore();
+const dialog = ref(false);
 const maximizedToggle = ref(true);
 const parentEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 
-const createDistrictManager = () => {
+const createWardManager = () => {
   parentEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();

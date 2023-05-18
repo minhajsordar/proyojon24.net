@@ -12,6 +12,7 @@ export const useUnionStore = defineStore('union store', ()=>{
 
       const router = useRouter(),
       openUnionCreateDialog = ref(false),
+      openUnionEditDialog = ref(false),
       unionList = ref([
         {
           id:123,
@@ -48,10 +49,19 @@ export const useUnionStore = defineStore('union store', ()=>{
         },
       ]),
       unionInfo = reactive({
-       id: null,
-       name: null,
-       parent: null,
+        id: null,
+        name: {
+         bn: null,
+         en: null
+        },
+        parent:null,
      })
+     const openUnionEditDialogManager =(data)=>{
+      openUnionEditDialog.value = true
+       unionInfo.id = data.id
+       unionInfo.name = data.name
+       unionInfo.parent = data.parent
+     }
     const getUnionList= async()=>{
       const config = {
         method: "get",
@@ -74,6 +84,8 @@ export const useUnionStore = defineStore('union store', ()=>{
     }
      return{
       openUnionCreateDialog,
+      openUnionEditDialog,
+      openUnionEditDialogManager,
       unionList,
       unionInfo,
       getUnionList,
