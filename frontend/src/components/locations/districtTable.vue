@@ -18,6 +18,7 @@
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("location.district") }}</th>
+          <th>{{ $t("location.division") }}</th>
           <th>{{ $t("action") }}</th>
         </tr>
       </thead>
@@ -29,6 +30,7 @@
         >
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
           <td>{{ district?.name[languageStore.language] }}</td>
+          <td>{{ district.parent?.name[languageStore.language] }}</td>
           <td>
             <q-btn :label="$t('edit')" size="sm" dense color="positive"
             @click="districtStore.openDistrictEditDialogManager(district)"
@@ -39,7 +41,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(district?.name[languageStore.language])"
+              @click="confirm(district)"
             />
           </td>
         </tr>
@@ -59,14 +61,15 @@ const { t } = useI18n();
 const districtStore = useDistrictStore();
 const { districtList } = storeToRefs(districtStore);
 const languageStore = useLanguageStore();
-const confirm = (data) => {
+const confirm = (district) => {
+  districtStore.districtInfo.id = district._id
   $q.dialog({
     title: t("confirm"),
-    message: t("confirm_delete_start") + data + t("confirm_delete_end"),
+    message: t("confirm_delete_start") + district?.name[languageStore.language] + t("confirm_delete_end"),
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    console.log(">>>> OK");
+    districtStore.deleteDistrict()
   });
 };
 </script>

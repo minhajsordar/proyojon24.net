@@ -129,6 +129,25 @@ export const useDivisionStore = defineStore('division store', ()=>{
         loader.hideLoader()
       }
     }
+    const deleteDivision= async()=>{
+      const config = {
+        method: "delete",
+        url: "api/divisions/"+divisionInfo.id+"/",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        getDivisionList()
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
      return{
       openDivisionCreateDialog,
       openDivisionEditDialog,
@@ -138,5 +157,6 @@ export const useDivisionStore = defineStore('division store', ()=>{
       getDivisionList,
       createNewDivision,
       updateDivision,
+      deleteDivision
      }
 });

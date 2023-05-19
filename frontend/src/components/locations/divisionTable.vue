@@ -39,7 +39,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(division?.name[languageStore.language])"
+              @click="confirm(division)"
             />
           </td>
         </tr>
@@ -60,14 +60,15 @@ const divisionStore = useDivisionStore();
 const { divisionList } = storeToRefs(divisionStore);
 const languageStore = useLanguageStore();
 
-const confirm = (data) => {
+const confirm = (division) => {
+  divisionStore.divisionInfo.id = division._id
   $q.dialog({
     title: t("confirm"),
-    message: t("confirm_delete_start") + data + t("confirm_delete_end"),
+    message: t("confirm_delete_start") + division?.name[languageStore.language] + t("confirm_delete_end"),
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    console.log(">>>> OK");
+    divisionStore.deleteDivision()
   });
 };
 </script>

@@ -140,6 +140,25 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
         loader.hideLoader()
       }
     }
+    const deleteSubDistrict= async()=>{
+      const config = {
+        method: "delete",
+        url: "api/subdistricts/"+subDistrictInfo.id+"/",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+       getSubDistrictList()
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
      return{
       openSubDistrictCreateDialog,
       openSubDistrictEditDialog,
@@ -149,5 +168,6 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       getSubDistrictList,
       createNewSubDistrict,
       updateSubDistrict,
+      deleteSubDistrict
      }
 });

@@ -36,6 +36,11 @@ export const useServiceStore = defineStore('service store', ()=>{
         bn:null,
         en:null
        },
+       description: {
+        bn:null,
+        en:null
+       },
+       coverImage: null,
        icon: null,
      })
     const openServiceEditDialogManager =(data)=>{

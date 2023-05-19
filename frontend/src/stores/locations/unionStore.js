@@ -141,6 +141,25 @@ export const useUnionStore = defineStore('union store', ()=>{
         loader.hideLoader()
       }
     }
+    const deleteUnion= async()=>{
+      const config = {
+        method: "delete",
+        url: "api/unions/"+unionInfo.id+"/",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+       getUnionList()
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
      return{
       openUnionCreateDialog,
       openUnionEditDialog,
@@ -150,5 +169,6 @@ export const useUnionStore = defineStore('union store', ()=>{
       getUnionList,
       createNewUnion,
       updateUnion,
+      deleteUnion,
      }
 });

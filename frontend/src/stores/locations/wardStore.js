@@ -136,6 +136,25 @@ export const useWardStore = defineStore('ward store', ()=>{
         loader.hideLoader()
       }
     }
+    const deleteWard= async()=>{
+      const config = {
+        method: "delete",
+        url: "api/wards/"+wardInfo.id+"/",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+       getWardList()
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
      return{
       openWardCreateDialog,
       openWardEditDialog,
@@ -145,5 +164,6 @@ export const useWardStore = defineStore('ward store', ()=>{
       getWardList,
       createNewWard,
       updateWard,
+      deleteWard
      }
 });

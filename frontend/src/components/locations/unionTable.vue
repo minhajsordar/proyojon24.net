@@ -18,6 +18,7 @@
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("location.union") }}</th>
+          <th>{{ $t("location.subdistrict") }}</th>
           <th>{{ $t("action") }}</th>
         </tr>
       </thead>
@@ -29,6 +30,7 @@
         >
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
           <td>{{ union?.name[languageStore.language] }}</td>
+          <td>{{ union.parent?.name[languageStore.language] }}</td>
           <td>
             <q-btn :label="$t('edit')" size="sm" dense color="positive" key=""
             @click="unionStore.openUnionEditDialogManager(union)"
@@ -39,7 +41,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(union?.name[languageStore.language])"
+              @click="confirm(union)"
             />
           </td>
         </tr>
@@ -59,14 +61,15 @@ const { t } = useI18n();
 const unionStore = useUnionStore();
 const { unionList } = storeToRefs(unionStore);
 const languageStore = useLanguageStore();
-const confirm = (data) => {
+const confirm = (union) => {
+  unionStore.unionInfo.id = union._id
   $q.dialog({
     title: t("confirm"),
-    message: t("confirm_delete_start") + data + t("confirm_delete_end"),
+    message: t("confirm_delete_start") + union?.name[languageStore.language] + t("confirm_delete_end"),
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    console.log(">>>> OK");
+    unionStore.deleteUnion()
   });
 };
 </script>

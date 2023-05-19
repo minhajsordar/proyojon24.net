@@ -4,14 +4,14 @@ import {    getDivisions,
     deleteDivision,
     updateDivision,
     createDivision} from '../controllers/divisionController.js'
-    import { admin, protect } from "../middleware/authMiddleware.js"
+    import { protect, superAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router()
 
-router.route('/').get(getDivisions).post(protect, admin, createDivision)
+router.route('/').get(getDivisions).post(protect, superAdmin, createDivision)
 router.route('/:id')
     .get(getDivisionById)
-    .delete(protect,admin, deleteDivision)
-    .put(protect, admin, updateDivision)
+    .delete(protect,superAdmin, deleteDivision)
+    .put(protect, superAdmin, updateDivision)
 
 
 

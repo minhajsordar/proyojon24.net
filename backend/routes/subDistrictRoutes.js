@@ -4,14 +4,14 @@ import {    getSubDistricts,
     deleteSubDistrict,
     updateSubDistrict,
     createSubDistrict} from '../controllers/subDistrictController.js'
-    import { admin, protect } from "../middleware/authMiddleware.js"
+    import { protect, superAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router()
 
-router.route('/').get(getSubDistricts).post(protect, admin, createSubDistrict)
+router.route('/').get(getSubDistricts).post(protect, superAdmin, createSubDistrict)
 router.route('/:id')
     .get(getSubDistrictById)
-    .delete(protect,admin, deleteSubDistrict)
-    .put(protect, admin, updateSubDistrict)
+    .delete(protect,superAdmin, deleteSubDistrict)
+    .put(protect, superAdmin, updateSubDistrict)
 
 
 

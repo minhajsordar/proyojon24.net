@@ -1,6 +1,6 @@
 <template>
   <q-dialog
-    v-model="districtStore.openDistrictEditDialog"
+    v-model="serviceStore.openServiceCreateDialog"
     persistent
     :maximized="maximizedToggle"
     transition-show="slide-up"
@@ -83,7 +83,7 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('update')" @click="updateServiceManager" />
+                <q-btn :label="$t('addnew')" @click="createServiceManager"/>
               </div>
             </div>
           </div>
@@ -99,13 +99,12 @@ import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useServiceStore } from "src/stores/service/serviceStore";
 const languageStore = useLanguageStore();
 const serviceStore = useServiceStore();
-
 const maximizedToggle = ref(true);
 const imageEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 
-const updateServiceManager = () => {
+const createServiceManager = () => {
   imageEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
@@ -116,6 +115,6 @@ const updateServiceManager = () => {
   ) {
     return;
   }
-  serviceStore.updateService()
+  serviceStore.createService()
 };
 </script>

@@ -31,6 +31,9 @@ const upload = multer({
 })
 
 router.post('/', upload.single('image'), (req, res)=>{
+    if(req.body.previousimage){
+        console.log(req.body.previousimage)
+    }
     res.send(`/${req.file.path}`)
 })
 

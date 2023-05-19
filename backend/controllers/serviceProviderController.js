@@ -30,7 +30,7 @@ const getServiceProviderId = expressAsyncHandler(async (req, res) => {
     } else {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.status(404)
-        throw new Error('ServiceProvider not found')
+        throw new Error('Service Provider not found')
     }
 })
 
@@ -42,11 +42,11 @@ const deleteServiceProvider = expressAsyncHandler(async (req, res) => {
     if (serviceProvider) {
         await serviceProvider.deleteOne()
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-        res.json({ message: 'ServiceProvider removed' })
+        res.json({ message: 'Service Provider removed' })
     } else {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.status(404)
-        throw new Error('ServiceProvider not found')
+        throw new Error('Service Provider not found')
     }
 })
 
@@ -55,7 +55,6 @@ const deleteServiceProvider = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const updateServiceProvider = expressAsyncHandler(async (req, res) => {
     const {
-        user,
         userProfile,
         name,
         image,
@@ -67,7 +66,7 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
-        serviceProvider.user = user
+        serviceProvider.user = req.user._id,
         serviceProvider.userProfile = userProfile
         serviceProvider.name = name
         serviceProvider.image = image
@@ -80,7 +79,7 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         res.status(201).json(updatedServiceProvider)
     } else {
         res.status(404)
-        throw new Error('ServiceProvider not found')
+        throw new Error('Service Provider not found')
     }
 })
 
@@ -97,7 +96,7 @@ const createServiceProviderReview = expressAsyncHandler(async (req, res) => {
         const alreadyReviewed = serviceProvider.reviews.find(r => r.user.toString() === req.user.id.toString())
         if (alreadyReviewed) {
             res.status(400)
-            throw new Error('ServiceProvider reviewed already exist')
+            throw new Error('Service Provider reviewed already exist')
         }
         const review = {
             name: req.user.name,
@@ -120,17 +119,8 @@ const createServiceProviderReview = expressAsyncHandler(async (req, res) => {
 // @route update api/ServiceProvider/:id/reviews
 // @acess Privet/Admin
 const createServiceProviderViewCount = expressAsyncHandler(async (req, res) => {
-    const {
-        view
-    } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
-        const review = {
-            name: req.user.name,
-            rating: Number(rating),
-            comment,
-            user: req.user._id
-        }
         serviceProvider.viewCount += 1
         await serviceProvider.save()
         res.status(201).json({ message: 'You previewed a service provider number' })
@@ -153,7 +143,6 @@ const getTopServiceProvider = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const createServiceProvider = expressAsyncHandler(async (req, res) => {
     const {
-        user,
         userProfile,
         name,
         image,
@@ -164,7 +153,7 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         rankCount
     } = req.body
     const serviceProvider = new ServiceProvider({
-        user,
+        user:req.user._id,
         userProfile,
         name,
         image,

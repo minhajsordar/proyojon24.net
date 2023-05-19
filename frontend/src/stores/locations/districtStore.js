@@ -143,6 +143,26 @@ export const useDistrictStore = defineStore('district store', ()=>{
         loader.hideLoader()
       }
     }
+    const deleteDistrict= async()=>{
+      const config = {
+        method: "delete",
+        url: "api/districts/"+districtInfo.id+"/",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        openDistrictEditDialog.value = false
+        getDistrictList()
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
      return{
       openDistrictCreateDialog,
       openDistrictEditDialog,
@@ -151,6 +171,7 @@ export const useDistrictStore = defineStore('district store', ()=>{
       districtInfo,
       getDistrictList,
       createNewDistrict,
-updateDistrict
+updateDistrict,
+deleteDistrict
      }
 });

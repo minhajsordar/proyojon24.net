@@ -10,14 +10,17 @@ const serviceSchema = new mongoose.Schema({
         bn: { type: String, required: true },
         en: { type: String, required: true },
     },
-    icon: {
+    description: {
+        bn: { type: String, required: true },
+        en: { type: String, required: true },
+    },
+    coverImage: {
         type: String,
         required: true
     },
-    rankCount: {
-        type: Number,
-        required: true,
-        default: 0
+    icon: {
+        type: String,
+        required: true
     },
     viewCount: {
         type: Number,

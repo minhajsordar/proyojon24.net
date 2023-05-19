@@ -18,6 +18,7 @@
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("location.ward") }}</th>
+          <th>{{ $t("location.union") }}</th>
           <th>{{ $t("action") }}</th>
         </tr>
       </thead>
@@ -29,6 +30,7 @@
         >
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
           <td>{{ ward?.name[languageStore.language] }}</td>
+          <td>{{ ward.parent?.name[languageStore.language] }}</td>
           <td>
             <q-btn :label="$t('edit')" size="sm" dense color="positive"
             @click="wardStore.openWardEditDialogManager(ward)"
@@ -39,7 +41,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(ward?.name[languageStore.language])"
+              @click="confirm(ward)"
             />
           </td>
         </tr>
@@ -59,14 +61,15 @@ const { t } = useI18n();
 const wardStore = useWardStore();
 const { wardList } = storeToRefs(wardStore);
 const languageStore = useLanguageStore();
-const confirm = (data) => {
+const confirm = (ward) => {
+  wardStore.wardInfo.id = ward._id
   $q.dialog({
     title: t("confirm"),
-    message: t("confirm_delete_start") + data + t("confirm_delete_end"),
+    message: t("confirm_delete_start") + ward?.name[languageStore.language] + t("confirm_delete_end"),
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    console.log(">>>> OK");
+    wardStore.deleteWard()
   });
 };
 </script>
