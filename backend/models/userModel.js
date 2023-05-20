@@ -58,30 +58,10 @@ const userSchema = mongoose.Schema({
         default: false,
         required: true,
     },
-    isDivisionAdmin: {
-        type: Boolean,
-        default: false,
+    permission:{
+        type: String,
         required: true,
-    },
-    isDistrictAdmin: {
-        type: Boolean,
-        default: false,
-        required: true,
-    },
-    isSubDistrictAdmin: {
-        type: Boolean,
-        default: false,
-        required: true,
-    },
-    isUnionAdmin: {
-        type: Boolean,
-        default: false,
-        required: true,
-    },
-    isWardAdmin: {
-        type: Boolean,
-        default: false,
-        required: true,
+        default: "none",
     }
 }, {
     timestamps: true

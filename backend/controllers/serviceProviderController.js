@@ -55,26 +55,29 @@ const deleteServiceProvider = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const updateServiceProvider = expressAsyncHandler(async (req, res) => {
     const {
-        userProfile,
+        user,
         name,
         image,
         serviceProviderLocation,
         degree,
         extraCources,
         phoneNumber,
-        rankCount
+        rankCount,
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
-        serviceProvider.user = req.user._id,
-        serviceProvider.userProfile = userProfile
+        serviceProvider.dataUpdatedBy = req.user._id,
+        serviceProvider.dataUpdatedHistory.push(req.user._id)
+        serviceProvider.user = user
         serviceProvider.name = name
         serviceProvider.image = image
         serviceProvider.serviceProviderLocation = serviceProviderLocation
         serviceProvider.degree = degree
         serviceProvider.extraCources = extraCources
         serviceProvider.phoneNumber = phoneNumber
-        serviceProvider.rankCount = rankCount
+        if(req.user.isSuperAdmin){
+            serviceProvider.rankCount = rankCount
+        }
         const updatedServiceProvider = await serviceProvider.save()
         res.status(201).json(updatedServiceProvider)
     } else {
@@ -143,22 +146,26 @@ const getTopServiceProvider = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const createServiceProvider = expressAsyncHandler(async (req, res) => {
     const {
-        userProfile,
+        user,
         name,
         image,
         serviceProviderLocation,
         degree,
+        description,
         extraCources,
         phoneNumber,
         rankCount
     } = req.body
     const serviceProvider = new ServiceProvider({
-        user:req.user._id,
-        userProfile,
+        dataCollector:req.user._id,
+        dataUpdatedBy:req.user._id,
+        dataUpdatedHistory:req.user._id,
+        user,
         name,
         image,
         serviceProviderLocation,
         degree,
+        description,
         extraCources,
         phoneNumber,
         rankCount

@@ -30,41 +30,39 @@ const protect = expressAsyncHandler(async (req, res, next) => {
     throw new Error('Not authorized, no token')
   }
 })
-
+// division
+// district
+// subDistrict
+// union
+// ward
 const higherLavelPermission = async (req, res, next) => {
   if (req.user) {
-    const collectorUser = await User.findById(req.body.collectorId)
+    const dataCollector = await User.findById(req.body.dataCollectorId)
     if (req.user.isSuperAdmin) {
       next()
     }
-    else if (collectorUser.isDistrictAdmin && (
+    else if (dataCollector.permission == "district" && (
       req.user.isSuperAdmin ||
-      req.user.isDivisionAdmin
-      )) {
+      ["division"].includes(req.user.permission)
+    )) {
       next()
     }
-    else if (collectorUser.isSubDistrictAdmin && (
+    else if (dataCollector.permission == "subDistrict" && (
       req.user.isSuperAdmin ||
-      req.user.isDivisionAdmin ||
-      req.user.isDistrictAdmin 
-      )) {
+      ["division", "district"].includes(req.user.permission)
+    )) {
       next()
     }
-    else if (collectorUser.isUnionAdmin && (
+    else if (dataCollector.permission == "union" && (
       req.user.isSuperAdmin ||
-      req.user.isDivisionAdmin ||
-      req.user.isDistrictAdmin ||
-      req.user.isSubDistrictAdmin 
-      )) {
+      ["division", "district", "subDistrict"].includes(req.user.permission)
+    )) {
       next()
     }
-    else if (collectorUser.isWardAdmin && (
+    else if (dataCollector.isWardAdmin && (
       req.user.isSuperAdmin ||
-      req.user.isDivisionAdmin ||
-      req.user.isDistrictAdmin ||
-      req.user.isSubDistrictAdmin ||
-      req.user.isUnionAdmin 
-      )) {
+      ["division", "district", "subDistrict", "union"].includes(req.user.permission)
+    )) {
       next()
     } else {
       res.status(401)
@@ -87,12 +85,8 @@ const admin = (req, res, next) => {
 const anyAdmin = (req, res, next) => {
   if (req.user && (
     req.user.isSuperAdmin ||
-    req.user.isAdmin ||
-    req.user.isDivisionAdmin ||
-    req.user.isDistrictAdmin ||
-    req.user.isSubDistrictAdmin ||
-    req.user.isUnionAdmin ||
-    req.user.isWardAdmin
+    req.user.isAdmin || 
+    ["division", "district", "subDistrict", "union", "ward"].includes(req.user.permission)
   )) {
     next()
   } else {

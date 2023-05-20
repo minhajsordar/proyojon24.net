@@ -16,15 +16,29 @@ const reviewsSchema = new mongoose.Schema({
 const serviceProviderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
-    },
-    userProfile: {
-        type: mongoose.Schema.Types.ObjectId,
         required: false,
         ref: 'User'
     },
+    dataCollector: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    dataUpdatedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    dataUpdatedHistory: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    }],
     name: {
+        bn: { type: String, required: true },
+        en: { type: String, required: true },
+    },
+    description: {
         bn: { type: String, required: true },
         en: { type: String, required: true },
     },
@@ -86,6 +100,10 @@ const serviceProviderSchema = new mongoose.Schema({
         default: 0
     },
     reviews: [reviewsSchema],
+    keywards: [{
+        type: String,
+        required: false
+    }],
     rating: {
         type: Number,
         required: true,

@@ -76,7 +76,8 @@ const updateService = expressAsyncHandler(async (req, res) => {
         name,
         description,
         coverImage,
-        icon
+        icon,
+        order
     } = req.body
     const service = await Service.findById(req.params.id)
     if (service) {
@@ -85,6 +86,7 @@ const updateService = expressAsyncHandler(async (req, res) => {
         service.description = description
         service.coverImage = coverImage
         service.icon = icon
+        service.order = order
         const updatedService = await service.save()
         res.status(201).json(updatedService)
     } else {
