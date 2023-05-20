@@ -46,6 +46,10 @@ const serviceProviderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    serviceImage: {
+        type: String,
+        required: true
+    },
     serviceProviderLocation: [
             {
                 division: {

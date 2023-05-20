@@ -1,7 +1,8 @@
 import express from "express"
 import {
     getServiceProviders,
-    getServiceProviderId,
+    getServiceProviderById,
+    getServiceProviderByIdPreview,
     deleteServiceProvider,
     createServiceProviderReview,
     createServiceProviderViewCount,
@@ -19,7 +20,9 @@ router.route('/service_provider_view').put(protect, admin, createServiceProvider
 router.route('/top_service_provider').get(protect, admin, getTopServiceProvider)
 router.route('/:id')
     .delete(protect, admin, deleteServiceProvider)
-    .get(protect, admin, getServiceProviderId)
+    .get(protect, admin, getServiceProviderById)
     .put(protect, admin, updateServiceProvider)
+router.route('/preview/:id')
+    .get(protect, admin, getServiceProviderByIdPreview)
 
 export default router

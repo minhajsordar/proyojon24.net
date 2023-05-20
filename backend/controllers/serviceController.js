@@ -22,7 +22,7 @@ const getServices = expressAsyncHandler(async (req, res) => {
 // @desc get product by id
 // @route Put api/Service/:id
 // @acess Privet
-const getServiceId = expressAsyncHandler(async (req, res) => {
+const getServiceById = expressAsyncHandler(async (req, res) => {
     const service = await Service.findById(req.params.id)
     if (service) {
         service.viewCount += 1
@@ -40,7 +40,7 @@ const getServiceId = expressAsyncHandler(async (req, res) => {
 // @desc get product by id
 // @route Put api/Service/:id
 // @acess Privet
-const getServiceIdPreview = expressAsyncHandler(async (req, res) => {
+const getServiceByIdPreview = expressAsyncHandler(async (req, res) => {
     const service = await Service.findById(req.params.id)
     if (service) {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
@@ -120,8 +120,8 @@ const createService = expressAsyncHandler(async (req, res) => {
 
 export {
     getServices,
-    getServiceId,
-    getServiceIdPreview,
+    getServiceById,
+    getServiceByIdPreview,
     deleteService,
     updateService,
     createService

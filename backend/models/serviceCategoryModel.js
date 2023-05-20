@@ -1,10 +1,15 @@
 import mongoose from "mongoose";
 
-const serviceSchema = new mongoose.Schema({
+const subServiceSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
+    },
+    service: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Service'
     },
     name: {
         bn: { type: String, required: true },
@@ -12,11 +17,11 @@ const serviceSchema = new mongoose.Schema({
     },
     coverImage: {
         type: String,
-        required: true
+        required: false
     },
     icon: {
         type: String,
-        required: true
+        required: false
     },
     viewCount: {
         type: Number,
@@ -32,5 +37,5 @@ const serviceSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const Service = mongoose.model('Service', serviceSchema);
-export default Service
+const SubService = mongoose.model('SubService', subServiceSchema);
+export default SubService

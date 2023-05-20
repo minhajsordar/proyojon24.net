@@ -22,7 +22,24 @@ const getServiceProviders = expressAsyncHandler(async (req, res) => {
 // @desc get product by id
 // @route Put api/ServiceProvider/:id
 // @acess Privet
-const getServiceProviderId = expressAsyncHandler(async (req, res) => {
+const getServiceProviderById = expressAsyncHandler(async (req, res) => {
+    const serviceProvider = await ServiceProvider.findById(req.params.id)
+    if (serviceProvider) {
+        serviceProvider.viewCount += 1
+        const updatedServiceProvider = await serviceProvider.save()
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.json(updatedServiceProvider)
+    } else {
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.status(404)
+        throw new Error('Service Provider not found')
+    }
+})
+
+// @desc get product by id
+// @route Put api/ServiceProvider/:id
+// @acess Privet
+const getServiceProviderByIdPreview = expressAsyncHandler(async (req, res) => {
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
@@ -177,7 +194,8 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
 
 export {
     getServiceProviders,
-    getServiceProviderId,
+    getServiceProviderById,
+    getServiceProviderByIdPreview,
     deleteServiceProvider,
     createServiceProviderReview,
     createServiceProviderViewCount,

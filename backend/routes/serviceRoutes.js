@@ -1,8 +1,8 @@
 import express from "express";
 import {
     getServices,
-    getServiceId,
-    getServiceIdPreview,
+    getServiceById,
+    getServiceByIdPreview,
     deleteService,
     updateService,
     createService
@@ -12,11 +12,11 @@ const router = express.Router()
 
 router.route('/').get(getServices).post(protect, superAdmin, createService)
 router.route('/:id')
-    .get(getServiceId)
+    .get(getServiceById)
     .delete(protect, superAdmin, deleteService)
     .put(protect, superAdmin, updateService)
 router.route('/preview/:id')
-    .get(getServiceIdPreview)
+    .get(getServiceByIdPreview)
 
 
 

@@ -99,6 +99,7 @@
 
 </template>
 <script setup>
+import { useMeta } from "quasar";
 import { useAuthStore, loginUser } from "src/stores/auth/authStore";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
@@ -109,6 +110,30 @@ onMounted(()=>{
     router.push('/login')
   }
 })
+
+const metaData = {
+  // sets document title
+  title: 'User Profile',
+  // optional; sets final title as "Index Page - My Website", useful for multiple level meta
+  titleTemplate: title => `${title} - Proyojon24.net`,
+
+  // meta tags
+  meta: {
+    description: { name: 'description', content: 'Page 1' },
+    keywords: { name: 'keywords', content: 'proyojon24 services service-provider' },
+    equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+    // note: for Open Graph type metadata you will need to use SSR, to ensure page is rendered by the server
+    ogTitle:  {
+      property: 'og:title',
+      // optional; similar to titleTemplate, but allows templating with other meta properties
+      template (ogTitle) {
+        return `${ogTitle} - Proyojon24.net`
+      }
+    }
+  }
+}
+
+useMeta(metaData)
 </script>
 <style>
 

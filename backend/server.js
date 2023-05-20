@@ -6,6 +6,8 @@ import cors from 'cors'
 import connectDB from './config/db.js'
 import userRouter from './routes/userRoutes.js'
 import serviceRouter from './routes/serviceRoutes.js'
+import serviceCategoryRouter from './routes/serviceCategoryRoutes.js'
+import serviceProviderRouter from './routes/serviceProviderRoutes.js'
 import divisionRouter from './routes/divisionRoutes.js'
 import districtRoutes from './routes/districtRoutes.js'
 import subDistrictRoutes from './routes/subDistrictRoutes.js'
@@ -46,6 +48,8 @@ app.get('/cors', (req, res) => {
 // User router
 app.use('/api/users', userRouter)
 app.use('/api/services', serviceRouter)
+app.use('/api/service_categorys', serviceCategoryRouter)
+app.use('/api/service_providers', serviceProviderRouter)
 app.use('/api/divisions',divisionRouter)
 app.use('/api/districts',districtRoutes)
 app.use('/api/subdistricts',subDistrictRoutes)
