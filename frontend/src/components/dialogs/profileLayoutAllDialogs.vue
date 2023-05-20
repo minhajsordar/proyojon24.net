@@ -6,14 +6,19 @@
     <createSubDistrictDialog/>
     <createUnionDialog/>
     <createWardDialog/>
-    <createServiceDialog/>
     <!-- edit location dialog -->
     <editDivisionDialog/>
     <editDistrictDialog/>
     <editSubDistrictDialog/>
     <editUnionDialog/>
     <editWardDialog/>
+    <!-- create service  -->
+    <createServiceDialog/>
+    <!-- edit service  -->
     <editServiceDialog/>
+    <!-- preview service  -->
+    <previewServiceDialog/>
+
   </div>
 </template>
 <script setup>
@@ -31,5 +36,6 @@ import editSubDistrictDialog from 'src/components/dialogs/subdistrict/editSubDis
 import editUnionDialog from 'src/components/dialogs/union/editUnionDialog.vue';
 import editWardDialog from 'src/components/dialogs/ward/editWardDialog.vue';
 import editServiceDialog from './services/editServiceDialog.vue';
+import previewServiceDialog from './services/previewServiceDialog.vue';
 
 </script>

@@ -1,6 +1,6 @@
 <template>
   <q-dialog
-    v-model="serviceStore.openServiceCreateDialog"
+    v-model="serviceStore.openServiceEditDialog"
     persistent
     :maximized="maximizedToggle"
     transition-show="slide-up"
@@ -36,11 +36,11 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("location.addnew_district") }}
+        {{ $t("headermenus.edit_services") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
-          <div class="row q-col-gutter-sm">
+          <div class="row">
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
@@ -75,15 +75,128 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-file
-                  v-model="serviceStore.serviceInfo.icon"
-                  :rules="[fileValidate]"
-                />
+                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
+                  {{ $t("addicon") }}
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
+                  <q-file
+                    outlined
+                    dense
+                    v-model="serviceStore.imageIcon"
+                    :rules="[fileValidate]"
+                    label="Add png image"
+                    accept=".png,"
+                    max-total-size="20480"
+                    use-chips
+                    @update:model-value="serviceStore.uploadIcon"
+                    @rejected="onRejected"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="cloud_upload" /> </template
+                  ></q-file>
+                  <span >{{ $t("or") }}</span>
+                  <q-input
+                  class="q-mt-sm"
+                    ref="iconEl"
+                    outlined
+                    dense
+                    v-model="serviceStore.serviceInfo.icon"
+                    :rules="[required]"
+                    label="Add image Url"
+                  />
+                </div>
               </div>
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('addnew')" @click="createServiceManager"/>
+                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
+                  {{ $t("addcoverimage") }}
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
+                  <q-file
+                    outlined
+                    dense
+                    v-model="serviceStore.imageCover"
+                    :rules="[fileValidate]"
+                    label="Add image"
+                    accept=".jpg, .png, .jpeg"
+                    max-total-size="8000000"
+                    use-chips
+                    @update:model-value="serviceStore.uploadCoverImage"
+                    @rejected="onRejected"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="cloud_upload" /> </template
+                  ></q-file>
+                  <span >{{ $t("or") }}</span>
+                  <q-input
+                  class="q-mt-sm"
+                    ref="coverImageEl"
+                    outlined
+                    dense
+                    v-model="serviceStore.serviceInfo.coverImage"
+                    :rules="[required]"
+                    label="Add image Url"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
+                  {{ $t("serial") }}
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
+                  <q-input
+                  class="q-mt-md"
+                ref="serialEl"
+                    outlined
+                    dense
+                    type="number"
+                    :min="0"
+                  v-model="serviceStore.serviceInfo.order"
+                  :rules="[required]"
+                />
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
+                  Description In English
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
+                  <q-input
+                    ref="descriptionEnEl"
+                    v-model="serviceStore.serviceInfo.description.en"
+                    outlined
+                    dense
+                    type="textarea"
+                    :rules="[required]"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
+                  বিস্তারি বাংলায়
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
+                  <q-input
+                    ref="descriptionBnEl"
+                    v-model="serviceStore.serviceInfo.description.bn"
+                    outlined
+                    dense
+                    type="textarea"
+                    :rules="[required]"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <q-btn :label="$t('edit')" color="" @click="createServiceManager"/>
               </div>
             </div>
           </div>
@@ -97,24 +210,41 @@ import { ref } from "vue";
 import { requiredSelector, required, fileValidate } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useServiceStore } from "src/stores/service/serviceStore";
+import { useUserStore } from "src/stores/user/userStore";
+import { Notify } from "quasar";
 const languageStore = useLanguageStore();
 const serviceStore = useServiceStore();
 const maximizedToggle = ref(true);
-const imageEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
+const iconEl = ref(null);
+const serialEl = ref(null);
+const coverImageEl = ref(null);
+const descriptionEnEl = ref(null);
+const descriptionBnEl = ref(null);
 
 const createServiceManager = () => {
-  imageEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
+  descriptionEnEl.value.validate();
+  descriptionBnEl.value.validate();
+  serialEl.value.validate();
   if (
-    imageEl.value.hasError ||
     nameEnEl.value.hasError ||
+    descriptionEnEl.value.hasError ||
+    descriptionBnEl.value.hasError ||
+    serialEl.value.hasError ||
     nameBnEl.value.hasError
   ) {
     return;
   }
-  serviceStore.createService()
+  serviceStore.updateService();
+};
+const onRejected = (rejectedEntries) => {
+  Notify.create({
+    position: "center",
+    type: "negative",
+    message: `Choosen file size too big`,
+  });
 };
 </script>

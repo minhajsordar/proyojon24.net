@@ -13,7 +13,7 @@
         icon="add"
         dense
         size="sm"
-        @click="districtStore.openDistrictCreateDialog = true"
+        @click="serviceStore.openServiceCreateDialogManager"
       />
     </div>
     <q-separator class="q-my-sm" />
@@ -26,18 +26,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(service, index) in serviceList" :key="index" :class="{'bg-blue-1':index%2 !=0 }">
+          <tr v-for="(service, index) in serviceList.services" :key="index" :class="{'bg-blue-1':index%2 !=0 }">
             <td>{{ enToBnToEn(String(index),languageStore.language) }}</td>
             <td>{{ service.name[languageStore.language] }}</td>
             <td>
-              <q-btn :label="$t('edit')" size="sm" dense color="positive" />
+              <q-btn :label="$t('preview')" size="sm" dense color="primary"
+                @click="serviceStore.openServicePreviewDialogManager(service)"
+                />
+              <q-btn
+                class="q-ml-xs" :label="$t('edit')" size="sm" dense color="positive"
+                @click="serviceStore.openServiceEditDialogManager(service)"
+                />
               <q-btn
                 class="q-ml-xs"
                 :label="$t('delete')"
                 size="sm"
                 dense
                 color="negative"
-                @click="confirm(service.name[languageStore.language])"
+                @click="confirm(service)"
               />
             </td>
           </tr>
@@ -64,15 +70,16 @@ const { t } = useI18n();
 const serviceStore = useServiceStore();
 const { serviceList } = storeToRefs(serviceStore);
 const languageStore = useLanguageStore();
-
-const confirm = (data) => {
+serviceStore.getServiceList()
+const confirm = (service) => {
+  serviceStore.serviceInfo.id = service._id
   $q.dialog({
     title: t("confirm"),
-    message: t("confirm_delete_start") + data + t("confirm_delete_end"),
+    message: t("confirm_delete_start") + service.name[languageStore.language] + t("confirm_delete_end"),
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    console.log(">>>> OK");
+    serviceStore.deleteService()
   });
 };
 onMounted(() => {
