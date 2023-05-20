@@ -15,7 +15,7 @@
     <!-- create service  -->
     <createServiceDialog/>
     <!-- edit service  -->
-    <editServiceDialog/>
+    <!-- <editServiceDialog/> -->
     <!-- preview service  -->
     <previewServiceDialog/>
 
@@ -35,7 +35,7 @@ import editDistrictDialog from 'src/components/dialogs/district/editDistrictDial
 import editSubDistrictDialog from 'src/components/dialogs/subdistrict/editSubDistrictDialog.vue';
 import editUnionDialog from 'src/components/dialogs/union/editUnionDialog.vue';
 import editWardDialog from 'src/components/dialogs/ward/editWardDialog.vue';
-import editServiceDialog from './services/editServiceDialog.vue';
+// import editServiceDialog from './services/editServiceDialog.vue';
 import previewServiceDialog from './services/previewServiceDialog.vue';
 
 </script>
