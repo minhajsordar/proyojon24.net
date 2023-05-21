@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const subServiceSchema = new mongoose.Schema({
+const serviceCategorySchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -37,5 +37,5 @@ const subServiceSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const SubService = mongoose.model('SubService', subServiceSchema);
-export default SubService
+const ServiceCategory = mongoose.model('ServiceCategory', serviceCategorySchema);
+export default ServiceCategory

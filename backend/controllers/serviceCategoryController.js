@@ -52,6 +52,21 @@ const getServiceCategoryByIdPreview = expressAsyncHandler(async (req, res) => {
     }
 })
 
+// @desc get product by id
+// @route Put api/ServiceCategoryBy Service/:id
+// @acess Privet
+const getServiceCategoryByService = expressAsyncHandler(async (req, res) => {
+    const serviceCategory = await ServiceCategory.find({service:req.params.id})
+    if (serviceCategory) {
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.json(serviceCategory)
+    } else {
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.status(404)
+        throw new Error('ServiceCategory not found')
+    }
+})
+
 // @desc delete a ServiceCategory
 // @route Delete api/ServiceCategorys/:id
 // @acess Privet/Admin
@@ -84,11 +99,21 @@ const updateServiceCategory = expressAsyncHandler(async (req, res) => {
     if (serviceCategory) {
         serviceCategory.user = req.user._id
         serviceCategory.name = name
-        serviceCategory.service = service
-        serviceCategory.description = description
-        serviceCategory.coverImage = coverImage
-        serviceCategory.icon = icon
-        serviceCategory.order = order
+        if(service){
+            serviceCategory.service = service
+        }
+        if(description){
+            serviceCategory.description = description
+        }
+        if(coverImage){
+            serviceCategory.coverImage = coverImage
+        }
+        if(icon){
+            serviceCategory.icon = icon
+        }
+        if(order){
+            serviceCategory.order = order
+        }
         const updatedServiceCategory = await serviceCategory.save()
         res.status(201).json(updatedServiceCategory)
     } else {
@@ -127,6 +152,7 @@ export {
     getServiceCategorys,
     getServiceCategoryById,
     getServiceCategoryByIdPreview,
+    getServiceCategoryByService,
     deleteServiceCategory,
     updateServiceCategory,
     createServiceCategory

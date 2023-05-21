@@ -7,7 +7,7 @@ import {
     updateService,
     createService
 } from '../controllers/serviceController.js'
-import {  protect, superAdmin } from "../middleware/authMiddleware.js"
+import {  anyAdmin, protect, superAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router()
 
 router.route('/').get(getServices).post(protect, superAdmin, createService)
@@ -16,7 +16,7 @@ router.route('/:id')
     .delete(protect, superAdmin, deleteService)
     .put(protect, superAdmin, updateService)
 router.route('/preview/:id')
-    .get(getServiceByIdPreview)
+    .get(protect, anyAdmin, getServiceByIdPreview)
 
 
 

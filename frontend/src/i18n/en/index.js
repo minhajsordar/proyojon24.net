@@ -62,4 +62,12 @@ export default {
     edit_ward:'Eidt ward',
     wardList:'Ward List',
   },
+  services:{
+    service:'Services',
+    addnew_service:'Add new service',
+    edit_service:'Eidt service',
+    service_category:'Service category',
+    addnew_service_category:'Add new service category',
+    edit_service_category:'Eidt service category',
+  }
 }

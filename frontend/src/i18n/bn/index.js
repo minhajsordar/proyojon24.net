@@ -63,4 +63,12 @@ export default {
     edit_ward:'ওয়ার্ড পরিবর্তন করুন',
     wardList:'ওয়ার্ড তালিকা',
   },
+  services:{
+    service:'সেবা সমূহ',
+    addnew_service:'নতুন সেবা যুক্ত করুন',
+    edit_service:'সেবা পরির্তন করুন',
+    service_category:'সেবার ধরন সমূহ',
+    addnew_service_category:'নতুন সেবার ধরন যুক্ত করুন',
+    edit_service_category:'সেবার ধরন পরির্তন করুন',
+  }
 }

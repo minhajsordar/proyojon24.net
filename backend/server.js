@@ -60,12 +60,6 @@ app.get('/api/seeder', (req,res)=>{
     res.send("data Imported")
 })
 
-// Product router fetch products
-// app.use('/api/products', productRouter)
-
-// Order router
-// app.use('/api/orders', orderRouter)
-
 // Upload router
 app.use('/api/upload', uploadRouter)
 
