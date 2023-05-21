@@ -161,40 +161,6 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  Description In English
-                </div>
-                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                  <q-input
-                    ref="descriptionEnEl"
-                    v-model="serviceStore.serviceInfo.description.en"
-                    outlined
-                    dense
-                    type="textarea"
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="row">
-                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  বিস্তারি বাংলায়
-                </div>
-                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                  <q-input
-                    ref="descriptionBnEl"
-                    v-model="serviceStore.serviceInfo.description.bn"
-                    outlined
-                    dense
-                    type="textarea"
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="row">
                 <q-btn :label="$t('addnew')" color="primary" @click="createServiceManager" />
               </div>
             </div>
@@ -220,23 +186,17 @@ const nameBnEl = ref(null);
 const iconEl = ref(null);
 const serialEl = ref(null);
 const coverImageEl = ref(null);
-const descriptionEnEl = ref(null);
-const descriptionBnEl = ref(null);
 
 const createServiceManager = () => {
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   iconEl.value.validate();
   coverImageEl.value.validate();
-  descriptionEnEl.value.validate();
-  descriptionBnEl.value.validate();
   serialEl.value.validate();
   if (
     nameEnEl.value.hasError ||
     iconEl.value.hasError ||
     coverImageEl.value.hasError ||
-    descriptionEnEl.value.hasError ||
-    descriptionBnEl.value.hasError ||
     serialEl.value.hasError ||
     nameBnEl.value.hasError
   ) {

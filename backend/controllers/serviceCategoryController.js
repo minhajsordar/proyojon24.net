@@ -56,15 +56,19 @@ const getServiceCategoryByIdPreview = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceCategoryBy Service/:id
 // @acess Privet
 const getServiceCategoryByService = expressAsyncHandler(async (req, res) => {
-    const serviceCategory = await ServiceCategory.find({service:req.params.id})
-    if (serviceCategory) {
-        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-        res.json(serviceCategory)
-    } else {
-        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-        res.status(404)
-        throw new Error('ServiceCategory not found')
-    }
+    const pageSize = 10;
+    const page = Number(req.query.pageNumber) || 1;
+    const keyword = req.query.keyword ? {
+        name: {
+            $regex: req.query.keyword,
+            $options: 'i'
+        }
+    } : {}
+    const count = await ServiceCategory.find({service:req.params.id}).countDocuments({ ...keyword })
+    const serviceCategorys = await ServiceCategory.find({service:req.params.id}).limit(pageSize).skip(pageSize * (page - 1))
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json({ serviceCategorys, page, pages: Math.ceil(count / pageSize) })
+
 })
 
 // @desc delete a ServiceCategory

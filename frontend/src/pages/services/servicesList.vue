@@ -14,6 +14,7 @@
           >
             <q-tab name="service" :label="$t('services.service')" />
             <q-tab name="service_category" :label="$t('services.service_category')" />
+            <q-tab name="service_provider" :label="$t('services.service_provider')" />
           </q-tabs>
           <q-separator/>
           <q-tab-panels v-model="tab" animated>
@@ -22,6 +23,9 @@
             </q-tab-panel>
             <q-tab-panel name="service_category">
               <serviceCategoryTable/>
+            </q-tab-panel>
+            <q-tab-panel name="service_provider">
+              <serviceProviderTable/>
             </q-tab-panel>
           </q-tab-panels>
         </q-card>
@@ -36,6 +40,7 @@ import { useQuasar, useMeta } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import serviceTable from "src/components/services/serviceTable.vue"
 import serviceCategoryTable from "src/components/services/serviceCategoryTable.vue"
+import serviceProviderTable from "src/components/services/serviceProviderTable.vue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const languageStore = useLanguageStore();

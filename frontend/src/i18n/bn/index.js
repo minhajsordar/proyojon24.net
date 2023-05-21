@@ -70,5 +70,8 @@ export default {
     service_category:'সেবার ধরন সমূহ',
     addnew_service_category:'নতুন সেবার ধরন যুক্ত করুন',
     edit_service_category:'সেবার ধরন পরির্তন করুন',
+    service_provider:'সেবা প্রদানকারী গন',
+    addnew_service_provider:'সেবা প্রদানকারী যুক্ত করুন',
+    edit_service_provider:'সেবা প্রদানকারী পরির্তন করুন',
   }
 }

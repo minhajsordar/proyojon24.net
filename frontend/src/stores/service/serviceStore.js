@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import { api } from 'src/boot/axios';
 import loader from 'loader-animation'
 import { useRouter } from 'vue-router'
-import { encode64 } from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
@@ -47,10 +46,11 @@ export const useServiceStore = defineStore('service store', () => {
       },
       coverImage: null,
       icon: null,
-      viewCount: 0,
       order: 0
     })
   const emptyServiceInfo = () => {
+    imageIcon.value = null
+    imageCover.value = null
     serviceInfo.id = null
     serviceInfo.user = null
     serviceInfo.name = {
@@ -63,7 +63,6 @@ export const useServiceStore = defineStore('service store', () => {
       }
     serviceInfo.coverImage = null
     serviceInfo.icon = null
-    serviceInfo.viewCount = 0
     serviceInfo.order = 0
   }
   const openServiceCreateDialogManager = () => {
@@ -76,7 +75,6 @@ export const useServiceStore = defineStore('service store', () => {
       "description",
       "coverImage",
       "icon",
-      "viewCount",
       "order"
     ]
     openServiceEditDialog.value = true
@@ -84,8 +82,8 @@ export const useServiceStore = defineStore('service store', () => {
     serviceInfoKeys.forEach((keys, index) => {
       serviceInfo[keys] = data[keys]
     })
-    imageCover.value = { name: serviceInfo.coverImage}
-    imageIcon.value = { name: serviceInfo.icon}
+    imageCover.value = { name: serviceInfo.coverImage }
+    imageIcon.value = { name: serviceInfo.icon }
   }
   const openServicePreviewDialogManager = (data) => {
     const serviceInfoKeys = [
@@ -93,7 +91,6 @@ export const useServiceStore = defineStore('service store', () => {
       "description",
       "coverImage",
       "icon",
-      "viewCount",
       "order"
     ]
     openServicePreviewDialog.value = true
@@ -115,7 +112,7 @@ export const useServiceStore = defineStore('service store', () => {
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      responseData.data.services.sort((a,b)=>a.order - b.order);
+      responseData.data.services.sort((a, b) => a.order - b.order);
       serviceList.value = responseData.data;
       loader.hideLoader()
     } catch (error) {
@@ -146,7 +143,7 @@ export const useServiceStore = defineStore('service store', () => {
     }
   }
   const uploadIcon = async () => {
-    if(!imageIcon.value || typeof imageIcon.value == 'string'){
+    if (!imageIcon.value || typeof imageIcon.value == 'string') {
       return
     }
     const data = serviceInfo.icon
@@ -157,8 +154,8 @@ export const useServiceStore = defineStore('service store', () => {
         "Content-Type": "multipart/form-data",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
-      }, data:{
-        image:imageIcon.value
+      }, data: {
+        image: imageIcon.value
       }
     };
     try {
@@ -169,7 +166,7 @@ export const useServiceStore = defineStore('service store', () => {
     }
   }
   const uploadCoverImage = async () => {
-    if(!imageCover.value || typeof imageIcon.value == 'string'){
+    if (!imageCover.value || typeof imageIcon.value == 'string') {
       return
     }
     const data = {}
@@ -180,8 +177,8 @@ export const useServiceStore = defineStore('service store', () => {
         "Content-Type": "multipart/form-data",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
-      }, data:{
-        image:imageCover.value
+      }, data: {
+        image: imageCover.value
       }
     };
     try {
@@ -217,7 +214,7 @@ export const useServiceStore = defineStore('service store', () => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
-      },data
+      }, data
     };
     loader.showLoader()
     try {

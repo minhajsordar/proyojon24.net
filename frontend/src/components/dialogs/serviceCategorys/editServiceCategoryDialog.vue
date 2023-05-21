@@ -1,6 +1,6 @@
 <template>
   <q-dialog
-    v-model="serviceStore.openServiceEditDialog"
+    v-model="serviceCategoryStore.openServiceCategoryEditDialog"
     persistent
     :maximized="maximizedToggle"
     transition-show="slide-up"
@@ -44,12 +44,31 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
+                  Service
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
+                  <q-select
+                    ref="parentEl"
+                    v-model="serviceCategoryStore.serviceCategoryInfo.service"
+                    :options="serviceStore.serviceList.services"
+                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
+                    options-dense
+                    outlined
+                    dense
+                    :rules="[requiredSelector]"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
                   In English
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
                     ref="nameEnEl"
-                    v-model="serviceStore.serviceInfo.name.en"
+                    v-model="serviceCategoryStore.serviceCategoryInfo.name.en"
                     outlined
                     dense
                     :rules="[required]"
@@ -65,7 +84,7 @@
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
                     ref="nameBnEl"
-                    v-model="serviceStore.serviceInfo.name.bn"
+                    v-model="serviceCategoryStore.serviceCategoryInfo.name.bn"
                     outlined
                     dense
                     :rules="[required]"
@@ -82,13 +101,13 @@
                   <q-file
                     outlined
                     dense
-                    v-model="serviceStore.imageIcon"
+                    v-model="serviceCategoryStore.imageIcon"
                     :rules="[fileValidate]"
                     label="Add png image"
                     accept=".png,"
                     max-total-size="20480"
                     use-chips
-                    @update:model-value="serviceStore.uploadIcon"
+                    @update:model-value="serviceCategoryStore.uploadIcon"
                     @rejected="onRejected"
                   >
                     <template v-slot:prepend>
@@ -100,7 +119,7 @@
                     ref="iconEl"
                     outlined
                     dense
-                    v-model="serviceStore.serviceInfo.icon"
+                    v-model="serviceCategoryStore.serviceCategoryInfo.icon"
                     :rules="[required]"
                     label="Add image Url"
                   />
@@ -116,13 +135,13 @@
                   <q-file
                     outlined
                     dense
-                    v-model="serviceStore.imageCover"
+                    v-model="serviceCategoryStore.imageCover"
                     :rules="[fileValidate]"
                     label="Add image"
                     accept=".jpg, .png, .jpeg"
                     max-total-size="8000000"
                     use-chips
-                    @update:model-value="serviceStore.uploadCoverImage"
+                    @update:model-value="serviceCategoryStore.uploadCoverImage"
                     @rejected="onRejected"
                   >
                     <template v-slot:prepend>
@@ -134,7 +153,7 @@
                     ref="coverImageEl"
                     outlined
                     dense
-                    v-model="serviceStore.serviceInfo.coverImage"
+                    v-model="serviceCategoryStore.serviceCategoryInfo.coverImage"
                     :rules="[required]"
                     label="Add image Url"
                   />
@@ -148,15 +167,14 @@
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
-                  class="q-mt-md"
-                ref="serialEl"
+                    ref="serialEl"
                     outlined
                     dense
                     type="number"
                     :min="0"
-                  v-model="serviceStore.serviceInfo.order"
-                  :rules="[required]"
-                />
+                    v-model="serviceCategoryStore.serviceCategoryInfo.order"
+                    :rules="[required]"
+                  />
                 </div>
               </div>
             </div>
@@ -175,12 +193,15 @@
 import { ref } from "vue";
 import { requiredSelector, required, fileValidate } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
-import { useServiceStore } from "src/stores/service/serviceStore";
 import { useUserStore } from "src/stores/user/userStore";
 import { Notify } from "quasar";
-const languageStore = useLanguageStore();
+import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
+import { useServiceStore } from "src/stores/service/serviceStore";
 const serviceStore = useServiceStore();
+const languageStore = useLanguageStore();
+const serviceCategoryStore = useServiceCategoryStore();
 const maximizedToggle = ref(true);
+const parentEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 const iconEl = ref(null);
@@ -188,19 +209,21 @@ const serialEl = ref(null);
 const coverImageEl = ref(null);
 
 const createServiceManager = () => {
+  parentEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   iconEl.value.validate();
   coverImageEl.value.validate();
   if (
+    parentEl.value.hasError ||
     nameEnEl.value.hasError ||
+    nameBnEl.value.hasError ||
     iconEl.value.hasError ||
-    coverImageEl.value.hasError ||
-    nameBnEl.value.hasError
+    coverImageEl.value.hasError
   ) {
     return;
   }
-  serviceStore.updateService();
+  serviceCategoryStore.updateServiceCategory();
 };
 const onRejected = (rejectedEntries) => {
   Notify.create({

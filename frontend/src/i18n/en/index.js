@@ -69,5 +69,8 @@ export default {
     service_category:'Service category',
     addnew_service_category:'Add new service category',
     edit_service_category:'Eidt service category',
+    service_provider:'Service provider',
+    addnew_service_provider:'Add new service provider',
+    edit_service_provider:'Eidt service provider',
   }
 }
