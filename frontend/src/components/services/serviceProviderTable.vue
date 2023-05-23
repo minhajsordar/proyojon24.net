@@ -145,7 +145,6 @@ serviceProviderStore.getServiceProviderList()
 const serviceCategoryStore = useServiceCategoryStore();
 const languageStore = useLanguageStore();
 const searchServiceStore = useSearchServiceStore();
-serviceCategoryStore.getServiceCategoryList();
 const confirm = (service) => {
   serviceCategoryStore.serviceCategoryInfo.id = service._id;
   $q.dialog({

@@ -24,7 +24,7 @@ const getUnions = expressAsyncHandler(async (req, res) => {
 // @acess Privet
 const getAllUnions = expressAsyncHandler(async (req, res) => {
     
-    const keyword = req.query.subDistrictId? {parent:{_id:req.query.subDistrictId}}:{}
+    const keyword = req.query.subDistrictId? {"parent._id":req.query.subDistrictId}:{}
     const unions = await Union.find({...keyword})
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(unions)

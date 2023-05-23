@@ -210,6 +210,7 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         rankCount,
         keywords
     } = req.body
+    console.log(serviceProviderLocation)
     const serviceProvider = new ServiceProvider({
         dataCollector:req.user._id,
         dataUpdatedBy:req.user._id,

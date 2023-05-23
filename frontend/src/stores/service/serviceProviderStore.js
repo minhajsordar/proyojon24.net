@@ -249,6 +249,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     if (serviceProviderInfo.serviceCategory instanceof Object) {
       serviceProviderInfo.serviceCategory = serviceProviderInfo.serviceCategory._id
     }
+    serviceProviderInfo.serviceProviderLocation.division = serviceProviderLocationR.division.name
+    serviceProviderInfo.serviceProviderLocation.district = serviceProviderLocationR.district.name
+    serviceProviderInfo.serviceProviderLocation.subDistrict = serviceProviderLocationR.subDistrict.name
+    serviceProviderInfo.serviceProviderLocation.union = serviceProviderLocationR.union.name
+    serviceProviderInfo.serviceProviderLocation.ward = serviceProviderLocationR.ward.name
     const data = serviceProviderInfo
     const config = {
       method: "post",

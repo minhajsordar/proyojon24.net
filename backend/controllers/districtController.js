@@ -24,7 +24,7 @@ const getDistricts = expressAsyncHandler(async (req, res) => {
 // @route Put api/products
 // @acess Privet
 const getAllDistricts = expressAsyncHandler(async (req, res) => {
-    const keyword = req.query.divisionId? {parent:{_id:req.query.divisionId}}:{}
+    const keyword = req.query.divisionId? {"parent._id":req.query.divisionId}:{}
     const districts = await District.find({ ...keyword })
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(districts)

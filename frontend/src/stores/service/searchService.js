@@ -7,7 +7,7 @@ export const useSearchServiceStore = defineStore('search service store', () => {
   const serviceStore = useServiceStore()
   const serviceCategoryStore = useServiceCategoryStore()
   const updateServiceCategory =()=>{
-    serviceCategoryStore.getAllServiceCategorys(serviceProviderStore.serviceProviderInfo.serviceCategory._id)
+    serviceCategoryStore.getAllServiceCategorys(serviceProviderStore.serviceProviderInfo.service._id)
   }
   const updateServiceCategoryOnServiceProviderTable =()=>{
     serviceCategoryStore.getAllServiceCategorys(serviceProviderStore.filteredByServiseId._id)

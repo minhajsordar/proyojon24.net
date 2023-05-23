@@ -42,6 +42,10 @@ import serviceTable from "src/components/services/serviceTable.vue"
 import serviceCategoryTable from "src/components/services/serviceCategoryTable.vue"
 import serviceProviderTable from "src/components/services/serviceProviderTable.vue";
 import { useI18n } from "vue-i18n";
+import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
+
+const serviceCategoryStore = useServiceCategoryStore();
+serviceCategoryStore.getServiceCategoryList();
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const tab = ref('service')

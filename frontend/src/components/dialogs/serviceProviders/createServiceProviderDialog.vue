@@ -56,6 +56,7 @@
                     outlined
                     dense
                     :rules="[requiredSelector]"
+                    @update:model-value="searchServiceStore.updateServiceCategory"
                   />
                 </div>
               </div>
@@ -75,7 +76,6 @@
                     outlined
                     dense
                     :rules="[requiredSelector]"
-                    @update:model-value="searchServiceStore.updateServiceCategory"
                   />
                 </div>
               </div>
