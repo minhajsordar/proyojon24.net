@@ -19,6 +19,16 @@ const serviceProviderSchema = new mongoose.Schema({
         required: false,
         ref: 'User'
     },
+    service: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Service'
+    },
+    serviceCategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'ServiceCategory'
+    },
     dataCollector: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -50,43 +60,61 @@ const serviceProviderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    serviceProviderLocation: [
-            {
-                division: {
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-                district: {
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-                subDistrict: {
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-                union: {
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-                ward: {
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-            }
-        ]
+    serviceProviderLocation: 
+        {
+            division: {
+                bn: { type: String, required: true },
+                en: { type: String, required: true }
+            },
+            district: {
+                bn: { type: String, required: true },
+                en: { type: String, required: true }
+            },
+            subDistrict: {
+                bn: { type: String, required: true },
+                en: { type: String, required: true }
+            },
+            union: {
+                bn: { type: String, required: true },
+                en: { type: String, required: true }
+            },
+            ward: {
+                bn: { type: String, required: true },
+                en: { type: String, required: true }
+            },
+        }
+    
     ,
-    degree: [
-        {
-            bn: { type: String },
-            en: { type: String }
-        }
-    ],
-    extraCources: [
-        {
-            bn: { type: String },
-            en: { type: String }
-        }
-    ],
+    degree:
+    {
+        bn: { type: String },
+        en: { type: String }
+    }
+    ,
+    specialties:
+    {
+        bn: { type: String },
+        en: { type: String }
+    }
+    ,
+    extraCources:
+    {
+        bn: { type: String },
+        en: { type: String }
+    }
+    ,
+    serviceTitle:
+    {
+        bn: { type: String },
+        en: { type: String }
+    }
+    ,
+    serviceList:[
+    {
+        bn: { type: String },
+        en: { type: String }
+    }]
+    ,
     phoneNumber: [
         {
             bn: { type: String, required: true },
@@ -95,7 +123,7 @@ const serviceProviderSchema = new mongoose.Schema({
     ],
     rankCount: {
         type: Number,
-        required: true,
+        required: false,
         default: 0
     },
     viewCount: {
@@ -104,7 +132,7 @@ const serviceProviderSchema = new mongoose.Schema({
         default: 0
     },
     reviews: [reviewsSchema],
-    keywards: [{
+    keywords: [{
         type: String,
         required: false
     }],

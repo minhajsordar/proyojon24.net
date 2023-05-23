@@ -1,5 +1,6 @@
 import express from "express";
 import {    getSubDistricts,
+    getAllSubDistricts,
     getSubDistrictById,
     deleteSubDistrict,
     updateSubDistrict,
@@ -8,6 +9,8 @@ import {    getSubDistricts,
 const router = express.Router()
 
 router.route('/').get(getSubDistricts).post(protect, superAdmin, createSubDistrict)
+router.route('/all')
+    .get(getAllSubDistricts)
 router.route('/:id')
     .get(getSubDistrictById)
     .delete(protect,superAdmin, deleteSubDistrict)

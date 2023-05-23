@@ -1,6 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <div class="coming-soon-image">
+      <q-btn lable="loginpage" @click="$router.push('/login')"/>
       <q-img src="/images/coming-soon.jpeg"/>
     </div>
   </q-page>

@@ -1,5 +1,6 @@
 import express from "express";
 import {    getUnions,
+    getAllUnions,
     getUnionById,
     deleteUnion,
     updateUnion,
@@ -8,6 +9,8 @@ import {    getUnions,
 const router = express.Router()
 
 router.route('/').get(getUnions).post(protect, superAdmin, createUnion)
+router.route('/all')
+    .get(getAllUnions)
 router.route('/:id')
     .get(getUnionById)
     .delete(protect,superAdmin, deleteUnion)

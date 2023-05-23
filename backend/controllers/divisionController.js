@@ -19,6 +19,15 @@ const getDivisions =  expressAsyncHandler(async (req, res) => {
     res.status(200).json({divisions, page, pages: Math.ceil(count / pageSize)})
 })
 
+// @desc get products
+// @route Put api/products
+// @acess Privet
+const getAllDivisions =  expressAsyncHandler(async (req, res) => {
+    const divisions = await Division.find({})
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json(divisions)
+})
+
 // @desc get product by id
 // @route Put api/products/:id
 // @acess Privet
@@ -82,6 +91,7 @@ const createDivision = expressAsyncHandler(async (req, res) => {
 
 export {
     getDivisions,
+    getAllDivisions,
     getDivisionById,
     deleteDivision,
     updateDivision,

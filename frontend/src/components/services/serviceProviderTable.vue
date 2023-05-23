@@ -9,15 +9,14 @@
         icon="add"
         dense
         size="sm"
-        @click="serviceCategoryStore.openServiceCategoryCreateDialogManager"
+        @click="serviceProviderStore.openServiceProviderCreateDialog = true"
       />
     </div>
-    <div>সার্ভিস দ্বারা বাছুন</div>
     <div class="row q-col-gutter-sm">
-      <div class="col-lg-4 col-md-7 col-sm-12 col-12">
+      <div class="col-lg-4 col-sm-4 col-xs-12 col-12">
+        <div>সার্ভিস দ্বারা বাছুন</div>
         <q-select
-          ref="parentEl"
-          v-model="serviceCategoryStore.filteredByServiseId"
+          v-model="serviceProviderStore.filteredByServiseId"
           :options="serviceStore.serviceList.services"
           :option-label="
             (opt) =>
@@ -28,11 +27,43 @@
           options-dense
           outlined
           dense
+          @update:model-value="searchServiceStore.updateServiceCategoryOnServiceProviderTable"
         />
       </div>
-      <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-        <q-btn label="বাছুন" color="primary" outline @click="applyFilterFunc"/>
-        <q-btn class="q-ml-sm" label="পুনরুদ্ধার" color="primary" outline @click="resetFilterFunc"/>
+      <div class="col-sm-8 col-xs-12 col-12">
+        <div>সার্ভিস ক‍্যটাগরি দ্বারা বাছুন</div>
+        <div class="row q-col-gutter-sm">
+          <div class="col-lg-6 col-sm-6 col-xs-12 col-12">
+            <q-select
+              v-model="serviceProviderStore.filteredByServiseCategoryId"
+              :options="serviceCategoryStore.allServiceCategoryList"
+              :option-label="
+                (opt) =>
+                  Object(opt) === opt && 'name' in opt
+                    ? opt.name[languageStore.language]
+                    : null
+              "
+              options-dense
+              outlined
+              dense
+            />
+          </div>
+          <div class="col-lg-6 col-sm-6  col-xs-12 col-12 fs-16 text-bold">
+            <q-btn
+              label="বাছুন"
+              color="primary"
+              outline
+              @click="applyFilterFunc"
+            />
+            <q-btn
+              class="q-ml-sm"
+              label="পুনরুদ্ধার"
+              color="primary"
+              outline
+              @click="resetFilterFunc"
+            />
+          </div>
+        </div>
       </div>
     </div>
     <q-separator class="q-mb-md q-mt-sm" />
@@ -46,14 +77,14 @@
       </thead>
       <tbody>
         <tr
-          v-for="(service, index) in serviceCategoryList.serviceCategorys"
+          v-for="(serviceProvider, index) in serviceProviderStore.serviceProviderList.serviceProviders"
           :key="index"
           :class="{ 'bg-blue-1': index % 2 != 0 }"
         >
           <td>
             {{ enToBnToEn(String(index), languageStore.language) }}
           </td>
-          <td>{{ service.name[languageStore.language] }}</td>
+          <td>{{ serviceProvider.name[languageStore.language] }}</td>
           <td>
             <q-btn
               :label="$t('preview')"
@@ -61,8 +92,8 @@
               dense
               color="primary"
               @click="
-                serviceCategoryStore.openServiceCategoryPreviewDialogManager(
-                  service
+                serviceProviderStore.openServiceProviderPreviewDialogManager(
+                  serviceProvider
                 )
               "
             />
@@ -73,8 +104,8 @@
               dense
               color="positive"
               @click="
-                serviceCategoryStore.openServiceCategoryEditDialogManager(
-                  service
+                serviceProviderStore.openServiceProviderEditDialogManager(
+                  serviceProvider
                 )
               "
             />
@@ -84,7 +115,7 @@
               size="sm"
               dense
               color="negative"
-              @click="confirm(service)"
+              @click="confirm(serviceProvider)"
             />
           </td>
         </tr>
@@ -102,13 +133,18 @@ import { onMounted } from "vue";
 import { enToBnToEn } from "src/global_js/utils";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useServiceStore } from "src/stores/service/serviceStore";
+import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
+import { useSearchServiceStore } from "src/stores/service/searchService";
 const serviceStore = useServiceStore();
 const authStore = useAuthStore();
 const $q = useQuasar();
 const { t } = useI18n();
+const serviceProviderStore = useServiceProviderStore();
+const { serviceProviderList } = storeToRefs(serviceProviderStore);
+serviceProviderStore.getServiceProviderList()
 const serviceCategoryStore = useServiceCategoryStore();
-const { serviceCategoryList } = storeToRefs(serviceCategoryStore);
 const languageStore = useLanguageStore();
+const searchServiceStore = useSearchServiceStore();
 serviceCategoryStore.getServiceCategoryList();
 const confirm = (service) => {
   serviceCategoryStore.serviceCategoryInfo.id = service._id;
@@ -125,14 +161,14 @@ const confirm = (service) => {
   });
 };
 
-const applyFilterFunc =()=>{
-  if(serviceCategoryStore?.filteredByServiseId){
-    serviceCategoryStore.getFilteredServiceCategoryByService()
+const applyFilterFunc = () => {
+  if (serviceCategoryStore?.filteredByServiseId) {
+    serviceCategoryStore.getFilteredServiceCategoryByService();
   }
-}
-const resetFilterFunc =()=>{
-serviceCategoryStore.getServiceCategoryList()
-}
+};
+const resetFilterFunc = () => {
+  serviceCategoryStore.getServiceCategoryList();
+};
 
 onMounted(() => {
   authStore.checkLogin();

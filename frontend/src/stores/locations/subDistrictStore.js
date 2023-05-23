@@ -15,6 +15,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       authStore = useAuthStore(),
       openSubDistrictCreateDialog = ref(false),
       openSubDistrictEditDialog = ref(false),
+      allSubDistricts = ref([]),
       subDistrictList = ref([
         {
           id:123,
@@ -77,6 +78,31 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       try {
         const responseData = await api.request(config);
         subDistrictList.value = responseData.data;
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+
+      }
+
+    }
+    const getAllSubDistricts= async(id)=>{
+      const params = {}
+      if(id){
+        params.districtId = id
+      }
+      const config = {
+        method: "get",
+        url: "api/subdistricts/all",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        },params
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        allSubDistricts.value = responseData.data;
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -163,6 +189,8 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       openSubDistrictCreateDialog,
       openSubDistrictEditDialog,
       openSubDistrictEditDialogManager,
+      getAllSubDistricts,
+      allSubDistricts,
       subDistrictList,
       subDistrictInfo,
       getSubDistrictList,

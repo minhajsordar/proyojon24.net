@@ -9,108 +9,201 @@ import { useServiceStore } from './serviceStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
-export const useServiceCategoryStore = defineStore('service category store', () => {
+export const useServiceProviderStore = defineStore('service provider store', () => {
   const router = useRouter(),
-  authStore = useAuthStore(),
-   serviceStore = useServiceStore(),
-    openServiceCategoryCreateDialog = ref(false),
-    openServiceCategoryEditDialog = ref(false),
-    openServiceCategoryPreviewDialog = ref(false),
+    authStore = useAuthStore(),
+    serviceStore = useServiceStore(),
+    openServiceProviderCreateDialog = ref(false),
+    openServiceProviderEditDialog = ref(false),
+    openServiceProviderPreviewDialog = ref(false),
     imageIcon = ref(null),
     imageCover = ref(null),
-    selectedService = ref(null),
+    selectedServiceCategory = ref(null),
     filteredByServiseId = ref(null),
-    serviceCategoryList = ref([
-      {
-        id: "demo service id",
-        user: "demo service user",
-        name: {
-          bn: "demo service bn name",
-          en: "demo service en name",
-        },
-        description: {
-          bn: "demo service bn description",
-          en: "demo service en description",
-        },
-        coverImage: "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/cleaning-services-facebook-cover-design-template-11e0ad57b482437f05c97bce49fb2281_screen.jpg",
-        icon: "https://banner2.cleanpng.com/20180823/wk/kisspng-computer-icons-service-user-travel-ims-an-amadeus-setting-svg-png-icon-free-download-1999-2-onl-5b7f0a40a5df71.0483892015350523526794.jpg",
-        viewCount: 0
-      }
-    ]),
-    serviceCategoryInfo = reactive({
+    filteredByServiseCategoryId = ref(null),
+    serviceProviderLocationR = reactive({
+      division: null,
+      district: null,
+      subDistrict: null,
+      union: null,
+      ward:null,
+    }),
+    serviceProviderList = ref([]),
+    serviceProviderInfo = reactive({
       id: null,
       user: null,
       name: {
         bn: null,
-        en: null,
+        en: null
       },
       description: {
         bn: null,
+        en: null
+      },
+      serviceImage: null,
+      serviceCategory: null,
+      service: null,
+      image: null,
+      rankCount: 0,
+      serviceProviderLocation: {
+        division: {
+          bn: null,
+          en: null
+        },
+        district: {
+          bn: null,
+          en: null
+        },
+        subDistrict: {
+          bn: null,
+          en: null
+        },
+        union: {
+          bn: null,
+          en: null
+        },
+        ward: {
+          bn: null,
+          en: null
+        },
+      },
+      degree: {
+        bn: null,
         en: null,
       },
-      coverImage: null,
-      icon: null,
-      order: 0
+      extraCources: {
+        bn: null,
+        en: null,
+      },
+      serviceTitle: {
+        bn: null,
+        en: null,
+      },
+      serviceList: {
+        bn: null,
+        en: null,
+      },
+      specialties: {
+        bn: null,
+        en: null,
+      },
+      phoneNumber: [{
+        bn: null,
+        en: null,
+      }],
+      keywords: null,
     })
-  const emptyServiceCategoryInfo = () => {
+  const emptyServiceProviderInfo = () => {
     imageIcon.value = null
-imageCover.value = null
-    serviceCategoryInfo.id = null
-    serviceCategoryInfo.user = null
-    serviceCategoryInfo.service = null
-    serviceCategoryInfo.name = {
+    imageCover.value = null
+    serviceProviderInfo.user = null
+    serviceProviderInfo.name = {
       bn: null,
-      en: null
-    },
-      serviceCategoryInfo.description = {
+      en: null,
+    }
+    serviceProviderInfo.description = {
+      bn: null,
+      en: null,
+    }
+    serviceProviderInfo.serviceImage = null
+    serviceProviderInfo.image = null
+    serviceProviderInfo.serviceCategory = null
+    serviceProviderInfo.rankCount = 0
+    serviceProviderInfo.serviceProviderLocation = {
+      division: {
         bn: null,
         en: null
-      }
-    serviceCategoryInfo.coverImage = null
-    serviceCategoryInfo.icon = null
-    serviceCategoryInfo.order = 0
+      },
+      district: {
+        bn: null,
+        en: null
+      },
+      subDistrict: {
+        bn: null,
+        en: null
+      },
+      union: {
+        bn: null,
+        en: null
+      },
+      ward: {
+        bn: null,
+        en: null
+      },
+    }
+    serviceProviderInfo.degree = {
+      bn: null,
+      en: null,
+    }
+    serviceProviderInfo.extraCources = {
+      bn: null,
+      en: null,
+    }
+    serviceProviderInfo.serviceTitle = {
+      bn: null,
+      en: null,
+    }
+    serviceProviderInfo.serviceList = [{
+      bn: null,
+      en: null,
+    }]
+    serviceProviderInfo.specialties = {
+      bn: null,
+      en: null,
+    }
+    serviceProviderInfo.phoneNumber = [{
+      bn: null,
+      en: null,
+    }]
+    serviceProviderInfo.keywords = []
   }
-  const openServiceCategoryCreateDialogManager = () => {
-    emptyServiceCategoryInfo()
-    openServiceCategoryCreateDialog.value = true
+  const openServiceProviderCreateDialogManager = () => {
+    emptyServiceProviderInfo()
+    openServiceProviderCreateDialog.value = true
   }
-  const openServiceCategoryEditDialogManager = (data) => {
-    const serviceCategoryInfoKeys = [
+  const openServiceProviderEditDialogManager = (data) => {
+    const serviceProviderInfoKeys = [
       "name",
-      "service",
-      "coverImage",
-      "icon",
-      "order"
     ]
-    openServiceCategoryEditDialog.value = true
-    serviceCategoryInfo.id = data?._id
-    serviceCategoryInfoKeys.forEach((keys, index) => {
-      serviceCategoryInfo[keys] = data[keys]
+    openServiceProviderEditDialog.value = true
+    serviceProviderInfo.id = data?._id
+    serviceProviderInfoKeys.forEach((keys, index) => {
+      serviceProviderInfo[keys] = data[keys]
     })
-    serviceCategoryInfo.service = serviceStore.serviceList.services.filter(e=>e._id == serviceCategoryInfo.service)[0]
-    imageCover.value = { name: serviceCategoryInfo.coverImage}
-    imageIcon.value = { name: serviceCategoryInfo.icon}
+    serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
+    imageCover.value = { name: serviceProviderInfo.coverImage }
+    imageIcon.value = { name: serviceProviderInfo.icon }
   }
-  const openServiceCategoryPreviewDialogManager = (data) => {
+  const openServiceProviderPreviewDialogManager = (data) => {
 
-    const serviceCategoryInfoKeys = [
+    const serviceProviderInfoKeys = [
+      "user",
       "name",
-      "service",
-      "coverImage",
-      "icon",
-      "order"
+      "description",
+      "serviceImage",
+      "image",
+      "serviceCategory",
+      "rankCount",
+      "serviceProviderLocation",
+      "degree",
+      "extraCources",
+      "serviceTitle",
+      "serviceList",
+      "specialties",
+      "phoneNumber",
+      "keywords"
     ]
-    openServiceCategoryPreviewDialog.value = true
-    serviceCategoryInfo.id = data?._id
-    serviceCategoryInfoKeys.forEach((keys, index) => {
-      serviceCategoryInfo[keys] = data[keys]
+    openServiceProviderPreviewDialog.value = true
+    serviceProviderInfo.id = data?._id
+    serviceProviderInfoKeys.forEach((keys, index) => {
+      serviceProviderInfo[keys] = data[keys]
     })
-    serviceCategoryInfo.service = serviceStore.serviceList.services.filter(e=>e._id == serviceCategoryInfo.service)[0]
+    serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
   }
-  const getServiceCategoryList = async () => {
+  const getServiceProviderList = async () => {
     const config = {
       method: "get",
-      url: "api/service_categorys/",
+      url: "api/service_providers/",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
@@ -120,18 +213,18 @@ imageCover.value = null
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      responseData.data.serviceCategorys.sort((a,b)=>a.order - b.order);
-      serviceCategoryList.value = responseData.data;
+      responseData.data.serviceProviders.sort((a, b) => a.order - b.order);
+      serviceProviderList.value = responseData.data;
       loader.hideLoader()
     } catch (error) {
       console.log(error);
       loader.hideLoader()
     }
   }
-  const getFilteredServiceCategoryByService = async () => {
+  const getFilteredServiceProviderByServiceCategory = async () => {
     const config = {
       method: "get",
-      url: "api/service_categorys/service/"+filteredByServiseId.value._id,
+      url: "api/service_providers/service_category/" + filteredByServiseCategoryId.value._id,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
@@ -141,22 +234,25 @@ imageCover.value = null
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      responseData.data.serviceCategorys.sort((a,b)=>a.order - b.order);
-      serviceCategoryList.value = responseData.data;
+      responseData.data.serviceProviders.sort((a, b) => a.order - b.order);
+      serviceProviderList.value = responseData.data;
       loader.hideLoader()
     } catch (error) {
       console.log(error);
       loader.hideLoader()
     }
   }
-  const createServiceCategory = async () => {
-    if(serviceCategoryInfo.service instanceof Object){
-      serviceCategoryInfo.service = serviceCategoryInfo.service._id
+  const createServiceProvider = async () => {
+    if (serviceProviderInfo.service instanceof Object) {
+      serviceProviderInfo.service = serviceProviderInfo.service._id
     }
-    const data = serviceCategoryInfo
+    if (serviceProviderInfo.serviceCategory instanceof Object) {
+      serviceProviderInfo.serviceCategory = serviceProviderInfo.serviceCategory._id
+    }
+    const data = serviceProviderInfo
     const config = {
       method: "post",
-      url: "api/service_categorys",
+      url: "api/service_providers",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
@@ -166,8 +262,8 @@ imageCover.value = null
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      openServiceCategoryCreateDialog.value = false
-      getServiceCategoryList()
+      openServiceProviderCreateDialog.value = false
+      getServiceProviderList()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -175,10 +271,10 @@ imageCover.value = null
     }
   }
   const uploadIcon = async () => {
-    if(!imageIcon.value || typeof imageIcon.value == 'string'){
+    if (!imageIcon.value || typeof imageIcon.value == 'string') {
       return
     }
-    const data = serviceCategoryInfo.icon
+    const data = serviceProviderInfo.icon
     const config = {
       method: "post",
       url: "api/upload",
@@ -186,22 +282,21 @@ imageCover.value = null
         "Content-Type": "multipart/form-data",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
-      }, data:{
-        image:imageIcon.value
+      }, data: {
+        image: imageIcon.value
       }
     };
     try {
       const responseData = await api.request(config);
-      serviceCategoryInfo.icon = responseData.data
+      serviceProviderInfo.image = responseData.data
     } catch (error) {
       console.log(error);
     }
   }
   const uploadCoverImage = async () => {
-    if(!imageCover.value || typeof imageIcon.value == 'string'){
+    if (!imageCover.value || typeof imageCover.value == 'string') {
       return
     }
-    const data = {}
     const config = {
       method: "post",
       url: "api/upload",
@@ -209,19 +304,19 @@ imageCover.value = null
         "Content-Type": "multipart/form-data",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
-      }, data:{
-        image:imageCover.value
+      }, data: {
+        image: imageCover.value
       }
     };
     try {
       const responseData = await api.request(config);
-      serviceCategoryInfo.coverImage = responseData.data
+      serviceProviderInfo.serviceImage = responseData.data
     } catch (error) {
       console.log(error);
     }
   }
-  const updateServiceCategory = async () => {
-    const serviceCategoryInfoKeys = [
+  const updateServiceProvider = async () => {
+    const serviceProviderInfoKeys = [
       "name",
       "service",
       "coverImage",
@@ -229,39 +324,39 @@ imageCover.value = null
       "order"
     ]
     const data = {}
-    serviceCategoryInfoKeys.forEach((value, index) => {
-      if (serviceCategoryInfo[value] instanceof Object) {
-        if (serviceCategoryInfo[value].bn && serviceCategoryInfo[value].bn) {
-          data[value] = serviceCategoryInfo[value]
+    serviceProviderInfoKeys.forEach((value, index) => {
+      if (serviceProviderInfo[value] instanceof Object) {
+        if (serviceProviderInfo[value].bn && serviceProviderInfo[value].bn) {
+          data[value] = serviceProviderInfo[value]
         }
-      } else if (serviceCategoryInfo[value]) {
-        data[value] = serviceCategoryInfo[value]
+      } else if (serviceProviderInfo[value]) {
+        data[value] = serviceProviderInfo[value]
       }
     })
     const config = {
       method: "put",
-      url: "api/service_categorys/" + serviceCategoryInfo.id,
+      url: "api/service_Providers/" + serviceProviderInfo.id,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
-      },data
+      }, data
     };
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      openServiceCategoryEditDialog.value = false
-      getServiceCategoryList()
+      openServiceProviderEditDialog.value = false
+      getServiceProviderList()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
       loader.hideLoader()
     }
   }
-  const deleteServiceCategory = async () => {
+  const deleteServiceProvider = async () => {
     const config = {
       method: "delete",
-      url: "api/service_categorys/" + serviceCategoryInfo.id,
+      url: "api/service_Providers/" + serviceProviderInfo.id,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
@@ -271,7 +366,7 @@ imageCover.value = null
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      getServiceCategoryList()
+      getServiceProviderList()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -279,24 +374,26 @@ imageCover.value = null
     }
   }
   return {
-    openServiceCategoryEditDialog,
-    openServiceCategoryEditDialogManager,
-    openServiceCategoryPreviewDialog,
-    openServiceCategoryPreviewDialogManager,
-    openServiceCategoryCreateDialog,
-    openServiceCategoryCreateDialogManager,
-    serviceCategoryList,
-    serviceCategoryInfo,
-    getServiceCategoryList,
-    createServiceCategory,
-    updateServiceCategory,
-    deleteServiceCategory,
+    openServiceProviderEditDialog,
+    openServiceProviderEditDialogManager,
+    openServiceProviderPreviewDialog,
+    openServiceProviderPreviewDialogManager,
+    openServiceProviderCreateDialog,
+    openServiceProviderCreateDialogManager,
+    serviceProviderList,
+    serviceProviderInfo,
+    getServiceProviderList,
+    createServiceProvider,
+    updateServiceProvider,
+    deleteServiceProvider,
+    serviceProviderLocationR,
     imageIcon,
     imageCover,
     uploadIcon,
-    selectedService,
+    selectedServiceCategory,
     uploadCoverImage,
     filteredByServiseId,
-    getFilteredServiceCategoryByService
+    filteredByServiseCategoryId,
+    getFilteredServiceProviderByServiceCategory
   }
 });

@@ -18,6 +18,16 @@ const getSubDistricts = expressAsyncHandler(async (req, res) => {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ subDistricts, page, pages: Math.ceil(count / pageSize) })
 })
+// @desc get products
+// @route Put api/products
+// @acess Privet
+const getAllSubDistricts = expressAsyncHandler(async (req, res) => {
+    
+    const keyword = req.query.districtId? {parent:{_id:req.query.districtId}}:{}
+    const subDistricts = await SubDistrict.find({ ...keyword })
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json(subDistricts)
+})
 
 // @desc get product by id
 // @route Put api/products/:id
@@ -97,6 +107,7 @@ const createSubDistrict = expressAsyncHandler(async (req, res) => {
 
 export {
     getSubDistricts,
+    getAllSubDistricts,
     getSubDistrictById,
     deleteSubDistrict,
     updateSubDistrict,

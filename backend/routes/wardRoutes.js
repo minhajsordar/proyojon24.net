@@ -1,5 +1,6 @@
 import express from "express";
 import {    getWards,
+    getAllWards,
     getWardById,
     deleteWard,
     updateWard,
@@ -8,6 +9,8 @@ import {    getWards,
 const router = express.Router()
 
 router.route('/').get(getWards).post(protect, superAdmin, createWard)
+router.route('/all')
+    .get(getAllWards)
 router.route('/:id')
     .get(getWardById)
     .delete(protect, superAdmin, deleteWard)

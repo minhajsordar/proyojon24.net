@@ -17,6 +17,7 @@ export const useDistrictStore = defineStore('district store', ()=>{
    divisionStore = useDivisionStore(),
       openDistrictCreateDialog = ref(false),
       openDistrictEditDialog = ref(false),
+      allDistricts = ref([]),
       districtList = ref([
         {
           id:123,
@@ -85,6 +86,30 @@ export const useDistrictStore = defineStore('district store', ()=>{
       try {
         const responseData = await api.request(config);
         districtList.value = responseData.data;
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+      }
+    }
+    const getAllDistricts= async(id)=>{
+      const params = {}
+      if(id){
+        params.divisionId = id
+      }
+      const config = {
+        method: "get",
+        url: "api/districts/all",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        },
+        params
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        allDistricts.value = responseData.data;
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -167,6 +192,8 @@ export const useDistrictStore = defineStore('district store', ()=>{
       openDistrictCreateDialog,
       openDistrictEditDialog,
       openDistrictEditDialogManager,
+      getAllDistricts,
+allDistricts,
       districtList,
       districtInfo,
       getDistrictList,

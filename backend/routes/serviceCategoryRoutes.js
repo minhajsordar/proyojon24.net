@@ -6,12 +6,15 @@ import {
     deleteServiceCategory,
     updateServiceCategory,
     createServiceCategory,
-    getServiceCategoryByService
+    getServiceCategoryByService,
+    getAllServiceCategorys
 } from '../controllers/serviceCategoryController.js'
 import {  protect, superAdmin, anyAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router()
 
 router.route('/').get(getServiceCategorys).post(protect, superAdmin, createServiceCategory)
+router.route('/all')
+    .get(getAllServiceCategorys)
 router.route('/:id')
     .get(getServiceCategoryById)
     .delete(protect, superAdmin, deleteServiceCategory)

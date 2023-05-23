@@ -19,6 +19,16 @@ const getUnions = expressAsyncHandler(async (req, res) => {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ unions, page, pages: Math.ceil(count / pageSize) })
 })
+// @desc get products
+// @route Put api/products
+// @acess Privet
+const getAllUnions = expressAsyncHandler(async (req, res) => {
+    
+    const keyword = req.query.subDistrictId? {parent:{_id:req.query.subDistrictId}}:{}
+    const unions = await Union.find({...keyword})
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json(unions)
+})
 
 // @desc get product by id
 // @route Put api/products/:id
@@ -99,6 +109,7 @@ const createUnion = expressAsyncHandler(async (req, res) => {
 
 export {
     getUnions,
+    getAllUnions,
     getUnionById,
     deleteUnion,
     updateUnion,

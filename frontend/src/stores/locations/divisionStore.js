@@ -15,6 +15,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
       authStore = useAuthStore(),
       openDivisionCreateDialog= ref(false),
       openDivisionEditDialog= ref(false),
+      allDivisions= ref([]),
       divisionList = ref([
         {
           id:123,
@@ -64,6 +65,26 @@ export const useDivisionStore = defineStore('division store', ()=>{
       try {
         const responseData = await api.request(config);
         divisionList.value = responseData.data;
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+
+      }
+    }
+    const getAllDivisions= async()=>{
+      const config = {
+        method: "get",
+        url: "api/divisions/all",
+        headers: {
+          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        allDivisions.value = responseData.data;
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -152,6 +173,8 @@ export const useDivisionStore = defineStore('division store', ()=>{
       openDivisionCreateDialog,
       openDivisionEditDialog,
       openDivisionEditDialogManager,
+      allDivisions,
+      getAllDivisions,
       divisionList,
       divisionInfo,
       getDivisionList,

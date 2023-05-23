@@ -15,6 +15,7 @@ export const useUnionStore = defineStore('union store', ()=>{
       authStore = useAuthStore(),
       openUnionCreateDialog = ref(false),
       openUnionEditDialog = ref(false),
+      allUnions = ref([]),
       unionList = ref([
         {
           id:123,
@@ -76,6 +77,30 @@ export const useUnionStore = defineStore('union store', ()=>{
       try {
         const responseData = await api.request(config);
         unionList.value = responseData.data;
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+
+      }
+
+    }
+    const getAllUnions= async(id)=>{
+      const params = {}
+      if(id){
+        params.subDistrictId = id
+      }
+      const config = {
+        method: "get",
+        url: "api/unions/all",
+        headers: {
+          "Content-Type": "application/json"
+        },params
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        allUnions.value = responseData.data;
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -164,6 +189,8 @@ export const useUnionStore = defineStore('union store', ()=>{
       openUnionCreateDialog,
       openUnionEditDialog,
       openUnionEditDialogManager,
+      getAllUnions,
+      allUnions,
       unionList,
       unionInfo,
       getUnionList,

@@ -24,6 +24,12 @@
     <editServiceCategoryDialog/>
     <!-- preview service  -->
     <previewServiceCategoryDialog/>
+    <!-- create service  -->
+    <createServiceProviderDialog/>
+    <!-- edit service  -->
+    <editServiceProviderDialog/>
+    <!-- preview service  -->
+    <previewServiceProviderDialog/>
 
   </div>
 </template>
@@ -41,13 +47,17 @@ import editSubDistrictDialog from 'src/components/dialogs/subdistrict/editSubDis
 import editUnionDialog from 'src/components/dialogs/union/editUnionDialog.vue';
 import editWardDialog from 'src/components/dialogs/ward/editWardDialog.vue';
 // service dialogs
-import createServiceDialog from './services/createServiceDialog.vue';
-import editServiceDialog from './services/editServiceDialog.vue';
-import previewServiceDialog from './services/previewServiceDialog.vue';
+import createServiceDialog from 'src/components/dialogs/services/createServiceDialog.vue';
+import editServiceDialog from 'src/components/dialogs/services/editServiceDialog.vue';
+import previewServiceDialog from 'src/components/dialogs/services/previewServiceDialog.vue';
 // service category dialogs
-import createServiceCategoryDialog from './serviceCategorys/createServiceCategoryDialog.vue';
-import editServiceCategoryDialog from './serviceCategorys/editServiceCategoryDialog.vue';
-import previewServiceCategoryDialog from './serviceCategorys/previewServiceCategoryDialog.vue';
+import createServiceCategoryDialog from 'src/components/dialogs/serviceCategorys/createServiceCategoryDialog.vue';
+import editServiceCategoryDialog from 'src/components/dialogs/serviceCategorys/editServiceCategoryDialog.vue';
+import previewServiceCategoryDialog from 'src/components/dialogs/serviceCategorys/previewServiceCategoryDialog.vue';
+// service category dialogs
+import createServiceProviderDialog from './serviceProviders/createServiceProviderDialog.vue';
+import editServiceProviderDialog from './serviceProviders/editServiceProviderDialog.vue';
+import previewServiceProviderDialog from './serviceProviders/previewServiceProviderDialog.vue';
 
 
 </script>

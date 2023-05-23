@@ -8,6 +8,7 @@ import {
     createServiceProviderViewCount,
     updateServiceProvider,
     getTopServiceProvider,
+    getServiceProviderByServiceCategory,
     createServiceProvider
 } from "../controllers/serviceProviderController.js"
 import { admin, anyAdmin, protect } from "../middleware/authMiddleware.js"
@@ -24,5 +25,7 @@ router.route('/:id')
     .put(protect, admin, updateServiceProvider)
 router.route('/preview/:id')
     .get(protect, admin, getServiceProviderByIdPreview)
+router.route('/service_category/:id')
+    .get(protect, anyAdmin, getServiceProviderByServiceCategory)
 
 export default router

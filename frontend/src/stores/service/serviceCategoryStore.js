@@ -20,6 +20,7 @@ export const useServiceCategoryStore = defineStore('service category store', () 
     imageCover = ref(null),
     selectedService = ref(null),
     filteredByServiseId = ref(null),
+    allServiceCategoryList = ref(null),
     serviceCategoryList = ref([
       {
         id: "demo service id",
@@ -49,6 +50,7 @@ export const useServiceCategoryStore = defineStore('service category store', () 
         en: null,
       },
       coverImage: null,
+      service: null,
       icon: null,
       order: 0
     })
@@ -122,6 +124,31 @@ imageCover.value = null
       const responseData = await api.request(config);
       responseData.data.serviceCategorys.sort((a,b)=>a.order - b.order);
       serviceCategoryList.value = responseData.data;
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+    }
+  }
+  const getAllServiceCategorys = async (id) => {
+    const params = {}
+    if(id){
+      params.serviceId = id
+    }
+    const config = {
+      method: "get",
+      url: "api/service_categorys/all",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+
+      },params
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      responseData.data.sort((a,b)=>a.order - b.order);
+      allServiceCategoryList.value = responseData.data;
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -238,6 +265,9 @@ imageCover.value = null
         data[value] = serviceCategoryInfo[value]
       }
     })
+    if(serviceCategoryInfo.service instanceof Object){
+      data.service = serviceCategoryInfo.service._id
+    }
     const config = {
       method: "put",
       url: "api/service_categorys/" + serviceCategoryInfo.id,
@@ -285,9 +315,11 @@ imageCover.value = null
     openServiceCategoryPreviewDialogManager,
     openServiceCategoryCreateDialog,
     openServiceCategoryCreateDialogManager,
+    allServiceCategoryList,
     serviceCategoryList,
     serviceCategoryInfo,
     getServiceCategoryList,
+    getAllServiceCategorys,
     createServiceCategory,
     updateServiceCategory,
     deleteServiceCategory,

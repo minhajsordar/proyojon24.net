@@ -18,6 +18,16 @@ const getServiceCategorys = expressAsyncHandler(async (req, res) => {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ serviceCategorys, page, pages: Math.ceil(count / pageSize) })
 })
+// @desc get ServiceCategory
+// @route Put api/ServiceCategory
+// @acess Privet
+const getAllServiceCategorys = expressAsyncHandler(async (req, res) => {
+    const keyword = req.query.serviceId? {service:req.query.serviceId}:{}
+    console.log(req)
+    const serviceCategorys = await ServiceCategory.find({ ...keyword })
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json(serviceCategorys)
+})
 
 // @desc get product by id
 // @route Put api/ServiceCategory/:id
@@ -154,6 +164,7 @@ const createServiceCategory = expressAsyncHandler(async (req, res) => {
 
 export {
     getServiceCategorys,
+    getAllServiceCategorys,
     getServiceCategoryById,
     getServiceCategoryByIdPreview,
     getServiceCategoryByService,

@@ -20,6 +20,16 @@ const getDistricts = expressAsyncHandler(async (req, res) => {
     res.status(200).json({ districts, page, pages: Math.ceil(count / pageSize) })
 })
 
+// @desc get products
+// @route Put api/products
+// @acess Privet
+const getAllDistricts = expressAsyncHandler(async (req, res) => {
+    const keyword = req.query.divisionId? {parent:{_id:req.query.divisionId}}:{}
+    const districts = await District.find({ ...keyword })
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json(districts)
+})
+
 // @desc get product by id
 // @route Put api/products/:id
 // @acess Privet
@@ -98,6 +108,7 @@ const createDistrict = expressAsyncHandler(async (req, res) => {
 
 export {
     getDistricts,
+    getAllDistricts,
     getDistrictById,
     deleteDistrict,
     updateDistrict,

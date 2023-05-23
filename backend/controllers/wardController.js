@@ -20,6 +20,17 @@ const getWards =  expressAsyncHandler(async (req, res) => {
     res.status(200).json({wards, page, pages: Math.ceil(count / pageSize)})
 })
 
+// @desc get products
+// @route Put api/products
+// @acess Privet
+const getAllWards =  expressAsyncHandler(async (req, res) => {
+
+    const keyword = req.query.unionId? {parent:{_id:req.query.unionId}}:{}
+    const wards = await Ward.find({...keyword})
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json(wards)
+})
+
 // @desc get product by id
 // @route Put api/products/:id
 // @acess Privet
@@ -98,6 +109,7 @@ const createWard = expressAsyncHandler(async (req, res) => {
 
 export {
     getWards,
+    getAllWards,
     getWardById,
     deleteWard,
     updateWard,
