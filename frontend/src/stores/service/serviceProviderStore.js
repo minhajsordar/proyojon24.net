@@ -6,6 +6,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { useServiceStore } from './serviceStore';
+import { useServiceCategoryStore } from './serviceCategoryStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -13,6 +14,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
   const router = useRouter(),
     authStore = useAuthStore(),
     serviceStore = useServiceStore(),
+    serviceCategoryStore = useServiceCategoryStore(),
     openServiceProviderCreateDialog = ref(false),
     openServiceProviderEditDialog = ref(false),
     openServiceProviderPreviewDialog = ref(false),
@@ -26,7 +28,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       district: null,
       subDistrict: null,
       union: null,
-      ward:null,
+      ward: null,
     }),
     serviceProviderList = ref([]),
     serviceProviderInfo = reactive({
@@ -87,10 +89,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         bn: null,
         en: null,
       },
-      phoneNumber: [{
+      phoneNumber: {
         bn: null,
         en: null,
-      }],
+      },
       keywords: null,
     })
   const emptyServiceProviderInfo = () => {
@@ -163,7 +165,23 @@ export const useServiceProviderStore = defineStore('service provider store', () 
   }
   const openServiceProviderEditDialogManager = (data) => {
     const serviceProviderInfoKeys = [
+      "id",
+      "user",
       "name",
+      "description",
+      "serviceImage",
+      "serviceCategory",
+      "service",
+      "image",
+      "rankCount",
+      "serviceProviderLocation",
+      "degree",
+      "extraCources",
+      "serviceTitle",
+      "serviceList",
+      "specialties",
+      "phoneNumber",
+      "keywords"
     ]
     openServiceProviderEditDialog.value = true
     serviceProviderInfo.id = data?._id
@@ -171,18 +189,27 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       serviceProviderInfo[keys] = data[keys]
     })
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
+    serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
     imageCover.value = { name: serviceProviderInfo.coverImage }
     imageIcon.value = { name: serviceProviderInfo.icon }
+    serviceProviderLocationR.division = data.serviceProviderLocation.division
+    serviceProviderLocationR.district = data.serviceProviderLocation.district
+    serviceProviderLocationR.subDistrict = data.serviceProviderLocation.subDistrict
+    serviceProviderLocationR.union = data.serviceProviderLocation.union
+    serviceProviderLocationR.ward = data.serviceProviderLocation.ward
+
   }
   const openServiceProviderPreviewDialogManager = (data) => {
 
     const serviceProviderInfoKeys = [
+      "id",
       "user",
       "name",
       "description",
       "serviceImage",
-      "image",
       "serviceCategory",
+      "service",
+      "image",
       "rankCount",
       "serviceProviderLocation",
       "degree",
@@ -199,6 +226,14 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       serviceProviderInfo[keys] = data[keys]
     })
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
+    serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
+    imageCover.value = { name: serviceProviderInfo.coverImage }
+    imageIcon.value = { name: serviceProviderInfo.icon }
+    serviceProviderLocationR.division = data.serviceProviderLocation.division
+    serviceProviderLocationR.district = data.serviceProviderLocation.district
+    serviceProviderLocationR.subDistrict = data.serviceProviderLocation.subDistrict
+    serviceProviderLocationR.union = data.serviceProviderLocation.union
+    serviceProviderLocationR.ward = data.serviceProviderLocation.ward
   }
   const getServiceProviderList = async () => {
     const config = {
@@ -249,11 +284,18 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     if (serviceProviderInfo.serviceCategory instanceof Object) {
       serviceProviderInfo.serviceCategory = serviceProviderInfo.serviceCategory._id
     }
-    serviceProviderInfo.serviceProviderLocation.division = serviceProviderLocationR.division.name
-    serviceProviderInfo.serviceProviderLocation.district = serviceProviderLocationR.district.name
-    serviceProviderInfo.serviceProviderLocation.subDistrict = serviceProviderLocationR.subDistrict.name
-    serviceProviderInfo.serviceProviderLocation.union = serviceProviderLocationR.union.name
-    serviceProviderInfo.serviceProviderLocation.ward = serviceProviderLocationR.ward.name
+
+
+    serviceProviderInfo.serviceProviderLocation.division.name = serviceProviderLocationR.division.name
+    serviceProviderInfo.serviceProviderLocation.division._id = serviceProviderLocationR.division._id
+    serviceProviderInfo.serviceProviderLocation.district.name = serviceProviderLocationR.district.name
+    serviceProviderInfo.serviceProviderLocation.district._id = serviceProviderLocationR.district._id
+    serviceProviderInfo.serviceProviderLocation.subDistrict.name = serviceProviderLocationR.subDistrict.name
+    serviceProviderInfo.serviceProviderLocation.subDistrict._id = serviceProviderLocationR.subDistrict._id
+    serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
+    serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
+    serviceProviderInfo.serviceProviderLocation.ward.name = serviceProviderLocationR.ward.name
+    serviceProviderInfo.serviceProviderLocation.ward._id = serviceProviderLocationR.ward._id
     const data = serviceProviderInfo
     const config = {
       method: "post",
@@ -321,23 +363,23 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     }
   }
   const updateServiceProvider = async () => {
-    const serviceProviderInfoKeys = [
-      "name",
-      "service",
-      "coverImage",
-      "icon",
-      "order"
-    ]
-    const data = {}
-    serviceProviderInfoKeys.forEach((value, index) => {
-      if (serviceProviderInfo[value] instanceof Object) {
-        if (serviceProviderInfo[value].bn && serviceProviderInfo[value].bn) {
-          data[value] = serviceProviderInfo[value]
-        }
-      } else if (serviceProviderInfo[value]) {
-        data[value] = serviceProviderInfo[value]
-      }
-    })
+    if (serviceProviderInfo.service instanceof Object) {
+      serviceProviderInfo.service = serviceProviderInfo.service._id
+    }
+    if (serviceProviderInfo.serviceCategory instanceof Object) {
+      serviceProviderInfo.serviceCategory = serviceProviderInfo.serviceCategory._id
+    }
+    serviceProviderInfo.serviceProviderLocation.division.name = serviceProviderLocationR.division.name
+    serviceProviderInfo.serviceProviderLocation.division._id = serviceProviderLocationR.division._id
+    serviceProviderInfo.serviceProviderLocation.district.name = serviceProviderLocationR.district.name
+    serviceProviderInfo.serviceProviderLocation.district._id = serviceProviderLocationR.district._id
+    serviceProviderInfo.serviceProviderLocation.subDistrict.name = serviceProviderLocationR.subDistrict.name
+    serviceProviderInfo.serviceProviderLocation.subDistrict._id = serviceProviderLocationR.subDistrict._id
+    serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
+    serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
+    serviceProviderInfo.serviceProviderLocation.ward.name = serviceProviderLocationR.ward.name
+    serviceProviderInfo.serviceProviderLocation.ward._id = serviceProviderLocationR.ward._id
+    const data = serviceProviderInfo
     const config = {
       method: "put",
       url: "api/service_Providers/" + serviceProviderInfo.id,

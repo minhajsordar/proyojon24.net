@@ -23,7 +23,6 @@ const getServiceCategorys = expressAsyncHandler(async (req, res) => {
 // @acess Privet
 const getAllServiceCategorys = expressAsyncHandler(async (req, res) => {
     const keyword = req.query.serviceId? {service:req.query.serviceId}:{}
-    console.log(req)
     const serviceCategorys = await ServiceCategory.find({ ...keyword })
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(serviceCategorys)

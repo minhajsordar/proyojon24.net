@@ -63,8 +63,8 @@ const getServiceProviderByServiceCategory = expressAsyncHandler(async (req, res)
             $options: 'i'
         }
     } : {}
-    const count = await ServiceProvider.find({serviceCategory:req.params.id}).countDocuments({ ...keyword })
-    const serviceProviders = await ServiceProvider.find({serviceCategory:req.params.id}).limit(pageSize).skip(pageSize * (page - 1))
+    const count = await ServiceProvider.find({ serviceCategory: req.params.id }).countDocuments({ ...keyword })
+    const serviceProviders = await ServiceProvider.find({ serviceCategory: req.params.id }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ serviceProviders, page, pages: Math.ceil(count / pageSize) })
 })
@@ -91,38 +91,42 @@ const deleteServiceProvider = expressAsyncHandler(async (req, res) => {
 const updateServiceProvider = expressAsyncHandler(async (req, res) => {
     const {
         user,
-        name,
         serviceCategory,
+        name,
         image,
+        serviceImage,
         serviceProviderLocation,
         degree,
         service,
+        description,
         extraCources,
-        specialties,
         serviceTitle,
         serviceList,
+        specialties,
         phoneNumber,
         rankCount,
-        keywords,
+        keywords
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
         serviceProvider.dataUpdatedBy = req.user._id,
-        serviceProvider.dataUpdatedHistory.push(req.user._id)
+            serviceProvider.dataUpdatedHistory.push(req.user._id)
         serviceProvider.user = user
         serviceProvider.serviceCategory = serviceCategory
         serviceProvider.name = name
+        serviceProvider.description = description
         serviceProvider.image = image
+        serviceProvider.serviceImage = serviceImage
         serviceProvider.serviceProviderLocation = serviceProviderLocation
         serviceProvider.degree = degree
-        serviceProvider.service = service,
+        serviceProvider.service = service
         serviceProvider.specialties = specialties
         serviceProvider.extraCources = extraCources
         serviceProvider.serviceTitle = serviceTitle
         serviceProvider.serviceList = serviceList
         serviceProvider.phoneNumber = phoneNumber
         serviceProvider.keywords = keywords
-        if(req.user.isSuperAdmin){
+        if (req.user.isSuperAdmin) {
             serviceProvider.rankCount = rankCount
         }
         const updatedServiceProvider = await serviceProvider.save()
@@ -212,9 +216,9 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
     } = req.body
     console.log(serviceProviderLocation)
     const serviceProvider = new ServiceProvider({
-        dataCollector:req.user._id,
-        dataUpdatedBy:req.user._id,
-        dataUpdatedHistory:req.user._id,
+        dataCollector: req.user._id,
+        dataUpdatedBy: req.user._id,
+        dataUpdatedHistory: req.user._id,
         user,
         serviceCategory,
         name,

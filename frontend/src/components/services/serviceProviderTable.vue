@@ -146,7 +146,7 @@ const serviceCategoryStore = useServiceCategoryStore();
 const languageStore = useLanguageStore();
 const searchServiceStore = useSearchServiceStore();
 const confirm = (service) => {
-  serviceCategoryStore.serviceCategoryInfo.id = service._id;
+  serviceProviderStore.serviceProviderInfo.id = service._id;
   $q.dialog({
     title: t("confirm"),
     message:
@@ -156,17 +156,17 @@ const confirm = (service) => {
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    serviceCategoryStore.deleteServiceCategory();
+    serviceProviderStore.deleteServiceProvider();
   });
 };
 
 const applyFilterFunc = () => {
-  if (serviceCategoryStore?.filteredByServiseId) {
-    serviceCategoryStore.getFilteredServiceCategoryByService();
+  if (serviceProviderStore?.filteredByServiseCategoryId) {
+    serviceProviderStore.getFilteredServiceProviderByServiceCategory();
   }
 };
 const resetFilterFunc = () => {
-  serviceCategoryStore.getServiceCategoryList();
+  serviceProviderStore.getServiceProviderList();
 };
 
 onMounted(() => {

@@ -49,8 +49,8 @@ const serviceProviderSchema = new mongoose.Schema({
         en: { type: String, required: true },
     },
     description: {
-        bn: { type: String, required: true },
-        en: { type: String, required: true },
+        bn: { type: String },
+        en: { type: String },
     },
     image: {
         type: String,
@@ -124,18 +124,18 @@ const serviceProviderSchema = new mongoose.Schema({
         en: { type: String }
     }
     ,
-    serviceList:[
+    serviceList:
     {
         bn: { type: String },
         en: { type: String }
-    }]
+    }
     ,
-    phoneNumber: [
+    phoneNumber: 
         {
             bn: { type: String, required: true },
             en: { type: String, required: true }
         }
-    ],
+    ,
     rankCount: {
         type: Number,
         required: false,

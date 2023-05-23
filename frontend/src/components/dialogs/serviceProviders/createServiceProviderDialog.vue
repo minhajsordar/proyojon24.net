@@ -43,35 +43,45 @@
           <div class="row q-col-gutter-sm">
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">
-                  Service
-                </div>
+                <div class="col-12 text-bold">Service</div>
                 <div class="col-12">
                   <q-select
                     ref="grandParentEl"
                     v-model="serviceProviderStore.serviceProviderInfo.service"
                     :options="serviceStore.serviceList.services"
-                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
+                    :option-label="
+                      (opt) =>
+                        Object(opt) === opt && 'name' in opt
+                          ? opt.name[languageStore.language]
+                          : null
+                    "
                     options-dense
                     outlined
                     dense
                     :rules="[requiredSelector]"
-                    @update:model-value="searchServiceStore.updateServiceCategory"
+                    @update:model-value="
+                      searchServiceStore.updateServiceCategory
+                    "
                   />
                 </div>
               </div>
             </div>
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">
-                  Service Category
-                </div>
+                <div class="col-12 text-bold">Service Category</div>
                 <div class="col-12">
                   <q-select
                     ref="parentEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.serviceCategory"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.serviceCategory
+                    "
                     :options="serviceCategoryStore.allServiceCategoryList"
-                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
+                    :option-label="
+                      (opt) =>
+                        Object(opt) === opt && 'name' in opt
+                          ? opt.name[languageStore.language]
+                          : null
+                    "
                     options-dense
                     outlined
                     dense
@@ -83,15 +93,20 @@
             <!-- start service provider location -->
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">
-                  Division
-                </div>
+                <div class="col-12 text-bold">Division</div>
                 <div class="col-12">
                   <q-select
-                    ref="grandParentEl"
-                    v-model="serviceProviderStore.serviceProviderLocationR.division"
+                    ref="divisionEl"
+                    v-model="
+                      serviceProviderStore.serviceProviderLocationR.division
+                    "
                     :options="divisionStore.allDivisions"
-                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
+                    :option-label="
+                      (opt) =>
+                        Object(opt) === opt && 'name' in opt
+                          ? opt.name[languageStore.language]
+                          : null
+                    "
                     options-dense
                     outlined
                     dense
@@ -103,15 +118,20 @@
             </div>
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">
-                  District
-                </div>
+                <div class="col-12 text-bold">District</div>
                 <div class="col-12">
                   <q-select
-                    ref="grandParentEl"
-                    v-model="serviceProviderStore.serviceProviderLocationR.district"
+                    ref="districtEl"
+                    v-model="
+                      serviceProviderStore.serviceProviderLocationR.district
+                    "
                     :options="districtStore.allDistricts"
-                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
+                    :option-label="
+                      (opt) =>
+                        Object(opt) === opt && 'name' in opt
+                          ? opt.name[languageStore.language]
+                          : null
+                    "
                     options-dense
                     outlined
                     dense
@@ -123,15 +143,20 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">
-                  Sub District
-                </div>
+                <div class="col-12 text-bold">Sub District</div>
                 <div class="col-12">
                   <q-select
-                    ref="parentEl"
-                    v-model="serviceProviderStore.serviceProviderLocationR.subDistrict"
+                    ref="subDistrictEl"
+                    v-model="
+                      serviceProviderStore.serviceProviderLocationR.subDistrict
+                    "
                     :options="subDistrictStore.allSubDistricts"
-                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
+                    :option-label="
+                      (opt) =>
+                        Object(opt) === opt && 'name' in opt
+                          ? opt.name[languageStore.language]
+                          : null
+                    "
                     options-dense
                     outlined
                     dense
@@ -143,15 +168,20 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">
-                  Union
-                </div>
+                <div class="col-12 text-bold">Union</div>
                 <div class="col-12">
                   <q-select
-                    ref="grandParentEl"
-                    v-model="serviceProviderStore.serviceProviderLocationR.union"
+                    ref="unionEl"
+                    v-model="
+                      serviceProviderStore.serviceProviderLocationR.union
+                    "
                     :options="unionStore.allUnions"
-                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
+                    :option-label="
+                      (opt) =>
+                        Object(opt) === opt && 'name' in opt
+                          ? opt.name[languageStore.language]
+                          : null
+                    "
                     options-dense
                     outlined
                     dense
@@ -163,15 +193,18 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">
-                  Ward
-                </div>
+                <div class="col-12 text-bold">Ward</div>
                 <div class="col-12">
                   <q-select
-                    ref="parentEl"
+                    ref="wardEl"
                     v-model="serviceProviderStore.serviceProviderLocationR.ward"
                     :options="wardStore.allWards"
-                    :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
+                    :option-label="
+                      (opt) =>
+                        Object(opt) === opt && 'name' in opt
+                          ? opt.name[languageStore.language]
+                          : null
+                    "
                     options-dense
                     outlined
                     dense
@@ -184,9 +217,7 @@
             <!-- name start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  name In English
-                </div>
+                <div class="col-12 text-bold">name In English</div>
                 <div class="col-12">
                   <q-input
                     ref="nameEnEl"
@@ -200,9 +231,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  name বাংলায়
-                </div>
+                <div class="col-12 text-bold">name বাংলায়</div>
                 <div class="col-12">
                   <q-input
                     ref="nameBnEl"
@@ -218,13 +247,13 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  phone In English
-                </div>
+                <div class="col-12 text-bold">phone In English</div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberEnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.phoneNumber.en"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.phoneNumber.en
+                    "
                     outlined
                     dense
                     :rules="[required]"
@@ -234,13 +263,13 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  phone বাংলায়
-                </div>
+                <div class="col-12 text-bold">phone বাংলায়</div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberBnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.phoneNumber.bn"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.phoneNumber.bn
+                    "
                     outlined
                     dense
                     :rules="[required]"
@@ -252,9 +281,7 @@
             <!-- degree start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  degree In English
-                </div>
+                <div class="col-12 text-bold">degree In English</div>
                 <div class="col-12">
                   <q-input
                     ref="degreeEnEl"
@@ -268,9 +295,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                 degree বাংলায়
-                </div>
+                <div class="col-12 text-bold">degree বাংলায়</div>
                 <div class="col-12">
                   <q-input
                     ref="degreeBnEl"
@@ -286,13 +311,13 @@
             <!-- extraCources start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  extra cources In English
-                </div>
+                <div class="col-12 text-bold">extra cources In English</div>
                 <div class="col-12">
                   <q-input
                     ref="extraCourcesEnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.extraCources.en"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.extraCources.en
+                    "
                     outlined
                     dense
                     :rules="[required]"
@@ -302,13 +327,13 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  extra cources বাংলায়
-                </div>
+                <div class="col-12 text-bold">extra cources বাংলায়</div>
                 <div class="col-12">
                   <q-input
                     ref="extraCourcesBnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.extraCources.bn"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.extraCources.bn
+                    "
                     outlined
                     dense
                     :rules="[required]"
@@ -320,13 +345,13 @@
             <!-- serviceTitle start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  service title In English
-                </div>
+                <div class="col-12 text-bold">service title In English</div>
                 <div class="col-12">
                   <q-input
                     ref="serviceTitleEnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.serviceTitle.en"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.serviceTitle.en
+                    "
                     outlined
                     dense
                     :rules="[required]"
@@ -336,13 +361,13 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  service title বাংলায়
-                </div>
+                <div class="col-12 text-bold">service title বাংলায়</div>
                 <div class="col-12">
                   <q-input
                     ref="serviceTitleBnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.serviceTitle.bn"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.serviceTitle.bn
+                    "
                     outlined
                     dense
                     :rules="[required]"
@@ -361,7 +386,9 @@
                 <div class="col-12">
                   <q-input
                     ref="serviceListEnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.serviceList.en"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.serviceList.en
+                    "
                     outlined
                     dense
                     :rules="[required]"
@@ -379,7 +406,9 @@
                 <div class="col-12">
                   <q-input
                     ref="serviceListBnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.serviceList.bn"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.serviceList.bn
+                    "
                     outlined
                     dense
                     :rules="[required]"
@@ -391,13 +420,13 @@
             <!-- specialties start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  specialties In English
-                </div>
+                <div class="col-12 text-bold">specialties In English</div>
                 <div class="col-12">
                   <q-input
                     ref="specialtiesEnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.specialties.en"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.specialties.en
+                    "
                     outlined
                     dense
                     type="textarea"
@@ -408,13 +437,13 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  specialties বাংলায়
-                </div>
+                <div class="col-12 text-bold">specialties বাংলায়</div>
                 <div class="col-12">
                   <q-input
                     ref="specialtiesBnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.specialties.bn"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.specialties.bn
+                    "
                     outlined
                     dense
                     type="textarea"
@@ -427,13 +456,13 @@
             <!-- description start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 fs-16 text-bold">
-                  description In English
-                </div>
+                <div class="col-12 fs-16 text-bold">description In English</div>
                 <div class="col-12">
                   <q-input
                     ref="descriptionEnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.description.en"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.description.en
+                    "
                     outlined
                     dense
                     type="textarea"
@@ -444,13 +473,13 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 fs-16 text-bold">
-                  description বাংলায়
-                </div>
+                <div class="col-12 fs-16 text-bold">description বাংলায়</div>
                 <div class="col-12">
                   <q-input
                     ref="descriptionBnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.description.bn"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.description.bn
+                    "
                     outlined
                     dense
                     type="textarea"
@@ -482,9 +511,9 @@
                     <template v-slot:prepend>
                       <q-icon name="cloud_upload" /> </template
                   ></q-file>
-                  <span >{{ $t("or") }}</span>
+                  <span>{{ $t("or") }}</span>
                   <q-input
-                  class="q-mt-sm"
+                    class="q-mt-sm"
                     ref="iconEl"
                     outlined
                     dense
@@ -516,13 +545,15 @@
                     <template v-slot:prepend>
                       <q-icon name="cloud_upload" /> </template
                   ></q-file>
-                  <span >{{ $t("or") }}</span>
+                  <span>{{ $t("or") }}</span>
                   <q-input
-                  class="q-mt-sm"
+                    class="q-mt-sm"
                     ref="coverImageEl"
                     outlined
                     dense
-                    v-model="serviceProviderStore.serviceProviderInfo.serviceImage"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.serviceImage
+                    "
                     :rules="[required]"
                     label="Add image Url"
                   />
@@ -537,14 +568,13 @@
                   {{ $t("serial") }}
                 </div>
                 <div class="col-12">
-                  <q-input
-                    ref="serialEl"
-                    outlined
-                    dense
-                    type="number"
-                    :min="0"
+                  {{ serviceProviderStore.serviceProviderInfo.rankCount }}
+                  <q-slider
                     v-model="serviceProviderStore.serviceProviderInfo.rankCount"
-                    :rules="[required]"
+                    color="green"
+                    :min="0"
+                    :step="0.5"
+                    :max="10"
                   />
                 </div>
               </div>
@@ -569,7 +599,11 @@
             <!-- rank end -->
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('addnew')" color="primary" @click="createServiceManager" />
+                <q-btn
+                  :label="$t('addnew')"
+                  color="primary"
+                  @click="createServiceManager"
+                />
               </div>
             </div>
           </div>
@@ -600,7 +634,7 @@ const serviceProviderStore = useServiceProviderStore();
 const serviceCategoryStore = useServiceCategoryStore();
 const serviceStore = useServiceStore();
 const divisionStore = useDivisionStore();
-divisionStore.getAllDivisions()
+divisionStore.getAllDivisions();
 const districtStore = useDistrictStore();
 const subDistrictStore = useSubDistrictStore();
 const unionStore = useUnionStore();
@@ -612,28 +646,46 @@ const searchServiceStore = useSearchServiceStore();
 const maximizedToggle = ref(true);
 const grandParentEl = ref(null);
 const parentEl = ref(null);
+const divisionEl = ref(null);
+const districtEl = ref(null);
+const subDistrictEl = ref(null);
+const unionEl = ref(null);
+const wardEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 const iconEl = ref(null);
-const serialEl = ref(null);
 const coverImageEl = ref(null);
+const phoneNumberEnEl = ref(null);
+const phoneNumberBnEl = ref(null);
 
 const createServiceManager = () => {
   grandParentEl.value.validate();
   parentEl.value.validate();
+  divisionEl.value.validate();
+  districtEl.value.validate();
+  subDistrictEl.value.validate();
+  unionEl.value.validate();
+  wardEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   iconEl.value.validate();
   coverImageEl.value.validate();
-  serialEl.value.validate();
+  phoneNumberEnEl.value.validate();
+  phoneNumberBnEl.value.validate();
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
+    divisionEl.value.hasError ||
+    districtEl.value.hasError ||
+    subDistrictEl.value.hasError ||
+    unionEl.value.hasError ||
+    wardEl.value.hasError ||
     nameEnEl.value.hasError ||
     nameBnEl.value.hasError ||
     iconEl.value.hasError ||
-    coverImageEl.value.hasError ||
-    serialEl.value.hasError
+    phoneNumberEnEl.value.hasError ||
+    phoneNumberBnEl.value.hasError ||
+    coverImageEl.value.hasError
   ) {
     return;
   }

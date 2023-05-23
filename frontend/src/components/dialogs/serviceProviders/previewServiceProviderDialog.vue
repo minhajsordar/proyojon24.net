@@ -1,6 +1,6 @@
 <template>
   <q-dialog
-    v-model="serviceCategoryStore.openServiceCategoryPreviewDialog"
+    v-model="serviceProviderStore.serviceProviderInfo"
     persistent
     :maximized="maximizedToggle"
     transition-show="slide-up"
@@ -47,7 +47,7 @@
                   Name In English
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                 {{ serviceCategoryStore.serviceCategoryInfo.name.en }}
+                 {{ serviceProviderStore.serviceProviderInfo.name.en }}
                 </div>
               </div>
             </div>
@@ -57,7 +57,7 @@
                   নাম বাংলায়
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                 {{ serviceCategoryStore.serviceCategoryInfo.name.bn }}
+                 {{ serviceProviderStore.serviceProviderInfo.name.bn }}
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@
                   {{ $t("icon") }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                  <q-img :src="serviceCategoryStore.serviceCategoryInfo.icon" style="width:200px;"/>
+                  <q-img :src="serviceProviderStore.serviceProviderInfo.icon" style="width:200px;"/>
                 </div>
               </div>
             </div>
@@ -77,7 +77,7 @@
                   {{ $t("coverimage") }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                  <q-img :src="serviceCategoryStore.serviceCategoryInfo.coverImage"/>
+                  <q-img :src="serviceProviderStore.serviceProviderInfo.coverImage"/>
                 </div>
               </div>
             </div>
@@ -87,13 +87,14 @@
                   {{ $t("serial") }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                  {{ serviceCategoryStore.serviceCategoryInfo.order }}
+                  {{ serviceProviderStore.serviceProviderInfo.rankCount }}
+
                 </div>
               </div>
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn label="closse" color="primary" icon="arrow_back" @click="serviceCategoryStore.openServiceCategoryPreviewDialog = false"/>
+                <q-btn label="closse" color="primary" icon="arrow_back" @click="serviceProviderStore.serviceProviderInfo = false"/>
               </div>
             </div>
           </div>
@@ -107,9 +108,9 @@ import { ref } from "vue";
 import { requiredSelector, required, fileValidate } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useUserStore } from "src/stores/user/userStore";
-import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
+import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
 const languageStore = useLanguageStore();
-const serviceCategoryStore = useServiceCategoryStore();
+const serviceProviderStore = useServiceProviderStore();
 const maximizedToggle = ref(true);
 
 </script>
