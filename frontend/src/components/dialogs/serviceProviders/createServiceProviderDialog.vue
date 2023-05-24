@@ -36,7 +36,7 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("headermenus.addnew_services") }}
+        {{ $t("services.addnew_service_provider") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">

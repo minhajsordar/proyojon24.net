@@ -184,10 +184,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "keywords"
     ]
     openServiceProviderEditDialog.value = true
-    serviceProviderInfo.id = data?._id
     serviceProviderInfoKeys.forEach((keys, index) => {
       serviceProviderInfo[keys] = data[keys]
     })
+    serviceProviderInfo.id = data?._id
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
     serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
     imageCover.value = { name: serviceProviderInfo.coverImage }
@@ -200,7 +200,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
 
   }
   const openServiceProviderPreviewDialogManager = (data) => {
-
     const serviceProviderInfoKeys = [
       "id",
       "user",
@@ -221,10 +220,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "keywords"
     ]
     openServiceProviderPreviewDialog.value = true
-    serviceProviderInfo.id = data?._id
     serviceProviderInfoKeys.forEach((keys, index) => {
       serviceProviderInfo[keys] = data[keys]
     })
+    serviceProviderInfo.id = data?._id
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
     serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
     imageCover.value = { name: serviceProviderInfo.coverImage }

@@ -36,7 +36,7 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("headermenus.addnew_services") }}
+        {{ $t("services.edit_service_provider") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
@@ -689,7 +689,7 @@ const createServiceManager = () => {
   ) {
     return;
   }
-  serviceProviderStore.createServiceProvider();
+  serviceProviderStore.updateServiceProvider();
 };
 const onRejected = (rejectedEntries) => {
   // Notify plugin needs to be installed
