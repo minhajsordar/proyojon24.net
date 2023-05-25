@@ -52,7 +52,7 @@ export const useServiceCategoryStore = defineStore('service category store', () 
       coverImage: null,
       service: null,
       icon: null,
-      order: 0
+      order: 1
     })
   const emptyServiceCategoryInfo = () => {
     imageIcon.value = null
@@ -70,7 +70,7 @@ imageCover.value = null
       }
     serviceCategoryInfo.coverImage = null
     serviceCategoryInfo.icon = null
-    serviceCategoryInfo.order = 0
+    serviceCategoryInfo.order = 1
   }
   const openServiceCategoryCreateDialogManager = () => {
     emptyServiceCategoryInfo()

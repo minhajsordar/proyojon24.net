@@ -23,6 +23,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     selectedServiceCategory = ref(null),
     filteredByServiseId = ref(null),
     filteredByServiseCategoryId = ref(null),
+    serviceProviderPage = ref(1),
     serviceProviderLocationR = reactive({
       division: null,
       district: null,
@@ -46,7 +47,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       serviceCategory: null,
       service: null,
       image: null,
-      rankCount: 0,
+      rankCount: 1,
       serviceProviderLocation: {
         division: {
           bn: null,
@@ -110,7 +111,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceImage = null
     serviceProviderInfo.image = null
     serviceProviderInfo.serviceCategory = null
-    serviceProviderInfo.rankCount = 0
+    serviceProviderInfo.rankCount = 1
     serviceProviderInfo.serviceProviderLocation = {
       division: {
         bn: null,
@@ -183,10 +184,12 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "phoneNumber",
       "keywords"
     ]
-    openServiceProviderEditDialog.value = true
     serviceProviderInfoKeys.forEach((keys, index) => {
       serviceProviderInfo[keys] = data[keys]
     })
+    serviceProviderInfo.extraCources = {}
+    serviceProviderInfo.extraCources = data.extraCources
+    console.log(serviceProviderInfo,data)
     serviceProviderInfo.id = data?._id
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
     serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
@@ -197,7 +200,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.subDistrict = data.serviceProviderLocation.subDistrict
     serviceProviderLocationR.union = data.serviceProviderLocation.union
     serviceProviderLocationR.ward = data.serviceProviderLocation.ward
-
+    openServiceProviderEditDialog.value = true
   }
   const openServiceProviderPreviewDialogManager = (data) => {
     const serviceProviderInfoKeys = [
@@ -235,6 +238,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.ward = data.serviceProviderLocation.ward
   }
   const getServiceProviderList = async () => {
+    const params={
+      page: serviceProviderPage.value
+    }
     const config = {
       method: "get",
       url: "api/service_providers/",
@@ -242,7 +248,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
-      }
+      },params
     };
     loader.showLoader()
     try {
@@ -426,6 +432,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     openServiceProviderPreviewDialogManager,
     openServiceProviderCreateDialog,
     openServiceProviderCreateDialogManager,
+    serviceProviderPage,
     serviceProviderList,
     serviceProviderInfo,
     getServiceProviderList,

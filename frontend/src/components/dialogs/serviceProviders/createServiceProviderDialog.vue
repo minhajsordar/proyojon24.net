@@ -43,7 +43,9 @@
           <div class="row q-col-gutter-sm">
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Service</div>
+                <div class="col-12 text-bold">
+                  {{ $t("services.services") }}
+                </div>
                 <div class="col-12">
                   <q-select
                     ref="grandParentEl"
@@ -68,7 +70,9 @@
             </div>
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Service Category</div>
+                <div class="col-12 text-bold">
+                  {{ $t("services.service_category") }}
+                </div>
                 <div class="col-12">
                   <q-select
                     ref="parentEl"
@@ -93,7 +97,9 @@
             <!-- start service provider location -->
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Division</div>
+                <div class="col-12 text-bold">
+                  {{ $t("location.division") }}
+                </div>
                 <div class="col-12">
                   <q-select
                     ref="divisionEl"
@@ -118,7 +124,9 @@
             </div>
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">District</div>
+                <div class="col-12 text-bold">
+                  {{ $t("location.district") }}
+                </div>
                 <div class="col-12">
                   <q-select
                     ref="districtEl"
@@ -143,7 +151,9 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Sub District</div>
+                <div class="col-12 text-bold">
+                  {{ $t("location.subdistrict") }}
+                </div>
                 <div class="col-12">
                   <q-select
                     ref="subDistrictEl"
@@ -168,7 +178,7 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Union</div>
+                <div class="col-12 text-bold">{{ $t("location.union") }}</div>
                 <div class="col-12">
                   <q-select
                     ref="unionEl"
@@ -193,7 +203,7 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Ward</div>
+                <div class="col-12 text-bold">{{ $t("location.ward") }}</div>
                 <div class="col-12">
                   <q-select
                     ref="wardEl"
@@ -217,7 +227,7 @@
             <!-- name start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">name In English</div>
+                <div class="col-12 text-bold">{{ $t("nameinen") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="nameEnEl"
@@ -231,7 +241,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">name বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("nameinbn") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="nameBnEl"
@@ -247,7 +257,7 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">phone In English</div>
+                <div class="col-12 text-bold">{{ $t("phoneinen") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberEnEl"
@@ -263,7 +273,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">phone বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("phoneinbn") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberBnEl"
@@ -281,7 +291,7 @@
             <!-- degree start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">degree In English</div>
+                <div class="col-12 text-bold">{{ $t("degreeinen") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="degreeEnEl"
@@ -295,7 +305,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">degree বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("degreeinbn") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="degreeBnEl"
@@ -311,7 +321,7 @@
             <!-- extraCources start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">extra cources In English</div>
+                <div class="col-12 text-bold">{{ $t("extraCourcesinen") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="extraCourcesEnEl"
@@ -327,7 +337,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">extra cources বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("extraCourcesinbn") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="extraCourcesBnEl"
@@ -345,7 +355,7 @@
             <!-- serviceTitle start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">service title In English</div>
+                <div class="col-12 text-bold">{{ $t("serviceTitleinen") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="serviceTitleEnEl"
@@ -361,7 +371,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">service title বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("serviceTitleinbn") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="serviceTitleBnEl"
@@ -380,8 +390,8 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  service list In English
-                  <div class="fs-12">Separate services by underscore (_).</div>
+                  {{ $t("serviceListinen") }}
+                  <div class="fs-12">{{ $t("seperator") }}</div>
                 </div>
                 <div class="col-12">
                   <q-input
@@ -399,9 +409,9 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  service list বাংলায়
+                  {{ $t("serviceListinbn") }}
 
-                  <div class="fs-12">Separate services by underscore (_).</div>
+                  <div class="fs-12">{{ $t("seperator") }}</div>
                 </div>
                 <div class="col-12">
                   <q-input
@@ -420,7 +430,7 @@
             <!-- specialties start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">specialties In English</div>
+                <div class="col-12 text-bold">{{ $t("specialtiesinEn") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="specialtiesEnEl"
@@ -437,7 +447,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">specialties বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("specialtiesinBn") }}</div>
                 <div class="col-12">
                   <q-input
                     ref="specialtiesBnEl"
@@ -456,7 +466,9 @@
             <!-- description start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 fs-16 text-bold">description In English</div>
+                <div class="col-12 fs-16 text-bold">
+                  {{ $t("descriptioninEn") }}
+                </div>
                 <div class="col-12">
                   <q-input
                     ref="descriptionEnEl"
@@ -473,7 +485,9 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 fs-16 text-bold">description বাংলায়</div>
+                <div class="col-12 fs-16 text-bold">
+                  {{ $t("descriptioninBn") }}
+                </div>
                 <div class="col-12">
                   <q-input
                     ref="descriptionBnEl"

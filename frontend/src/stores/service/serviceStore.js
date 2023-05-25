@@ -46,7 +46,7 @@ export const useServiceStore = defineStore('service store', () => {
       },
       coverImage: null,
       icon: null,
-      order: 0
+      order: 1
     })
   const emptyServiceInfo = () => {
     imageIcon.value = null
@@ -63,7 +63,7 @@ export const useServiceStore = defineStore('service store', () => {
       }
     serviceInfo.coverImage = null
     serviceInfo.icon = null
-    serviceInfo.order = 0
+    serviceInfo.order = 1
   }
   const openServiceCreateDialogManager = () => {
     emptyServiceInfo()

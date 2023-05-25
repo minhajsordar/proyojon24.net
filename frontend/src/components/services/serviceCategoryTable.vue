@@ -8,6 +8,7 @@
         :label="$t('addnew')"
         icon="add"
         dense
+              glossy
         size="sm"
         @click="serviceCategoryStore.openServiceCategoryCreateDialogManager"
       />
@@ -31,13 +32,15 @@
         />
       </div>
       <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-        <q-btn label="বাছুন" color="primary" outline @click="applyFilterFunc"/>
-        <q-btn class="q-ml-sm" label="পুনরুদ্ধার" color="primary" outline @click="resetFilterFunc"/>
+        <q-btn label="বাছুন" color="primary"
+              glossy @click="applyFilterFunc"/>
+        <q-btn class="q-ml-sm" label="পুনরুদ্ধার"
+              glossy color="primary" @click="resetFilterFunc"/>
       </div>
     </div>
     <q-separator class="q-mb-md q-mt-sm" />
     <q-markup-table flat bordered dense separator="cell" class="text-left">
-      <thead class="bg-blue-3">
+      <thead class="bg-blue-grey-2">
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("name") }}</th>
@@ -48,7 +51,7 @@
         <tr
           v-for="(service, index) in serviceCategoryList.serviceCategorys"
           :key="index"
-          :class="{ 'bg-blue-1': index % 2 != 0 }"
+          :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
         >
           <td>
             {{ enToBnToEn(String(index), languageStore.language) }}
@@ -59,6 +62,7 @@
               :label="$t('preview')"
               size="sm"
               dense
+              glossy
               color="primary"
               @click="
                 serviceCategoryStore.openServiceCategoryPreviewDialogManager(
@@ -71,6 +75,7 @@
               :label="$t('edit')"
               size="sm"
               dense
+              glossy
               color="positive"
               @click="
                 serviceCategoryStore.openServiceCategoryEditDialogManager(
@@ -83,6 +88,7 @@
               :label="$t('delete')"
               size="sm"
               dense
+              glossy
               color="negative"
               @click="confirm(service)"
             />

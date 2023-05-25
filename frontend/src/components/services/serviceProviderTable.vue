@@ -8,6 +8,7 @@
         :label="$t('addnew')"
         icon="add"
         dense
+              glossy
         size="sm"
         @click="serviceProviderStore.openServiceProviderCreateDialog = true"
       />
@@ -52,14 +53,14 @@
             <q-btn
               label="বাছুন"
               color="primary"
-              outline
+              glossy
               @click="applyFilterFunc"
             />
             <q-btn
               class="q-ml-sm"
               label="পুনরুদ্ধার"
               color="primary"
-              outline
+              glossy
               @click="resetFilterFunc"
             />
           </div>
@@ -68,7 +69,7 @@
     </div>
     <q-separator class="q-mb-md q-mt-sm" />
     <q-markup-table flat bordered dense separator="cell" class="text-left">
-      <thead class="bg-blue-3">
+      <thead class="bg-blue-grey-2">
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("name") }}</th>
@@ -77,9 +78,9 @@
       </thead>
       <tbody>
         <tr
-          v-for="(serviceProvider, index) in serviceProviderStore.serviceProviderList.serviceProviders"
+          v-for="(serviceProvider, index) in serviceProviderStore.serviceProviderList?.serviceProviders"
           :key="index"
-          :class="{ 'bg-blue-1': index % 2 != 0 }"
+          :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
         >
           <td>
             {{ enToBnToEn(String(index), languageStore.language) }}
@@ -90,6 +91,7 @@
               :label="$t('preview')"
               size="sm"
               dense
+              glossy
               color="primary"
               @click="
                 serviceProviderStore.openServiceProviderPreviewDialogManager(
@@ -102,6 +104,7 @@
               :label="$t('edit')"
               size="sm"
               dense
+              glossy
               color="positive"
               @click="
                 serviceProviderStore.openServiceProviderEditDialogManager(
@@ -114,6 +117,7 @@
               :label="$t('delete')"
               size="sm"
               dense
+              glossy
               color="negative"
               @click="confirm(serviceProvider)"
             />
@@ -121,6 +125,16 @@
         </tr>
       </tbody>
     </q-markup-table>
+    <q-separator class="q-mt-md"/>
+    <q-pagination
+    class="q-mt-md"
+    color="blue-grey-7"
+      v-model="current"
+      :max="serviceProviderStore.serviceProviderList?.pages"
+      :max-pages="6"
+      boundary-numbers
+      @update:model-value="paginationFunc"
+    />
   </div>
 </template>
 <script setup>
@@ -129,7 +143,7 @@ import { useQuasar, useMeta } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "src/stores/auth/authStore";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { enToBnToEn } from "src/global_js/utils";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useServiceStore } from "src/stores/service/serviceStore";
@@ -169,6 +183,12 @@ const resetFilterFunc = () => {
   serviceProviderStore.getServiceProviderList();
 };
 
+// pagination
+const current = ref(1)
+const paginationFunc =()=>{
+serviceProviderStore.serviceProviderPage = current.value
+serviceProviderStore.getServiceProviderList()
+}
 onMounted(() => {
   authStore.checkLogin();
 });

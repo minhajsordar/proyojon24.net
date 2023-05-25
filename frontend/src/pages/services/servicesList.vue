@@ -6,15 +6,15 @@
           <q-tabs
             v-model="tab"
             dense
-            class="text-grey"
-            active-color="primary"
-            indicator-color="primary"
+            class="text-grey-10"
+            indicator-color="blue-grey-10"
+            active-bg-color="blue-grey-2"
             align="justify"
             narrow-indicator
           >
-            <q-tab name="service" :label="$t('services.service')" />
-            <q-tab name="service_category" :label="$t('services.service_category')" />
-            <q-tab name="service_provider" :label="$t('services.service_provider')" />
+            <q-tab class="bg-blue-grey-1" name="service" :label="$t('services.services')" />
+            <q-tab class="bg-blue-grey-1" name="service_category" :label="$t('services.service_category')" />
+            <q-tab class="bg-blue-grey-1" name="service_provider" :label="$t('services.service_provider')" />
           </q-tabs>
           <q-separator/>
           <q-tab-panels v-model="tab" animated>

@@ -5,7 +5,7 @@ import ServiceProvider from '../models/serviceProviderModel.js'
 // @route Put api/ServiceProvider
 // @acess Privet
 const getServiceProviders = expressAsyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize = Number(req.query.pageSize) || 10;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {

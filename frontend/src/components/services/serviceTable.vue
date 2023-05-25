@@ -8,6 +8,7 @@
         :label="$t('addnew')"
         icon="add"
         dense
+        glossy
         size="sm"
         @click="serviceStore.openServiceCreateDialogManager"
       />
@@ -20,7 +21,7 @@
       separator="cell"
       class="text-left"
     >
-      <thead class="bg-blue-3">
+      <thead class="bg-blue-grey-2">
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("name") }}</th>
@@ -31,7 +32,7 @@
         <tr
           v-for="(service, index) in serviceList.services"
           :key="index"
-          :class="{ 'bg-blue-1': index % 2 != 0 }"
+          :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
         >
           <td>
             {{ enToBnToEn(String(index), languageStore.language) }}
@@ -42,6 +43,7 @@
               :label="$t('preview')"
               size="sm"
               dense
+              glossy
               color="primary"
               @click="
                 serviceStore.openServicePreviewDialogManager(service)
@@ -52,6 +54,7 @@
               :label="$t('edit')"
               size="sm"
               dense
+              glossy
               color="positive"
               @click="
                 serviceStore.openServiceEditDialogManager(service)
@@ -62,6 +65,7 @@
               :label="$t('delete')"
               size="sm"
               dense
+              glossy
               color="negative"
               @click="confirm(service)"
             />

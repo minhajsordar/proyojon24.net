@@ -43,7 +43,7 @@
           <div class="row q-col-gutter-sm">
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Service</div>
+                <div class="col-12 text-bold">{{ $t("services.services") }}</div>
                 <div class="col-12">
                   {{serviceProviderStore.serviceProviderInfo.service.name[languageStore.language]}}
                 </div>
@@ -51,7 +51,7 @@
             </div>
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Service Category</div>
+                <div class="col-12 text-bold">{{ $t("services.service_category") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.serviceCategory.name[languageStore.language] }}
                 </div>
@@ -60,7 +60,7 @@
             <!-- start service provider location -->
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Division</div>
+                <div class="col-12 text-bold"> {{ $t("location.division") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderLocationR.division.name[languageStore.language] }}
                 </div>
@@ -68,7 +68,7 @@
             </div>
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">District</div>
+                <div class="col-12 text-bold">{{ $t("location.district") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderLocationR.district.name[languageStore.language] }}
                 </div>
@@ -76,7 +76,7 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Sub District</div>
+                <div class="col-12 text-bold">{{ $t("location.subdistrict") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderLocationR.subDistrict.name[languageStore.language] }}
                 </div>
@@ -84,7 +84,7 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Union</div>
+                <div class="col-12 text-bold">{{ $t("location.union") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderLocationR.union.name[languageStore.language] }}
                 </div>
@@ -92,7 +92,7 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">Ward</div>
+                <div class="col-12 text-bold">{{ $t("location.ward") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderLocationR.ward.name[languageStore.language] }}
                 </div>
@@ -102,7 +102,7 @@
             <!-- name start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">name In English</div>
+                <div class="col-12 text-bold">{{ $t("nameinen") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.name.en }}
                 </div>
@@ -110,7 +110,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">name বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("nameinbn") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.name.bn }}
                 </div>
@@ -120,7 +120,7 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">phone In English</div>
+                <div class="col-12 text-bold">{{ $t("phoneinen") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.phoneNumber.en }}
                 </div>
@@ -128,7 +128,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">phone বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("phoneinbn") }}</div>
                 <div class="col-12">
                   {{  serviceProviderStore.serviceProviderInfo.phoneNumber.bn }}
                 </div>
@@ -138,7 +138,7 @@
             <!-- degree start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">degree In English</div>
+                <div class="col-12 text-bold">{{ $t("degreeinen") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.degree.en }}
                 </div>
@@ -146,7 +146,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">degree বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("degreeinbn") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.degree.bn }}
                 </div>
@@ -156,7 +156,7 @@
             <!-- extraCources start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">extra cources In English</div>
+                <div class="col-12 text-bold">{{ $t("extraCourcesinen") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.extraCources.en }}
                 </div>
@@ -164,7 +164,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">extra cources বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("extraCourcesinbn") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.extraCources.bn }}
                 </div>
@@ -174,7 +174,7 @@
             <!-- serviceTitle start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">service title In English</div>
+                <div class="col-12 text-bold">{{ $t("serviceTitleinen") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.serviceTitle.en }}
                 </div>
@@ -182,7 +182,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">service title বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("serviceTitleinbn") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.serviceTitle.bn }}
                 </div>
@@ -193,7 +193,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  service list In English
+                  {{ $t("serviceListinen") }}
                 </div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.serviceList.en }}
@@ -203,7 +203,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  service list বাংলায়
+                  {{ $t("serviceListinbn") }}
 
                 </div>
                 <div class="col-12">
@@ -215,7 +215,7 @@
             <!-- specialties start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">specialties In English</div>
+                <div class="col-12 text-bold">{{ $t("specialtiesinEn") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.specialties.en }}
                 </div>
@@ -223,7 +223,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">specialties বাংলায়</div>
+                <div class="col-12 text-bold">{{ $t("specialtiesinBn") }}</div>
                 <div class="col-12">
                  {{ serviceProviderStore.serviceProviderInfo.specialties.bn }}
                 </div>
@@ -233,7 +233,7 @@
             <!-- description start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 fs-16 text-bold">description In English</div>
+                <div class="col-12 fs-16 text-bold">{{ $t("descriptioninEn") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.description.en }}
                 </div>
@@ -241,7 +241,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 fs-16 text-bold">description বাংলায়</div>
+                <div class="col-12 fs-16 text-bold">{{ $t("descriptioninBn") }}</div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.description.bn }}
                 </div>
@@ -281,7 +281,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addicon") }}
+                  {{ $t("icon") }}
                 </div>
                 <div class="col-12">
                   <q-img :src="serviceProviderStore.serviceProviderInfo.image"/>
@@ -291,7 +291,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}
+                  {{ $t("coverImage") }}
                 </div>
                 <div class="col-12">
                   <q-img :src="serviceProviderStore.serviceProviderInfo.serviceImage" style="width:200px;"/>
