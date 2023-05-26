@@ -7,7 +7,7 @@
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 col-3"
             v-for="(service,index) in servicePublicStore.allServices" :key="index"
             >
-              <q-card class="full-width text-center q-pa-sm">
+              <q-card class="full-width full-height text-center q-pa-sm">
                 <div>
                   <q-img fit
                   style="max-width: 50px; max-height: 50px;"
