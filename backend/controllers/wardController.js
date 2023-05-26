@@ -6,7 +6,7 @@ import Union from '../models/unionModel.js'
 // @route Put api/products
 // @acess Privet
 const getWards =  expressAsyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize =  Number(req.query.pageSize) || 50;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {
@@ -22,7 +22,7 @@ const getWards =  expressAsyncHandler(async (req, res) => {
 
 // @desc get products
 // @route Put api/products
-// @acess Privet
+// @acess Public
 const getAllWards =  expressAsyncHandler(async (req, res) => {
 
     const keyword = req.query.unionId? {"parent._id":req.query.unionId}:{}

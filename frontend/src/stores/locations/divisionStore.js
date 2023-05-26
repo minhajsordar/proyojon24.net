@@ -15,7 +15,9 @@ export const useDivisionStore = defineStore('division store', ()=>{
       authStore = useAuthStore(),
       openDivisionCreateDialog= ref(false),
       openDivisionEditDialog= ref(false),
+      allDivisionsLoading= ref(false),
       allDivisions= ref([]),
+      divisionListLoading= ref(false),
       divisionList = ref([
         {
           id:123,
@@ -53,6 +55,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
        divisionInfo.name.bn = data.name.bn
      }
     const getDivisionList= async()=>{
+      divisionListLoading.value = true
       const config = {
         method: "get",
         url: "api/divisions",
@@ -66,30 +69,33 @@ export const useDivisionStore = defineStore('division store', ()=>{
         const responseData = await api.request(config);
         divisionList.value = responseData.data;
         loader.hideLoader()
+        divisionListLoading.value = false
       } catch (error) {
         console.log(error);
         loader.hideLoader()
+        divisionListLoading.value = false
 
       }
     }
     const getAllDivisions= async()=>{
+      allDivisionsLoading.value = true
+      loader.showLoader()
       const config = {
         method: "get",
         url: "api/divisions/all",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
           "Content-Type": "application/json"
         }
       };
-      loader.showLoader()
       try {
         const responseData = await api.request(config);
         allDivisions.value = responseData.data;
         loader.hideLoader()
+        allDivisionsLoading.value = false
       } catch (error) {
         console.log(error);
         loader.hideLoader()
-
+        allDivisionsLoading.value = false
       }
     }
 
@@ -170,14 +176,20 @@ export const useDivisionStore = defineStore('division store', ()=>{
       }
     }
      return{
+      // dialogs states
       openDivisionCreateDialog,
       openDivisionEditDialog,
       openDivisionEditDialogManager,
+      // all divisions states, functions
       allDivisions,
+      allDivisionsLoading,
       getAllDivisions,
+      // all divisions states, functions
+      divisionListLoading,
       divisionList,
       divisionInfo,
       getDivisionList,
+      // divisions create, update, delete functions
       createNewDivision,
       updateDivision,
       deleteDivision

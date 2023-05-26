@@ -6,9 +6,9 @@
           <q-tabs
             v-model="tab"
             dense
-            class="text-grey"
-            active-color="primary"
-            indicator-color="primary"
+            class="text-grey-10"
+            indicator-color="blue-grey-10"
+            active-bg-color="blue-grey-2"
             align="justify"
             narrow-indicator
           >

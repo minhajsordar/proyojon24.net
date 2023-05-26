@@ -11,6 +11,7 @@
         <q-space />
         <q-btn
           dense
+              glossy
           flat
           icon="minimize"
           @click="maximizedToggle = false"
@@ -22,6 +23,7 @@
         </q-btn>
         <q-btn
           dense
+              glossy
           flat
           icon="crop_square"
           @click="maximizedToggle = true"
@@ -31,7 +33,8 @@
             >Maximize</q-tooltip
           >
         </q-btn>
-        <q-btn dense flat icon="close" v-close-popup>
+        <q-btn dense
+              glossy flat icon="close" v-close-popup>
           <q-tooltip class="bg-white text-primary">Close</q-tooltip>
         </q-btn>
       </q-bar>
@@ -94,7 +97,8 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('addnew')" @click="createDistrictManager"/>
+                <q-btn :label="$t('addnew')" color="light-green-8"
+              glossy @click="createDistrictManager"/>
               </div>
             </div>
           </div>

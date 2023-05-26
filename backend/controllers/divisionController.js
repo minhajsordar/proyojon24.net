@@ -5,7 +5,7 @@ import Division from '../models/divisionModel.js'
 // @route Put api/products
 // @acess Privet
 const getDivisions =  expressAsyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize = Number(req.query.pageSize) || 20;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {

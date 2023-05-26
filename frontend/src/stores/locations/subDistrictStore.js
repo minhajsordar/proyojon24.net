@@ -95,7 +95,6 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
         method: "get",
         url: "api/subdistricts/all",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
           "Content-Type": "application/json"
         },params
       };

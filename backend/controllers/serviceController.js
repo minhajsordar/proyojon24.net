@@ -5,7 +5,7 @@ import Service from '../models/serviceModel.js'
 // @route Put api/Service
 // @acess Privet
 const getServices = expressAsyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize =  Number(req.query.pageSize) || 10;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {
@@ -17,6 +17,14 @@ const getServices = expressAsyncHandler(async (req, res) => {
     const services = await Service.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ services, page, pages: Math.ceil(count / pageSize) })
+})
+// @desc get Service
+// @route Put api/Service
+// @acess Privet
+const getAllServices = expressAsyncHandler(async (req, res) => {
+    const services = await Service.find({})
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json(services)
 })
 
 // @desc get product by id
@@ -119,6 +127,7 @@ const createService = expressAsyncHandler(async (req, res) => {
 })
 
 export {
+    getAllServices,
     getServices,
     getServiceById,
     getServiceByIdPreview,

@@ -8,13 +8,14 @@
         :label="$t('addnew')"
         icon="add"
         dense
+        glossy
         size="sm"
         @click="wardStore.openWardCreateDialog = true"
       />
     </div>
     <q-separator class="q-my-sm" />
     <q-markup-table flat bordered dense separator="cell" class="text-left">
-      <thead class="bg-blue-3">
+      <thead class="bg-blue-grey-2">
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("location.ward") }}</th>
@@ -26,13 +27,14 @@
         <tr
           v-for="(ward, index) in wardList?.wards"
           :key="index"
-          :class="{ 'bg-blue-1': index % 2 != 0 }"
+          :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
         >
           <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
           <td>{{ ward?.name[languageStore.language] }}</td>
           <td>{{ ward.parent?.name[languageStore.language] }}</td>
           <td>
-            <q-btn :label="$t('edit')" size="sm" dense color="positive"
+            <q-btn :label="$t('edit')" size="sm" dense
+              glossy color="positive"
             @click="wardStore.openWardEditDialogManager(ward)"
             />
             <q-btn
@@ -40,6 +42,7 @@
               :label="$t('delete')"
               size="sm"
               dense
+              glossy
               color="negative"
               @click="confirm(ward)"
             />

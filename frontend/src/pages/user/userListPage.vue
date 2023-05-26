@@ -6,8 +6,8 @@
       <div>
       <div class="fs-18">{{ $t('headermenus.users') }}</div>
       <q-separator class="q-my-sm"/>
-        <q-markup-table flat bordered dense separator="cell" class="text-left ">
-        <thead class="bg-blue-3">
+    <q-markup-table flat bordered dense separator="cell" class="text-left">
+      <thead class="bg-blue-grey-2">
           <tr>
             <th>{{ $t('serial') }}</th>
             <th>{{ $t('name') }}</th>
@@ -15,7 +15,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, index) in userList" :key="index" :class="{'bg-blue-1':index%2 !=0 }">
+          <tr v-for="(user, index) in userList" :key="index"
+          :class="{ 'bg-blue-grey-1': index % 2 != 0 }">
             <td>{{ enToBnToEn(String(index),languageStore.language) }}</td>
             <td>{{ user.name[languageStore.language] }}</td>
             <td>

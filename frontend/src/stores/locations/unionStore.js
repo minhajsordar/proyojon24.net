@@ -16,6 +16,8 @@ export const useUnionStore = defineStore('union store', ()=>{
       openUnionCreateDialog = ref(false),
       openUnionEditDialog = ref(false),
       allUnions = ref([]),
+      allUnionsLoading = ref(false),
+      unionListLoading = ref(false),
       unionList = ref([
         {
           id:123,
@@ -66,6 +68,7 @@ export const useUnionStore = defineStore('union store', ()=>{
        unionInfo.parent = data.parent
      }
     const getUnionList= async()=>{
+      unionListLoading.value = true
       const config = {
         method: "get",
         url: "api/unions",
@@ -78,14 +81,16 @@ export const useUnionStore = defineStore('union store', ()=>{
         const responseData = await api.request(config);
         unionList.value = responseData.data;
         loader.hideLoader()
+        unionListLoading.value = false
       } catch (error) {
         console.log(error);
         loader.hideLoader()
-
+        unionListLoading.value = false
       }
 
     }
     const getAllUnions= async(id)=>{
+      allUnionsLoading.value = true
       const params = {}
       if(id){
         params.subDistrictId = id
@@ -102,9 +107,11 @@ export const useUnionStore = defineStore('union store', ()=>{
         const responseData = await api.request(config);
         allUnions.value = responseData.data;
         loader.hideLoader()
+        allUnionsLoading.value = false
       } catch (error) {
         console.log(error);
         loader.hideLoader()
+        allUnionsLoading.value = false
 
       }
 
@@ -186,14 +193,20 @@ export const useUnionStore = defineStore('union store', ()=>{
       }
     }
      return{
+      // dialogs states
       openUnionCreateDialog,
       openUnionEditDialog,
       openUnionEditDialogManager,
+      // all unions states, functions
+      allUnionsLoading,
       getAllUnions,
       allUnions,
+      // unions states, functions
+      unionListLoading,
       unionList,
       unionInfo,
       getUnionList,
+      // union create, update, delete functions
       createNewUnion,
       updateUnion,
       deleteUnion,

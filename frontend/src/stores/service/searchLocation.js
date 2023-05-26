@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
-import { useDistrictStore } from '../locations/districtStore';
-import { useSubDistrictStore } from '../locations/subDistrictStore';
-import { useUnionStore } from '../locations/unionStore';
-import { useWardStore } from '../locations/wardStore';
-import { useServiceProviderStore } from './serviceProviderStore';
+import { useDistrictStore } from 'src/stores/locations/districtStore';
+import { useSubDistrictStore } from 'src/stores/locations/subDistrictStore';
+import { useUnionStore } from 'src/stores/locations/unionStore';
+import { useWardStore } from 'src/stores/locations/wardStore';
+import { useServiceProviderStore } from 'src/stores/service/serviceProviderStore';
 export const useSearchLocationStore = defineStore('search location store', () => {
   const serviceProviderStore = useServiceProviderStore()
   const districtStore = useDistrictStore()

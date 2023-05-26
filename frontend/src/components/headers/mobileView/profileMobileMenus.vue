@@ -23,23 +23,23 @@
       </q-card-section>
 
       <q-card-section style="height: calc(100vh - 88px); overflow-y: auto">
-        <div class="bg-primary">
+        <div class="bg-blue-grey-2">
           <q-list class="rounded-borders">
-            <q-item>
-              <router-link to="/locations" active-class="text-white">{{
-                $t("headermenus.locations")
-              }}</router-link>
-              </q-item>
+            <router-link to="/locations" active-class="text-white link-bg-color">
               <q-item>
-                <router-link to="/users" active-class="text-white">{{
-                  $t("headermenus.users")
-                }}</router-link>
-                </q-item>
-                <q-item>
-              <router-link to="/services" active-class="text-white">{{
-                $t("headermenus.services")
-              }}</router-link>
-            </q-item>
+                {{ $t("headermenus.locations") }}
+              </q-item>
+            </router-link>
+            <router-link to="/users" active-class="text-white link-bg-color">
+              <q-item>
+                {{ $t("headermenus.users") }}
+              </q-item>
+            </router-link>
+            <router-link to="/services" active-class="text-white link-bg-color">
+              <q-item>
+                {{ $t("headermenus.services") }}
+              </q-item>
+            </router-link>
           </q-list>
         </div>
       </q-card-section>
@@ -51,4 +51,7 @@ import { useMenuControllerStore } from "src/stores/menucontroller/menuController
 const menuControllerStore = useMenuControllerStore();
 </script>
 <style>
+.link-bg-color .q-item{
+  background: #009ef7 !important;
+}
 </style>

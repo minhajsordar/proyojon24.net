@@ -65,7 +65,7 @@ const getServiceCategoryByIdPreview = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceCategoryBy Service/:id
 // @acess Privet
 const getServiceCategoryByService = expressAsyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize =  Number(req.query.pageSize) || 10;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {

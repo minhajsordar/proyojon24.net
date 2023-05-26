@@ -5,12 +5,15 @@ import {
     getServiceByIdPreview,
     deleteService,
     updateService,
-    createService
+    createService,
+    getAllServices
 } from '../controllers/serviceController.js'
 import {  anyAdmin, protect, superAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router()
 
 router.route('/').get(getServices).post(protect, superAdmin, createService)
+router.route('/all')
+    .get(getAllServices)
 router.route('/:id')
     .get(getServiceById)
     .delete(protect, superAdmin, deleteService)

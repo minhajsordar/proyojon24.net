@@ -5,7 +5,7 @@ import District from '../models/districtModel.js'
 // @route Put api/products
 // @acess Privet
 const getSubDistricts = expressAsyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize =  Number(req.query.pageSize) || 50;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {

@@ -1,15 +1,44 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="coming-soon-image">
-      <q-btn lable="loginpage" @click="$router.push('/login')"/>
-      <q-img src="/images/coming-soon.jpeg"/>
+  <q-page class="q-py-sm q-pa-md bg-blue-grey-10 text-white pattern-bg-image">
+    <div class="container-section-py-sm" style="z-index:9999999">
+      <div class="inner-section">
+        <div class="full-width">
+          <div class="text-bold site-name text-center text-yellow-13">Pryoyjon24.net</div>
+          <div class="text-bold welcome-text text-center">এ আপনাকে <span class="text-yellow-13">স্বাগতম</span></div>
+          <div class="text-bold query-title text-center">আপনার <span class="text-yellow-13">জেলা</span> সিলেক্ট করুন</div>
+          <div class="full-width flex justify-center q-mt-lg">
+            <div class="flex location-selector-bar">
+              <q-select v-model="publicUserStore.selectedLocation
+                " :options="districtStore.allDistricts" options-dense :option-label="(opt) =>
+      Object(opt) === opt && 'name' in opt
+        ? opt.name[languageStore.language]
+        : null
+    " class="location-selector" bg-color="white" color="black" outlined dense />
+              <q-btn class="bg-yellow-13 text-black location-search-btn"
+              @click="()=>{
+                if(publicUserStore.selectedLocation !== null)
+                $router.push('/allservices')
+                }"
+                label="Enter now" flat glossy />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
 
 <script setup>
 import { useMeta } from 'quasar'
-
+import { useLanguageStore } from 'src/stores/lang/languageSettingsStore'
+import { useDistrictStore } from 'src/stores/locations/districtStore'
+import { usePublicUserStore } from 'src/stores/user/publicStore'
+import { ref } from 'vue'
+const district = ref(null)
+const publicUserStore = usePublicUserStore()
+const languageStore = useLanguageStore()
+const districtStore = useDistrictStore()
+districtStore.getAllDistricts()
 const metaData = {
   // sets document title
   title: 'Home Page',
@@ -22,10 +51,10 @@ const metaData = {
     keywords: { name: 'keywords', content: 'proyojon24 services service-provider' },
     equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
     // note: for Open Graph type metadata you will need to use SSR, to ensure page is rendered by the server
-    ogTitle:  {
+    ogTitle: {
       property: 'og:title',
       // optional; similar to titleTemplate, but allows templating with other meta properties
-      template (ogTitle) {
+      template(ogTitle) {
         return `${ogTitle} - Proyojon24.net`
       }
     }
@@ -65,8 +94,42 @@ const metaData = {
 useMeta(metaData)
 </script>
 <style scoped>
+.site-name {
+  font-size: 6rem;
+  line-height: 6rem;
+  letter-spacing: -0.01562em;
+}
 
-.coming-soon-image{
-  width: 100%
+.welcome-text {
+  margin-top: 2rem;
+  font-size: 2.125rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.00735em;
+}
+
+.query-title {
+  margin-top: 1rem;
+  font-size: 2.125rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.00735em;
+}
+
+.location-selector-bar {
+  border: 1px solid white;
+  border-radius: 4px;
+  width: 400px;
+  position: relative;
+}
+
+.location-selector {
+  height: 40px !important;
+  width: calc(100% - 105px) !important;
+}
+
+.location-search-btn {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 40px;
 }
 </style>

@@ -93,7 +93,8 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn label="closse" color="primary" icon="arrow_back" @click="serviceCategoryStore.openServiceCategoryPreviewDialog = false"/>
+                <q-btn label="closse" color="primary"
+              glossy icon="arrow_back" @click="serviceCategoryStore.openServiceCategoryPreviewDialog = false"/>
               </div>
             </div>
           </div>

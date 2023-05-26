@@ -1,12 +1,13 @@
 import expressAsyncHandler from "express-async-handler";
 import Union from '../models/unionModel.js'
+import Ward from '../models/wardModel.js'
 import SubDistrict from '../models/subDistrictModel.js'
-
+import commonWardList from '../data/ward.js'
 // @desc get products
 // @route Put api/products
 // @acess Privet
 const getUnions = expressAsyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize =  Number(req.query.pageSize) || 50;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {
@@ -100,7 +101,16 @@ const createUnion = expressAsyncHandler(async (req, res) => {
             parent: req.body.parent,
         })
         const createdUnion = await unions.save()
-        res.status(201).json(createdUnion)
+
+
+        const commonWardLists = commonWardList.map((wards) => {
+            return { ...wards, parent: createdUnion, 
+                user: req.user._id }
+        })
+console.log(commonWardLists)
+        let createwardslist = await Ward.insertMany(commonWardLists)
+
+        res.status(201).json({createdUnion,createwardslist})
     } else {
         res.status(404)
         throw new Error('Parent Sub District not found')

@@ -5,6 +5,7 @@
       icon="menu"
       round
       dense
+      glossy
       flat
       size="md"
       color="white"

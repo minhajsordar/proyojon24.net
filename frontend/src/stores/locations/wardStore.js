@@ -15,7 +15,9 @@ export const useWardStore = defineStore('ward store', () => {
     authStore = useAuthStore(),
     openWardCreateDialog = ref(false),
     openWardEditDialog = ref(false),
-    allWards = ref(false),
+    allWards = ref(null),
+    allWardsLoading = ref(false),
+    wardListLoading = ref(false),
     wardList = ref([
       {
         id: 123,
@@ -66,6 +68,7 @@ export const useWardStore = defineStore('ward store', () => {
     wardInfo.parent = data.parent
   }
   const getWardList = async () => {
+    wardListLoading.value = true
     const config = {
       method: "get",
       url: "api/wards",
@@ -77,15 +80,17 @@ export const useWardStore = defineStore('ward store', () => {
     try {
       const responseData = await api.request(config);
       wardList.value = responseData.data;
-      loader.hideLoader()
+      loader.hideLoader();
+      wardListLoading.value = false;
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
-
+      loader.hideLoader();
+      wardListLoading.value = false;
     }
 
   }
   const getAllWards = async (id) => {
+    allWardsLoading.value = true
     const params = {}
     if(id){
       params.unionId = id
@@ -102,10 +107,11 @@ export const useWardStore = defineStore('ward store', () => {
       const responseData = await api.request(config);
       allWards.value = responseData.data;
       loader.hideLoader()
+      allWardsLoading.value = false
     } catch (error) {
       console.log(error);
       loader.hideLoader()
-
+      allWardsLoading.value = false
     }
 
   }
@@ -181,14 +187,20 @@ export const useWardStore = defineStore('ward store', () => {
     }
   }
   return {
+    // dialogs states
     openWardCreateDialog,
     openWardEditDialog,
     openWardEditDialogManager,
+    // all wards states, functions
+    allWardsLoading,
     getAllWards,
     allWards,
+    // wards states, functions
+    wardListLoading,
     wardList,
     wardInfo,
     getWardList,
+    // wards create, update, delete functions
     createNewWard,
     updateWard,
     deleteWard
