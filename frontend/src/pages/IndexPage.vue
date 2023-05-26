@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-py-sm q-pa-md bg-blue-grey-10 text-white pattern-bg-image">
-    <div class="container-section-py-sm" style="z-index:9999999">
+    <div class="container-section" style="z-index:9999999">
       <div class="inner-section">
         <div class="full-width">
           <div class="text-bold site-name text-center text-yellow-13">Pryoyjon24.net</div>
@@ -99,7 +99,13 @@ useMeta(metaData)
   line-height: 6rem;
   letter-spacing: -0.01562em;
 }
-
+@media screen and (max-width: 800px) {
+  .site-name {
+  font-size: 2.5rem;
+  line-height: 2rem;
+  letter-spacing: -0.01562em;
+}
+}
 .welcome-text {
   margin-top: 2rem;
   font-size: 2.125rem;
@@ -107,13 +113,28 @@ useMeta(metaData)
   letter-spacing: 0.00735em;
 }
 
+@media screen and (max-width: 800px) {
+.welcome-text {
+  margin-top: 1.3rem;
+  font-size: 1.6rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.00735em;
+}
+}
 .query-title {
   margin-top: 1rem;
   font-size: 2.125rem;
   line-height: 2.5rem;
   letter-spacing: 0.00735em;
 }
-
+@media screen and (max-width: 800px) {
+  .query-title {
+  margin-top: 1.3rem;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.00735em;
+}
+}
 .location-selector-bar {
   border: 1px solid white;
   border-radius: 4px;
