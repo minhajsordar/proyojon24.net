@@ -9,8 +9,8 @@
     </q-page-container>
     <q-footer class="q-py-sm text-center bg-blue-grey-10"
       >
-      <div>Proyojon24.net © 2023 All Rights Reserved</div>
-      <div>Developed & Powered By: Service Zone Ltd</div>
+      <div class="fs-12"><span class="text-yellow">Proyojon24.net</span> © 2023 All Rights Reserved</div>
+      <div class="fs-10">Developed & Powered By: <span class="text-yellow">Service Zone Ltd</span></div>
       </q-footer
     >
   </q-layout>
