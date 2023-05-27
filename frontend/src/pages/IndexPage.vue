@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-py-sm q-pa-md bg-blue-grey-10 text-white pattern-bg-image">
-    <div class="container-section" style="z-index:9999999">
+    <div class="container-section">
       <div class="inner-section">
         <div class="full-width">
           <div class="text-bold site-name text-center text-yellow-13">Proyojon24</div>

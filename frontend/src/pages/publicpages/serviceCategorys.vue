@@ -5,23 +5,15 @@
         <div class="q-pa-sm">
           <div class="row q-col-gutter-sm">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 col-3"
-            v-for="(service,index) in servicePublicStore.allServices" :key="index"
+            v-for="(serviceCategory,index) in serviceCategoryStore.allServiceCategoryList" :key="index"
             >
               <q-card class="full-width full-height text-center q-pa-sm"
-              @click="$router.push('/service/'+service._id)"
+              @click="$router.push('/service_category/'+serviceCategory._id)"
               >
                 <div>
-                  <q-img
-                  v-if="service.icon"
-                  fit
+                  <q-img fit
                   style="max-width: 50px; max-height: 50px;"
-                  :src="service.icon"
-                  />
-                  <q-img
-                  v-else
-                   fit
-                  style="max-width: 50px; max-height: 50px;"
-                  src="frontend/public/images/placeholder_image.png"
+                  :src="serviceCategory.icon"
                   />
                   <!-- <q-img fit
                   style="max-width: 50px; max-height: 50px;"
@@ -29,7 +21,7 @@
                   /> -->
                 </div>
                 <div class="q-mt-sm">
-                  {{ service.name[languageStore.language] }}
+                  {{ serviceCategory.name[languageStore.language] }}
                 </div>
               </q-card>
             </div>
@@ -44,17 +36,21 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useQuasar, useMeta } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
-import serviceTable from "src/components/services/serviceTable.vue"
-import serviceCategoryTable from "src/components/services/serviceCategoryTable.vue"
-import serviceProviderTable from "src/components/services/serviceProviderTable.vue";
 import { useI18n } from "vue-i18n";
-import { useServiceStore } from "src/stores/service/serviceStore";
 import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js";
+import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
+import { useRoute, useRouter } from "vue-router";
 
-const servicePublicStore = usePublicServiceStore();
-servicePublicStore.getAllServices();
 const { t } = useI18n();
 const languageStore = useLanguageStore();
+const router = useRouter()
+const route = useRoute()
+const serviceCategoryStore = useServiceCategoryStore();
+if(route.params.id){
+  serviceCategoryStore.getAllServiceCategorys(route.params.id)
+}else{
+  router.push("/allservices")
+}
 
 
 

@@ -189,7 +189,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     })
     serviceProviderInfo.extraCources = {}
     serviceProviderInfo.extraCources = data.extraCources
-    console.log(serviceProviderInfo,data)
+    console.log(serviceProviderInfo, data)
     serviceProviderInfo.id = data?._id
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
     serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
@@ -237,8 +237,38 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.union = data.serviceProviderLocation.union
     serviceProviderLocationR.ward = data.serviceProviderLocation.ward
   }
+  const allServiceProvidersList = ref(null)
+  const allServiceProvidersListLoading = ref(false)
+  const getAllServiceProviders = async (id) => {
+    allServiceProvidersListLoading.value = true
+    const params = {}
+    if (id) {
+      params.serviceCategoryId = id
+    }
+    const config = {
+      method: "get",
+      url: "api/service_providers/all",
+      headers: {
+        "Content-Type": "application/json",
+
+      }, params
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      responseData.data.sort((a, b) => a.viewCount - b.viewCount);
+      responseData.data.sort((a, b) => a.rankCount - b.rankCount);
+      allServiceProvidersList.value = responseData.data;
+      loader.hideLoader()
+      allServiceProvidersListLoading.value = false
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+      allServiceProvidersListLoading.value = false
+    }
+  }
   const getServiceProviderList = async () => {
-    const params={
+    const params = {
       page: serviceProviderPage.value
     }
     const config = {
@@ -248,7 +278,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
-      },params
+      }, params
     };
     loader.showLoader()
     try {
@@ -432,6 +462,12 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     openServiceProviderPreviewDialogManager,
     openServiceProviderCreateDialog,
     openServiceProviderCreateDialogManager,
+    // all service providers
+    allServiceProvidersList,
+    allServiceProvidersListLoading,
+    getAllServiceProviders,
+
+    //  service provider list
     serviceProviderPage,
     serviceProviderList,
     serviceProviderInfo,

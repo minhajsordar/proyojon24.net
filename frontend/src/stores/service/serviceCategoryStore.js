@@ -140,7 +140,6 @@ imageCover.value = null
       url: "api/service_categorys/all",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
       },params
     };

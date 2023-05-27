@@ -19,7 +19,15 @@ const routes = [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: '/login',
       name:'login', component: () => import('pages/auth/loginPage.vue') },
+    ]
+  },
+  {
+    path: '/',
+    component: () => import('layouts/PublicLayout.vue'),
+    children: [
       { path: '/allservices', component: () => import('pages/publicpages/servicesList.vue') },
+      { path: '/service/:id', component: () => import('pages/publicpages/serviceCategorys.vue') },
+      { path: '/service_category/:id', component: () => import('pages/publicpages/serviceProviders.vue') },
     ]
   },
   {

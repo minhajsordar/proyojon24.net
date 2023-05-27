@@ -18,7 +18,36 @@ const getServiceProviders = expressAsyncHandler(async (req, res) => {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ serviceProviders, page, pages: Math.ceil(count / pageSize) })
 })
-
+// @desc get ServiceProvider
+// @route Put api/ServiceProvider
+// @acess Privet
+const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
+    const keyword = {}
+    if(req.query.serviceId) {
+        keyword.service=req.query.serviceId
+    }
+    if(req.query.serviceCategoryId) {
+        keyword.serviceCategory=req.query.serviceCategoryId
+    }
+    if(req.query.divisionId) {
+        keyword["serviceProviderLocation.division._id"]=req.query.divisionId
+    }
+    if(req.query.districtId) {
+        keyword["serviceProviderLocation.district._id"]=req.query.districtId
+    }
+    if(req.query.subDistrictId) {
+        keyword["serviceProviderLocation.subDistrict._id"]=req.query.subDistrictId
+    }
+    if(req.query.unionId) {
+        keyword["serviceProviderLocation.union._id"]=req.query.unionId
+    }
+    if(req.query.wardId) {
+        keyword["serviceProviderLocation.ward._id"]=req.query.wardId
+    }
+    const serviceProviders = await ServiceProvider.find({ ...keyword })
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json(serviceProviders)
+})
 // @desc get product by id
 // @route Put api/ServiceProvider/:id
 // @acess Privet
@@ -250,5 +279,6 @@ export {
     updateServiceProvider,
     getTopServiceProvider,
     getServiceProviderByServiceCategory,
-    createServiceProvider
+    createServiceProvider,
+    getAllServiceProviders
 }

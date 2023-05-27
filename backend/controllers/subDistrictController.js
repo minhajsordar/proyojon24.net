@@ -22,7 +22,6 @@ const getSubDistricts = expressAsyncHandler(async (req, res) => {
 // @route Put api/products
 // @acess Privet
 const getAllSubDistricts = expressAsyncHandler(async (req, res) => {
-    
     const keyword = req.query.districtId? {"parent._id":req.query.districtId}:{}
     const subDistricts = await SubDistrict.find({ ...keyword })
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
