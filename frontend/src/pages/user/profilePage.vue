@@ -34,11 +34,11 @@
             <q-btn label="Edit" color="primary"/>
           </div>
           <div class="full-width">
-            <q-seperator/>
+            <q-separator/>
           </div>
           <div class="row q-mb-md">
             <div class="col-12">
-              <q-seperator/>
+              <q-separator/>
             </div>
             <div class="col-lg-4 col-sm-12 col-12">
               <span class="text-bold">Name:</span>

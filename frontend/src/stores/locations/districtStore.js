@@ -7,8 +7,8 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { useDivisionStore } from './divisionStore';
-export const suggestUserData = useLocalStorage('proyojonuserkey', {})
-export const loginUser = useLocalStorage('proyojonloginuser', {})
+const suggestUserData = useLocalStorage('proyojonuserkey', {})
+const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
 export const useDistrictStore = defineStore('district store', () => {
 
@@ -81,7 +81,7 @@ export const useDistrictStore = defineStore('district store', () => {
       method: "get",
       url: "api/districts",
       headers: {
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`,
+        "Authorization": `Bearer ${loginUser.value.token}`,
         "Content-Type": "application/json"
       }
     };
@@ -129,7 +129,7 @@ export const useDistrictStore = defineStore('district store', () => {
       method: "post",
       url: "api/districts",
       headers: {
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`,
+        "Authorization": `Bearer ${loginUser.value.token}`,
         "Content-Type": "application/json"
       },
       data
@@ -159,7 +159,7 @@ export const useDistrictStore = defineStore('district store', () => {
       method: "put",
       url: "api/districts/" + districtInfo.id + "/",
       headers: {
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`,
+        "Authorization": `Bearer ${loginUser.value.token}`,
         "Content-Type": "application/json"
       },
       data
@@ -180,7 +180,7 @@ export const useDistrictStore = defineStore('district store', () => {
       method: "delete",
       url: "api/districts/" + districtInfo.id + "/",
       headers: {
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`,
+        "Authorization": `Bearer ${loginUser.value.token}`,
         "Content-Type": "application/json"
       }
     };

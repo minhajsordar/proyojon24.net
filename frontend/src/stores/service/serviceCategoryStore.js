@@ -115,7 +115,7 @@ imageCover.value = null
       url: "api/service_categorys/",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };
@@ -160,7 +160,7 @@ imageCover.value = null
       url: "api/service_categorys/service/"+filteredByServiseId.value._id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };
@@ -185,7 +185,7 @@ imageCover.value = null
       url: "api/service_categorys",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data
     };
@@ -210,7 +210,7 @@ imageCover.value = null
       url: "api/upload",
       headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data:{
         image:imageIcon.value
@@ -233,7 +233,7 @@ imageCover.value = null
       url: "api/upload",
       headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data:{
         image:imageCover.value
@@ -272,7 +272,7 @@ imageCover.value = null
       url: "api/service_categorys/" + serviceCategoryInfo.id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       },data
     };
@@ -293,7 +293,7 @@ imageCover.value = null
       url: "api/service_categorys/" + serviceCategoryInfo.id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };

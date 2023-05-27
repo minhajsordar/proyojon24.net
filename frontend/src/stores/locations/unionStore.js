@@ -122,7 +122,7 @@ export const useUnionStore = defineStore('union store', ()=>{
         method: "post",
         url: "api/unions",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         },
         data
@@ -157,7 +157,7 @@ export const useUnionStore = defineStore('union store', ()=>{
         method: "put",
         url: "api/unions/"+unionInfo.id+"/",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         },
         data
@@ -178,7 +178,7 @@ export const useUnionStore = defineStore('union store', ()=>{
         method: "delete",
         url: "api/unions/"+unionInfo.id+"/",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         }
       };

@@ -70,7 +70,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
         method: "get",
         url: "api/subdistricts",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         }
       };
@@ -116,7 +116,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
         method: "post",
         url: "api/subdistricts",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         },
         data
@@ -149,7 +149,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
         method: "put",
         url: "api/subdistricts/"+subDistrictInfo.id+"/",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         },
         data
@@ -170,7 +170,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
         method: "delete",
         url: "api/subdistricts/"+subDistrictInfo.id+"/",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         }
       };

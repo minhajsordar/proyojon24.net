@@ -44,7 +44,7 @@ const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
     if(req.query.wardId) {
         keyword["serviceProviderLocation.ward._id"]=req.query.wardId
     }
-    const serviceProviders = await ServiceProvider.find({ ...keyword })
+    const serviceProviders = await ServiceProvider.find({ ...keyword }).select('-user -dataUpdatedHistory -dataUpdatedBy -dataCollector -description -phoneNumber -service -serviceCategory -extraCources -degree -serviceList')
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(serviceProviders)
 })

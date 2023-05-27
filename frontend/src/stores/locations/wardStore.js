@@ -121,7 +121,7 @@ export const useWardStore = defineStore('ward store', () => {
       method: "post",
       url: "api/wards",
       headers: {
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`,
+        "Authorization": `Bearer ${loginUser.value.token}`,
         "Content-Type": "application/json"
       },
       data
@@ -151,7 +151,7 @@ export const useWardStore = defineStore('ward store', () => {
       method: "put",
       url: "api/wards/" + wardInfo.id + "/",
       headers: {
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`,
+        "Authorization": `Bearer ${loginUser.value.token}`,
         "Content-Type": "application/json"
       },
       data
@@ -172,7 +172,7 @@ export const useWardStore = defineStore('ward store', () => {
       method: "delete",
       url: "api/wards/" + wardInfo.id + "/",
       headers: {
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`,
+        "Authorization": `Bearer ${loginUser.value.token}`,
         "Content-Type": "application/json"
       }
     };

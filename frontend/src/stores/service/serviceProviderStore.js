@@ -276,9 +276,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       url: "api/service_providers/",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
-      }, params
+      },
     };
     loader.showLoader()
     try {
@@ -291,13 +291,37 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       loader.hideLoader()
     }
   }
+  const serviceProvider = ref(null)
+  const serviceProviderLoading = ref(false)
+  const getServiceProviderById = async (id) => {
+    serviceProviderLoading.value = true
+    const config = {
+      method: "get",
+      url: "api/service_providers/" + id,
+      headers: {
+        "Content-Type": "application/json"
+
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      serviceProvider.value = responseData.data;
+      loader.hideLoader()
+      serviceProviderLoading.value = false
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+      serviceProviderLoading.value = false
+    }
+  }
   const getFilteredServiceProviderByServiceCategory = async () => {
     const config = {
       method: "get",
       url: "api/service_providers/service_category/" + filteredByServiseCategoryId.value._id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };
@@ -337,7 +361,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       url: "api/service_providers",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data
     };
@@ -362,7 +386,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       url: "api/upload",
       headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data: {
         image: imageIcon.value
@@ -384,7 +408,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       url: "api/upload",
       headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data: {
         image: imageCover.value
@@ -420,7 +444,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       url: "api/service_Providers/" + serviceProviderInfo.id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data
     };
@@ -441,7 +465,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       url: "api/service_Providers/" + serviceProviderInfo.id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };
@@ -467,6 +491,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     allServiceProvidersListLoading,
     getAllServiceProviders,
 
+    //  service provider
+    serviceProvider,
+    serviceProviderLoading,
+    getServiceProviderById,
     //  service provider list
     serviceProviderPage,
     serviceProviderList,

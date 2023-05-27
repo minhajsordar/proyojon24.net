@@ -60,7 +60,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
         method: "get",
         url: "api/divisions",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         }
       };
@@ -105,7 +105,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
         method: "post",
         url: "api/divisions",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         },
         data
@@ -140,7 +140,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
         method: "put",
         url: "api/divisions/"+divisionInfo.id+"/",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         },
         data
@@ -161,7 +161,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
         method: "delete",
         url: "api/divisions/"+divisionInfo.id+"/",
         headers: {
-          "Authorization":`Bearer ${authStore.loginUserInfo.token}`,
+          "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
         }
       };

@@ -105,7 +105,7 @@ export const useServiceStore = defineStore('service store', () => {
       url: "api/services/",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };
@@ -127,7 +127,7 @@ export const useServiceStore = defineStore('service store', () => {
       url: "api/services",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data
     };
@@ -152,7 +152,7 @@ export const useServiceStore = defineStore('service store', () => {
       url: "api/upload",
       headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data: {
         image: imageIcon.value
@@ -175,7 +175,7 @@ export const useServiceStore = defineStore('service store', () => {
       url: "api/upload",
       headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data: {
         image: imageCover.value
@@ -212,7 +212,7 @@ export const useServiceStore = defineStore('service store', () => {
       url: "api/services/" + serviceInfo.id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data
     };
@@ -233,7 +233,7 @@ export const useServiceStore = defineStore('service store', () => {
       url: "api/services/" + serviceInfo.id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };

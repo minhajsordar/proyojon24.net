@@ -96,7 +96,7 @@ export const useUserStore = defineStore('user store', () => {
       url: "api/users/",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };
@@ -117,7 +117,7 @@ export const useUserStore = defineStore('user store', () => {
       url: "api/users",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data
     };
@@ -162,7 +162,7 @@ export const useUserStore = defineStore('user store', () => {
       url: "api/users/" + userInfo.id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };
@@ -182,7 +182,7 @@ export const useUserStore = defineStore('user store', () => {
       url: "api/users/" + userInfo.id,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
+        "Authorization": `Bearer ${loginUser.value.token}`
 
       }
     };
