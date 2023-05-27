@@ -13,7 +13,10 @@
       <router-view />
     </q-page-container>
     <profileLayoutAllDialogs />
-    <q-footer class="q-py-sm text-center">Proyojon24.net © 2023 All Rights Reserved</q-footer>
+    <q-footer class="q-py-sm text-center">
+      <div>Proyojon24.net © 2023 All Rights Reserved</div>
+      <div>Developed & Powered By: Service Zone Ltd</div>
+    </q-footer>
   </q-layout>
 </template>
 

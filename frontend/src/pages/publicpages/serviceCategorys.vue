@@ -25,6 +25,11 @@
                 </div>
               </q-card>
             </div>
+            <div class="col-12"
+            v-if="serviceCategoryStore.allServiceCategoryList && serviceCategoryStore.allServiceCategoryList.length ==0"
+            >
+            এখনও তথ্য যুক্ত করা হয়নি।
+            </div>
           </div>
         </div>
       </div>

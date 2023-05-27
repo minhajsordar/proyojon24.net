@@ -8,7 +8,10 @@
       <router-view />
     </q-page-container>
     <q-footer class="q-py-sm text-center bg-blue-grey-10"
-      >Proyojon24.net © 2023 All Rights Reserved</q-footer
+      >
+      <div>Proyojon24.net © 2023 All Rights Reserved</div>
+      <div>Developed & Powered By: Service Zone Ltd</div>
+      </q-footer
     >
   </q-layout>
 </template>
