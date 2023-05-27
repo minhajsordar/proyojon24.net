@@ -6,7 +6,7 @@ import Division from '../models/divisionModel.js'
 // @route Put api/products
 // @acess Privet
 const getDistricts = expressAsyncHandler(async (req, res) => {
-    const pageSize =  Number(req.query.pageSize) || 50;
+    const pageSize =  Number(req.query.pageSize) || 10;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {

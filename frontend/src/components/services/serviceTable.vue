@@ -14,13 +14,7 @@
       />
     </div>
     <q-separator class="q-my-sm" />
-    <q-markup-table
-      flat
-      bordered
-      dense
-      separator="cell"
-      class="text-left"
-    >
+    <q-markup-table flat bordered dense separator="cell" class="text-left">
       <thead class="bg-blue-grey-2">
         <tr>
           <th>{{ $t("serial") }}</th>
@@ -45,9 +39,7 @@
               dense
               glossy
               color="primary"
-              @click="
-                serviceStore.openServicePreviewDialogManager(service)
-              "
+              @click="serviceStore.openServicePreviewDialogManager(service)"
             />
             <q-btn
               class="q-ml-xs"
@@ -56,9 +48,7 @@
               dense
               glossy
               color="positive"
-              @click="
-                serviceStore.openServiceEditDialogManager(service)
-              "
+              @click="serviceStore.openServiceEditDialogManager(service)"
             />
             <q-btn
               class="q-ml-xs"
@@ -73,6 +63,16 @@
         </tr>
       </tbody>
     </q-markup-table>
+    <q-separator class="q-mt-md" />
+    <q-pagination
+      class="q-mt-md"
+      color="blue-grey-7"
+      v-model="current"
+      :max="serviceStore.serviceList?.pages"
+      :max-pages="6"
+      boundary-numbers
+      @update:model-value="paginationFunc"
+    />
   </div>
 </template>
 <script setup>
@@ -82,7 +82,7 @@ import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useServiceStore } from "src/stores/service/serviceStore";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "src/stores/auth/authStore";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { enToBnToEn } from "src/global_js/utils";
 const authStore = useAuthStore();
 const $q = useQuasar();
@@ -105,6 +105,14 @@ const confirm = (service) => {
     serviceStore.deleteService();
   });
 };
+
+// pagination
+const current = ref(1);
+const paginationFunc = () => {
+  serviceStore.servicePage = current.value;
+  serviceStore.getServiceList();
+};
+
 onMounted(() => {
   authStore.checkLogin();
 });
@@ -138,5 +146,4 @@ const metaData = {
 
 useMeta(metaData);
 </script>
-<style>
-</style>
+<style></style>

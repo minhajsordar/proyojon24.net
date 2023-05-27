@@ -67,14 +67,18 @@ export const useUnionStore = defineStore('union store', ()=>{
        unionInfo.name = data.name
        unionInfo.parent = data.parent
      }
+  const unionPage = ref(1)
     const getUnionList= async()=>{
       unionListLoading.value = true
+    const params = {
+      pageNumber: unionPage.value
+    }
       const config = {
         method: "get",
         url: "api/unions",
         headers: {
           "Content-Type": "application/json"
-        }
+        },params
       };
       loader.showLoader()
       try {
@@ -203,6 +207,7 @@ export const useUnionStore = defineStore('union store', ()=>{
       allUnions,
       // unions states, functions
       unionListLoading,
+      unionPage,
       unionList,
       unionInfo,
       getUnionList,

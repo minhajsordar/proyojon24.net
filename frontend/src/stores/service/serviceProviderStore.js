@@ -269,7 +269,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
   }
   const getServiceProviderList = async () => {
     const params = {
-      page: serviceProviderPage.value
+      pageNumber: serviceProviderPage.value
     }
     const config = {
       method: "get",
@@ -278,7 +278,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
-      },
+      },params
     };
     loader.showLoader()
     try {

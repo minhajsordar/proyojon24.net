@@ -50,6 +50,16 @@
         </tr>
       </tbody>
     </q-markup-table>
+    <q-separator class="q-mt-md" />
+    <q-pagination
+      class="q-mt-md"
+      color="blue-grey-7"
+      v-model="current"
+      :max="wardStore.wardList?.pages"
+      :max-pages="6"
+      boundary-numbers
+      @update:model-value="paginationFunc"
+    />
   </div>
 </template>
 <script setup>
@@ -59,6 +69,7 @@ import { useWardStore } from "src/stores/locations/wardStore";
 import { useQuasar } from "quasar";
 import { useI18n } from "vue-i18n";
 import { enToBnToEn } from "src/global_js/utils";
+import { ref } from "vue";
 const $q = useQuasar();
 const { t } = useI18n();
 const wardStore = useWardStore();
@@ -74,5 +85,11 @@ const confirm = (ward) => {
   }).onOk(() => {
     wardStore.deleteWard()
   });
+};
+// pagination
+const current = ref(1);
+const paginationFunc = () => {
+  wardStore.wardPage = current.value;
+  wardStore.getWardList();
 };
 </script>

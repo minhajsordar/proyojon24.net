@@ -109,7 +109,11 @@ imageCover.value = null
     })
     serviceCategoryInfo.service = serviceStore.serviceList.services.filter(e=>e._id == serviceCategoryInfo.service)[0]
   }
+  const serviceCategoryPage = ref(1)
   const getServiceCategoryList = async () => {
+    const params = {
+      pageNumber: serviceCategoryPage.value
+    }
     const config = {
       method: "get",
       url: "api/service_categorys/",
@@ -117,7 +121,7 @@ imageCover.value = null
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
-      }
+      },params
     };
     loader.showLoader()
     try {
@@ -317,6 +321,7 @@ imageCover.value = null
     allServiceCategoryList,
     serviceCategoryList,
     serviceCategoryInfo,
+    serviceCategoryPage,
     getServiceCategoryList,
     getAllServiceCategorys,
     createServiceCategory,

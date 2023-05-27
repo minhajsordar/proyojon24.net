@@ -99,7 +99,11 @@ export const useServiceStore = defineStore('service store', () => {
       serviceInfo[keys] = data[keys]
     })
   }
+  const servicePage = ref(1)
   const getServiceList = async () => {
+    const params = {
+      pageNumber: servicePage.value
+    }
     const config = {
       method: "get",
       url: "api/services/",
@@ -107,7 +111,7 @@ export const useServiceStore = defineStore('service store', () => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
-      }
+      },params
     };
     loader.showLoader()
     try {
@@ -254,6 +258,7 @@ export const useServiceStore = defineStore('service store', () => {
     openServicePreviewDialog,
     openServicePreviewDialogManager,
     openServiceCreateDialogManager,
+    servicePage,
     serviceList,
     serviceInfo,
     getServiceList,

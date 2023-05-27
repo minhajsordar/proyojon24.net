@@ -75,15 +75,19 @@ export const useDistrictStore = defineStore('district store', () => {
     districtInfo.name = data.name
     districtInfo.parent = divisionStore.divisionList.divisions.filter(e => e._id == data.parent._id)[0]
   }
+  const districtPage = ref(1)
   const getDistrictList = async () => {
     districtListLoading.value = true
+    const params = {
+      pageNumber: districtPage.value
+    }
     const config = {
       method: "get",
       url: "api/districts",
       headers: {
         "Authorization": `Bearer ${loginUser.value.token}`,
         "Content-Type": "application/json"
-      }
+      },params
     };
     loader.showLoader()
     try {
@@ -205,6 +209,7 @@ export const useDistrictStore = defineStore('district store', () => {
     allDistrictsLoading,
     allDistricts,
     //  districts states, functions
+    districtPage,
     districtList,
     districtListLoading,
     districtInfo,

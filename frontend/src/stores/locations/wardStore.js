@@ -67,14 +67,18 @@ export const useWardStore = defineStore('ward store', () => {
     wardInfo.name = data.name
     wardInfo.parent = data.parent
   }
+  const wardPage = ref(1)
   const getWardList = async () => {
     wardListLoading.value = true
+    const params = {
+      pageNumber: wardPage.value
+    }
     const config = {
       method: "get",
       url: "api/wards",
       headers: {
         "Content-Type": "application/json"
-      }
+      },params
     };
     loader.showLoader()
     try {
@@ -197,6 +201,7 @@ export const useWardStore = defineStore('ward store', () => {
     allWards,
     // wards states, functions
     wardListLoading,
+    wardPage,
     wardList,
     wardInfo,
     getWardList,

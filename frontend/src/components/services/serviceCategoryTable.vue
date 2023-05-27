@@ -8,7 +8,7 @@
         :label="$t('addnew')"
         icon="add"
         dense
-              glossy
+        glossy
         size="sm"
         @click="serviceCategoryStore.openServiceCategoryCreateDialogManager"
       />
@@ -32,10 +32,14 @@
         />
       </div>
       <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-        <q-btn label="বাছুন" color="primary"
-              glossy @click="applyFilterFunc"/>
-        <q-btn class="q-ml-sm" label="পুনরুদ্ধার"
-              glossy color="primary" @click="resetFilterFunc"/>
+        <q-btn label="বাছুন" color="primary" glossy @click="applyFilterFunc" />
+        <q-btn
+          class="q-ml-sm"
+          label="পুনরুদ্ধার"
+          glossy
+          color="primary"
+          @click="resetFilterFunc"
+        />
       </div>
     </div>
     <q-separator class="q-mb-md q-mt-sm" />
@@ -96,6 +100,16 @@
         </tr>
       </tbody>
     </q-markup-table>
+    <q-separator class="q-mt-md" />
+    <q-pagination
+      class="q-mt-md"
+      color="blue-grey-7"
+      v-model="current"
+      :max="serviceCategoryStore.serviceCategoryList?.pages"
+      :max-pages="6"
+      boundary-numbers
+      @update:model-value="paginationFunc"
+    />
   </div>
 </template>
 <script setup>
@@ -104,7 +118,7 @@ import { useQuasar, useMeta } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "src/stores/auth/authStore";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { enToBnToEn } from "src/global_js/utils";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useServiceStore } from "src/stores/service/serviceStore";
@@ -131,14 +145,20 @@ const confirm = (service) => {
   });
 };
 
-const applyFilterFunc =()=>{
-  if(serviceCategoryStore?.filteredByServiseId){
-    serviceCategoryStore.getFilteredServiceCategoryByService()
+const applyFilterFunc = () => {
+  if (serviceCategoryStore?.filteredByServiseId) {
+    serviceCategoryStore.getFilteredServiceCategoryByService();
   }
-}
-const resetFilterFunc =()=>{
-serviceCategoryStore.getServiceCategoryList()
-}
+};
+const resetFilterFunc = () => {
+  serviceCategoryStore.getServiceCategoryList();
+};
+// pagination
+const current = ref(1);
+const paginationFunc = () => {
+  serviceCategoryStore.serviceCategoryPage = current.value;
+  serviceCategoryStore.getServiceCategoryList();
+};
 
 onMounted(() => {
   authStore.checkLogin();
@@ -173,5 +193,4 @@ const metaData = {
 
 useMeta(metaData);
 </script>
-<style>
-</style>
+<style></style>

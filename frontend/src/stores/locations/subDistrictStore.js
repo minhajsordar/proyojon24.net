@@ -65,14 +65,18 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
        subDistrictInfo.name = data.name
        subDistrictInfo.parent = data.parent
      }
+  const subDistrictPage = ref(1)
     const getSubDistrictList= async()=>{
+    const params = {
+      pageNumber: subDistrictPage.value
+    }
       const config = {
         method: "get",
         url: "api/subdistricts",
         headers: {
           "Authorization":`Bearer ${loginUser.value.token}`,
           "Content-Type": "application/json"
-        }
+        },params
       };
       loader.showLoader()
       try {
@@ -190,6 +194,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       openSubDistrictEditDialogManager,
       getAllSubDistricts,
       allSubDistricts,
+      subDistrictPage,
       subDistrictList,
       subDistrictInfo,
       getSubDistrictList,
