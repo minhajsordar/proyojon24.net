@@ -3,7 +3,7 @@
     <div class="container-section" style="z-index:9999999">
       <div class="inner-section">
         <div class="full-width">
-          <div class="text-bold site-name text-center text-yellow-13">Pryoyjon24.net</div>
+          <div class="text-bold site-name text-center text-yellow-13">Proyojon24</div>
           <div class="text-bold welcome-text text-center">এ আপনাকে <span class="text-yellow-13">স্বাগতম</span></div>
           <div class="text-bold query-title text-center">আপনার <span class="text-yellow-13">জেলা</span> সিলেক্ট করুন</div>
           <div class="full-width flex justify-center q-mt-lg">

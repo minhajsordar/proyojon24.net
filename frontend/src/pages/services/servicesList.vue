@@ -34,7 +34,7 @@
     </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useQuasar, useMeta } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
@@ -43,7 +43,16 @@ import serviceCategoryTable from "src/components/services/serviceCategoryTable.v
 import serviceProviderTable from "src/components/services/serviceProviderTable.vue";
 import { useI18n } from "vue-i18n";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
+import { useAuthStore } from "src/stores/auth/authStore";
+import { useRouter } from "vue-router";
 
+const router = useRouter()
+const authStore = useAuthStore()
+onMounted(()=>{
+  if(!authStore.checkLogin()){
+    router.push('/login')
+  }
+})
 const serviceCategoryStore = useServiceCategoryStore();
 serviceCategoryStore.getServiceCategoryList();
 const { t } = useI18n();

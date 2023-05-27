@@ -46,7 +46,7 @@
 import { useMeta } from "quasar";
 import { useAuthStore } from "src/stores/auth/authStore";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount,onMounted, ref } from "vue";
 import divisionTable from "src/components/locations/divisionTable.vue";
 import districtTable from "src/components/locations/districtTable.vue";
 import subDistrictTable from "src/components/locations/subDistrictTable.vue";
@@ -57,9 +57,17 @@ import { useWardStore } from "src/stores/locations/wardStore";
 import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
 import { useDistrictStore } from "src/stores/locations/districtStore";
 import { useDivisionStore } from "src/stores/locations/divisionStore";
+import { useRouter } from "vue-router";
+
+const router = useRouter()
+const authStore = useAuthStore()
+onMounted(()=>{
+  if(!authStore.checkLogin()){
+    router.push('/login')
+  }
+})
 const languageStore =useLanguageStore()
 const tab = ref("division")
-const authStore = useAuthStore()
 const divisionStore = useDivisionStore()
 const districtStore = useDistrictStore()
 const subDistrictStore = useSubDistrictStore()

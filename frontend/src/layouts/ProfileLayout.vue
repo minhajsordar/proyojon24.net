@@ -22,10 +22,17 @@ import userProfileHeader from "src/components/headers/userProfileHeader.vue";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import profileLayoutAllDialogs from "src/components/dialogs/profileLayoutAllDialogs.vue"
 import { useAuthStore } from 'src/stores/auth/authStore';
+import { useRouter } from "vue-router";
+import { onMounted } from "vue";
 const languageStore = useLanguageStore()
 languageStore.switchToBn()
+const router = useRouter()
 const authStore = useAuthStore()
-authStore.checkLogin()
+onMounted(()=>{
+  if(!authStore.checkLogin()){
+    router.push('/login')
+  }
+})
 </script>
 
 <style lang="sass">

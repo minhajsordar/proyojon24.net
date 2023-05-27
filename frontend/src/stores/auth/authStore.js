@@ -10,7 +10,6 @@ export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 loader.title = 'Requesting To Server...'
 export const useAuthStore = defineStore('auth store', ()=>{
-
       const router = useRouter(),
       languageStore = useLanguageStore(),
       rememberMe=ref(false),
