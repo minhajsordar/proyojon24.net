@@ -86,14 +86,17 @@
                   {{ $t("services.service_provider") }}
                 </div>
                 <q-separator class="q-mb-sm"></q-separator>
-                <div
-                  class="full-width"
-                  v-for="(
-                    serviceProvider, index
-                  ) in serviceProviderStore.allServiceProvidersList"
-                  :key="index"
-                >
-                  <serviceProviderListCard :serviceProvider="serviceProvider" />
+                <div class="row q-col-gutter-sm">
+
+                  <div
+                    class="col-12"
+                    v-for="(
+                      serviceProvider, index
+                    ) in serviceProviderStore.allServiceProvidersList"
+                    :key="index"
+                  >
+                    <serviceProviderListCard :serviceProvider="serviceProvider" />
+                  </div>
                 </div>
                 <div
                   v-if="
