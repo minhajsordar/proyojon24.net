@@ -7,7 +7,7 @@
             Proyojon24
           </div>
           <div class="text-bold welcome-text text-center">
-            এ আপনাকে <span class="text-yellow-13">স্বাগতম</span>
+            আপনাকে <span class="text-yellow-13">স্বাগতম</span>
           </div>
           <div class="text-bold query-title text-center">
             আপনার <span class="text-yellow-13">জেলা</span> সিলেক্ট করুন

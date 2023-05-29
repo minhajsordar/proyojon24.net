@@ -81,6 +81,8 @@ export default {
     addnew_ward:'নতুন ওয়ার্ড যুক্ত করুন',
     edit_ward:'ওয়ার্ড পরিবর্তন করুন',
     wardList:'ওয়ার্ড তালিকা',
+    exactbn:'স্থানের নাম বাংলায়',
+    exactbn:'স্থানের নাম ইংরেজিতে',
   },
   services:{
     services:'সেবা সমূহ',

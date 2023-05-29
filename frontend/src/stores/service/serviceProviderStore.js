@@ -30,6 +30,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       subDistrict: null,
       union: null,
       ward: null,
+      exact: {
+        bn:null,
+        en:null
+      },
     }),
     serviceProviderList = ref([]),
     serviceProviderInfo = reactive({
@@ -50,22 +54,39 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       rankCount: 1,
       serviceProviderLocation: {
         division: {
-          bn: null,
-          en: null
+          _id: null,
+          name:{
+            bn: null,
+            en: null
+          }
         },
         district: {
-          bn: null,
-          en: null
+          _id: null,
+          name:{
+            bn: null,
+            en: null
+          }
         },
-        subDistrict: {
-          bn: null,
-          en: null
+        subDistrict: {_id: null,
+          name:{
+            bn: null,
+            en: null
+          }
         },
-        union: {
-          bn: null,
-          en: null
+        union: {_id: null,
+          name:{
+            bn: null,
+            en: null
+          }
         },
         ward: {
+          _id: null,
+          name:{
+            bn: null,
+            en: null
+          }
+        },
+        exact: {
           bn: null,
           en: null
         },
@@ -114,22 +135,39 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.rankCount = 1
     serviceProviderInfo.serviceProviderLocation = {
       division: {
-        bn: null,
-        en: null
+        _id: null,
+        name:{
+          bn: null,
+          en: null
+        }
       },
       district: {
-        bn: null,
-        en: null
+        _id: null,
+        name:{
+          bn: null,
+          en: null
+        }
       },
-      subDistrict: {
-        bn: null,
-        en: null
+      subDistrict: {_id: null,
+        name:{
+          bn: null,
+          en: null
+        }
       },
-      union: {
-        bn: null,
-        en: null
+      union: {_id: null,
+        name:{
+          bn: null,
+          en: null
+        }
       },
       ward: {
+        _id: null,
+        name:{
+          bn: null,
+          en: null
+        }
+      },
+      exact: {
         bn: null,
         en: null
       },
@@ -355,6 +393,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
     serviceProviderInfo.serviceProviderLocation.ward.name = serviceProviderLocationR.ward.name
     serviceProviderInfo.serviceProviderLocation.ward._id = serviceProviderLocationR.ward._id
+    serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
     const data = serviceProviderInfo
     const config = {
       method: "post",
@@ -438,6 +477,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
     serviceProviderInfo.serviceProviderLocation.ward.name = serviceProviderLocationR.ward.name
     serviceProviderInfo.serviceProviderLocation.ward._id = serviceProviderLocationR.ward._id
+    serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
     const data = serviceProviderInfo
     const config = {
       method: "put",

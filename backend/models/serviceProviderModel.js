@@ -60,45 +60,49 @@ const serviceProviderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    serviceProviderLocation: 
-        {
-            division: {
-                name:{
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-                _id:{type:String, required: true}
+    serviceProviderLocation:
+    {
+        division: {
+            name: {
+                bn: { type: String, required: true },
+                en: { type: String, required: true }
             },
-            district: {
-                name:{
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-                _id:{type:String, required: true}
+            _id: { type: String, required: true }
+        },
+        district: {
+            name: {
+                bn: { type: String, required: true },
+                en: { type: String, required: true }
             },
-            subDistrict: {
-                name:{
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-                _id:{type:String, required: true}
+            _id: { type: String, required: true }
+        },
+        subDistrict: {
+            name: {
+                bn: { type: String, required: true },
+                en: { type: String, required: true }
             },
-            union: {
-                name:{
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-                _id:{type:String, required: true}
+            _id: { type: String, required: true }
+        },
+        union: {
+            name: {
+                bn: { type: String },
+                en: { type: String }
             },
-            ward: {
-                name:{
-                    bn: { type: String, required: true },
-                    en: { type: String, required: true }
-                },
-                _id:{type:String, required: true}
+            _id: { type: String }
+        },
+        ward: {
+            name: {
+                bn: { type: String },
+                en: { type: String }
             },
-        }
-    
+            _id: { type: String }
+        },
+        exact: {
+            bn: { type: String },
+            en: { type: String }
+        },
+    }
+
     ,
     degree:
     {
@@ -130,11 +134,11 @@ const serviceProviderSchema = new mongoose.Schema({
         en: { type: String }
     }
     ,
-    phoneNumber: 
-        {
-            bn: { type: String, required: true },
-            en: { type: String, required: true }
-        }
+    phoneNumber:
+    {
+        bn: { type: String, required: true },
+        en: { type: String, required: true }
+    }
     ,
     rankCount: {
         type: Number,

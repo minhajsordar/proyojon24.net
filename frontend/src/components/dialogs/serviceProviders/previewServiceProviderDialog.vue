@@ -98,6 +98,14 @@
                 </div>
               </div>
             </div>
+            <div class="col-sm-4 col-xs-6 col-6">
+              <div class="row">
+                <div class="col-12 text-bold">{{ $t("location.exact") }}</div>
+                <div class="col-12">
+                  {{ serviceProviderStore.serviceProviderLocationR.exact[languageStore.language] }}
+                </div>
+              </div>
+            </div>
             <!-- end service provider location -->
             <!-- name start -->
             <div class="col-sm-6 col-xs-12 col-12">

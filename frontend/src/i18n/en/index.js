@@ -80,6 +80,8 @@ export default {
     addnew_ward:'Add new ward',
     edit_ward:'Eidt ward',
     wardList:'Ward List',
+    exactbn:'Name Of Location In Bangla',
+    exacten:'Name Of Location In English',
   },
   services:{
     service:'Services',

@@ -23,10 +23,11 @@
         <q-separator/>
         <div class="fs-12 text-bold">
           <q-icon class="bg-yellow-14 text-white " name="location_on"/>
-          <span>{{serviceProvider.serviceProviderLocation.division.name[languageStore.language]}}, </span>
-          <span>{{serviceProvider.serviceProviderLocation.district.name[languageStore.language]}}, </span>
-          <span>{{serviceProvider.serviceProviderLocation.subDistrict.name[languageStore.language]}}, </span>
-          <span>{{serviceProvider.serviceProviderLocation.union.name[languageStore.language]}}</span>
+          <span>{{serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]}}, </span>
+          <span>{{serviceProvider.serviceProviderLocation?.district?.name[languageStore.language]}}, </span>
+          <span>{{serviceProvider.serviceProviderLocation?.subDistrict?.name[languageStore.language]}}, </span>
+          <span>{{serviceProvider.serviceProviderLocation?.union?.name[languageStore.language]}}, </span>
+          <span v-if="serviceProvider.serviceProviderLocation?.exact">{{serviceProvider.serviceProviderLocation?.exact[languageStore.language]}}</span>
         </div>
       </q-card-section>
     </div>
