@@ -1,6 +1,12 @@
 const ward = [
     {
         name: {
+            bn: 'পৌরসভা',
+            en: 'Pourosova'
+        }
+    },
+    {
+        name: {
             bn: '১',
             en: '1'
         }
