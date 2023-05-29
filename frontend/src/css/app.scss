@@ -16,6 +16,12 @@
   outline-width: 1px !important;
 }
 
+.full-vh{
+height: 100vh !important;
+}
+.min-height-vh{
+height: 100vh !important;
+}
 
 .border-radius-xl {
   border-radius: 16px;
@@ -67,23 +73,36 @@
 @media screen and (max-width: 900px) {
   .container-section,
   .container-section-py-sm {
+
     .inner-section {
       padding: 0px 10px;
       width: 95%;
     }
   }
-}
-@media screen and (max-width: 600px) {
   .container-section-py-xs {
+
     padding: 10px 0px;
     .inner-section {
-      width: 95%;
+      padding: 0px 10px;
+      width: 100%;
     }
   }
+}
+@media screen and (max-width: 600px) {
+
   .container-section,
   .container-section-py-sm {
     .inner-section {
       width: 95%;
+    }
+  }
+
+  .container-section-py-xs {
+
+    padding: 5px 0px;
+    .inner-section {
+      padding: 0px 5px;
+      width: 100%;
     }
   }
 }

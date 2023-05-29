@@ -43,6 +43,8 @@ export default {
   coverimage: 'Cover image',
   addcoverimage: 'Add cover image',
   serial: 'Serial no',
+  getInfoByLocation: 'Get Information By Location',
+  search: 'Search Now',
   usermenus:{
     profile: 'Profile',
     help: 'help',
@@ -89,5 +91,6 @@ export default {
     service_provider:'Service provider',
     addnew_service_provider:'Add new service provider',
     edit_service_provider:'Eidt service provider',
+    ourAllServices: 'Our All Services'
   }
 }

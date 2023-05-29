@@ -1,8 +1,22 @@
 <template>
-  <div class="container-section-py-sm">
+  <div class="container-section-py-xs">
     <div class="inner-section">
       <div class="full-width">
-        <div class="q-pa-sm">
+        <div class="">
+          <div class="q-mb-md">
+            <div class="q-pa-sm q-mb-sm bg-blue-grey-10 text-yellow-13 text-center fs-18">{{ $t("getInfoByLocation") }}</div>
+            <div class="row q-col-gutter-sm">
+              <div class="col-lg-10 col-md-10 col-sm-12 col-12">
+                <locationFilter />
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+                <q-btn
+                class="full-width bg-blue-grey-10 text-yellow-13"
+                 :label="$t('search')"
+                 />
+              </div>
+            </div>
+          </div>
           <div class="row q-col-gutter-md">
             <div class="col-lg-3 col-md-4 col-4" v-if="$q.screen.gt.xs">
               <q-card class="bg-white border-radius-xs q-pa-md">
@@ -109,6 +123,7 @@ import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js"
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useRoute, useRouter } from "vue-router";
 import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
+import locationFilter from "src/components/locations/locationFilter.vue";
 import serviceProviderListCard from "src/components/cards/serviceProviderListCard.vue";
 
 const { t } = useI18n();

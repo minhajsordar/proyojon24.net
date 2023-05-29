@@ -43,6 +43,8 @@ export default {
   coverimage: 'কভার ছবি',
   addcoverimage: 'কভার ছবি যুক্ত করুন',
   serial: 'ক্রমিক নং',
+  getInfoByLocation: 'স্থান ভিত্তিক তথ্য পান:',
+  search: 'এখনই খুঁজুন',
   usermenus:{
     profile: 'নিজ সম্পর্কিত',
     help: 'সাহায্য',
@@ -90,5 +92,6 @@ export default {
     service_provider:'সেবা প্রদানকারী গন',
     addnew_service_provider:'সেবা প্রদানকারী যুক্ত করুন',
     edit_service_provider:'সেবা প্রদানকারী পরির্তন করুন',
+  ourAllServices: 'আমাদের সকল সেবা সমূহ'
   }
 }

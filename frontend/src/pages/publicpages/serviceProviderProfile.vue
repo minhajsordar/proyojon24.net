@@ -10,14 +10,14 @@
               height="230px"
               cover
               :src="serviceProviderStore.serviceProvider?.serviceImage"
-              >
+            >
             </q-img>
             <q-img
-            class="profile-image"
-            height="130px"
-            width="130px"
-            cover
-            :src="serviceProviderStore.serviceProvider?.image"
+              class="profile-image"
+              height="130px"
+              width="130px"
+              cover
+              :src="serviceProviderStore.serviceProvider?.image"
             >
             </q-img>
           </q-card-section>
@@ -45,9 +45,9 @@
             </div>
           </q-card-section>
         </q-card>
-        <div class="row q-col-gutter-md">
+        <div class="row q-col-gutter-md q-mt-xs">
           <div class="col-lg-8 col-sm-8 col-xs-12">
-            <q-card class="q-pa-md q-mt-lg">
+            <q-card class="q-pa-md">
               <div
                 class="q-mt-sm q-pa-sm bg-blue-grey-10 text-yellow text-center"
               >
@@ -84,7 +84,7 @@
             </q-card>
           </div>
           <div class="col-lg-4 col-sm-4 col-xs-12">
-            <q-card class="q-pa-md q-mt-lg">
+            <q-card class="q-pa-md">
               <div
                 class="q-mt-sm q-pa-sm bg-blue-grey-10 text-yellow text-center"
               >
@@ -95,17 +95,17 @@
                 v-for="(
                   phoneL, index
                 ) in serviceProviderStore.serviceProvider?.phoneNumber[
-                        languageStore.language
-                      ].split('_')"
+                  languageStore.language
+                ].split('_')"
                 :key="index"
               >
-                <div class="q-mt-md">
-                  <span class="fs-18"
-                    >
+                <q-separator />
+                <div class="q-py-sm">
+                  <span class="fs-18">
                     <q-icon class="bg-yellow-14 text-white" name="call" />
-                    {{
-                      phoneL
-                    }}
+                    <a :href="'tel:'+phoneL">
+                      {{ phoneL }}
+                    </a>
                   </span>
                 </div>
               </div>

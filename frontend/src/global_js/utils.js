@@ -38,7 +38,9 @@ export const isEmail = (val) => {
     /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/;
   return emailPattern.test(val) ? true : "Seems like not email address";
 };
-
+export const isObjEmpty=(obj)=> {
+  return Object.keys(obj).length === 0;
+}
 export const addSessionEndTimeInMinutes = (d, minutes) => {
   const date = new Date(d)
   date.setMinutes(date.getMinutes() + minutes);

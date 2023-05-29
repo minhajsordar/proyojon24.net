@@ -3,10 +3,27 @@
     <div class="inner-section">
       <div class="full-width">
         <q-card class="border-primary">
+
+          <div class="q-mb-md">
+            <div class="q-pa-sm q-mb-sm bg-primary text-white text-center fs-18">{{ $t("getInfoByLocation") }}</div>
+            <div class="row q-col-gutter-sm">
+              <div class="col-lg-10 col-md-10 col-sm-12 col-12">
+                <locationFilter />
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+                <q-btn
+                class="full-width bg-primary text-white"
+                 :label="$t('search')"
+                 />
+              </div>
+            </div>
+          </div>
+<q-separator/>
+<q-separator class="q-mt-md"/>
           <q-tabs
             v-model="tab"
             dense
-            class="text-grey-10"
+            class="text-grey-10 "
             indicator-color="blue-grey-10"
             active-bg-color="blue-grey-2"
             align="justify"
@@ -52,6 +69,8 @@ import districtTable from "src/components/locations/districtTable.vue";
 import subDistrictTable from "src/components/locations/subDistrictTable.vue";
 import unionTable from "src/components/locations/unionTable.vue";
 import wardTable from "src/components/locations/wardTable.vue";
+import locationFilter from "src/components/locations/locationFilter.vue";
+
 import { useUnionStore } from "src/stores/locations/unionStore";
 import { useWardStore } from "src/stores/locations/wardStore";
 import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
