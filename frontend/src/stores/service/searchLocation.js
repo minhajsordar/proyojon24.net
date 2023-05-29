@@ -10,6 +10,13 @@ export const useSearchLocationStore = defineStore('search location store', () =>
   const subDistrictStore = useSubDistrictStore()
   const unionStore = useUnionStore()
   const wardStore = useWardStore()
+
+  const updateAllLocation =()=>{
+    districtStore.getAllDistricts()
+    subDistrictStore.getAllSubDistricts()
+    unionStore.getAllUnions()
+    wardStore.getAllWards()
+  }
   const updateDistrict =()=>{
     districtStore.getAllDistricts(serviceProviderStore.serviceProviderLocationR.division._id)
   }
@@ -23,6 +30,7 @@ export const useSearchLocationStore = defineStore('search location store', () =>
     wardStore.getAllWards(serviceProviderStore.serviceProviderLocationR.union._id)
   }
   return {
+    updateAllLocation,
     updateDistrict,
     updateSubDistrict,
     updateUnion,

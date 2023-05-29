@@ -656,6 +656,7 @@ const unionStore = useUnionStore();
 const wardStore = useWardStore();
 
 const searchLocationStore = useSearchLocationStore();
+searchLocationStore.updateAllLocation()
 const searchServiceStore = useSearchServiceStore();
 
 const maximizedToggle = ref(true);
