@@ -8,6 +8,7 @@ import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
+const locationListGlobal = useLocalStorage('global-location-list', {})
 loader.title = 'Requesting To Server...'
 export const useUnionStore = defineStore('union store', ()=>{
 
@@ -90,6 +91,29 @@ export const useUnionStore = defineStore('union store', ()=>{
         console.log(error);
         loader.hideLoader()
         unionListLoading.value = false
+      }
+
+    }
+    const getGlobalUnions= async()=>{
+      allUnionsLoading.value = true
+      const config = {
+        method: "get",
+        url: "api/unions/all",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        locationListGlobal.value.unions = responseData.data;
+        loader.hideLoader()
+        allUnionsLoading.value = false
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+        allUnionsLoading.value = false
+
       }
 
     }
@@ -203,6 +227,7 @@ export const useUnionStore = defineStore('union store', ()=>{
       openUnionEditDialogManager,
       // all unions states, functions
       allUnionsLoading,
+      getGlobalUnions,
       getAllUnions,
       allUnions,
       // unions states, functions

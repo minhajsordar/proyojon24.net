@@ -8,7 +8,7 @@
         :label="$t('addnew')"
         icon="add"
         dense
-              glossy
+        glossy
         size="sm"
         @click="serviceProviderStore.openServiceProviderCreateDialog = true"
       />

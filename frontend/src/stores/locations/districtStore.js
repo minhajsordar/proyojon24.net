@@ -9,6 +9,7 @@ import { useAuthStore } from '../auth/authStore';
 import { useDivisionStore } from './divisionStore';
 const suggestUserData = useLocalStorage('proyojonuserkey', {})
 const loginUser = useLocalStorage('proyojonloginuser', {})
+const locationListGlobal = useLocalStorage('global-location-list', {})
 loader.title = 'Requesting To Server...'
 export const useDistrictStore = defineStore('district store', () => {
 
@@ -99,6 +100,28 @@ export const useDistrictStore = defineStore('district store', () => {
       console.log(error);
       loader.hideLoader()
       districtListLoading.value = false
+    }
+  }
+  const getGlobalDistricts = async () => {
+    allDistrictsLoading.value = true
+    const config = {
+      method: "get",
+      url: "api/districts/all",
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      locationListGlobal.value.districts = responseData.data;
+      loader.hideLoader()
+      allDistrictsLoading.value = false
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+      allDistrictsLoading.value = false
     }
   }
   const getAllDistricts = async (id) => {
@@ -213,6 +236,7 @@ export const useDistrictStore = defineStore('district store', () => {
     districtList,
     districtListLoading,
     districtInfo,
+    getGlobalDistricts,
     getDistrictList,
     //  districts create, update, delete functions
     createNewDistrict,

@@ -8,6 +8,7 @@ import { reactive, ref } from 'vue';
 import { useAuthStore } from 'src/stores/auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
+const locationListGlobal = useLocalStorage('global-location-list', {})
 loader.title = 'Requesting To Server...'
 export const useDivisionStore = defineStore('division store', ()=>{
 
@@ -54,6 +55,29 @@ export const useDivisionStore = defineStore('division store', ()=>{
        divisionInfo.name.en = data.name.en
        divisionInfo.name.bn = data.name.bn
      }
+    const getGlobalDivisions= async()=>{
+      divisionListLoading.value = true
+      const config = {
+        method: "get",
+        url: "api/divisions",
+        headers: {
+          "Authorization":`Bearer ${loginUser.value.token}`,
+          "Content-Type": "application/json"
+        }
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        locationListGlobal.value.divisions = responseData.data;
+        loader.hideLoader()
+        divisionListLoading.value = false
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+        divisionListLoading.value = false
+
+      }
+    }
     const getDivisionList= async()=>{
       divisionListLoading.value = true
       const config = {
@@ -77,26 +101,8 @@ export const useDivisionStore = defineStore('division store', ()=>{
 
       }
     }
-    const getAllDivisions= async()=>{
-      allDivisionsLoading.value = true
-      loader.showLoader()
-      const config = {
-        method: "get",
-        url: "api/divisions/all",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      };
-      try {
-        const responseData = await api.request(config);
-        allDivisions.value = responseData.data;
-        loader.hideLoader()
-        allDivisionsLoading.value = false
-      } catch (error) {
-        console.log(error);
-        loader.hideLoader()
-        allDivisionsLoading.value = false
-      }
+    const getAllDivisions= ()=>{
+      allDivisions.value = locationListGlobal.value.divisions;
     }
 
     const createNewDivision= async()=>{
@@ -115,6 +121,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
         const responseData = await api.request(config);
         openDivisionCreateDialog.value = false
         getDivisionList()
+        getGlobalDivisions()
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -150,6 +157,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
         const responseData = await api.request(config);
         openDivisionEditDialog.value = false
         getDivisionList()
+        getGlobalDivisions()
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -184,6 +192,7 @@ export const useDivisionStore = defineStore('division store', ()=>{
       allDivisions,
       allDivisionsLoading,
       getAllDivisions,
+      getGlobalDivisions,
       // all divisions states, functions
       divisionListLoading,
       divisionList,

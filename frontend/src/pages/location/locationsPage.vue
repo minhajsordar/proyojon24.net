@@ -5,7 +5,7 @@
         <q-card class="border-primary">
 
           <div class="q-mb-md">
-            <div class="q-pa-sm q-mb-sm bg-primary text-white text-center fs-18">{{ $t("getInfoByLocation") }}</div>
+            <div class="q-pa-sm q-mb-sm bg-primary text-white text-center fs-18">{{ $t("infoByLocation") }}</div>
             <div class="row q-col-gutter-sm">
               <div class="col-lg-10 col-md-10 col-sm-12 col-12">
                 <locationFilter />

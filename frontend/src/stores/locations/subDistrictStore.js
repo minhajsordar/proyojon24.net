@@ -7,6 +7,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
+const locationListGlobal = useLocalStorage('global-location-list', {})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 loader.title = 'Requesting To Server...'
 export const useSubDistrictStore = defineStore('sub district store', ()=>{
@@ -82,6 +83,26 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       try {
         const responseData = await api.request(config);
         subDistrictList.value = responseData.data;
+        loader.hideLoader()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+
+      }
+
+    }
+    const getGlobalSubDistricts= async()=>{
+      const config = {
+        method: "get",
+        url: "api/subdistricts/all",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        locationListGlobal.value.subDistricts = responseData.data;
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -197,6 +218,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       subDistrictPage,
       subDistrictList,
       subDistrictInfo,
+      getGlobalSubDistricts,
       getSubDistrictList,
       createNewSubDistrict,
       updateSubDistrict,

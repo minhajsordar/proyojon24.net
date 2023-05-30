@@ -8,6 +8,7 @@ import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
+const locationListGlobal = useLocalStorage('global-location-list', {})
 loader.title = 'Requesting To Server...'
 export const useWardStore = defineStore('ward store', () => {
 
@@ -90,6 +91,27 @@ export const useWardStore = defineStore('ward store', () => {
       console.log(error);
       loader.hideLoader();
       wardListLoading.value = false;
+    }
+
+  }
+  const getGlobalWards = async () => {
+    const config = {
+      method: "get",
+      url: "api/wards/all",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      locationListGlobal.value.wards = responseData.data;
+      loader.hideLoader()
+      allWardsLoading.value = false
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+      allWardsLoading.value = false
     }
 
   }
@@ -198,6 +220,7 @@ export const useWardStore = defineStore('ward store', () => {
     // all wards states, functions
     allWardsLoading,
     getAllWards,
+    getGlobalWards,
     allWards,
     // wards states, functions
     wardListLoading,

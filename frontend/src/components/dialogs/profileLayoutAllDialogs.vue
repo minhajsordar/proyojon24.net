@@ -31,6 +31,8 @@
     <!-- preview service  -->
     <previewServiceProviderDialog/>
 
+<!-- location filter dialog -->
+    <locationFilterDialog />
   </div>
 </template>
 <script setup>
@@ -59,5 +61,6 @@ import createServiceProviderDialog from './serviceProviders/createServiceProvide
 import editServiceProviderDialog from './serviceProviders/editServiceProviderDialog.vue';
 import previewServiceProviderDialog from './serviceProviders/previewServiceProviderDialog.vue';
 
-
+// location filter dialog
+import locationFilterDialog from "src/components/dialogs/location/locationFilterDialog.vue";
 </script>

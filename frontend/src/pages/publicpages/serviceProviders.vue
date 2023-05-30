@@ -4,12 +4,15 @@
       <div class="full-width">
         <div class="">
           <div class="q-mb-md">
-            <div class="q-pa-sm q-mb-sm bg-blue-grey-10 text-yellow-13 text-center fs-18">{{ $t("getInfoByLocation") }}</div>
+            <div class="q-pa-sm q-mb-sm bg-blue-grey-10 text-yellow-13 text-center fs-18">{{ $t("infoByLocation") }}</div>
             <div class="row q-col-gutter-sm">
-              <div class="col-lg-10 col-md-10 col-sm-12 col-12">
-                <locationFilter />
+              <div class="col-lg-3 col-sm-6 col-xs-12 col-12">
+                <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('searchInfoByLocation')" @click="publicUserStore.openBrowsingLocationDialog = true"/>
               </div>
-              <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+              <div class="col-lg-3 col-sm-6 col-xs-12 col-12">
+                <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" label="find by location" @click="publicUserStore.openBrowsingLocationDialog = true"/>
+              </div>
+              <div class="col-lg-6 col-sm-12 col-xs-12 col-12">
                 <q-btn
                 class="full-width bg-blue-grey-10 text-yellow-13"
                  :label="$t('search')"
@@ -126,9 +129,10 @@ import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js"
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useRoute, useRouter } from "vue-router";
 import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
-import locationFilter from "src/components/locations/locationFilter.vue";
 import serviceProviderListCard from "src/components/cards/serviceProviderListCard.vue";
+import { usePublicUserStore } from "src/stores/user/publicStore";
 
+const publicUserStore = usePublicUserStore()
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const router = useRouter();
