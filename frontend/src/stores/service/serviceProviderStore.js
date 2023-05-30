@@ -21,7 +21,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     imageIcon = ref(null),
     imageCover = ref(null),
     selectedServiceCategory = ref(null),
-    filteredByServiseId = ref(null),
     filteredByServiseCategoryId = ref(null),
     serviceProviderPage = ref(1),
     serviceProviderLocationR = reactive({
@@ -309,6 +308,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     const params = {
       pageNumber: serviceProviderPage.value
     }
+    if(filteredByServiseCategoryId.value){
+      params.serviceCategoryId = filteredByServiseCategoryId.value._id
+    } else if (serviceCategoryStore.filteredByServiseId) {
+      params.serviceId = serviceCategoryStore.filteredByServiseId._id
+    }
     const config = {
       method: "get",
       url: "api/service_providers/",
@@ -354,6 +358,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     }
   }
   const getFilteredServiceProviderByServiceCategory = async () => {
+
     const config = {
       method: "get",
       url: "api/service_providers/service_category/" + filteredByServiseCategoryId.value._id,
@@ -361,7 +366,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
-      }
+      },params
     };
     loader.showLoader()
     try {
@@ -549,7 +554,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     uploadIcon,
     selectedServiceCategory,
     uploadCoverImage,
-    filteredByServiseId,
     filteredByServiseCategoryId,
     getFilteredServiceProviderByServiceCategory
   }

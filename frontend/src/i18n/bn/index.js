@@ -43,8 +43,11 @@ export default {
   coverimage: 'কভার ছবি',
   addcoverimage: 'কভার ছবি যুক্ত করুন',
   serial: 'ক্রমিক নং',
-  getInfoByLocation: 'স্থান ভিত্তিক তথ্য পান:',
-  search: 'এখনই খুঁজুন',
+  getInfoByLocation: 'স্থান ভিত্তিক তথ্য:',
+  getInfoByService: 'সার্ভিস দ্বারা খুঁজুন',
+  getInfoByServiceCategory: 'সার্ভিস ক‍্যটাগরি দ্বারা খুঁজুন',
+  search: 'খুঁজুন',
+  restore: 'পুনরুদ্ধার',
   usermenus:{
     profile: 'নিজ সম্পর্কিত',
     help: 'সাহায্য',

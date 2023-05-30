@@ -13,6 +13,9 @@ const getServiceCategorys = expressAsyncHandler(async (req, res) => {
             $options: 'i'
         }
     } : {}
+    if(req.query.serviceId){
+        keyword.service=req.query.serviceId
+    }
     const count = await ServiceCategory.countDocuments({ ...keyword })
     const serviceCategorys = await ServiceCategory.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');

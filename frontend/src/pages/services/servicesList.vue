@@ -45,6 +45,8 @@ import { useI18n } from "vue-i18n";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useAuthStore } from "src/stores/auth/authStore";
 import { useRouter } from "vue-router";
+import { useServiceStore } from "src/stores/service/serviceStore";
+import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -53,8 +55,14 @@ onMounted(()=>{
     router.push('/login')
   }
 })
+const serviceStore = useServiceStore();
+serviceStore.getServiceList();
+const serviceProviderStore = useServiceProviderStore();
+serviceProviderStore.getServiceProviderList()
 const serviceCategoryStore = useServiceCategoryStore();
 serviceCategoryStore.getServiceCategoryList();
+serviceCategoryStore.getAllServiceCategorys();
+
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const tab = ref('service')

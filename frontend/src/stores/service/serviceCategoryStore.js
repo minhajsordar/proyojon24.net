@@ -114,6 +114,9 @@ imageCover.value = null
     const params = {
       pageNumber: serviceCategoryPage.value
     }
+    if(filteredByServiseId.value){
+      params.serviceId = filteredByServiseId.value._id
+    }
     const config = {
       method: "get",
       url: "api/service_categorys/",

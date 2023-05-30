@@ -29,7 +29,7 @@
           :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
         >
           <td>
-            {{ enToBnToEn(String(index), languageStore.language) }}
+            {{ enToBnToEn(String(index+1), languageStore.language) }}
           </td>
           <td>{{ service.name[languageStore.language] }}</td>
           <td>
@@ -90,7 +90,6 @@ const { t } = useI18n();
 const serviceStore = useServiceStore();
 const { serviceList } = storeToRefs(serviceStore);
 const languageStore = useLanguageStore();
-serviceStore.getServiceList();
 const confirm = (service) => {
   serviceStore.serviceInfo.id = service._id;
   $q.dialog({

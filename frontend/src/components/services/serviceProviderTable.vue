@@ -15,9 +15,9 @@
     </div>
     <div class="row q-col-gutter-sm">
       <div class="col-lg-4 col-sm-4 col-xs-12 col-12">
-        <div>সার্ভিস দ্বারা বাছুন</div>
+        <div>{{ $t("getInfoByService") }}</div>
         <q-select
-          v-model="serviceProviderStore.filteredByServiseId"
+          v-model="serviceCategoryStore.filteredByServiseId"
           :options="serviceStore.serviceList.services"
           :option-label="
             (opt) =>
@@ -28,11 +28,14 @@
           options-dense
           outlined
           dense
-          @update:model-value="searchServiceStore.updateServiceCategoryOnServiceProviderTable"
+          @update:model-value="()=>{
+            searchServiceStore.updateServiceCategoryOnServiceProviderTable()
+            serviceProviderStore.filteredByServiseCategoryId = null
+          }"
         />
       </div>
       <div class="col-sm-8 col-xs-12 col-12">
-        <div>সার্ভিস ক‍্যটাগরি দ্বারা বাছুন</div>
+        <div>{{ $t("getInfoByServiceCategory") }}</div>
         <div class="row q-col-gutter-sm">
           <div class="col-lg-6 col-sm-6 col-xs-12 col-12">
             <q-select
@@ -51,14 +54,15 @@
           </div>
           <div class="col-lg-6 col-sm-6  col-xs-12 col-12 fs-16 text-bold">
             <q-btn
-              label="বাছুন"
+            :label="$t('search')"
               color="primary"
               glossy
               @click="applyFilterFunc"
             />
             <q-btn
               class="q-ml-sm"
-              label="পুনরুদ্ধার"
+
+          :label="$t('restore')"
               color="primary"
               glossy
               @click="resetFilterFunc"
@@ -83,7 +87,7 @@
           :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
         >
           <td>
-            {{ enToBnToEn(String(index), languageStore.language) }}
+            {{ enToBnToEn(String(index+1), languageStore.language) }}
           </td>
           <td>{{ serviceProvider.name[languageStore.language] }}</td>
           <td>
@@ -155,7 +159,6 @@ const $q = useQuasar();
 const { t } = useI18n();
 const serviceProviderStore = useServiceProviderStore();
 const { serviceProviderList } = storeToRefs(serviceProviderStore);
-serviceProviderStore.getServiceProviderList()
 const serviceCategoryStore = useServiceCategoryStore();
 const languageStore = useLanguageStore();
 const searchServiceStore = useSearchServiceStore();
@@ -176,7 +179,11 @@ const confirm = (service) => {
 
 const applyFilterFunc = () => {
   if (serviceProviderStore?.filteredByServiseCategoryId) {
-    serviceProviderStore.getFilteredServiceProviderByServiceCategory();
+    // serviceProviderStore.getFilteredServiceProviderByServiceCategory();
+    serviceProviderStore.getServiceProviderList();
+  }else{
+    // serviceProviderStore.getServiceProviderList();
+    // serviceCategoryStore.filteredByServiseId._id
   }
 };
 const resetFilterFunc = () => {

@@ -95,7 +95,7 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('addnew')" color="light-green-8"
+                <q-btn :label="$t('update')" color="light-green-8"
               glossy @click="editUnionManager"/>
               </div>
             </div>

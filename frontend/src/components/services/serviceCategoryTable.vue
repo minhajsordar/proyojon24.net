@@ -13,7 +13,7 @@
         @click="serviceCategoryStore.openServiceCategoryCreateDialogManager"
       />
     </div>
-    <div>সার্ভিস দ্বারা বাছুন</div>
+    <div>{{ $t("getInfoByService") }}</div>
     <div class="row q-col-gutter-sm">
       <div class="col-lg-4 col-md-7 col-sm-12 col-12">
         <q-select
@@ -32,10 +32,15 @@
         />
       </div>
       <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-        <q-btn label="বাছুন" color="primary" glossy @click="applyFilterFunc" />
+        <q-btn
+          :label="$t('search')"
+          color="primary"
+          glossy
+          @click="applyFilterFunc"
+        />
         <q-btn
           class="q-ml-sm"
-          label="পুনরুদ্ধার"
+          :label="$t('restore')"
           glossy
           color="primary"
           @click="resetFilterFunc"
@@ -58,7 +63,7 @@
           :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
         >
           <td>
-            {{ enToBnToEn(String(index), languageStore.language) }}
+            {{ enToBnToEn(String(index + 1), languageStore.language) }}
           </td>
           <td>{{ service.name[languageStore.language] }}</td>
           <td>
@@ -122,6 +127,7 @@ import { onMounted, ref } from "vue";
 import { enToBnToEn } from "src/global_js/utils";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useServiceStore } from "src/stores/service/serviceStore";
+import { useSearchServiceStore } from "src/stores/service/searchService";
 const serviceStore = useServiceStore();
 const authStore = useAuthStore();
 const $q = useQuasar();
@@ -129,7 +135,9 @@ const { t } = useI18n();
 const serviceCategoryStore = useServiceCategoryStore();
 const { serviceCategoryList } = storeToRefs(serviceCategoryStore);
 const languageStore = useLanguageStore();
-serviceCategoryStore.getServiceCategoryList();
+const searchServiceStore = useSearchServiceStore();
+
+// delete confirmation dialog
 const confirm = (service) => {
   serviceCategoryStore.serviceCategoryInfo.id = service._id;
   $q.dialog({
@@ -144,12 +152,14 @@ const confirm = (service) => {
     serviceCategoryStore.deleteServiceCategory();
   });
 };
-
+// apply filter function
 const applyFilterFunc = () => {
   if (serviceCategoryStore?.filteredByServiseId) {
-    serviceCategoryStore.getFilteredServiceCategoryByService();
+    searchServiceStore.updateServiceCategoryForService();
+    serviceCategoryStore.getServiceCategoryList();
   }
 };
+// reset filter
 const resetFilterFunc = () => {
   serviceCategoryStore.getServiceCategoryList();
 };

@@ -43,8 +43,11 @@ export default {
   coverimage: 'Cover image',
   addcoverimage: 'Add cover image',
   serial: 'Serial no',
-  getInfoByLocation: 'Get Information By Location',
-  search: 'Search Now',
+  getInfoByLocation: 'Information By Location',
+  getInfoByService: 'Information By Service',
+  getInfoByServiceCategory: 'Information By Service Category',
+  search: 'Search',
+  restore: 'Restore',
   usermenus:{
     profile: 'Profile',
     help: 'help',

@@ -638,7 +638,7 @@
             <div class="col-12">
               <div class="row">
                 <q-btn
-                  :label="$t('addnew')"
+                  :label="$t('update')"
                   color="light-green-8"
               glossy
                   @click="createServiceManager"

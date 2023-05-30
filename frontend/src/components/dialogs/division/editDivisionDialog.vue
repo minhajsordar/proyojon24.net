@@ -76,7 +76,7 @@
             </div>
             <div class="col-12">
               <div class="row">
-                <q-btn :label="$t('addnew')" @click="editDivisionManager" color="light-green-8"
+                <q-btn :label="$t('update')" @click="editDivisionManager" color="light-green-8"
               glossy/>
               </div>
             </div>

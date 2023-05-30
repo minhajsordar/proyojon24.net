@@ -28,7 +28,7 @@
           :key="index"
           :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
         >
-          <td>{{ enToBnToEn(String(index), languageStore.language) }}</td>
+          <td>{{ enToBnToEn(String(index+1), languageStore.language) }}</td>
           <td>{{ division?.name[languageStore.language] }}</td>
           <td>
             <q-btn :label="$t('edit')" size="sm" dense
