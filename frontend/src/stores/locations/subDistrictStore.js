@@ -17,41 +17,9 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       openSubDistrictCreateDialog = ref(false),
       openSubDistrictEditDialog = ref(false),
       allSubDistricts = ref([]),
-      subDistrictList = ref([
-        {
-          id:123,
-          name:{
-            bn: "রাজবাড় সদর",
-            en:"Rajbari Sadar"
-          },
-          parent:{
-            bn: "রাজবাড়",
-            en:"Rajbari"
-          },
-        },
-        {
-          id:123,
-          name:{
-            bn: "রাজবাড় সদর",
-            en:"Rajbari Sadar"
-          },
-          parent:{
-            bn: "রাজবাড়",
-            en:"Rajbari"
-          },
-        },
-        {
-          id:123,
-          name:{
-            bn: "রাজবাড় সদর",
-            en:"Rajbari Sadar"
-          },
-          parent:{
-            bn: "রাজবাড়",
-            en:"Rajbari"
-          },
-        },
-      ]),
+      subDistrictList = ref({page:1,
+        pages:1,
+        subDistricts:[]}),
       subDistrictInfo = reactive({
         id: null,
         name: {
@@ -59,7 +27,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
          en: null
         },
         parent:null,
-     })
+      })
      const openSubDistrictEditDialogManager =(data)=>{
       openSubDistrictEditDialog.value = true
        subDistrictInfo.id = data._id
@@ -71,24 +39,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
     const params = {
       pageNumber: subDistrictPage.value
     }
-      const config = {
-        method: "get",
-        url: "api/subdistricts",
-        headers: {
-          "Authorization":`Bearer ${loginUser.value.token}`,
-          "Content-Type": "application/json"
-        },params
-      };
-      loader.showLoader()
-      try {
-        const responseData = await api.request(config);
-        subDistrictList.value = responseData.data;
-        loader.hideLoader()
-      } catch (error) {
-        console.log(error);
-        loader.hideLoader()
-
-      }
+        subDistrictList.value.subDistricts = locationListGlobal.value.subDistricts;
 
     }
     const getGlobalSubDistricts= async()=>{
@@ -103,6 +54,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       try {
         const responseData = await api.request(config);
         locationListGlobal.value.subDistricts = responseData.data;
+        getSubDistrictList()
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -112,26 +64,13 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
 
     }
     const getAllSubDistricts= async(id)=>{
-      const params = {}
-      if(id){
-        params.districtId = id
-      }
-      const config = {
-        method: "get",
-        url: "api/subdistricts/all",
-        headers: {
-          "Content-Type": "application/json"
-        },params
-      };
-      loader.showLoader()
-      try {
-        const responseData = await api.request(config);
-        allSubDistricts.value = responseData.data;
-        loader.hideLoader()
-      } catch (error) {
-        console.log(error);
-        loader.hideLoader()
 
+      if (id) {
+        allSubDistricts.value = locationListGlobal.value.subDistricts.filter(e=>{
+          return e.parent._id === id
+        })
+      }else{
+        allSubDistricts.value = locationListGlobal.value.subDistricts
       }
 
     }
@@ -150,7 +89,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       try {
         const responseData = await api.request(config);
         openSubDistrictCreateDialog.value = false
-        getSubDistrictList()
+        getGlobalSubDistricts()
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -183,7 +122,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       try {
         const responseData = await api.request(config);
         openSubDistrictEditDialog.value = false
-       getSubDistrictList()
+       getGlobalSubDistricts()
         loader.hideLoader()
       } catch (error) {
         console.log(error);
@@ -202,7 +141,7 @@ export const useSubDistrictStore = defineStore('sub district store', ()=>{
       loader.showLoader()
       try {
         const responseData = await api.request(config);
-       getSubDistrictList()
+       getGlobalSubDistricts()
         loader.hideLoader()
       } catch (error) {
         console.log(error);

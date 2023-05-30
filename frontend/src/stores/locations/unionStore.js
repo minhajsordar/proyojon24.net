@@ -19,41 +19,10 @@ export const useUnionStore = defineStore('union store', ()=>{
       allUnions = ref([]),
       allUnionsLoading = ref(false),
       unionListLoading = ref(false),
-      unionList = ref([
-        {
-          id:123,
-          name:{
-            bn: "সজ্জনকান্দ",
-            en:"Sajjankanda"
-          },
-          parent:{
-            bn: "রাজবাড় সদর",
-            en:"Rajbari Sadar"
-          },
-        },
-        {
-          id:123,
-          name:{
-            bn: "সজ্জনকান্দ",
-            en:"Sajjankanda"
-          },
-          parent:{
-            bn: "রাজবাড় সদর",
-            en:"Rajbari Sadar"
-          },
-        },
-        {
-          id:123,
-          name:{
-            bn: "সজ্জনকান্দ",
-            en:"Sajjankanda"
-          },
-          parent:{
-            bn: "রাজবাড় সদর",
-            en:"Rajbari Sadar"
-          },
-        },
-      ]),
+      unionList = ref({
+        page:1,pages:1,
+        unions:[]
+      }),
       unionInfo = reactive({
         id: null,
         name: {
@@ -74,24 +43,7 @@ export const useUnionStore = defineStore('union store', ()=>{
     const params = {
       pageNumber: unionPage.value
     }
-      const config = {
-        method: "get",
-        url: "api/unions",
-        headers: {
-          "Content-Type": "application/json"
-        },params
-      };
-      loader.showLoader()
-      try {
-        const responseData = await api.request(config);
-        unionList.value = responseData.data;
-        loader.hideLoader()
-        unionListLoading.value = false
-      } catch (error) {
-        console.log(error);
-        loader.hideLoader()
-        unionListLoading.value = false
-      }
+    unionList.value.unions = locationListGlobal.value.unions
 
     }
     const getGlobalUnions= async()=>{
@@ -108,6 +60,7 @@ export const useUnionStore = defineStore('union store', ()=>{
         const responseData = await api.request(config);
         locationListGlobal.value.unions = responseData.data;
         loader.hideLoader()
+        getUnionList()
         allUnionsLoading.value = false
       } catch (error) {
         console.log(error);
@@ -118,29 +71,13 @@ export const useUnionStore = defineStore('union store', ()=>{
 
     }
     const getAllUnions= async(id)=>{
-      allUnionsLoading.value = true
       const params = {}
-      if(id){
-        params.subDistrictId = id
-      }
-      const config = {
-        method: "get",
-        url: "api/unions/all",
-        headers: {
-          "Content-Type": "application/json"
-        },params
-      };
-      loader.showLoader()
-      try {
-        const responseData = await api.request(config);
-        allUnions.value = responseData.data;
-        loader.hideLoader()
-        allUnionsLoading.value = false
-      } catch (error) {
-        console.log(error);
-        loader.hideLoader()
-        allUnionsLoading.value = false
-
+      if (id) {
+        allUnions.value = locationListGlobal.value.unions.filter(e=>{
+          return e.parent._id === id
+        })
+      }else{
+        allUnions.value = locationListGlobal.value.unions
       }
 
     }

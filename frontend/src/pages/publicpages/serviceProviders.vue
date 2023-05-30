@@ -4,13 +4,12 @@
       <div class="full-width">
         <div class="">
           <div class="q-mb-md">
-            <div class="q-pa-sm q-mb-sm bg-blue-grey-10 text-yellow-13 text-center fs-18">{{ $t("infoByLocation") }}</div>
             <div class="row q-col-gutter-sm">
               <div class="col-lg-3 col-sm-6 col-xs-12 col-12">
                 <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('searchInfoByLocation')" @click="publicUserStore.openBrowsingLocationDialog = true"/>
               </div>
               <div class="col-lg-3 col-sm-6 col-xs-12 col-12">
-                <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" label="find by location" @click="publicUserStore.openBrowsingLocationDialog = true"/>
+                <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('services.category')" @click="publicUserStore.openFilterByServiceCategoryDialog = true"/>
               </div>
               <div class="col-lg-6 col-sm-12 col-xs-12 col-12">
                 <q-btn

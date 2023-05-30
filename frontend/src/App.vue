@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <q-pull-to-refresh @refresh="refresh">
+    <router-view />
+  </q-pull-to-refresh>
 </template>
 
 <script setup>
@@ -22,19 +24,29 @@ const isEmptyArray = (e) => {
   }
   return true;
 };
-if (isEmptyArray(locationListGlobal.divisions)) {
+if (isEmptyArray(locationListGlobal.value.divisions)) {
   divisionStore.getGlobalDivisions();
 }
-if (isEmptyArray(locationListGlobal.districts)) {
+if (isEmptyArray(locationListGlobal.value.districts)) {
   districtStore.getGlobalDistricts();
 }
-if (isEmptyArray(locationListGlobal.subDistricts)) {
+if (isEmptyArray(locationListGlobal.value.subDistricts)) {
   subDistrictStore.getGlobalSubDistricts();
 }
-if (isEmptyArray(locationListGlobal.unions)) {
+if (isEmptyArray(locationListGlobal.value.unions)) {
   unionStore.getGlobalUnions();
 }
-if (isEmptyArray(locationListGlobal.wards)) {
+if (isEmptyArray(locationListGlobal.value.wards)) {
   wardStore.getGlobalWards();
 }
+const refresh = (done) => {
+  divisionStore.getGlobalDivisions();
+  districtStore.getGlobalDistricts();
+  subDistrictStore.getGlobalSubDistricts();
+  unionStore.getGlobalUnions();
+  wardStore.getGlobalWards();
+  setTimeout(() => {
+    done();
+  }, 2000);
+};
 </script>

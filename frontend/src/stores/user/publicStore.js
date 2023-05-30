@@ -11,6 +11,7 @@ const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
 export const usePublicUserStore = defineStore('Public user store', () => {
   const router = useRouter()
   const openBrowsingLocationDialog = ref(false)
+  const openFilterByServiceCategoryDialog = ref(false)
   const browsingLocation = reactive({
     division: null,
     district: null,
@@ -60,6 +61,7 @@ export const usePublicUserStore = defineStore('Public user store', () => {
 
   return {
     openBrowsingLocationDialog,
+    openFilterByServiceCategoryDialog,
     browsingLocation,
     updateBrowsingDistrict,
     updateBrowsingSubDistrict,

@@ -3,7 +3,6 @@
     <div class="inner-section">
       <div class="full-width">
         <div class="">
-          <div class="q-py-sm q-px-md q-mb-sm bg-blue-grey-10 text-yellow-13 text-left fs-17">{{ $t("services.ourAllServices") }}</div>
           <div class="row q-col-gutter-sm">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 col-3"
             v-for="(service,index) in servicePublicStore.allServices" :key="index"

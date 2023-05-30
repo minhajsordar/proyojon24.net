@@ -19,41 +19,11 @@ export const useWardStore = defineStore('ward store', () => {
     allWards = ref(null),
     allWardsLoading = ref(false),
     wardListLoading = ref(false),
-    wardList = ref([
-      {
-        id: 123,
-        name: {
-          bn: "৫",
-          en: "5"
-        },
-        parent: {
-          bn: "সজ্জনকান্দ",
-          en: "Sajjankanda"
-        },
-      },
-      {
-        id: 123,
-        name: {
-          bn: "৫",
-          en: "5"
-        },
-        parent: {
-          bn: "সজ্জনকান্দ",
-          en: "Sajjankanda"
-        },
-      },
-      {
-        id: 123,
-        name: {
-          bn: "৫",
-          en: "5"
-        },
-        parent: {
-          bn: "সজ্জনকান্দ",
-          en: "Sajjankanda"
-        },
-      },
-    ]),
+    wardList = ref({
+      page:1,
+      pages:1,
+      wards:[]
+    }),
     wardInfo = reactive({
       id: null,
       name: {
@@ -74,24 +44,8 @@ export const useWardStore = defineStore('ward store', () => {
     const params = {
       pageNumber: wardPage.value
     }
-    const config = {
-      method: "get",
-      url: "api/wards",
-      headers: {
-        "Content-Type": "application/json"
-      },params
-    };
-    loader.showLoader()
-    try {
-      const responseData = await api.request(config);
-      wardList.value = responseData.data;
-      loader.hideLoader();
-      wardListLoading.value = false;
-    } catch (error) {
-      console.log(error);
-      loader.hideLoader();
-      wardListLoading.value = false;
-    }
+
+      wardList.value.wards = locationListGlobal.value.wards;
 
   }
   const getGlobalWards = async () => {
@@ -106,6 +60,7 @@ export const useWardStore = defineStore('ward store', () => {
     try {
       const responseData = await api.request(config);
       locationListGlobal.value.wards = responseData.data;
+      getWardList()
       loader.hideLoader()
       allWardsLoading.value = false
     } catch (error) {
@@ -116,28 +71,13 @@ export const useWardStore = defineStore('ward store', () => {
 
   }
   const getAllWards = async (id) => {
-    allWardsLoading.value = true
     const params = {}
-    if(id){
-      params.unionId = id
-    }
-    const config = {
-      method: "get",
-      url: "api/wards/all",
-      headers: {
-        "Content-Type": "application/json"
-      },params
-    };
-    loader.showLoader()
-    try {
-      const responseData = await api.request(config);
-      allWards.value = responseData.data;
-      loader.hideLoader()
-      allWardsLoading.value = false
-    } catch (error) {
-      console.log(error);
-      loader.hideLoader()
-      allWardsLoading.value = false
+    if (id) {
+      allWards.value = locationListGlobal.value.wards.filter(e=>{
+        return e.parent._id === id
+      })
+    }else{
+      allWards.value = locationListGlobal.value.wards
     }
 
   }
@@ -156,7 +96,7 @@ export const useWardStore = defineStore('ward store', () => {
     try {
       const responseData = await api.request(config);
       openWardCreateDialog.value = false
-      getWardList()
+      getGlobalWards()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -186,7 +126,7 @@ export const useWardStore = defineStore('ward store', () => {
     try {
       const responseData = await api.request(config);
       openWardEditDialog.value = false
-      getWardList()
+      getGlobalWards()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -205,7 +145,7 @@ export const useWardStore = defineStore('ward store', () => {
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      getWardList()
+      getGlobalWards()
       loader.hideLoader()
     } catch (error) {
       console.log(error);

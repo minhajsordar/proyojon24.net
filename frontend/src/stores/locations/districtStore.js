@@ -21,41 +21,11 @@ export const useDistrictStore = defineStore('district store', () => {
     allDistricts = ref([]),
     allDistrictsLoading = ref(false),
     districtListLoading = ref(false),
-    districtList = ref([
-      {
-        id: 123,
-        name: {
-          bn: "রাজবাড়",
-          en: "Rajbari"
-        },
-        parent: {
-          bn: "ঢাকা",
-          en: "Dhaka"
-        },
-      },
-      {
-        id: 123,
-        name: {
-          bn: "রাজবাড়",
-          en: "Rajbari"
-        },
-        parent: {
-          bn: "ঢাকা",
-          en: "Dhaka"
-        },
-      },
-      {
-        id: 123,
-        name: {
-          bn: "রাজবাড়",
-          en: "Rajbari"
-        },
-        parent: {
-          bn: "ঢাকা",
-          en: "Dhaka"
-        },
-      },
-    ]),
+    districtList = ref({
+      page:1,
+      pages:1,
+      districts:[]
+    }),
     districtInfo = reactive({
       id: null,
       name: {
@@ -82,25 +52,7 @@ export const useDistrictStore = defineStore('district store', () => {
     const params = {
       pageNumber: districtPage.value
     }
-    const config = {
-      method: "get",
-      url: "api/districts",
-      headers: {
-        "Authorization": `Bearer ${loginUser.value.token}`,
-        "Content-Type": "application/json"
-      },params
-    };
-    loader.showLoader()
-    try {
-      const responseData = await api.request(config);
-      districtList.value = responseData.data;
-      loader.hideLoader()
-      districtListLoading.value = false
-    } catch (error) {
-      console.log(error);
-      loader.hideLoader()
-      districtListLoading.value = false
-    }
+    districtList.value.districts = locationListGlobal.value.districts
   }
   const getGlobalDistricts = async () => {
     allDistrictsLoading.value = true
@@ -117,6 +69,7 @@ export const useDistrictStore = defineStore('district store', () => {
       const responseData = await api.request(config);
       locationListGlobal.value.districts = responseData.data;
       loader.hideLoader()
+      getDistrictList()
       allDistrictsLoading.value = false
     } catch (error) {
       console.log(error);
@@ -125,29 +78,12 @@ export const useDistrictStore = defineStore('district store', () => {
     }
   }
   const getAllDistricts = async (id) => {
-    allDistrictsLoading.value = true
-    const params = {}
     if (id) {
-      params.divisionId = id
-    }
-    const config = {
-      method: "get",
-      url: "api/districts/all",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      params
-    };
-    loader.showLoader()
-    try {
-      const responseData = await api.request(config);
-      allDistricts.value = responseData.data;
-      loader.hideLoader()
-      allDistrictsLoading.value = false
-    } catch (error) {
-      console.log(error);
-      loader.hideLoader()
-      allDistrictsLoading.value = false
+      allDistricts.value = locationListGlobal.value.districts.filter(e=>{
+        return e.parent._id === id
+      })
+    }else{
+      allDistricts.value = locationListGlobal.value.districts
     }
   }
   const createNewDistrict = async () => {
@@ -165,7 +101,7 @@ export const useDistrictStore = defineStore('district store', () => {
     try {
       const responseData = await api.request(config);
       openDistrictCreateDialog.value = false
-      getDistrictList()
+      getGlobalDistricts()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -195,7 +131,7 @@ export const useDistrictStore = defineStore('district store', () => {
     try {
       const responseData = await api.request(config);
       openDistrictEditDialog.value = false
-      getDistrictList()
+      getGlobalDistricts()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -215,7 +151,7 @@ export const useDistrictStore = defineStore('district store', () => {
     try {
       const responseData = await api.request(config);
       openDistrictEditDialog.value = false
-      getDistrictList()
+      getGlobalDistricts()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
