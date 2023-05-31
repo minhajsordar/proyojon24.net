@@ -109,7 +109,7 @@
     <q-pagination
       class="q-mt-md"
       color="blue-grey-7"
-      v-model="current"
+      v-model="serviceCategoryStore.paginationCurrent"
       :max="serviceCategoryStore.serviceCategoryList?.pages"
       :max-pages="6"
       boundary-numbers
@@ -166,7 +166,7 @@ const resetFilterFunc = () => {
 // pagination
 const current = ref(1);
 const paginationFunc = () => {
-  serviceCategoryStore.serviceCategoryPage = current.value;
+  serviceCategoryStore.serviceCategoryPage = serviceCategoryStore.paginationCurrent;
   serviceCategoryStore.getServiceCategoryList();
 };
 

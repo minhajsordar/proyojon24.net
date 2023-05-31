@@ -17,8 +17,6 @@
         </div>
         <div class="col-12">
           <q-select
-            :label="$t('location.district')"
-            stack-label
             v-model="publicUserStore.browsingLocation.district"
             :options="districtStore.allDistricts"
             options-dense
@@ -40,8 +38,6 @@
         </div>
         <div class="col-12">
           <q-select
-            :label="$t('location.subdistrict')"
-            stack-label
             v-model="publicUserStore.browsingLocation.subDistrict"
             :options="subDistrictStore.allSubDistricts"
             options-dense
@@ -63,8 +59,6 @@
         </div>
         <div class="col-12">
           <q-select
-            :label="$t('location.union')"
-            stack-label
             v-model="publicUserStore.browsingLocation.union"
             :options="unionStore.allUnions"
             options-dense
@@ -86,8 +80,6 @@
         </div>
         <div class="col-12">
           <q-select
-            :label="$t('location.ward')"
-            stack-label
             v-model="publicUserStore.browsingLocation.ward"
             :options="wardStore.allWards"
             options-dense
@@ -103,6 +95,9 @@
             outlined
             dense
           />
+        </div>
+        <div class="col-12">
+          <q-btn class="full-width bg-blue-grey-10 text-yellow-13" :label="$t('search')" @click="serviceProviderStore.getAllServiceProvidersByLocation($route.params.id)" v-close-popup />
         </div>
       </div>
     </q-card>
@@ -120,7 +115,11 @@ import { isObjEmpty } from "src/global_js/utils";
 import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
 import { useUnionStore } from "src/stores/locations/unionStore";
 import { useWardStore } from "src/stores/locations/wardStore";
+import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
+import { useRoute } from "vue-router";
+// const route = useRoute()
 const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
+const serviceProviderStore = useServiceProviderStore();
 const publicUserStore = usePublicUserStore();
 const languageStore = useLanguageStore();
 const districtStore = useDistrictStore();
@@ -132,8 +131,5 @@ unionStore.getAllUnions();
 const wardStore = useWardStore();
 wardStore.getAllWards();
 
-onBeforeMount(() => {
-  publicUserStore.updateBrowsingLocationOnMounted();
-});
 </script>
 <style lang="scss"></style>

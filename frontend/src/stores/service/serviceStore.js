@@ -16,6 +16,7 @@ export const useServiceStore = defineStore('service store', () => {
     openServicePreviewDialog = ref(false),
     imageIcon = ref(null),
     imageCover = ref(null),
+     paginationCurrent = ref(1),
     serviceList = ref([
       {
         id: "demo service id",
@@ -258,6 +259,7 @@ export const useServiceStore = defineStore('service store', () => {
     openServicePreviewDialog,
     openServicePreviewDialogManager,
     openServiceCreateDialogManager,
+    paginationCurrent,
     servicePage,
     serviceList,
     serviceInfo,

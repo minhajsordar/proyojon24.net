@@ -14,6 +14,7 @@
                 <q-btn
                 class="full-width bg-primary text-white"
                  :label="$t('search')"
+                 @click="applyFilter"
                  />
               </div>
             </div>
@@ -77,6 +78,7 @@ import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
 import { useDistrictStore } from "src/stores/locations/districtStore";
 import { useDivisionStore } from "src/stores/locations/divisionStore";
 import { useRouter } from "vue-router";
+import { usePublicUserStore } from "src/stores/user/publicStore";
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -99,6 +101,20 @@ districtStore.getDistrictList()
 subDistrictStore.getSubDistrictList()
 unionStore.getUnionList()
 wardStore.getWardList()
+const publicUserStore = usePublicUserStore()
+const applyFilter = ()=>{
+  console.log("filter")
+  if(publicUserStore.browsingLocation.district){
+    subDistrictStore.getSubDistrictListByBrowsingDistrictId()
+  }
+  if(publicUserStore.browsingLocation.subDistrict){
+    unionStore.getUnionListByBrowsingSubDistrictId()
+  }
+  if(publicUserStore.browsingLocation.union){
+    wardStore.getWardListByBrowsingUnionId()
+  }
+
+}
 
 const metaData = {
   // sets document title

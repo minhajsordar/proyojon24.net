@@ -133,7 +133,7 @@
     <q-pagination
     class="q-mt-md"
     color="blue-grey-7"
-      v-model="current"
+      v-model="serviceProviderStore.paginationCurrent"
       :max="serviceProviderStore.serviceProviderList?.pages"
       :max-pages="6"
       boundary-numbers
@@ -193,7 +193,7 @@ const resetFilterFunc = () => {
 // pagination
 const current = ref(1)
 const paginationFunc =()=>{
-serviceProviderStore.serviceProviderPage = current.value
+serviceProviderStore.serviceProviderPage = serviceProviderStore.paginationCurrent
 serviceProviderStore.getServiceProviderList()
 }
 onMounted(() => {

@@ -7,6 +7,7 @@ import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { useServiceStore } from './serviceStore';
 import { useServiceCategoryStore } from './serviceCategoryStore';
+import { usePublicUserStore } from '../user/publicStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -14,10 +15,12 @@ export const useServiceProviderStore = defineStore('service provider store', () 
   const router = useRouter(),
     authStore = useAuthStore(),
     serviceStore = useServiceStore(),
+    publicUserStore = usePublicUserStore(),
     serviceCategoryStore = useServiceCategoryStore(),
     openServiceProviderCreateDialog = ref(false),
     openServiceProviderEditDialog = ref(false),
     openServiceProviderPreviewDialog = ref(false),
+    paginationCurrent=ref(1),
     imageIcon = ref(null),
     imageCover = ref(null),
     selectedServiceCategory = ref(null),
@@ -304,6 +307,50 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       allServiceProvidersListLoading.value = false
     }
   }
+  const getAllServiceProvidersByLocation = async (id) => {
+    allServiceProvidersListLoading.value = true
+    const params = {}
+    if (id) {
+      params.serviceCategoryId = id
+    }
+    if (publicUserStore.browsingLocation.ward) {
+      params.wardId = publicUserStore.browsingLocation.ward._id
+    }
+    else if (publicUserStore.browsingLocation.union) {
+      params.unionId = publicUserStore.browsingLocation.union._id
+    }
+    else if (publicUserStore.browsingLocation.subDistrict) {
+      params.subDistrictId = publicUserStore.browsingLocation.subDistrict._id
+    }
+    else if (publicUserStore.browsingLocation.district) {
+      params.districtId = publicUserStore.browsingLocation.district._id
+    }
+    else if (publicUserStore.browsingLocation.division) {
+      params.divisionId = publicUserStore.browsingLocation.division._id
+    }
+
+    const config = {
+      method: "get",
+      url: "api/service_providers/all",
+      headers: {
+        "Content-Type": "application/json",
+
+      }, params
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      responseData.data.sort((a, b) => a.viewCount - b.viewCount);
+      responseData.data.sort((a, b) => a.rankCount - b.rankCount);
+      allServiceProvidersList.value = responseData.data;
+      loader.hideLoader()
+      allServiceProvidersListLoading.value = false
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+      allServiceProvidersListLoading.value = false
+    }
+  }
   const getServiceProviderList = async () => {
     const params = {
       pageNumber: serviceProviderPage.value
@@ -537,9 +584,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     getAllServiceProviders,
 
     //  service provider
+    paginationCurrent,
     serviceProvider,
     serviceProviderLoading,
     getServiceProviderById,
+    getAllServiceProvidersByLocation,
     //  service provider list
     serviceProviderPage,
     serviceProviderList,

@@ -6,6 +6,7 @@ import { encode64 } from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
+import { usePublicUserStore } from '../user/publicStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 const locationListGlobal = useLocalStorage('global-location-list', {})
@@ -14,6 +15,7 @@ export const useWardStore = defineStore('ward store', () => {
 
   const router = useRouter(),
     authStore = useAuthStore(),
+    publicUserStore = usePublicUserStore(),
     openWardCreateDialog = ref(false),
     openWardEditDialog = ref(false),
     allWards = ref(null),
@@ -44,8 +46,17 @@ export const useWardStore = defineStore('ward store', () => {
     const params = {
       pageNumber: wardPage.value
     }
-
       wardList.value.wards = locationListGlobal.value.wards;
+
+  }
+  const getWardListByBrowsingUnionId = async () => {
+    wardListLoading.value = true
+    const params = {
+      pageNumber: wardPage.value
+    }
+    wardList.value.wards = locationListGlobal.value.wards.filter(e=>{
+        return e.parent._id === publicUserStore.browsingLocation.union._id
+      })
 
   }
   const getGlobalWards = async () => {
@@ -158,6 +169,7 @@ export const useWardStore = defineStore('ward store', () => {
     openWardEditDialog,
     openWardEditDialogManager,
     // all wards states, functions
+    getWardListByBrowsingUnionId,
     allWardsLoading,
     getAllWards,
     getGlobalWards,

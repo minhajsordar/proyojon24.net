@@ -5,12 +5,14 @@
 </template>
 
 <script setup>
+import { onMounted, onBeforeMount } from "vue";
 import { useLocalStorage } from "@vueuse/core";
 import { useDistrictStore } from "./stores/locations/districtStore";
 import { useDivisionStore } from "./stores/locations/divisionStore";
 import { useSubDistrictStore } from "./stores/locations/subDistrictStore";
 import { useUnionStore } from "./stores/locations/unionStore";
 import { useWardStore } from "./stores/locations/wardStore";
+import { usePublicUserStore } from "./stores/user/publicStore";
 
 const locationListGlobal = useLocalStorage("global-location-list", {});
 const divisionStore = useDivisionStore();
@@ -24,21 +26,21 @@ const isEmptyArray = (e) => {
   }
   return true;
 };
-if (isEmptyArray(locationListGlobal.value.divisions)) {
-  divisionStore.getGlobalDivisions();
-}
-if (isEmptyArray(locationListGlobal.value.districts)) {
-  districtStore.getGlobalDistricts();
-}
-if (isEmptyArray(locationListGlobal.value.subDistricts)) {
-  subDistrictStore.getGlobalSubDistricts();
-}
-if (isEmptyArray(locationListGlobal.value.unions)) {
-  unionStore.getGlobalUnions();
-}
-if (isEmptyArray(locationListGlobal.value.wards)) {
-  wardStore.getGlobalWards();
-}
+// if (isEmptyArray(locationListGlobal.value.divisions)) {
+//   divisionStore.getGlobalDivisions();
+// }
+// if (isEmptyArray(locationListGlobal.value.districts)) {
+//   districtStore.getGlobalDistricts();
+// }
+// if (isEmptyArray(locationListGlobal.value.subDistricts)) {
+//   subDistrictStore.getGlobalSubDistricts();
+// }
+// if (isEmptyArray(locationListGlobal.value.unions)) {
+//   unionStore.getGlobalUnions();
+// }
+// if (isEmptyArray(locationListGlobal.value.wards)) {
+//   wardStore.getGlobalWards();
+// }
 const refresh = (done) => {
   divisionStore.getGlobalDivisions();
   districtStore.getGlobalDistricts();
@@ -49,4 +51,15 @@ const refresh = (done) => {
     done();
   }, 2000);
 };
+onMounted(() => {
+  divisionStore.getGlobalDivisions();
+  districtStore.getGlobalDistricts();
+  subDistrictStore.getGlobalSubDistricts();
+  unionStore.getGlobalUnions();
+  wardStore.getGlobalWards();
+})
+const publicUserStore = usePublicUserStore()
+onBeforeMount(() => {
+  publicUserStore.updateBrowsingLocationOnMounted();
+});
 </script>

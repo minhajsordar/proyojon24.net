@@ -7,6 +7,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { useWardStore } from './wardStore';
+import { usePublicUserStore } from '../user/publicStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 const locationListGlobal = useLocalStorage('global-location-list', {})
@@ -15,6 +16,7 @@ export const useUnionStore = defineStore('union store', ()=>{
 
       const router = useRouter(),
       authStore = useAuthStore(),
+      publicUserStore = usePublicUserStore(),
       wardStore = useWardStore(),
       openUnionCreateDialog = ref(false),
       openUnionEditDialog = ref(false),
@@ -47,6 +49,15 @@ export const useUnionStore = defineStore('union store', ()=>{
     }
     unionList.value.unions = locationListGlobal.value.unions
 
+    }
+    const getUnionListByBrowsingSubDistrictId= async()=>{
+      unionListLoading.value = true
+    const params = {
+      pageNumber: unionPage.value
+    }
+     unionList.value.unions = locationListGlobal.value.unions.filter(e=>{
+      return e.parent._id === publicUserStore.browsingLocation.subDistrict._id
+    })
     }
     const getGlobalUnions= async()=>{
       allUnionsLoading.value = true
@@ -166,6 +177,7 @@ export const useUnionStore = defineStore('union store', ()=>{
       openUnionEditDialog,
       openUnionEditDialogManager,
       // all unions states, functions
+      getUnionListByBrowsingSubDistrictId,
       allUnionsLoading,
       getGlobalUnions,
       getAllUnions,

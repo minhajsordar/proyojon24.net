@@ -67,7 +67,7 @@
     <q-pagination
       class="q-mt-md"
       color="blue-grey-7"
-      v-model="current"
+      v-model="serviceStore.paginationCurrent"
       :max="serviceStore.serviceList?.pages"
       :max-pages="6"
       boundary-numbers
@@ -106,9 +106,8 @@ const confirm = (service) => {
 };
 
 // pagination
-const current = ref(1);
 const paginationFunc = () => {
-  serviceStore.servicePage = current.value;
+  serviceStore.servicePage = serviceStore.paginationCurrent;
   serviceStore.getServiceList();
 };
 
