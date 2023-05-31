@@ -3,7 +3,7 @@
     <div class="inner-section">
       <div class="full-width">
         <div class="">
-          <div class="row q-col-gutter-xs">
+          <div class="row q-col-gutter-sm">
             <div class="col-lg-1 col-md-1 col-sm-2 col-3"
             v-for="(service,index) in servicePublicStore.allServices" :key="index"
             >
@@ -18,13 +18,13 @@
                   <q-img class="absolute-top-center"
                   v-if="service.icon"
                   fit
-                  style="max-width: 40px; max-height: 40px;"
+                  style="max-width: 35px; max-height: 35px;"
                   :src="service.icon"
                   />
                   <q-img
                   v-else class="absolute-top-center"
                    fit
-                  style="max-width: 40px; max-height: 40px;"
+                  style="max-width: 35px; max-height: 35px;"
                   src="images/placeholder_image.png"
                   />
                   <!-- <q-img fit
