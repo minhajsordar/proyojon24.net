@@ -26,6 +26,7 @@
           ) in serviceCategoryStore.allServiceCategoryList"
           :key="index"
           @click="getServiceProviders(serviceCategory._id)"
+          v-close-popup
         >
           {{ serviceCategory.name[languageStore.language] }}
         </q-btn>

@@ -5,10 +5,10 @@
         <div class="">
           <div class="q-mb-md">
             <div class="row q-col-gutter-sm">
-              <div class="col-lg-3 col-sm-6 col-xs-12 col-12">
+              <div class="col-lg-3 col-sm-6 col-xs-6 col-6">
                 <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('searchInfoByLocation')" @click="publicUserStore.openBrowsingLocationDialog = true"/>
               </div>
-              <div class="col-lg-3 col-sm-6 col-xs-12 col-12">
+              <div class="col-lg-3 col-sm-6 col-xs-6 col-6">
                 <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('services.category')" @click="publicUserStore.openFilterByServiceCategoryDialog = true"/>
               </div>
               <div class="col-lg-6 col-sm-12 col-xs-12 col-12">
