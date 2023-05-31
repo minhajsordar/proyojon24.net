@@ -4,26 +4,42 @@
       <div class="full-width">
         <div>
           <div class="row q-col-gutter-sm">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 col-3"
+            <div class="col-lg-1 col-md-1 col-sm-2 col-3"
             v-for="(serviceCategory,index) in serviceCategoryStore.allServiceCategoryList" :key="index"
             >
-              <q-card class="full-width full-height text-center q-pa-sm"
+            <div class="text-center cursor-pointer service-item"
               @click="$router.push('/service_category/'+serviceCategory._id)"
               >
-                <div>
-                  <q-img fit
-                  style="max-width: 50px; max-height: 50px;"
+                <div class="icon-relative-cont">
+
+                  <!-- <q-img  src="images/hexagonalshape.svg"
+                  style="width: 56px; height: 48px;"
+                  /> -->
+                  <q-img  src="/images/roundedsquareshape.svg"
+                  style="width: 48px; height: 48px;"
+                  />
+                  <q-img class="absolute-top-center"
+                  v-if="serviceCategory.icon"
+                  fit
+                  style="max-width: 35px; max-height: 35px;"
                   :src="serviceCategory.icon"
+                  />
+                  <q-img
+                  v-else class="absolute-top-center"
+                   fit
+                  style="max-width: 35px; max-height: 35px;"
+                  src="images/placeholder_image.png"
                   />
                   <!-- <q-img fit
                   style="max-width: 50px; max-height: 50px;"
                   src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
                   /> -->
                 </div>
-                <div class="q-mt-sm">
+                <div class="fs-11">
                   {{ serviceCategory.name[languageStore.language] }}
                 </div>
-              </q-card>
+              </div>
+
             </div>
             <div class="col-12"
             v-if="serviceCategoryStore.allServiceCategoryList && serviceCategoryStore.allServiceCategoryList.length ==0"
@@ -83,5 +99,27 @@ const metaData = {
 
 useMeta(metaData)
 </script>
-<style>
+<style scoped>
+
+.service-item{
+  /* min-width:78px; */
+  /* height: 50px; */
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.margin-neg{
+  margin:-4px;
+}
+.icon-relative-cont{
+  position: relative;
+  width: 60px;
+  height: 50px;
+}
+.absolute-top-center{
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
 </style>
