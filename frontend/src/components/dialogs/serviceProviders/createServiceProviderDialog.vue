@@ -281,7 +281,10 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinen") }}</div>
+                <div class="col-12 text-bold">{{ $t("phoneinen") }}
+
+                  <div class="fs-12">{{ $t("seperator") }}</div>
+                </div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberEnEl"
@@ -297,7 +300,10 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinbn") }}</div>
+                <div class="col-12 text-bold">{{ $t("phoneinbn") }}
+
+                  <div class="fs-12">{{ $t("seperator") }}</div>
+                </div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberBnEl"

@@ -10,7 +10,8 @@
       <q-bar class="bg-primary text-white">
         <q-space />
         <q-btn
-          dense glossy
+          dense
+          glossy
           flat
           icon="minimize"
           @click="maximizedToggle = false"
@@ -21,7 +22,8 @@
           >
         </q-btn>
         <q-btn
-          dense glossy
+          dense
+          glossy
           flat
           icon="crop_square"
           @click="maximizedToggle = true"
@@ -228,7 +230,9 @@
                 <div class="col-12 text-bold">{{ $t("location.exactbn") }}</div>
                 <div class="col-12">
                   <q-input
-                    v-model="serviceProviderStore.serviceProviderLocationR.exact.bn"
+                    v-model="
+                      serviceProviderStore.serviceProviderLocationR.exact.bn
+                    "
                     outlined
                     dense
                   />
@@ -240,7 +244,9 @@
                 <div class="col-12 text-bold">{{ $t("location.exacten") }}</div>
                 <div class="col-12">
                   <q-input
-                    v-model="serviceProviderStore.serviceProviderLocationR.exact.en"
+                    v-model="
+                      serviceProviderStore.serviceProviderLocationR.exact.en
+                    "
                     outlined
                     dense
                   />
@@ -281,7 +287,11 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinen") }}</div>
+                <div class="col-12 text-bold">
+                  {{ $t("phoneinen") }}
+
+                  <div class="fs-12">{{ $t("seperator") }}</div>
+                </div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberEnEl"
@@ -297,7 +307,11 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinbn") }}</div>
+                <div class="col-12 text-bold">
+                  {{ $t("phoneinbn") }}
+
+                  <div class="fs-12">{{ $t("seperator") }}</div>
+                </div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberBnEl"
@@ -642,7 +656,7 @@
                 <q-btn
                   :label="$t('update')"
                   color="light-green-8"
-              glossy
+                  glossy
                   @click="createServiceManager"
                 />
               </div>
@@ -682,7 +696,7 @@ const unionStore = useUnionStore();
 const wardStore = useWardStore();
 
 const searchLocationStore = useSearchLocationStore();
-searchLocationStore.updateAllLocation()
+searchLocationStore.updateAllLocation();
 const searchServiceStore = useSearchServiceStore();
 
 const maximizedToggle = ref(true);
