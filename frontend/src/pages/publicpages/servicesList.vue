@@ -12,8 +12,11 @@
               >
                 <div class="icon-relative-cont">
 
-                  <q-img  src="images/hexagonalshape.svg"
+                  <!-- <q-img  src="images/hexagonalshape.svg"
                   style="width: 56px; height: 48px;"
+                  /> -->
+                  <q-img  src="images/roundedsquareshape.svg"
+                  style="width: 48px; height: 48px;"
                   />
                   <q-img class="absolute-top-center"
                   v-if="service.icon"
@@ -88,7 +91,7 @@ useMeta(metaData)
 </script>
 <style>
 .service-item{
-  min-width:78px;
+  /* min-width:78px; */
   /* height: 50px; */
   display: flex;
     flex-direction: column;
