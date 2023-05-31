@@ -107,7 +107,6 @@ const createUnion = expressAsyncHandler(async (req, res) => {
             return { ...wards, parent: createdUnion, 
                 user: req.user._id }
         })
-console.log(commonWardLists)
         let createwardslist = await Ward.insertMany(commonWardLists)
 
         res.status(201).json({createdUnion,createwardslist})

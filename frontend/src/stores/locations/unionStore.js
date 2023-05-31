@@ -6,6 +6,7 @@ import {encode64} from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
+import { useWardStore } from './wardStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 const locationListGlobal = useLocalStorage('global-location-list', {})
@@ -14,6 +15,7 @@ export const useUnionStore = defineStore('union store', ()=>{
 
       const router = useRouter(),
       authStore = useAuthStore(),
+      wardStore = useWardStore(),
       openUnionCreateDialog = ref(false),
       openUnionEditDialog = ref(false),
       allUnions = ref([]),
@@ -97,6 +99,7 @@ export const useUnionStore = defineStore('union store', ()=>{
         const responseData = await api.request(config);
         openUnionCreateDialog.value = false
         getUnionList()
+        wardStore.getGlobalWards()
         loader.hideLoader()
       } catch (error) {
         console.log(error);
