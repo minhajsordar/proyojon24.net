@@ -5,7 +5,7 @@ import ServiceCategory from '../models/serviceCategoryModel.js'
 // @route Put api/ServiceCategory
 // @acess Privet
 const getServiceCategorys = expressAsyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize = 50;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {

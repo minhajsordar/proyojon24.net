@@ -1,5 +1,5 @@
 <template lang="">
-  <q-card class="full-width hover-serviceprovider-card"
+  <q-card class="full-width hover-serviceprovider-card  cursor-pointer"
 
   @click="$router.push('/service_provider/'+serviceProvider._id)"
   >

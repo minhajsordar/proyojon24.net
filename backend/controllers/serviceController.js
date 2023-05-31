@@ -5,7 +5,7 @@ import Service from '../models/serviceModel.js'
 // @route Put api/Service
 // @acess Privet
 const getServices = expressAsyncHandler(async (req, res) => {
-    const pageSize =  Number(req.query.pageSize) || 10;
+    const pageSize =  Number(req.query.pageSize) || 50;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {

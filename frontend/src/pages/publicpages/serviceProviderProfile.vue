@@ -91,7 +91,7 @@
                 <span class="fs-18"> যোগাযোগ করুন </span>
               </div>
               <div
-                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center"
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center  cursor-pointer"
                 v-for="(
                   phoneL, index
                 ) in serviceProviderStore.serviceProvider?.phoneNumber[

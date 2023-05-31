@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-py-sm q-pa-md bg-blue-grey-10 text-white pattern-bg-image">
-    <div class="container-section">
+    <div class="container-section" style="min-height:800px">
       <div class="inner-section">
         <div class="full-width">
           <div class="text-bold site-name text-center text-yellow-13">
@@ -30,6 +30,8 @@
                 color="black"
                 outlined
                 dense
+                autofocus
+                table-colspan="4"
               />
               <q-btn
                 class="bg-yellow-13 text-black location-search-btn"
@@ -143,21 +145,21 @@ useMeta(metaData);
 </script>
 <style scoped>
 .site-name {
-  font-size: 6rem;
-  line-height: 6rem;
+  font-size: 5rem;
+  line-height: 3rem;
   letter-spacing: -0.01562em;
 }
 @media screen and (max-width: 800px) {
   .site-name {
     font-size: 2.5rem;
-    line-height: 2rem;
+    line-height: 1.2rem;
     letter-spacing: -0.01562em;
   }
 }
 .welcome-text {
   margin-top: 2rem;
   font-size: 2.125rem;
-  line-height: 2.5rem;
+  line-height: 1.5rem;
   letter-spacing: 0.00735em;
 }
 
@@ -172,7 +174,7 @@ useMeta(metaData);
 .query-title {
   margin-top: 1rem;
   font-size: 2.125rem;
-  line-height: 2.5rem;
+  line-height: 1.5rem;
   letter-spacing: 0.00735em;
 }
 @media screen and (max-width: 800px) {
