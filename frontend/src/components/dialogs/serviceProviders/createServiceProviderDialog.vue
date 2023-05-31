@@ -201,7 +201,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6 col-6">
+            <div class="col-sm-12 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">{{ $t("location.ward") }}</div>
                 <div class="col-12">
@@ -426,6 +426,7 @@
                     outlined
                     dense
                     :rules="[required]"
+                    type="textarea"
                   />
                 </div>
               </div>
@@ -446,6 +447,7 @@
                     outlined
                     dense
                     :rules="[required]"
+                    type="textarea"
                   />
                 </div>
               </div>

@@ -140,10 +140,10 @@
                           ? opt.name[languageStore.language]
                           : null
                     "
+                    :rules="[requiredSelector]"
                     options-dense
                     outlined
                     dense
-                    :rules="[requiredSelector]"
                     @update:model-value="searchLocationStore.updateSubDistrict"
                   />
                 </div>
@@ -201,7 +201,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6 col-6">
+            <div class="col-sm-12 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">{{ $t("location.ward") }}</div>
                 <div class="col-12">
@@ -426,6 +426,7 @@
                     outlined
                     dense
                     :rules="[required]"
+                    type="textarea"
                   />
                 </div>
               </div>
@@ -433,7 +434,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("serviceListinen") }}
+                  {{ $t("serviceListinbn") }}
 
                   <div class="fs-12">{{ $t("seperator") }}</div>
                 </div>
@@ -446,6 +447,7 @@
                     outlined
                     dense
                     :rules="[required]"
+                    type="textarea"
                   />
                 </div>
               </div>
