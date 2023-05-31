@@ -8,7 +8,9 @@
             v-for="(serviceCategory,index) in serviceCategoryStore.allServiceCategoryList" :key="index"
             >
             <div class="text-center cursor-pointer service-item"
-              @click="$router.push('/service_category/'+serviceCategory._id)"
+              @click="$router.push('/service_category/'+serviceCategory._id);
+              selectedServiceAndCategory.serviceCategoryId = serviceCategory._id
+              "
               >
                 <div class="icon-relative-cont">
 
@@ -61,7 +63,9 @@ import { useI18n } from "vue-i18n";
 import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useRoute, useRouter } from "vue-router";
+import { useLocalStorage } from "@vueuse/core";
 
+const selectedServiceAndCategory = useLocalStorage('selected-service-and-category',{})
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const router = useRouter()

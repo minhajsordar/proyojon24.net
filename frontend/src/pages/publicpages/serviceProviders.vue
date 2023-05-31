@@ -137,7 +137,7 @@ const languageStore = useLanguageStore();
 const router = useRouter();
 const route = useRoute();
 const serviceCategoryStore = useServiceCategoryStore();
-serviceCategoryStore.getAllServiceCategorys();
+// serviceCategoryStore.getAllServiceCategorys();
 const serviceProviderStore = useServiceProviderStore();
 if (route.params.id) {
   serviceProviderStore.getAllServiceProviders(route.params.id);
