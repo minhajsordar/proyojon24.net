@@ -361,8 +361,8 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      responseData.data.sort((a, b) => a.viewCount - b.viewCount);
-      responseData.data.sort((a, b) => a.rankCount - b.rankCount);
+      responseData.data.sort((b, a) => a.viewCount - b.viewCount);
+      responseData.data.sort((b, a) => a.rankCount - b.rankCount);
       allServiceProvidersList.value = responseData.data;
       loader.hideLoader()
       allServiceProvidersListLoading.value = false
