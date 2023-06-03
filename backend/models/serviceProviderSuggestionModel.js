@@ -10,6 +10,11 @@ const serviceProviderSuggestionSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'ServiceProvider'
+    },
+    serviceCategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'ServiceCategory'
     }
 }, {
     timestamps: true

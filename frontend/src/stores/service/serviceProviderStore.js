@@ -605,7 +605,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     const data = serviceProviderInfo
     const config = {
       method: "put",
-      url: "api/service_Providers/" + serviceProviderInfo.id,
+      url: "api/service_providers/" + serviceProviderInfo.id,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
@@ -626,11 +626,54 @@ export const useServiceProviderStore = defineStore('service provider store', () 
   const deleteServiceProvider = async () => {
     const config = {
       method: "delete",
-      url: "api/service_Providers/" + serviceProviderInfo.id,
+      url: "api/service_providers/" + serviceProviderInfo.id,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      getServiceProviderList()
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+    }
+  }
+  const addToSuggestionServiceProvider = async (id) => {
+    const config = {
+      method: "put",
+      url: "api/service_providers/suggest/" + id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+
+      }, data: {
+        suggested: true
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      getServiceProviderList()
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+    }
+  }
+  const removeFromSuggestionServiceProvider = async (id) => {
+    const config = {
+      method: "put",
+      url: "api/service_providers/suggest/" + id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+      }, data: {
+        suggested: false
       }
     };
     loader.showLoader()
@@ -654,6 +697,8 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     allServiceProvidersList,
     allServiceProvidersListLoading,
     getAllServiceProviders,
+    addToSuggestionServiceProvider,
+    removeFromSuggestionServiceProvider,
 
     //  service provider
     paginationCurrent,

@@ -51,6 +51,8 @@ export default {
   restore: 'Restore',
   selectPlace: 'Select a place from options below',
   selectCategory: 'Select a category from options below',
+  addToSuggestion: 'Add To Suggestion List',
+  removeFromSuggestion: 'Remove From Suggestion List',
   usermenus:{
     profile: 'Profile',
     help: 'help',

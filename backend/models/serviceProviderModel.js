@@ -171,6 +171,11 @@ const serviceProviderSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    suggested: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 }, {
     timestamps: true

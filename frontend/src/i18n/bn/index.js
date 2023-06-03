@@ -51,6 +51,8 @@ export default {
   restore: 'পুনরুদ্ধার',
   selectPlace: 'নিচের অপশন থেকে স্থান নির্বাচন করুন।',
   selectCategory: 'নিচের অপশন থেকে ক্যাটাগরি নির্বাচন করুন।',
+  addToSuggestion: 'সাজেশন তালিকায় যোগ করুন',
+  removeFromSuggestion: 'সাজেশন তালিকা থেকে সরান',
   usermenus:{
     profile: 'নিজ সম্পর্কিত',
     help: 'সাহায্য',

@@ -17,7 +17,6 @@
               <q-select
                 v-model="publicUserStore.browsingLocation.district"
                 :options="districtStore.allDistricts"
-                options-dense
                 :option-label="
                   (opt) =>
                     Object(opt) === opt && 'name' in opt

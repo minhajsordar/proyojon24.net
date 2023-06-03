@@ -53,6 +53,9 @@ const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
     if(req.query.pinlocationId) {
         keyword["serviceProviderLocation.pinlocation._id"]=req.query.pinlocationId
     }
+    if(req.query.suggested) {
+        keyword.suggested=req.query.suggested
+    }
     const serviceProviders = await ServiceProvider.find({ ...keyword }).select('-user -dataUpdatedHistory -dataUpdatedBy -dataCollector -description -phoneNumber -extraCources -degree -serviceList')
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(serviceProviders)
@@ -175,6 +178,26 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
     }
 })
 
+// @desc update a product
+// @route update api/ServiceProvider/
+// @acess Privet/Admin
+const suggestServiceProvider = expressAsyncHandler(async (req, res) => {
+    const {
+        suggested
+    } = req.body
+    const serviceProvider = await ServiceProvider.findById(req.params.id)
+    if (serviceProvider) {
+        if (req.user.isSuperAdmin) {
+            serviceProvider.suggested = suggested || false
+        }
+        const updatedServiceProvider = await serviceProvider.save()
+        res.status(201).json(updatedServiceProvider)
+    } else {
+        res.status(404)
+        throw new Error('Service Provider not found')
+    }
+})
+
 // @desc Create new review
 // @route update api/ServiceProvider/:id/reviews
 // @acess Privet/Admin
@@ -285,6 +308,7 @@ export {
     deleteServiceProvider,
     createServiceProviderReview,
     createServiceProviderViewCount,
+    suggestServiceProvider,
     updateServiceProvider,
     getTopServiceProvider,
     getServiceProviderByServiceCategory,
