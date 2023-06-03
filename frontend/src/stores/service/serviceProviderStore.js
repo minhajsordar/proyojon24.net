@@ -8,10 +8,26 @@ import { useAuthStore } from '../auth/authStore';
 import { useServiceStore } from './serviceStore';
 import { useServiceCategoryStore } from './serviceCategoryStore';
 import { usePublicUserStore } from '../user/publicStore';
+import { usePinlocationStore } from '../locations/pinlocationStore';
+import { useWardStore } from '../locations/wardStore';
+import { useUnionStore } from '../locations/unionStore';
+import { useSubDistrictStore } from '../locations/subDistrictStore';
+import { useDistrictStore } from '../locations/districtStore';
+import { useDivisionStore } from '../locations/divisionStore';
+import { useSearchServiceStore } from './searchService';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
 export const useServiceProviderStore = defineStore('service provider store', () => {
+
+  const searchServiceStore = useSearchServiceStore();
+  const divisionEl = ref(null);
+  const divisionStore = useDivisionStore();
+  const districtStore = useDistrictStore();
+  const subDistrictStore = useSubDistrictStore();
+  const unionStore = useUnionStore();
+  const wardStore = useWardStore();
+  const pinlocationStore = usePinlocationStore();
   const router = useRouter(),
     authStore = useAuthStore(),
     serviceStore = useServiceStore(),
@@ -20,7 +36,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     openServiceProviderCreateDialog = ref(false),
     openServiceProviderEditDialog = ref(false),
     openServiceProviderPreviewDialog = ref(false),
-    paginationCurrent=ref(1),
+    paginationCurrent = ref(1),
     imageIcon = ref(null),
     imageCover = ref(null),
     selectedServiceCategory = ref(null),
@@ -32,10 +48,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       subDistrict: null,
       union: null,
       ward: null,
+      pinlocation: null,
       exact: {
-        bn:null,
-        en:null
-      },
+        bn: null,
+        en: null
+      }
     }),
     serviceProviderList = ref([]),
     serviceProviderInfo = reactive({
@@ -57,33 +74,42 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       serviceProviderLocation: {
         division: {
           _id: null,
-          name:{
+          name: {
             bn: null,
             en: null
           }
         },
         district: {
           _id: null,
-          name:{
+          name: {
             bn: null,
             en: null
           }
         },
-        subDistrict: {_id: null,
-          name:{
+        subDistrict: {
+          _id: null,
+          name: {
             bn: null,
             en: null
           }
         },
-        union: {_id: null,
-          name:{
+        union: {
+          _id: null,
+          name: {
             bn: null,
             en: null
           }
         },
         ward: {
           _id: null,
-          name:{
+          name: {
+            bn: null,
+            en: null
+          }
+        },
+        pinlocation: {
+          _id: null,
+          name: {
             bn: null,
             en: null
           }
@@ -133,38 +159,58 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     }
     serviceProviderInfo.serviceImage = null
     serviceProviderInfo.image = null
+    serviceProviderInfo.service = null
     serviceProviderInfo.serviceCategory = null
     serviceProviderInfo.rankCount = 1
+    serviceProviderLocationR.division = null
+    serviceProviderLocationR.district = null
+    serviceProviderLocationR.subDistrict = null
+    serviceProviderLocationR.union = null
+    serviceProviderLocationR.ward = null
+    serviceProviderLocationR.pinlocation = null
+    serviceProviderLocationR.exact = {
+      bn: null,
+      en: null
+    }
     serviceProviderInfo.serviceProviderLocation = {
       division: {
         _id: null,
-        name:{
+        name: {
           bn: null,
           en: null
         }
       },
       district: {
         _id: null,
-        name:{
+        name: {
           bn: null,
           en: null
         }
       },
-      subDistrict: {_id: null,
-        name:{
+      subDistrict: {
+        _id: null,
+        name: {
           bn: null,
           en: null
         }
       },
-      union: {_id: null,
-        name:{
+      union: {
+        _id: null,
+        name: {
           bn: null,
           en: null
         }
       },
       ward: {
         _id: null,
-        name:{
+        name: {
+          bn: null,
+          en: null
+        }
+      },
+      pinlocation: {
+        _id: null,
+        name: {
           bn: null,
           en: null
         }
@@ -240,6 +286,24 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.subDistrict = data.serviceProviderLocation.subDistrict
     serviceProviderLocationR.union = data.serviceProviderLocation.union
     serviceProviderLocationR.ward = data.serviceProviderLocation.ward
+    serviceProviderLocationR.pinlocation = data.serviceProviderLocation.pinlocation
+
+    if (data.serviceProviderLocation.division._id) {
+      districtStore.getAllDistricts(data.serviceProviderLocation.division._id);
+    }
+    if (data.serviceProviderLocation.district._id) {
+      subDistrictStore.getAllSubDistricts(data.serviceProviderLocation.district._id);
+    }
+    if (data.serviceProviderLocation.subDistrict._id) {
+      unionStore.getAllUnions(data.serviceProviderLocation.subDistrict._id);
+    }
+    if (data.serviceProviderLocation.union._id) {
+      wardStore.getAllWards(data.serviceProviderLocation.union._id);
+    }
+    if (data.serviceProviderLocation.ward._id) {
+      pinlocationStore.getAllPinlocations(data.serviceProviderLocation.ward._id);
+    }
+    searchServiceStore.updateServiceCategory()
     openServiceProviderEditDialog.value = true
   }
   const openServiceProviderPreviewDialogManager = (data) => {
@@ -276,6 +340,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.subDistrict = data.serviceProviderLocation.subDistrict
     serviceProviderLocationR.union = data.serviceProviderLocation.union
     serviceProviderLocationR.ward = data.serviceProviderLocation.ward
+    serviceProviderLocationR.pinlocation = data.serviceProviderLocation.pinlocation
   }
   const allServiceProvidersList = ref(null)
   const allServiceProvidersListLoading = ref(false)
@@ -313,7 +378,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     if (id) {
       params.serviceCategoryId = id
     }
-    if (publicUserStore.browsingLocation.ward) {
+    if (publicUserStore.browsingLocation.pinlocation) {
+      params.pinlocationId = publicUserStore.browsingLocation.pinlocation._id
+    }
+    else if (publicUserStore.browsingLocation.ward) {
       params.wardId = publicUserStore.browsingLocation.ward._id
     }
     else if (publicUserStore.browsingLocation.union) {
@@ -355,7 +423,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     const params = {
       pageNumber: serviceProviderPage.value
     }
-    if(filteredByServiseCategoryId.value){
+    if (filteredByServiseCategoryId.value) {
       params.serviceCategoryId = filteredByServiseCategoryId.value._id
     } else if (serviceCategoryStore.filteredByServiseId) {
       params.serviceId = serviceCategoryStore.filteredByServiseId._id
@@ -367,7 +435,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
-      },params
+      }, params
     };
     loader.showLoader()
     try {
@@ -413,7 +481,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
-      },params
+      }, params
     };
     loader.showLoader()
     try {
@@ -445,6 +513,8 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
     serviceProviderInfo.serviceProviderLocation.ward.name = serviceProviderLocationR.ward.name
     serviceProviderInfo.serviceProviderLocation.ward._id = serviceProviderLocationR.ward._id
+    serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
+    serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
     const data = serviceProviderInfo
     const config = {
@@ -529,6 +599,8 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
     serviceProviderInfo.serviceProviderLocation.ward.name = serviceProviderLocationR.ward.name
     serviceProviderInfo.serviceProviderLocation.ward._id = serviceProviderLocationR.ward._id
+    serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
+    serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
     const data = serviceProviderInfo
     const config = {
@@ -598,6 +670,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     updateServiceProvider,
     deleteServiceProvider,
     serviceProviderLocationR,
+    emptyServiceProviderInfo,
     imageIcon,
     imageCover,
     uploadIcon,

@@ -17,12 +17,32 @@ import pinLocationRoutes from './routes/pinLocationRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import { importData } from './seeder.js'
+import { createServer } from "http";
+import { Server } from "socket.io";
+
+
 
 connectDB()
 dotenv.config()
 
 const app = express()
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+    cors: {
+      origin: "http://localhost:9000"
+    }
+  });
 
+io.on("connection", (socket) => {
+  // ...
+  console.log("user connected, socket id: ", socket.id)
+//   socket.emit('foo',{"message":"hello"})
+});
+
+app.use((req,res,next)=>{
+    req.io = io
+    next()
+})
 const __dirname = path.resolve()
 
 if(process.env.NODE_ENV === 'development'){
@@ -84,4 +104,6 @@ if(process.env.NODE_ENV === 'production'){
 
 app.use(notFound)
 
-app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on http://localhost:${PORT}`))
+httpServer.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on http://localhost:${PORT}`));
+
+// app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on http://localhost:${PORT}`))

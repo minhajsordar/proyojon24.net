@@ -10,7 +10,7 @@
         dense
         glossy
         size="sm"
-        @click="serviceProviderStore.openServiceProviderCreateDialog = true"
+        @click="serviceProviderStore.openServiceProviderCreateDialogManager"
       />
     </div>
     <div class="row q-col-gutter-sm">

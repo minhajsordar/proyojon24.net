@@ -117,6 +117,7 @@ import { useUnionStore } from "src/stores/locations/unionStore";
 import { useWardStore } from "src/stores/locations/wardStore";
 import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
 import { useRoute } from "vue-router";
+import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 // const route = useRoute()
 const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
 const serviceProviderStore = useServiceProviderStore();
@@ -130,6 +131,8 @@ const unionStore = useUnionStore();
 unionStore.getAllUnions();
 const wardStore = useWardStore();
 wardStore.getAllWards();
+const pinlocationStore = usePinlocationStore();
+pinlocationStore.getAllPinlocations();
 
 </script>
 <style lang="scss"></style>

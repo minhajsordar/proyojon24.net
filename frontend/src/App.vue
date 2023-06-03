@@ -13,13 +13,15 @@ import { useSubDistrictStore } from "./stores/locations/subDistrictStore";
 import { useUnionStore } from "./stores/locations/unionStore";
 import { useWardStore } from "./stores/locations/wardStore";
 import { usePublicUserStore } from "./stores/user/publicStore";
-
+import { socket, state } from "src/socket/socket";
+import { usePinlocationStore } from "./stores/locations/pinlocationStore";
 const locationListGlobal = useLocalStorage("global-location-list", {});
 const divisionStore = useDivisionStore();
 const districtStore = useDistrictStore();
 const subDistrictStore = useSubDistrictStore();
 const unionStore = useUnionStore();
 const wardStore = useWardStore();
+const pinlocationStore = usePinlocationStore();
 const isEmptyArray = (e) => {
   if (Array.isArray(e) && e.length > 0) {
     return false;
@@ -57,6 +59,7 @@ onMounted(() => {
   subDistrictStore.getGlobalSubDistricts();
   unionStore.getGlobalUnions();
   wardStore.getGlobalWards();
+  pinlocationStore.getGlobalPinlocations();
 })
 const publicUserStore = usePublicUserStore()
 onBeforeMount(() => {

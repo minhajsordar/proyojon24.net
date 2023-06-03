@@ -35,6 +35,7 @@
             <q-tab name="subdistrict" :label="$t('location.subdistrict')" />
             <q-tab name="union" :label="$t('location.union')" />
             <q-tab name="ward" :label="$t('location.ward')" />
+            <q-tab name="pinlocation" :label="$t('location.pinlocation')" />
           </q-tabs>
           <q-separator/>
           <q-tab-panels v-model="tab" animated>
@@ -53,6 +54,9 @@
             <q-tab-panel name="ward">
               <wardTable/>
             </q-tab-panel>
+            <q-tab-panel name="pinlocation">
+              <pinlocationTable/>
+            </q-tab-panel>
           </q-tab-panels>
         </q-card>
       </div>
@@ -70,6 +74,7 @@ import districtTable from "src/components/locations/districtTable.vue";
 import subDistrictTable from "src/components/locations/subDistrictTable.vue";
 import unionTable from "src/components/locations/unionTable.vue";
 import wardTable from "src/components/locations/wardTable.vue";
+import pinlocationTable from "src/components/locations/pinLocationTable.vue"
 import locationFilter from "src/components/locations/locationFilter.vue";
 
 import { useUnionStore } from "src/stores/locations/unionStore";
@@ -79,6 +84,7 @@ import { useDistrictStore } from "src/stores/locations/districtStore";
 import { useDivisionStore } from "src/stores/locations/divisionStore";
 import { useRouter } from "vue-router";
 import { usePublicUserStore } from "src/stores/user/publicStore";
+import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -94,6 +100,7 @@ const districtStore = useDistrictStore()
 const subDistrictStore = useSubDistrictStore()
 const unionStore = useUnionStore()
 const wardStore = useWardStore()
+const pinlocationStore = usePinlocationStore()
 
 
 divisionStore.getDivisionList()
@@ -101,6 +108,7 @@ districtStore.getDistrictList()
 subDistrictStore.getSubDistrictList()
 unionStore.getUnionList()
 wardStore.getWardList()
+pinlocationStore.getPinlocationList()
 const publicUserStore = usePublicUserStore()
 const applyFilter = ()=>{
   console.log("filter")
@@ -112,6 +120,9 @@ const applyFilter = ()=>{
   }
   if(publicUserStore.browsingLocation.union){
     wardStore.getWardListByBrowsingUnionId()
+  }
+  if(publicUserStore.browsingLocation.ward){
+    pinlocationStore.getPinlocationListByBrowsingWardId()
   }
 
 }

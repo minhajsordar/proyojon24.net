@@ -44,7 +44,7 @@
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("services.services") }}
+                  {{ $t("services.services") }}*
                 </div>
                 <div class="col-12">
                   <q-select
@@ -71,7 +71,7 @@
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("services.service_category") }}
+                  {{ $t("services.service_category") }}*
                 </div>
                 <div class="col-12">
                   <q-select
@@ -98,7 +98,7 @@
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("location.division") }}
+                  {{ $t("location.division") }}*
                 </div>
                 <div class="col-12">
                   <q-select
@@ -117,7 +117,15 @@
                     outlined
                     dense
                     :rules="[requiredSelector]"
-                    @update:model-value="searchLocationStore.updateDistrict"
+                    @update:model-value="
+                    serviceProviderStore.serviceProviderLocationR.district = null;
+                    serviceProviderStore.serviceProviderLocationR.subDistrict = null;
+                    serviceProviderStore.serviceProviderLocationR.union = null;
+                    serviceProviderStore.serviceProviderLocationR.ward = null;
+                    serviceProviderStore.serviceProviderLocationR.pinlocation = null;
+                    searchLocationStore.updateDistrict();
+
+                    "
                   />
                 </div>
               </div>
@@ -125,7 +133,7 @@
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("location.district") }}
+                  {{ $t("location.district") }}*
                 </div>
                 <div class="col-12">
                   <q-select
@@ -144,7 +152,13 @@
                     options-dense
                     outlined
                     dense
-                    @update:model-value="searchLocationStore.updateSubDistrict"
+                    @update:model-value="
+                    serviceProviderStore.serviceProviderLocationR.subDistrict = null;
+                    serviceProviderStore.serviceProviderLocationR.union = null;
+                    serviceProviderStore.serviceProviderLocationR.ward = null;
+                    serviceProviderStore.serviceProviderLocationR.pinlocation = null;
+                    searchLocationStore.updateSubDistrict();"
+
                   />
                 </div>
               </div>
@@ -152,7 +166,7 @@
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("location.subdistrict") }}
+                  {{ $t("location.subdistrict") }}*
                 </div>
                 <div class="col-12">
                   <q-select
@@ -171,14 +185,20 @@
                     outlined
                     dense
                     :rules="[requiredSelector]"
-                    @update:model-value="searchLocationStore.updateUnion"
+                    @update:model-value="
+
+                    serviceProviderStore.serviceProviderLocationR.union = null;
+                    serviceProviderStore.serviceProviderLocationR.ward = null;
+                    serviceProviderStore.serviceProviderLocationR.pinlocation = null;
+                    searchLocationStore.updateUnion();
+                    "
                   />
                 </div>
               </div>
             </div>
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("location.union") }}</div>
+                <div class="col-12 text-bold">{{ $t("location.union") }}*</div>
                 <div class="col-12">
                   <q-select
                     ref="unionEl"
@@ -196,19 +216,49 @@
                     outlined
                     dense
                     :rules="[requiredSelector]"
-                    @update:model-value="searchLocationStore.updateWard"
+                    @update:model-value="
+                    serviceProviderStore.serviceProviderLocationR.ward = null;
+                    serviceProviderStore.serviceProviderLocationR.pinlocation = null;
+                    searchLocationStore.updateWard();
+                    "
                   />
                 </div>
               </div>
             </div>
-            <div class="col-sm-12 col-xs-12 col-12">
+            <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("location.ward") }}</div>
+                <div class="col-12 text-bold">{{ $t("location.ward") }}*</div>
                 <div class="col-12">
                   <q-select
                     ref="wardEl"
                     v-model="serviceProviderStore.serviceProviderLocationR.ward"
                     :options="wardStore.allWards"
+                    :option-label="
+                      (opt) =>
+                        Object(opt) === opt && 'name' in opt
+                          ? opt.name[languageStore.language]
+                          : null
+                    "
+                    options-dense
+                    outlined
+                    dense
+                    :rules="[requiredSelector]"
+                    @update:model-value="
+                    serviceProviderStore.serviceProviderLocationR.pinlocation=null;
+                    searchLocationStore.updatePinlocation()
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-6 col-6">
+              <div class="row">
+                <div class="col-12 text-bold">{{ $t("location.pinlocation") }}*</div>
+                <div class="col-12">
+                  <q-select
+                    ref="pinlocationEl"
+                    v-model="serviceProviderStore.serviceProviderLocationR.pinlocation"
+                    :options="pinlocationStore.allPinlocations"
                     :option-label="
                       (opt) =>
                         Object(opt) === opt && 'name' in opt
@@ -251,7 +301,7 @@
             <!-- name start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("nameinen") }}</div>
+                <div class="col-12 text-bold">{{ $t("nameinen") }}*</div>
                 <div class="col-12">
                   <q-input
                     ref="nameEnEl"
@@ -265,7 +315,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("nameinbn") }}</div>
+                <div class="col-12 text-bold">{{ $t("nameinbn") }}*</div>
                 <div class="col-12">
                   <q-input
                     ref="nameBnEl"
@@ -281,7 +331,7 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinen") }}
+                <div class="col-12 text-bold">{{ $t("phoneinen") }}*
 
                   <div class="fs-12">{{ $t("seperator") }}</div>
                 </div>
@@ -300,7 +350,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinbn") }}
+                <div class="col-12 text-bold">{{ $t("phoneinbn") }}*
 
                   <div class="fs-12">{{ $t("seperator") }}</div>
                 </div>
@@ -539,7 +589,8 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addicon") }}
+                  {{ $t("addicon") }}*
+                  <span class="fs-10">Max 200kb</span>
                 </div>
                 <div class="col-12">
                   <q-file
@@ -573,7 +624,8 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}
+                  {{ $t("addcoverimage") }}*
+                  <span class="fs-10">Max 8MB</span>
                 </div>
                 <div class="col-12">
                   <q-file
@@ -660,7 +712,7 @@
   </q-dialog>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref,onMounted } from "vue";
 import { Notify } from "quasar";
 import { requiredSelector, required, fileValidate } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
@@ -674,6 +726,7 @@ import { useDistrictStore } from "src/stores/locations/districtStore";
 import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
 import { useUnionStore } from "src/stores/locations/unionStore";
 import { useWardStore } from "src/stores/locations/wardStore";
+import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 import { useSearchServiceStore } from "src/stores/service/searchService";
 
 const languageStore = useLanguageStore();
@@ -686,6 +739,7 @@ const districtStore = useDistrictStore();
 const subDistrictStore = useSubDistrictStore();
 const unionStore = useUnionStore();
 const wardStore = useWardStore();
+const pinlocationStore = usePinlocationStore();
 
 const searchLocationStore = useSearchLocationStore();
 searchLocationStore.updateAllLocation()
@@ -699,6 +753,7 @@ const districtEl = ref(null);
 const subDistrictEl = ref(null);
 const unionEl = ref(null);
 const wardEl = ref(null);
+const pinlocationEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 const iconEl = ref(null);
@@ -714,6 +769,7 @@ const createServiceManager = () => {
   subDistrictEl.value.validate();
   unionEl.value.validate();
   wardEl.value.validate();
+  pinlocationEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   iconEl.value.validate();
@@ -728,6 +784,7 @@ const createServiceManager = () => {
     subDistrictEl.value.hasError ||
     unionEl.value.hasError ||
     wardEl.value.hasError ||
+    pinlocationEl.value.hasError ||
     nameEnEl.value.hasError ||
     nameBnEl.value.hasError ||
     iconEl.value.hasError ||

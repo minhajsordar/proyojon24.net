@@ -93,6 +93,7 @@ import { isObjEmpty } from "src/global_js/utils";
 import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
 import { useUnionStore } from "src/stores/locations/unionStore";
 import { useWardStore } from "src/stores/locations/wardStore";
+import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
 const publicUserStore = usePublicUserStore();
 const languageStore = useLanguageStore();
@@ -104,6 +105,9 @@ const unionStore = useUnionStore();
 unionStore.getAllUnions();
 const wardStore = useWardStore();
 wardStore.getAllWards();
+
+const pinlocationStore = usePinlocationStore();
+pinlocationStore.getAllPinlocations();
 
 onBeforeMount(() => {
   publicUserStore.updateBrowsingLocationOnMounted();

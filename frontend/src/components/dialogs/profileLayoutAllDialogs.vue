@@ -6,12 +6,14 @@
     <createSubDistrictDialog/>
     <createUnionDialog/>
     <createWardDialog/>
+    <createPinlocationDialog/>
     <!-- edit location dialog -->
     <editDivisionDialog/>
     <editDistrictDialog/>
     <editSubDistrictDialog/>
     <editUnionDialog/>
     <editWardDialog/>
+    <editPinlocationDialog/>
     <!-- create service  -->
     <createServiceDialog/>
     <!-- edit service  -->
@@ -42,12 +44,14 @@ import createDistrictDialog from 'src/components/dialogs/district/createDistrict
 import createSubDistrictDialog from 'src/components/dialogs/subdistrict/createSubDistrictDialog.vue';
 import createUnionDialog from 'src/components/dialogs/union/createUnionDialog.vue';
 import createWardDialog from 'src/components/dialogs/ward/createWardDialog.vue';
+import createPinlocationDialog from 'src/components/dialogs/pinlocation/createPinlocationDialog.vue';
 // edit location dialog
 import editDivisionDialog from 'src/components/dialogs/division/editDivisionDialog.vue'
 import editDistrictDialog from 'src/components/dialogs/district/editDistrictDialog.vue';
 import editSubDistrictDialog from 'src/components/dialogs/subdistrict/editSubDistrictDialog.vue';
 import editUnionDialog from 'src/components/dialogs/union/editUnionDialog.vue';
 import editWardDialog from 'src/components/dialogs/ward/editWardDialog.vue';
+import editPinlocationDialog from 'src/components/dialogs/pinlocation/editPinlocationDialog.vue';
 // service dialogs
 import createServiceDialog from 'src/components/dialogs/services/createServiceDialog.vue';
 import editServiceDialog from 'src/components/dialogs/services/editServiceDialog.vue';

@@ -87,8 +87,12 @@ export default {
     addnew_ward:'নতুন ওয়ার্ড যুক্ত করুন',
     edit_ward:'ওয়ার্ড পরিবর্তন করুন',
     wardList:'ওয়ার্ড তালিকা',
+    pinlocation:'স্থান',
+    addnew_pinlocation:'নতুন স্থান যুক্ত করুন',
+    edit_pinlocation:'স্থান পরিবর্তন করুন',
+    pinlocationList:'স্থানের তালিকা',
     exactbn:'স্থানের নাম বাংলায়',
-    exactbn:'স্থানের নাম ইংরেজিতে',
+    exacten:'স্থানের নাম ইংরেজিতে',
   },
   services:{
     services:'সেবা সমূহ',
