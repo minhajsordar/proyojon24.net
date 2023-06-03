@@ -343,6 +343,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.pinlocation = data.serviceProviderLocation.pinlocation
   }
   const allServiceProvidersList = ref(null)
+  const suggestedServiceProvidersList = ref([])
   const allServiceProvidersListLoading = ref(false)
   const getAllServiceProviders = async (id) => {
     allServiceProvidersListLoading.value = true
@@ -363,7 +364,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       const responseData = await api.request(config);
       responseData.data.sort((b, a) => a.viewCount - b.viewCount);
       responseData.data.sort((b, a) => a.rankCount - b.rankCount);
-      allServiceProvidersList.value = responseData.data;
+      allServiceProvidersList.value = responseData.data.filter(e=>e.suggested == false);
+      suggestedServiceProvidersList.value =  responseData.data.filter(e=>e.suggested == true)
+
       loader.hideLoader()
       allServiceProvidersListLoading.value = false
     } catch (error) {
@@ -696,6 +699,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     // all service providers
     allServiceProvidersList,
     allServiceProvidersListLoading,
+    suggestedServiceProvidersList,
     getAllServiceProviders,
     addToSuggestionServiceProvider,
     removeFromSuggestionServiceProvider,

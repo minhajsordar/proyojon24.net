@@ -13,7 +13,8 @@
         </div>
         <q-separator/>
         <div>
-          <span>{{serviceProvider.serviceTitle[languageStore.language]}}, </span>
+          <span>{{serviceProvider.serviceTitle[languageStore.language]}}</span>
+          <span v-show="serviceProvider.specialties[languageStore.language]">, </span>
           <span>{{serviceProvider.specialties[languageStore.language]}}</span>
         </div>
         <q-separator/>
@@ -26,7 +27,8 @@
           <span>{{serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]}}, </span>
           <span>{{serviceProvider.serviceProviderLocation?.district?.name[languageStore.language]}}, </span>
           <span>{{serviceProvider.serviceProviderLocation?.subDistrict?.name[languageStore.language]}}, </span>
-          <span>{{serviceProvider.serviceProviderLocation?.union?.name[languageStore.language]}}, </span>
+          <span>{{serviceProvider.serviceProviderLocation?.union?.name[languageStore.language]}}</span>
+          <span v-show="serviceProvider.serviceProviderLocation?.exact">, </span>
           <span v-if="serviceProvider.serviceProviderLocation?.exact">{{serviceProvider.serviceProviderLocation?.exact[languageStore.language]}}</span>
         </div>
       </q-card-section>

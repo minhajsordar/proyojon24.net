@@ -18,18 +18,16 @@
                   style="width: 56px; height: 48px;"
                   /> -->
                   <q-img  src="/images/roundedsquareshape.svg"
-                  style="width: 48px; height: 48px;"
+                  class="shape"
                   />
-                  <q-img class="absolute-top-center"
+                  <q-img class="absolute-top-center service-icon"
                   v-if="service.icon"
                   fit
-                  style="max-width: 35px; max-height: 35px;"
                   :src="service.icon"
                   />
                   <q-img
-                  v-else class="absolute-top-center"
+                  v-else class="absolute-top-center service-icon"
                    fit
-                  style="max-width: 35px; max-height: 35px;"
                   src="images/placeholder_image.png"
                   />
                   <!-- <q-img fit
@@ -135,6 +133,14 @@ position: relative;
     top: 50%;
     transform: translate(-50%,-50%);
 }
+.shape{
+  width: 98px;
+  height: 98px;
+}
+.service-icon{
+  max-width: 70px;
+  max-height: 70px;
+}
 @media screen and (max-width: 950px) {
 
 .margin-neg{
@@ -150,6 +156,14 @@ position: relative;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+}
+.shape{
+  width: 48px;
+  height: 48px;
+}
+.service-icon{
+  max-width: 35px;
+  max-height: 35px;
 }
 }
 </style>

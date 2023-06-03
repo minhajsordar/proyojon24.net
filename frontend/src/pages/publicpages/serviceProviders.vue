@@ -84,6 +84,26 @@
             </div>
             <div class="col-lg-9 col-sm-8 col-xs-12 col-12">
               <q-card class="q-pa-md">
+                <div v-if="serviceProviderStore?.suggestedServiceProvidersList.length > 0">
+                  <div class="fs-18 text-bold">
+                    {{ $t("services.suggestions") }}
+                  </div>
+                  <q-separator class="q-mb-sm"></q-separator>
+                  <div class="row q-col-gutter-sm">
+
+                    <div
+                      class="col-12"
+                      v-for="(
+                        serviceProvider, index
+                      ) in serviceProviderStore.suggestedServiceProvidersList"
+                      :key="index"
+                    >
+                      <serviceProviderListCard :serviceProvider="serviceProvider" />
+                    </div>
+                  </div>
+
+                  <q-separator class="q-mb-sm"></q-separator>
+                </div>
                 <div class="fs-18 text-bold">
                   {{ $t("services.service_provider") }}
                 </div>

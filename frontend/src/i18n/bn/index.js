@@ -97,6 +97,7 @@ export default {
     exacten:'স্থানের নাম ইংরেজিতে',
   },
   services:{
+    suggestions:'সাজেশন তালিকা',
     services:'সেবা সমূহ',
     addnew_service:'নতুন সেবা যুক্ত করুন',
     edit_service:'সেবা পরির্তন করুন',
