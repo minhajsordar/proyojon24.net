@@ -18,7 +18,7 @@
       <thead class="bg-blue-grey-2">
         <tr>
           <th>{{ $t("serial") }}</th>
-          <th>{{ $t("location.ward") }}</th>
+          <th>{{ $t("location.union") }}</th>
           <th>{{ $t("location.pinlocation") }}</th>
           <th>{{ $t("action") }}</th>
         </tr>

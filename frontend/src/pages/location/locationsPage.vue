@@ -30,16 +30,16 @@
             align="justify"
             narrow-indicator
           >
-            <q-tab name="division" :label="$t('location.division')" />
+            <!-- <q-tab name="division" :label="$t('location.division')" />
             <q-tab name="district" :label="$t('location.district')" />
             <q-tab name="subdistrict" :label="$t('location.subdistrict')" />
             <q-tab name="union" :label="$t('location.union')" />
-            <q-tab name="ward" :label="$t('location.ward')" />
+            <q-tab name="ward" :label="$t('location.ward')" /> -->
             <q-tab name="pinlocation" :label="$t('location.pinlocation')" />
           </q-tabs>
           <q-separator/>
           <q-tab-panels v-model="tab" animated>
-            <q-tab-panel name="division">
+            <!-- <q-tab-panel name="division">
               <divisionTable/>
             </q-tab-panel>
             <q-tab-panel name="district">
@@ -53,7 +53,7 @@
             </q-tab-panel>
             <q-tab-panel name="ward">
               <wardTable/>
-            </q-tab-panel>
+            </q-tab-panel> -->
             <q-tab-panel name="pinlocation">
               <pinlocationTable/>
             </q-tab-panel>
@@ -94,7 +94,7 @@ onMounted(()=>{
   }
 })
 const languageStore =useLanguageStore()
-const tab = ref("division")
+const tab = ref("pinlocation")
 const divisionStore = useDivisionStore()
 const districtStore = useDistrictStore()
 const subDistrictStore = useSubDistrictStore()
