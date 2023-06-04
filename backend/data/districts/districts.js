@@ -7,7 +7,7 @@ const districts = [
             bn: "কুমিল্লা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -22,7 +22,7 @@ const districts = [
             bn: "ফেনী"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -37,7 +37,7 @@ const districts = [
             bn: "ব্রাহ্মণবাড়িয়া"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -52,7 +52,7 @@ const districts = [
             bn: "রাঙ্গামাটি"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -67,7 +67,7 @@ const districts = [
             bn: "নোয়াখালী"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -82,7 +82,7 @@ const districts = [
             bn: "চাঁদপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -97,7 +97,7 @@ const districts = [
             bn: "লক্ষ্মীপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -112,7 +112,7 @@ const districts = [
             bn: "চট্টগ্রাম"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -127,7 +127,7 @@ const districts = [
             bn: "কক্সবাজার"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -142,7 +142,7 @@ const districts = [
             bn: "খাগড়াছড়ি"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -157,7 +157,7 @@ const districts = [
             bn: "বান্দরবান"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c4",
+            _id: "647ce47d32b39ab992d3a984",
             name: {
                 en: "Chattagram",
                 bn: "চট্টগ্রাম"
@@ -172,7 +172,7 @@ const districts = [
             bn: "সিরাজগঞ্জ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c5",
+            _id: "647ce47d32b39ab992d3a985",
             name: {
                 en: "Rajshahi",
                 bn: "রাজশাহী"
@@ -187,7 +187,7 @@ const districts = [
             bn: "পাবনা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c5",
+            _id: "647ce47d32b39ab992d3a985",
             name: {
                 en: "Rajshahi",
                 bn: "রাজশাহী"
@@ -202,7 +202,7 @@ const districts = [
             bn: "বগুড়া"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c5",
+            _id: "647ce47d32b39ab992d3a985",
             name: {
                 en: "Rajshahi",
                 bn: "রাজশাহী"
@@ -217,7 +217,7 @@ const districts = [
             bn: "রাজশাহী"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c5",
+            _id: "647ce47d32b39ab992d3a985",
             name: {
                 en: "Rajshahi",
                 bn: "রাজশাহী"
@@ -232,7 +232,7 @@ const districts = [
             bn: "নাটোর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c5",
+            _id: "647ce47d32b39ab992d3a985",
             name: {
                 en: "Rajshahi",
                 bn: "রাজশাহী"
@@ -247,7 +247,7 @@ const districts = [
             bn: "জয়পুরহাট"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c5",
+            _id: "647ce47d32b39ab992d3a985",
             name: {
                 en: "Rajshahi",
                 bn: "রাজশাহী"
@@ -262,7 +262,7 @@ const districts = [
             bn: "চাঁপাইনবাবগঞ্জ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c5",
+            _id: "647ce47d32b39ab992d3a985",
             name: {
                 en: "Rajshahi",
                 bn: "রাজশাহী"
@@ -277,7 +277,7 @@ const districts = [
             bn: "নওগাঁ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c5",
+            _id: "647ce47d32b39ab992d3a985",
             name: {
                 en: "Rajshahi",
                 bn: "রাজশাহী"
@@ -292,7 +292,7 @@ const districts = [
             bn: "যশোর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -307,7 +307,7 @@ const districts = [
             bn: "সাতক্ষীরা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -322,7 +322,7 @@ const districts = [
             bn: "মেহেরপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -337,7 +337,7 @@ const districts = [
             bn: "নড়াইল"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -352,7 +352,7 @@ const districts = [
             bn: "চুয়াডাঙ্গা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -367,7 +367,7 @@ const districts = [
             bn: "কুষ্টিয়া"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -382,7 +382,7 @@ const districts = [
             bn: "মাগুরা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -397,7 +397,7 @@ const districts = [
             bn: "খুলনা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -412,7 +412,7 @@ const districts = [
             bn: "বাগেরহাট"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -427,7 +427,7 @@ const districts = [
             bn: "ঝিনাইদহ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c6",
+            _id: "647ce47d32b39ab992d3a986",
             name: {
                 en: "Khulna",
                 bn: "খুলনা"
@@ -442,7 +442,7 @@ const districts = [
             bn: "ঝালকাঠি"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c7",
+            _id: "647ce47d32b39ab992d3a987",
             name: {
                 en: "Barisal",
                 bn: "বরিশাল"
@@ -457,7 +457,7 @@ const districts = [
             bn: "পটুয়াখালী"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c7",
+            _id: "647ce47d32b39ab992d3a987",
             name: {
                 en: "Barisal",
                 bn: "বরিশাল"
@@ -472,7 +472,7 @@ const districts = [
             bn: "পিরোজপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c7",
+            _id: "647ce47d32b39ab992d3a987",
             name: {
                 en: "Barisal",
                 bn: "বরিশাল"
@@ -487,7 +487,7 @@ const districts = [
             bn: "বরিশাল"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c7",
+            _id: "647ce47d32b39ab992d3a987",
             name: {
                 en: "Barisal",
                 bn: "বরিশাল"
@@ -502,7 +502,7 @@ const districts = [
             bn: "ভোলা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c7",
+            _id: "647ce47d32b39ab992d3a987",
             name: {
                 en: "Barisal",
                 bn: "বরিশাল"
@@ -517,7 +517,7 @@ const districts = [
             bn: "বরগুনা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c7",
+            _id: "647ce47d32b39ab992d3a987",
             name: {
                 en: "Barisal",
                 bn: "বরিশাল"
@@ -532,7 +532,7 @@ const districts = [
             bn: "সিলেট"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c8",
+            _id: "647ce47d32b39ab992d3a988",
             name: {
                 en: "Sylhet",
                 bn: "সিলেট"
@@ -547,7 +547,7 @@ const districts = [
             bn: "মৌলভীবাজার"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c8",
+            _id: "647ce47d32b39ab992d3a988",
             name: {
                 en: "Sylhet",
                 bn: "সিলেট"
@@ -562,7 +562,7 @@ const districts = [
             bn: "হবিগঞ্জ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c8",
+            _id: "647ce47d32b39ab992d3a988",
             name: {
                 en: "Sylhet",
                 bn: "সিলেট"
@@ -577,7 +577,7 @@ const districts = [
             bn: "সুনামগঞ্জ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c8",
+            _id: "647ce47d32b39ab992d3a988",
             name: {
                 en: "Sylhet",
                 bn: "সিলেট"
@@ -592,7 +592,7 @@ const districts = [
             bn: "নরসিংদী"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -607,7 +607,7 @@ const districts = [
             bn: "গাজীপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -622,7 +622,7 @@ const districts = [
             bn: "শরীয়তপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -637,7 +637,7 @@ const districts = [
             bn: "নারায়ণগঞ্জ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -652,7 +652,7 @@ const districts = [
             bn: "টাঙ্গাইল"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -667,7 +667,7 @@ const districts = [
             bn: "কিশোরগঞ্জ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -682,7 +682,7 @@ const districts = [
             bn: "মানিকগঞ্জ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -697,7 +697,7 @@ const districts = [
             bn: "ঢাকা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -712,7 +712,7 @@ const districts = [
             bn: "মুন্সিগঞ্জ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -727,7 +727,7 @@ const districts = [
             bn: "রাজবাড়ী"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -742,7 +742,7 @@ const districts = [
             bn: "মাদারীপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -757,7 +757,7 @@ const districts = [
             bn: "গোপালগঞ্জ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -772,7 +772,7 @@ const districts = [
             bn: "ফরিদপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20c9",
+            _id: "647ce47d32b39ab992d3a989",
             name: {
                 en: "Dhaka",
                 bn: "ঢাকা"
@@ -787,7 +787,7 @@ const districts = [
             bn: "পঞ্চগড়"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20ca",
+            _id: "647ce47d32b39ab992d3a98a",
             name: {
                 en: "Rangpur",
                 bn: "রংপুর"
@@ -802,7 +802,7 @@ const districts = [
             bn: "দিনাজপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20ca",
+            _id: "647ce47d32b39ab992d3a98a",
             name: {
                 en: "Rangpur",
                 bn: "রংপুর"
@@ -817,7 +817,7 @@ const districts = [
             bn: "লালমনিরহাট"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20ca",
+            _id: "647ce47d32b39ab992d3a98a",
             name: {
                 en: "Rangpur",
                 bn: "রংপুর"
@@ -832,7 +832,7 @@ const districts = [
             bn: "নীলফামারী"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20ca",
+            _id: "647ce47d32b39ab992d3a98a",
             name: {
                 en: "Rangpur",
                 bn: "রংপুর"
@@ -847,7 +847,7 @@ const districts = [
             bn: "গাইবান্ধা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20ca",
+            _id: "647ce47d32b39ab992d3a98a",
             name: {
                 en: "Rangpur",
                 bn: "রংপুর"
@@ -862,7 +862,7 @@ const districts = [
             bn: "ঠাকুরগাঁও"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20ca",
+            _id: "647ce47d32b39ab992d3a98a",
             name: {
                 en: "Rangpur",
                 bn: "রংপুর"
@@ -877,7 +877,7 @@ const districts = [
             bn: "রংপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20ca",
+            _id: "647ce47d32b39ab992d3a98a",
             name: {
                 en: "Rangpur",
                 bn: "রংপুর"
@@ -892,7 +892,7 @@ const districts = [
             bn: "কুড়িগ্রাম"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20ca",
+            _id: "647ce47d32b39ab992d3a98a",
             name: {
                 en: "Rangpur",
                 bn: "রংপুর"
@@ -907,7 +907,7 @@ const districts = [
             bn: "শেরপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20cb",
+            _id: "647ce47d32b39ab992d3a98b",
             name: {
                 en: "Mymensingh",
                 bn: "ময়মনসিংহ"
@@ -922,7 +922,7 @@ const districts = [
             bn: "ময়মনসিংহ"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20cb",
+            _id: "647ce47d32b39ab992d3a98b",
             name: {
                 en: "Mymensingh",
                 bn: "ময়মনসিংহ"
@@ -937,7 +937,7 @@ const districts = [
             bn: "জামালপুর"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20cb",
+            _id: "647ce47d32b39ab992d3a98b",
             name: {
                 en: "Mymensingh",
                 bn: "ময়মনসিংহ"
@@ -952,7 +952,7 @@ const districts = [
             bn: "নেত্রকোণা"
         },
         parent: {
-            _id: "647ccea1d4e9cb64dc1d20cb",
+            _id: "647ce47d32b39ab992d3a98b",
             name: {
                 en: "Mymensingh",
                 bn: "ময়মনসিংহ"
@@ -961,4 +961,4 @@ const districts = [
     }
 ]
 
-export default districts[2].data;
+export default districts;
