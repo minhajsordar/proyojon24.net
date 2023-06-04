@@ -68100,4 +68100,4 @@ const unions = [
       }
     }
   ]
-module.exports = unions;
+export default unions;
