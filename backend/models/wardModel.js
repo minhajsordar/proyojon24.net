@@ -6,7 +6,6 @@ const wardSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    id:{ type: String},
     name: {
         bn: { type: String, required: true },
         en: { type: String, required: true },
