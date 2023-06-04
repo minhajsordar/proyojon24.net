@@ -16,7 +16,7 @@ import wardRoutes from './routes/wardRoutes.js'
 import pinLocationRoutes from './routes/pinLocationRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
-// import { importData } from './seederDivisions.js'
+import { importData } from './seederDivisions.js'
 // import { importData } from './seederDistricts.js'
 import { createServer } from "http";
 import { Server } from "socket.io";
