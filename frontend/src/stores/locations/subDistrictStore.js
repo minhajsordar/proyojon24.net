@@ -50,8 +50,12 @@ export const useSubDistrictStore = defineStore('sub district store', () => {
     const params = {
       pageNumber: subDistrictPage.value
     }
-    subDistrictList.value.subDistricts = locationListGlobal.value.subDistricts.filter(e => {
-      return e.parent._id === publicUserStore.browsingLocation.district._id
+    subDistrictList.value.subDistricts = locationListGlobal.value.districts.filter(e => {
+      if(publicUserStore.browsingLocation.district){
+        return e.parent._id === publicUserStore.browsingLocation.district._id
+      }else{
+        return true
+      }
     })
 
   }

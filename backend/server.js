@@ -12,14 +12,14 @@ import divisionRouter from './routes/divisionRoutes.js'
 import districtRoutes from './routes/districtRoutes.js'
 import subDistrictRoutes from './routes/subDistrictRoutes.js'
 import unionRoutes from './routes/unionRoutes.js'
-import wardRoutes from './routes/wardRoutes.js'
+// import wardRoutes from './routes/wardRoutes.js'
 import pinLocationRoutes from './routes/pinLocationRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 // import { importData } from './seederDivisions.js'
 // import { importData } from './seederDistricts.js'
 // import { importData } from './seederSubDistricts.js'
-import { importData } from './seederUnions.js'
+// import { importData } from './seederUnions.js'
 import { createServer } from "http";
 import { Server } from "socket.io";
 
@@ -78,12 +78,12 @@ app.use('/api/divisions',divisionRouter)
 app.use('/api/districts',districtRoutes)
 app.use('/api/subdistricts',subDistrictRoutes)
 app.use('/api/unions',unionRoutes)
-app.use('/api/wards',wardRoutes)
+// app.use('/api/wards',wardRoutes)
 app.use('/api/pinlocations',pinLocationRoutes)
-app.get('/api/seeder', (req,res)=>{
-    importData()
-    res.send("data Imported")
-})
+// app.get('/api/seeder', (req,res)=>{
+//     importData()
+//     res.send("data Imported")
+// })
 
 // Upload router
 app.use('/api/upload', uploadRouter)

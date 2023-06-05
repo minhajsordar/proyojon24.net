@@ -1,5 +1,5 @@
 import expressAsyncHandler from "express-async-handler";
-import Ward from '../models/wardModel.js'
+import Union from '../models/unionModel.js'
 import PinLocation from '../models/pinLocationModel.js'
 
 // @desc get products
@@ -25,7 +25,7 @@ const getPinLocations =  expressAsyncHandler(async (req, res) => {
 // @acess Public
 const getAllPinLocations =  expressAsyncHandler(async (req, res) => {
 
-    const keyword = req.query.wardId? {"parent._id":req.query.wardId}:{}
+    const keyword = req.query.unionId? {"parent._id":req.query.unionId}:{}
     const pinLocations = await PinLocation.find({...keyword})
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(pinLocations)
@@ -70,8 +70,8 @@ const updatePinLocation = expressAsyncHandler(async (req, res) => {
         name,
         parent,
     } = req.body
-    const ward = await Ward.findById(parent._id)
-    if (ward) {
+    const union = await Union.findById(parent._id)
+    if (union) {
         const pinLocations = await PinLocation.findById(req.params.id)
         if(pinLocations){
             pinLocations.name = name
@@ -84,7 +84,7 @@ const updatePinLocation = expressAsyncHandler(async (req, res) => {
         }
     } else {
         res.status(404)
-        throw new Error('Parent Ward not found')
+        throw new Error('Parent Union not found')
     }
 })
 
@@ -92,8 +92,8 @@ const updatePinLocation = expressAsyncHandler(async (req, res) => {
 // @route create api/products/
 // @acess Privet/Admin
 const createPinLocation = expressAsyncHandler(async (req, res) => {
-    const ward = await Ward.findById(req.body.parent._id)
-    if (ward) {
+    const union = await Union.findById(req.body.parent._id)
+    if (union) {
         const pinLocations = new PinLocation({
             user: req.user._id,
             name: req.body.name,
@@ -103,7 +103,7 @@ const createPinLocation = expressAsyncHandler(async (req, res) => {
         res.status(201).json(createdPinLocation)
     } else {
         res.status(404)
-        throw new Error('Parent Ward not found')
+        throw new Error('Parent Union not found')
     }
 })
 

@@ -3,28 +3,31 @@
     <div class="inner-section">
       <div class="full-width">
         <q-card class="border-primary">
-
           <div class="q-mb-md">
-            <div class="q-pa-sm q-mb-sm bg-primary text-white text-center fs-18">{{ $t("infoByLocation") }}</div>
+            <div
+              class="q-pa-sm q-mb-sm bg-primary text-white text-center fs-18"
+            >
+              {{ $t("infoByLocation") }}
+            </div>
             <div class="row q-col-gutter-sm">
               <div class="col-lg-10 col-md-10 col-sm-12 col-12">
                 <locationFilter />
               </div>
               <div class="col-lg-2 col-md-2 col-sm-12 col-12">
                 <q-btn
-                class="full-width bg-primary text-white"
-                 :label="$t('search')"
-                 @click="applyFilter"
-                 />
+                  class="full-width bg-primary text-white"
+                  :label="$t('search')"
+                  @click="applyFilter"
+                />
               </div>
             </div>
           </div>
-<q-separator/>
-<q-separator class="q-mt-md"/>
+          <q-separator />
+          <q-separator class="q-mt-md" />
           <q-tabs
             v-model="tab"
             dense
-            class="text-grey-10 "
+            class="text-grey-10"
             indicator-color="blue-grey-10"
             active-bg-color="blue-grey-2"
             align="justify"
@@ -34,47 +37,47 @@
             <q-tab name="district" :label="$t('location.district')" />
             <q-tab name="subdistrict" :label="$t('location.subdistrict')" />
             <q-tab name="union" :label="$t('location.union')" />
-            <q-tab name="ward" :label="$t('location.ward')" />
+            <!-- <q-tab name="ward" :label="$t('location.ward')" /> -->
             <q-tab name="pinlocation" :label="$t('location.pinlocation')" />
           </q-tabs>
-          <q-separator/>
+          <q-separator />
           <q-tab-panels v-model="tab" animated>
             <q-tab-panel name="division">
-              <divisionTable/>
+              <divisionTable />
             </q-tab-panel>
             <q-tab-panel name="district">
-              <districtTable/>
+              <districtTable />
             </q-tab-panel>
             <q-tab-panel name="subdistrict">
-              <subDistrictTable/>
+              <subDistrictTable />
             </q-tab-panel>
             <q-tab-panel name="union">
-              <unionTable/>
+              <unionTable />
             </q-tab-panel>
-            <q-tab-panel name="ward">
+            <!-- <q-tab-panel name="ward">
               <wardTable/>
-            </q-tab-panel>
+            </q-tab-panel> -->
             <q-tab-panel name="pinlocation">
-              <pinlocationTable/>
+              <pinlocationTable />
             </q-tab-panel>
           </q-tab-panels>
         </q-card>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <script setup>
 import { useMeta } from "quasar";
 import { useAuthStore } from "src/stores/auth/authStore";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
-import { onBeforeMount,onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 import divisionTable from "src/components/locations/divisionTable.vue";
 import districtTable from "src/components/locations/districtTable.vue";
 import subDistrictTable from "src/components/locations/subDistrictTable.vue";
 import unionTable from "src/components/locations/unionTable.vue";
 import wardTable from "src/components/locations/wardTable.vue";
-import pinlocationTable from "src/components/locations/pinLocationTable.vue"
+import pinlocationTable from "src/components/locations/pinLocationTable.vue";
 import locationFilter from "src/components/locations/locationFilter.vue";
 
 import { useUnionStore } from "src/stores/locations/unionStore";
@@ -86,71 +89,69 @@ import { useRouter } from "vue-router";
 import { usePublicUserStore } from "src/stores/user/publicStore";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 
-const router = useRouter()
-const authStore = useAuthStore()
-onMounted(()=>{
-  if(!authStore.checkLogin()){
-    router.push('/login')
+const router = useRouter();
+const authStore = useAuthStore();
+onMounted(() => {
+  if (!authStore.checkLogin()) {
+    router.push("/login");
   }
-})
-const languageStore =useLanguageStore()
-const tab = ref("division")
-const divisionStore = useDivisionStore()
-const districtStore = useDistrictStore()
-const subDistrictStore = useSubDistrictStore()
-const unionStore = useUnionStore()
-const wardStore = useWardStore()
-const pinlocationStore = usePinlocationStore()
+});
+const languageStore = useLanguageStore();
+const tab = ref("division");
+const divisionStore = useDivisionStore();
+const districtStore = useDistrictStore();
+const subDistrictStore = useSubDistrictStore();
+const unionStore = useUnionStore();
+const wardStore = useWardStore();
+const pinlocationStore = usePinlocationStore();
 
-
-divisionStore.getDivisionList()
-districtStore.getDistrictList()
-subDistrictStore.getSubDistrictList()
-unionStore.getUnionList()
-wardStore.getWardList()
-pinlocationStore.getPinlocationList()
-const publicUserStore = usePublicUserStore()
-const applyFilter = ()=>{
-  console.log("filter")
-  if(publicUserStore.browsingLocation.district){
-    subDistrictStore.getSubDistrictListByBrowsingDistrictId()
+divisionStore.getDivisionList();
+districtStore.getDistrictList();
+subDistrictStore.getSubDistrictList();
+unionStore.getUnionList();
+wardStore.getWardList();
+pinlocationStore.getPinlocationList();
+const publicUserStore = usePublicUserStore();
+const applyFilter = () => {
+  subDistrictStore.getSubDistrictListByBrowsingDistrictId();
+  if (publicUserStore.browsingLocation.district) {
   }
-  if(publicUserStore.browsingLocation.subDistrict){
-    unionStore.getUnionListByBrowsingSubDistrictId()
+  unionStore.getUnionListByBrowsingSubDistrictId();
+  if (publicUserStore.browsingLocation.subDistrict) {
   }
-  if(publicUserStore.browsingLocation.union){
-    wardStore.getWardListByBrowsingUnionId()
+  pinlocationStore.getPinlocationListByBrowsingUnionId();
+  if (publicUserStore.browsingLocation.union) {
   }
-  if(publicUserStore.browsingLocation.ward){
-    pinlocationStore.getPinlocationListByBrowsingWardId()
-  }
-
-}
+};
 
 const metaData = {
   // sets document title
-  title: 'Locations',
+  title: "Locations",
   // optional; sets final title as "Index Page - My Website", useful for multiple level meta
-  titleTemplate: title => `${title} - Proyojon24.net`,
+  titleTemplate: (title) => `${title} - Proyojon24.net`,
 
   // meta tags
   meta: {
-    description: { name: 'description', content: 'Page 1' },
-    keywords: { name: 'keywords', content: 'proyojon24 services service-provider' },
-    equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+    description: { name: "description", content: "Page 1" },
+    keywords: {
+      name: "keywords",
+      content: "proyojon24 services service-provider",
+    },
+    equiv: {
+      "http-equiv": "Content-Type",
+      content: "text/html; charset=UTF-8",
+    },
     // note: for Open Graph type metadata you will need to use SSR, to ensure page is rendered by the server
-    ogTitle:  {
-      property: 'og:title',
+    ogTitle: {
+      property: "og:title",
       // optional; similar to titleTemplate, but allows templating with other meta properties
-      template (ogTitle) {
-        return `${ogTitle} - Proyojon24.net`
-      }
-    }
-  }
-}
+      template(ogTitle) {
+        return `${ogTitle} - Proyojon24.net`;
+      },
+    },
+  },
+};
 
-useMeta(metaData)
+useMeta(metaData);
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

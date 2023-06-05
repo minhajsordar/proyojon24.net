@@ -8,7 +8,6 @@ import { useDistrictStore } from "src/stores/locations/districtStore";
 import { isObjEmpty } from "src/global_js/utils";
 import { useSubDistrictStore } from '../locations/subDistrictStore';
 import { useUnionStore } from '../locations/unionStore';
-import { useWardStore } from '../locations/wardStore';
 const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
 const locationListGlobal = useLocalStorage("global-location-list", {});
 
@@ -20,11 +19,9 @@ export const usePublicUserStore = defineStore('Public user store', () => {
     division: null,
     district: null,
     subDistrict: null,
-    union: null,
-    ward: null
+    union: null
   })
   const languageStore = useLanguageStore();
-  const wardStore = useWardStore();
   const unionStore = useUnionStore();
   const subDistrictStore = useSubDistrictStore();
   const districtStore = useDistrictStore();
@@ -33,31 +30,29 @@ export const usePublicUserStore = defineStore('Public user store', () => {
   const updateBrowsingDistrict = () => {
     userBrowsingLocationLocalStore.value.district =
       browsingLocation.district;
-      subDistrictStore.getAllSubDistricts(browsingLocation.district._id)
+      subDistrictStore.getAllSubDistricts(browsingLocation.district?._id)
       userBrowsingLocationLocalStore.value.subDistrict = browsingLocation.subDistrict = null
       userBrowsingLocationLocalStore.value.union = browsingLocation.union = null
-      userBrowsingLocationLocalStore.value.ward = browsingLocation.ward = null
 
-      userBrowsingLocationLocalStore.value.division = browsingLocation.division = locationListGlobal.value.divisions.filter(e=>{
-        return e._id == browsingLocation.district.parent._id
-      })[0]
+      if(browsingLocation.district){
+        userBrowsingLocationLocalStore.value.division = browsingLocation.division = locationListGlobal.value.divisions.filter(e=>{
+          return e._id == browsingLocation.district.parent._id
+        })[0]
+      }else{
+        userBrowsingLocationLocalStore.value.division = browsingLocation.division = locationListGlobal.value.divisions.filter(e=>{
+          return true
+        })
+      }
   };
   const updateBrowsingSubDistrict = () => {
     userBrowsingLocationLocalStore.value.subDistrict =
       browsingLocation.subDistrict;
-      unionStore.getAllUnions(browsingLocation.subDistrict._id)
+      unionStore.getAllUnions(browsingLocation.subDistrict?._id)
       userBrowsingLocationLocalStore.value.union = browsingLocation.union = null
-      userBrowsingLocationLocalStore.value.ward = browsingLocation.ward = null
   };
   const updateBrowsingUnion = () => {
     userBrowsingLocationLocalStore.value.union =
       browsingLocation.union;
-      wardStore.getAllWards(browsingLocation.union._id)
-      userBrowsingLocationLocalStore.value.ward = browsingLocation.ward = null
-  };
-  const updateBrowsingWard = () => {
-    userBrowsingLocationLocalStore.value.ward =
-      browsingLocation.ward;
   };
 
   const updateBrowsingLocationOnMounted = () => {
@@ -73,8 +68,6 @@ export const usePublicUserStore = defineStore('Public user store', () => {
         userBrowsingLocationLocalStore.value.subDistrict;
       browsingLocation.union =
         userBrowsingLocationLocalStore.value.union;
-      browsingLocation.ward =
-        userBrowsingLocationLocalStore.value.ward;
     }
 
   }
@@ -86,7 +79,6 @@ export const usePublicUserStore = defineStore('Public user store', () => {
     updateBrowsingDistrict,
     updateBrowsingSubDistrict,
     updateBrowsingUnion,
-    updateBrowsingWard,
     updateBrowsingLocationOnMounted,
   }
 });

@@ -49,13 +49,17 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
       pinlocationList.value.pinlocations = locationListGlobal.value.pinlocations;
 
   }
-  const getPinlocationListByBrowsingWardId = async () => {
+  const getPinlocationListByBrowsingUnionId = async () => {
     pinlocationListLoading.value = true
     const params = {
       pageNumber: pinlocationPage.value
     }
     pinlocationList.value.pinlocations = locationListGlobal.value.pinlocations.filter(e=>{
-        return e.parent._id === publicUserStore.browsingLocation.ward._id
+      if(publicUserStore.browsingLocation.union){
+        return e.parent._id === publicUserStore.browsingLocation.union._id
+      }else{
+        return true
+      }
       })
 
   }
@@ -169,7 +173,7 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
     openPinlocationEditDialog,
     openPinlocationEditDialogManager,
     // all Pinlocations states, functions
-    getPinlocationListByBrowsingWardId,
+    getPinlocationListByBrowsingUnionId,
     allPinlocationsLoading,
     getAllPinlocations,
     getGlobalPinlocations,

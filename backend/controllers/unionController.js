@@ -103,13 +103,13 @@ const createUnion = expressAsyncHandler(async (req, res) => {
         const createdUnion = await unions.save()
 
 
-        const commonWardLists = commonWardList.map((wards) => {
-            return { ...wards, parent: createdUnion, 
-                user: req.user._id }
-        })
-        let createwardslist = await Ward.insertMany(commonWardLists)
+        // const commonWardLists = commonWardList.map((wards) => {
+        //     return { ...wards, parent: createdUnion, 
+        //         user: req.user._id }
+        // })
+        // let createwardslist = await Ward.insertMany(commonWardLists)
 
-        res.status(201).json({createdUnion,createwardslist})
+        res.status(201).json({message: "Successfully union created."})
     } else {
         res.status(404)
         throw new Error('Parent Sub District not found')

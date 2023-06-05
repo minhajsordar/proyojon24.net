@@ -9,7 +9,6 @@ import { useServiceStore } from './serviceStore';
 import { useServiceCategoryStore } from './serviceCategoryStore';
 import { usePublicUserStore } from '../user/publicStore';
 import { usePinlocationStore } from '../locations/pinlocationStore';
-import { useWardStore } from '../locations/wardStore';
 import { useUnionStore } from '../locations/unionStore';
 import { useSubDistrictStore } from '../locations/subDistrictStore';
 import { useDistrictStore } from '../locations/districtStore';
@@ -26,7 +25,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
   const districtStore = useDistrictStore();
   const subDistrictStore = useSubDistrictStore();
   const unionStore = useUnionStore();
-  const wardStore = useWardStore();
   const pinlocationStore = usePinlocationStore();
   const router = useRouter(),
     authStore = useAuthStore(),
@@ -47,7 +45,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       district: null,
       subDistrict: null,
       union: null,
-      ward: null,
       pinlocation: null,
       exact: {
         bn: null,
@@ -94,13 +91,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
           }
         },
         union: {
-          _id: null,
-          name: {
-            bn: null,
-            en: null
-          }
-        },
-        ward: {
           _id: null,
           name: {
             bn: null,
@@ -166,7 +156,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.district = null
     serviceProviderLocationR.subDistrict = null
     serviceProviderLocationR.union = null
-    serviceProviderLocationR.ward = null
     serviceProviderLocationR.pinlocation = null
     serviceProviderLocationR.exact = {
       bn: null,
@@ -195,13 +184,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         }
       },
       union: {
-        _id: null,
-        name: {
-          bn: null,
-          en: null
-        }
-      },
-      ward: {
         _id: null,
         name: {
           bn: null,
@@ -285,7 +267,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.district = data.serviceProviderLocation.district
     serviceProviderLocationR.subDistrict = data.serviceProviderLocation.subDistrict
     serviceProviderLocationR.union = data.serviceProviderLocation.union
-    serviceProviderLocationR.ward = data.serviceProviderLocation.ward
     serviceProviderLocationR.pinlocation = data.serviceProviderLocation.pinlocation
 
     if (data.serviceProviderLocation.division._id) {
@@ -298,10 +279,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       unionStore.getAllUnions(data.serviceProviderLocation.subDistrict._id);
     }
     if (data.serviceProviderLocation.union._id) {
-      wardStore.getAllWards(data.serviceProviderLocation.union._id);
-    }
-    if (data.serviceProviderLocation.ward._id) {
-      pinlocationStore.getAllPinlocations(data.serviceProviderLocation.ward._id);
+      pinlocationStore.getAllPinlocations(data.serviceProviderLocation.union._id);
     }
     searchServiceStore.updateServiceCategory()
     openServiceProviderEditDialog.value = true
@@ -339,7 +317,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.district = data.serviceProviderLocation.district
     serviceProviderLocationR.subDistrict = data.serviceProviderLocation.subDistrict
     serviceProviderLocationR.union = data.serviceProviderLocation.union
-    serviceProviderLocationR.ward = data.serviceProviderLocation.ward
     serviceProviderLocationR.pinlocation = data.serviceProviderLocation.pinlocation
   }
   const allServiceProvidersList = ref(null)
@@ -383,9 +360,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     }
     if (publicUserStore.browsingLocation.pinlocation) {
       params.pinlocationId = publicUserStore.browsingLocation.pinlocation._id
-    }
-    else if (publicUserStore.browsingLocation.ward) {
-      params.wardId = publicUserStore.browsingLocation.ward._id
     }
     else if (publicUserStore.browsingLocation.union) {
       params.unionId = publicUserStore.browsingLocation.union._id
@@ -514,8 +488,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.subDistrict._id = serviceProviderLocationR.subDistrict._id
     serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
     serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
-    serviceProviderInfo.serviceProviderLocation.ward.name = serviceProviderLocationR.ward.name
-    serviceProviderInfo.serviceProviderLocation.ward._id = serviceProviderLocationR.ward._id
     serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
     serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
@@ -600,8 +572,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.subDistrict._id = serviceProviderLocationR.subDistrict._id
     serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
     serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
-    serviceProviderInfo.serviceProviderLocation.ward.name = serviceProviderLocationR.ward.name
-    serviceProviderInfo.serviceProviderLocation.ward._id = serviceProviderLocationR.ward._id
     serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
     serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact

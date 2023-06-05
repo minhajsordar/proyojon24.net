@@ -56,7 +56,11 @@ export const useUnionStore = defineStore('union store', ()=>{
       pageNumber: unionPage.value
     }
      unionList.value.unions = locationListGlobal.value.unions.filter(e=>{
-      return e.parent._id === publicUserStore.browsingLocation.subDistrict._id
+      if(publicUserStore.browsingLocation.subDistrict){
+        return e.parent._id === publicUserStore.browsingLocation.subDistrict._id
+      }else{
+        return true
+      }
     })
     }
     const getGlobalUnions= async()=>{
@@ -84,7 +88,6 @@ export const useUnionStore = defineStore('union store', ()=>{
 
     }
     const getAllUnions= async(id)=>{
-      const params = {}
       if (id) {
         allUnions.value = locationListGlobal.value.unions.filter(e=>{
           return e.parent._id === id

@@ -44,7 +44,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  Select District
+                  {{ $t('location.selectDistrict') }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-select

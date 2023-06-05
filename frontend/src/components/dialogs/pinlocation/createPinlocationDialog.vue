@@ -44,13 +44,13 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  Select Ward
+                  {{ $t('location.selectUnion') }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-select
                     ref="parentEl"
                     v-model="pinlocationStore.pinlocationInfo.parent"
-                    :options="wardStore.wardList?.wards"
+                    :options="unionStore.unionList?.unions"
                     :option-label="opt=>Object(opt) === opt && 'name' in opt ? opt.name[languageStore.language] : null"
                     options-dense
                     outlined
@@ -106,13 +106,13 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import { useWardStore } from "src/stores/locations/wardStore";
 import { required, requiredSelector } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
+import { useUnionStore } from "src/stores/locations/unionStore";
 const languageStore = useLanguageStore();
 const pinlocationStore = usePinlocationStore();
-const wardStore = useWardStore();
+const unionStore = useUnionStore();
 const dialog = ref(false);
 const maximizedToggle = ref(true);
 const parentEl = ref(null);
