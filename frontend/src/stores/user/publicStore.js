@@ -30,25 +30,25 @@ export const usePublicUserStore = defineStore('Public user store', () => {
   const updateBrowsingDistrict = () => {
     userBrowsingLocationLocalStore.value.district =
       browsingLocation.district;
-      subDistrictStore.getAllSubDistricts(browsingLocation.district?._id)
-      userBrowsingLocationLocalStore.value.subDistrict = browsingLocation.subDistrict = null
-      userBrowsingLocationLocalStore.value.union = browsingLocation.union = null
+    subDistrictStore.getAllSubDistricts(browsingLocation.district?._id)
+    userBrowsingLocationLocalStore.value.subDistrict = browsingLocation.subDistrict = null
+    userBrowsingLocationLocalStore.value.union = browsingLocation.union = null
 
-      if(browsingLocation.district){
-        userBrowsingLocationLocalStore.value.division = browsingLocation.division = locationListGlobal.value.divisions.filter(e=>{
-          return e._id == browsingLocation.district.parent._id
-        })[0]
-      }else{
-        userBrowsingLocationLocalStore.value.division = browsingLocation.division = locationListGlobal.value.divisions.filter(e=>{
-          return true
-        })
-      }
+    if (browsingLocation.district) {
+      userBrowsingLocationLocalStore.value.division = browsingLocation.division = locationListGlobal.value.divisions.filter(e => {
+        return e._id == browsingLocation.district.parent._id
+      })[0]
+    } else {
+      userBrowsingLocationLocalStore.value.division = browsingLocation.division = locationListGlobal.value.divisions.filter(e => {
+        return true
+      })
+    }
   };
   const updateBrowsingSubDistrict = () => {
     userBrowsingLocationLocalStore.value.subDistrict =
       browsingLocation.subDistrict;
-      unionStore.getAllUnions(browsingLocation.subDistrict?._id)
-      userBrowsingLocationLocalStore.value.union = browsingLocation.union = null
+    unionStore.getAllUnions(browsingLocation.subDistrict?._id)
+    userBrowsingLocationLocalStore.value.union = browsingLocation.union = null
   };
   const updateBrowsingUnion = () => {
     userBrowsingLocationLocalStore.value.union =
