@@ -100,7 +100,7 @@ export default {
     exacten:'Name Of Location In English',
   },
   services:{
-    suggestions:'Suggestion List',
+    suggestions:'Suggestions',
     service:'Services',
     addnew_service:'Add new service',
     edit_service:'Eidt service',

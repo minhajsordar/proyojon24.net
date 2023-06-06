@@ -101,7 +101,7 @@ export default {
     exacten:'স্থানের নাম ইংরেজিতে',
   },
   services:{
-    suggestions:'সাজেশন তালিকা',
+    suggestions:'সাজেশন',
     services:'সেবা সমূহ',
     addnew_service:'নতুন সেবা যুক্ত করুন',
     edit_service:'সেবা পরির্তন করুন',
@@ -109,7 +109,7 @@ export default {
     service_category:'সেবার ধরন সমূহ',
     addnew_service_category:'নতুন সেবার ধরন যুক্ত করুন',
     edit_service_category:'সেবার ধরন পরির্তন করুন',
-    service_provider:'সেবা প্রদানকারী গন',
+    service_provider:'সেবা প্রদানকারী',
     addnew_service_provider:'সেবা প্রদানকারী যুক্ত করুন',
     edit_service_provider:'সেবা প্রদানকারী পরির্তন করুন',
   ourAllServices: 'আমাদের সকল সেবা সমূহ'

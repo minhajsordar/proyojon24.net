@@ -38,7 +38,18 @@
         @click="$router.push('/')"
       />
       <q-btn
-        icon="arrow_back_ios"
+        icon="person"
+        round
+        dense
+        glossy
+        flat
+        size="md"
+        color="white"
+        class="q-mr-sm"
+        no-caps
+      />
+      <q-btn
+        icon="arrow_back"
         round
         dense
         glossy
