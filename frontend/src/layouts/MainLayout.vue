@@ -4,7 +4,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer class="q-py-sm text-center bg-blue-grey-14">
+    <q-footer class="q-py-sm text-center bg-blue-grey-10">
       <div class="fs-12">
         <span class="text-yellow">Proyojon24.net</span> © 2023 All Rights
         Reserved

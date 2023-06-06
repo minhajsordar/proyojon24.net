@@ -25,7 +25,10 @@
             serviceCategory, index
           ) in serviceCategoryStore.allServiceCategoryList"
           :key="index"
-          @click="getServiceProviders(serviceCategory._id)"
+          @click="getServiceProviders(serviceCategory._id);
+
+          selectedServiceAndCategory.serviceCategoryId = serviceCategory._id
+              selectedServiceAndCategory.serviceCategoryName = serviceCategory.name"
           v-close-popup
         >
           {{ serviceCategory.name[languageStore.language] }}
@@ -44,6 +47,7 @@ import { useServiceProviderStore } from "src/stores/service/serviceProviderStore
 import { usePublicUserStore } from "src/stores/user/publicStore";
 import { ref, onBeforeMount } from "vue";
 import { useRoute, useRouter } from "vue-router";
+
 const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
 const selectedServiceAndCategory = useLocalStorage('selected-service-and-category',{})
 const publicUserStore = usePublicUserStore();
@@ -57,7 +61,7 @@ serviceCategoryStore.getAllServiceCategorys(selectedServiceAndCategory.value.ser
 
 const getServiceProviders = (id) => {
   serviceProviderStore.getAllServiceProviders(id);
-  router.push("/service_category/" + id);
+  router.push("/service_providers_list/" + id);
 };
 </script>
 <style lang="scss"></style>

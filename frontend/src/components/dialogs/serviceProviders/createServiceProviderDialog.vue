@@ -10,7 +10,8 @@
       <q-bar class="bg-primary text-white">
         <q-space />
         <q-btn
-          dense glossy
+          dense
+          glossy
           flat
           icon="minimize"
           @click="maximizedToggle = false"
@@ -21,7 +22,8 @@
           >
         </q-btn>
         <q-btn
-          dense glossy
+          dense
+          glossy
           flat
           icon="crop_square"
           @click="maximizedToggle = true"
@@ -106,26 +108,32 @@
                     v-model="
                       serviceProviderStore.serviceProviderLocationR.division
                     "
-                    :options="divisionStore.allDivisions"
+                    :options="divisionOptions"
                     :option-label="
                       (opt) =>
                         Object(opt) === opt && 'name' in opt
                           ? opt.name[languageStore.language]
                           : null
                     "
-                    options-dense
                     outlined
                     dense
                     :rules="[requiredSelector]"
                     @update:model-value="
-                    serviceProviderStore.serviceProviderLocationR.district = null;
-                    serviceProviderStore.serviceProviderLocationR.subDistrict = null;
-                    serviceProviderStore.serviceProviderLocationR.union = null;
-                    serviceProviderStore.serviceProviderLocationR.ward = null;
-                    serviceProviderStore.serviceProviderLocationR.pinlocation = null;
-                    searchLocationStore.updateDistrict();
-
+                      serviceProviderStore.serviceProviderLocationR.district =
+                        null;
+                      serviceProviderStore.serviceProviderLocationR.subDistrict =
+                        null;
+                      serviceProviderStore.serviceProviderLocationR.union =
+                        null;
+                      serviceProviderStore.serviceProviderLocationR.ward = null;
+                      serviceProviderStore.serviceProviderLocationR.pinlocation =
+                        null;
+                      searchLocationStore.updateDistrict();
                     "
+                    clearable
+                    use-input
+                    input-debounce="0"
+                    @filter="divisionFilterFn"
                   />
                 </div>
               </div>
@@ -141,7 +149,7 @@
                     v-model="
                       serviceProviderStore.serviceProviderLocationR.district
                     "
-                    :options="districtStore.allDistricts"
+                    :options="districtOptions"
                     :option-label="
                       (opt) =>
                         Object(opt) === opt && 'name' in opt
@@ -149,16 +157,22 @@
                           : null
                     "
                     :rules="[requiredSelector]"
-                    options-dense
                     outlined
                     dense
                     @update:model-value="
-                    serviceProviderStore.serviceProviderLocationR.subDistrict = null;
-                    serviceProviderStore.serviceProviderLocationR.union = null;
-                    serviceProviderStore.serviceProviderLocationR.ward = null;
-                    serviceProviderStore.serviceProviderLocationR.pinlocation = null;
-                    searchLocationStore.updateSubDistrict();"
-
+                      serviceProviderStore.serviceProviderLocationR.subDistrict =
+                        null;
+                      serviceProviderStore.serviceProviderLocationR.union =
+                        null;
+                      serviceProviderStore.serviceProviderLocationR.ward = null;
+                      serviceProviderStore.serviceProviderLocationR.pinlocation =
+                        null;
+                      searchLocationStore.updateSubDistrict();
+                    "
+                    clearable
+                    use-input
+                    input-debounce="0"
+                    @filter="districtFilterFn"
                   />
                 </div>
               </div>
@@ -174,24 +188,28 @@
                     v-model="
                       serviceProviderStore.serviceProviderLocationR.subDistrict
                     "
-                    :options="subDistrictStore.allSubDistricts"
+                    :options="subDistrictOptions"
                     :option-label="
                       (opt) =>
                         Object(opt) === opt && 'name' in opt
                           ? opt.name[languageStore.language]
                           : null
                     "
-                    options-dense
                     outlined
                     dense
                     :rules="[requiredSelector]"
                     @update:model-value="
-
-                    serviceProviderStore.serviceProviderLocationR.union = null;
-                    serviceProviderStore.serviceProviderLocationR.ward = null;
-                    serviceProviderStore.serviceProviderLocationR.pinlocation = null;
-                    searchLocationStore.updateUnion();
+                      serviceProviderStore.serviceProviderLocationR.union =
+                        null;
+                      serviceProviderStore.serviceProviderLocationR.ward = null;
+                      serviceProviderStore.serviceProviderLocationR.pinlocation =
+                        null;
+                      searchLocationStore.updateUnion();
                     "
+                    clearable
+                    use-input
+                    input-debounce="0"
+                    @filter="subDistrictFilterFn"
                   />
                 </div>
               </div>
@@ -205,7 +223,7 @@
                     v-model="
                       serviceProviderStore.serviceProviderLocationR.union
                     "
-                    :options="unionStore.allUnions"
+                    :options="unionOptions"
                     :option-label="
                       (opt) =>
                         Object(opt) === opt && 'name' in opt
@@ -217,48 +235,30 @@
                     dense
                     :rules="[requiredSelector]"
                     @update:model-value="
-                    serviceProviderStore.serviceProviderLocationR.ward = null;
-                    serviceProviderStore.serviceProviderLocationR.pinlocation = null;
-                    searchLocationStore.updateWard();
+                      serviceProviderStore.serviceProviderLocationR.pinlocation =
+                        null;
+                      searchLocationStore.updatePinLocation();
                     "
+                    clearable
+                    use-input
+                    input-debounce="0"
+                    @filter="unionFilterFn"
                   />
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6 col-6">
+            <div class="col-sm-12 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("location.ward") }}*</div>
-                <div class="col-12">
-                  <q-select
-                    ref="wardEl"
-                    v-model="serviceProviderStore.serviceProviderLocationR.ward"
-                    :options="wardStore.allWards"
-                    :option-label="
-                      (opt) =>
-                        Object(opt) === opt && 'name' in opt
-                          ? opt.name[languageStore.language]
-                          : null
-                    "
-                    options-dense
-                    outlined
-                    dense
-                    :rules="[requiredSelector]"
-                    @update:model-value="
-                    serviceProviderStore.serviceProviderLocationR.pinlocation=null;
-                    searchLocationStore.updatePinlocation()
-                    "
-                  />
+                <div class="col-12 text-bold">
+                  {{ $t("location.pinlocation") }}*
                 </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-6 col-6">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("location.pinlocation") }}*</div>
                 <div class="col-12">
                   <q-select
                     ref="pinlocationEl"
-                    v-model="serviceProviderStore.serviceProviderLocationR.pinlocation"
-                    :options="pinlocationStore.allPinlocations"
+                    v-model="
+                      serviceProviderStore.serviceProviderLocationR.pinlocation
+                    "
+                    :options="pinlocationOptions"
                     :option-label="
                       (opt) =>
                         Object(opt) === opt && 'name' in opt
@@ -269,6 +269,10 @@
                     outlined
                     dense
                     :rules="[requiredSelector]"
+                    clearable
+                    use-input
+                    input-debounce="0"
+                    @filter="pinlocationFilterFn"
                   />
                 </div>
               </div>
@@ -278,7 +282,9 @@
                 <div class="col-12 text-bold">{{ $t("location.exactbn") }}</div>
                 <div class="col-12">
                   <q-input
-                    v-model="serviceProviderStore.serviceProviderLocationR.exact.bn"
+                    v-model="
+                      serviceProviderStore.serviceProviderLocationR.exact.bn
+                    "
                     outlined
                     dense
                   />
@@ -290,7 +296,9 @@
                 <div class="col-12 text-bold">{{ $t("location.exacten") }}</div>
                 <div class="col-12">
                   <q-input
-                    v-model="serviceProviderStore.serviceProviderLocationR.exact.en"
+                    v-model="
+                      serviceProviderStore.serviceProviderLocationR.exact.en
+                    "
                     outlined
                     dense
                   />
@@ -331,7 +339,8 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinen") }}*
+                <div class="col-12 text-bold">
+                  {{ $t("phoneinen") }}*
 
                   <div class="fs-12">{{ $t("seperator") }}</div>
                 </div>
@@ -350,7 +359,8 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinbn") }}*
+                <div class="col-12 text-bold">
+                  {{ $t("phoneinbn") }}*
 
                   <div class="fs-12">{{ $t("seperator") }}</div>
                 </div>
@@ -700,7 +710,7 @@
                 <q-btn
                   :label="$t('addnew')"
                   color="light-green-8"
-              glossy
+                  glossy
                   @click="createServiceManager"
                 />
               </div>
@@ -712,7 +722,7 @@
   </q-dialog>
 </template>
 <script setup>
-import { ref,onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { Notify } from "quasar";
 import { requiredSelector, required, fileValidate } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
@@ -742,7 +752,7 @@ const wardStore = useWardStore();
 const pinlocationStore = usePinlocationStore();
 
 const searchLocationStore = useSearchLocationStore();
-searchLocationStore.updateAllLocation()
+searchLocationStore.updateAllLocation();
 const searchServiceStore = useSearchServiceStore();
 
 const maximizedToggle = ref(true);
@@ -768,7 +778,6 @@ const createServiceManager = () => {
   districtEl.value.validate();
   subDistrictEl.value.validate();
   unionEl.value.validate();
-  wardEl.value.validate();
   pinlocationEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
@@ -783,7 +792,6 @@ const createServiceManager = () => {
     districtEl.value.hasError ||
     subDistrictEl.value.hasError ||
     unionEl.value.hasError ||
-    wardEl.value.hasError ||
     pinlocationEl.value.hasError ||
     nameEnEl.value.hasError ||
     nameBnEl.value.hasError ||
@@ -803,6 +811,111 @@ const onRejected = (rejectedEntries) => {
     position: "center",
     type: "negative",
     message: `Choosen file size too big`,
+  });
+};
+
+const divisionOptions = ref(divisionStore.allDivisions);
+const divisionFilterFn = (val, update) => {
+  if (val === "") {
+    update(() => {
+      divisionOptions.value = divisionStore.allDivisions;
+
+      // here you have access to "ref" which
+      // is the Vue reference of the QSelect
+    });
+    return;
+  }
+
+  update(() => {
+    const needle = val.toLowerCase();
+    divisionOptions.value = divisionStore.allDivisions.filter((v) => {
+      console.log(v);
+      return v.name[languageStore.language].toLowerCase().indexOf(needle) > -1;
+    });
+  });
+};
+
+const districtOptions = ref(districtStore.allDistricts);
+const districtFilterFn = (val, update) => {
+  if (val === "") {
+    update(() => {
+      districtOptions.value = districtStore.allDistricts;
+
+      // here you have access to "ref" which
+      // is the Vue reference of the QSelect
+    });
+    return;
+  }
+
+  update(() => {
+    const needle = val.toLowerCase();
+    districtOptions.value = districtStore.allDistricts.filter((v) => {
+      console.log(v);
+      return v.name[languageStore.language].toLowerCase().indexOf(needle) > -1;
+    });
+  });
+};
+
+const subDistrictOptions = ref(subDistrictStore.allSubDistricts);
+const subDistrictFilterFn = (val, update) => {
+  if (val === "") {
+    update(() => {
+      subDistrictOptions.value = subDistrictStore.allSubDistricts;
+
+      // here you have access to "ref" which
+      // is the Vue reference of the QSelect
+    });
+    return;
+  }
+
+  update(() => {
+    const needle = val.toLowerCase();
+    subDistrictOptions.value = subDistrictStore.allSubDistricts.filter((v) => {
+      console.log(v);
+      return v.name[languageStore.language].toLowerCase().indexOf(needle) > -1;
+    });
+  });
+};
+
+const unionOptions = ref(unionStore.allUnions);
+const unionFilterFn = (val, update) => {
+  if (val === "") {
+    update(() => {
+      unionOptions.value = unionStore.allUnions;
+
+      // here you have access to "ref" which
+      // is the Vue reference of the QSelect
+    });
+    return;
+  }
+
+  update(() => {
+    const needle = val.toLowerCase();
+    unionOptions.value = unionStore.allUnions.filter((v) => {
+      console.log(v);
+      return v.name[languageStore.language].toLowerCase().indexOf(needle) > -1;
+    });
+  });
+};
+
+const pinlocationOptions = ref(pinlocationStore.allPinlocations);
+const pinlocationFilterFn = (val, update) => {
+  if (val === "") {
+    update(() => {
+      pinlocationOptions.value = pinlocationStore.allPinlocations;
+
+      // here you have access to "ref" which
+      // is the Vue reference of the QSelect
+    });
+    return;
+  }
+
+  update(() => {
+    const needle = val.toLowerCase();
+    pinlocationOptions.value = pinlocationStore.allPinlocations.filter((v) => {
+      console.log(v);
+      return v.name[languageStore.language].toLowerCase().indexOf(needle) > -1;
+    });
   });
 };
 </script>

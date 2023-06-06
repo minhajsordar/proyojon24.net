@@ -1,55 +1,99 @@
 <template>
-  <q-page class="q-py-sm q-pa-md bg-blue-grey-10 text-white pattern-bg-image">
-    <div class="container-section" style="min-height:800px">
-      <div class="inner-section">
-        <div class="full-width">
-          <div class="text-bold site-name text-center text-yellow-13">
-            Proyojon24
+  <div
+    class="container-section-py-sm bg-blue-grey-10 text-white pattern-bg-image"
+  >
+    <div class="inner-section">
+      <div class="full-width q-py-sm q-pa-md">
+        <div class="text-bold site-name text-center text-yellow-13">
+          Proyojon24
+        </div>
+        <div class="text-bold welcome-text text-center">
+          আপনাকে <span class="text-yellow-13">স্বাগতম</span>
+        </div>
+        <!-- <div class="text-bold query-title text-center">
+          আপনার <span class="text-yellow-13">জেলা</span> সিলেক্ট করুন
+        </div> -->
+        <!-- <div class="full-width flex justify-center q-mt-lg">
+          <div class="flex location-selector-bar">
+            <q-select
+              v-model="publicUserStore.browsingLocation.district"
+              :options="districtStore.allDistricts"
+              :option-label="
+                (opt) =>
+                  Object(opt) === opt && 'name' in opt
+                    ? opt.name[languageStore.language]
+                    : null
+              "
+              @update:model-value="updateBrowsingDistrict"
+              class="location-selector"
+              bg-color="white"
+              color="black"
+              outlined
+              dense
+              autofocus
+              table-colspan="4"
+            />
+            <q-btn
+              class="bg-yellow-13 text-black location-search-btn"
+              @click="
+                () => {
+                  if (publicUserStore.browsingLocation.district !== null)
+                    $router.push('/allservices');
+                }
+              "
+              label="Enter now"
+              flat
+              glossy
+            />
           </div>
-          <div class="text-bold welcome-text text-center">
-            আপনাকে <span class="text-yellow-13">স্বাগতম</span>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="q-py-md">
+    <div class="row q-col-gutter-sm">
+      <div
+        class="col-lg-3 col-md-3 col-sm-2 col-3"
+        v-for="(service, index) in servicePublicStore.allServices"
+        :key="index"
+      >
+        <div
+          class="text-center cursor-pointer service-item"
+          @click="
+            $router.push('/service_categorys_list/' + service._id);
+            selectedServiceAndCategory.serviceId = service._id;
+            selectedServiceAndCategory.serviceName = service.name;
+          "
+        >
+          <div class="icon-relative-cont">
+            <!-- <q-img  src="/images/hexagonalshape.svg"
+                  style="width: 56px; height: 48px;"
+                  /> -->
+            <q-img src="/images/roundedsquareshape.svg" class="shape" />
+            <q-img
+              class="absolute-top-center service-icon"
+              v-if="service.icon"
+              fit
+              :src="service.icon"
+            />
+            <q-img
+              v-else
+              class="absolute-top-center service-icon"
+              fit
+              src="images/placeholder_image.png"
+            />
+            <!-- <q-img fit
+                  style="max-width: 50px; max-height: 50px;"
+                  src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
+                  /> -->
           </div>
-          <div class="text-bold query-title text-center">
-            আপনার <span class="text-yellow-13">জেলা</span> সিলেক্ট করুন
-          </div>
-          <div class="full-width flex justify-center q-mt-lg">
-            <div class="flex location-selector-bar">
-              <q-select
-                v-model="publicUserStore.browsingLocation.district"
-                :options="districtStore.allDistricts"
-                :option-label="
-                  (opt) =>
-                    Object(opt) === opt && 'name' in opt
-                      ? opt.name[languageStore.language]
-                      : null
-                "
-                @update:model-value="updateBrowsingDistrict"
-                class="location-selector"
-                bg-color="white"
-                color="black"
-                outlined
-                dense
-                autofocus
-                table-colspan="4"
-              />
-              <q-btn
-                class="bg-yellow-13 text-black location-search-btn"
-                @click="
-                  () => {
-                    if (publicUserStore.browsingLocation.district !== null)
-                      $router.push('/allservices');
-                  }
-                "
-                label="Enter now"
-                flat
-                glossy
-              />
-            </div>
+          <div>
+            {{ service.name[languageStore.language] }}
           </div>
         </div>
       </div>
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script setup>
@@ -60,24 +104,38 @@ import { useDistrictStore } from "src/stores/locations/districtStore";
 import { usePublicUserStore } from "src/stores/user/publicStore";
 import { ref, onMounted } from "vue";
 import { isObjEmpty } from "src/global_js/utils";
-const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
-const district = ref(null);
-const publicUserStore = usePublicUserStore();
+
+import { storeToRefs } from "pinia";
+import { useI18n } from "vue-i18n";
+import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js";
+
+const selectedServiceAndCategory = useLocalStorage(
+  "selected-service-and-category",
+  {}
+);
+const servicePublicStore = usePublicServiceStore();
+servicePublicStore.getAllServices();
+const { t } = useI18n();
 const languageStore = useLanguageStore();
+
+const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
+const publicUserStore = usePublicUserStore();
 const districtStore = useDistrictStore();
 districtStore.getAllDistricts();
 
-const updateBrowsingDistrict = () => {
-  userBrowsingLocationLocalStore.value.district = publicUserStore.browsingLocation.district;
-};
+// const updateBrowsingDistrict = () => {
+//   userBrowsingLocationLocalStore.value.district =
+//     publicUserStore.browsingLocation.district;
+// };
 
 onMounted(() => {
-  if (
-    userBrowsingLocationLocalStore.value.district instanceof Object &&
-    !isObjEmpty(userBrowsingLocationLocalStore.value.district)
-  ) {
-    publicUserStore.browsingLocation.district = userBrowsingLocationLocalStore.value.district;
-  }
+  // if (
+  //   userBrowsingLocationLocalStore.value.district instanceof Object &&
+  //   !isObjEmpty(userBrowsingLocationLocalStore.value.district)
+  // ) {
+  //   publicUserStore.browsingLocation.district =
+  //     userBrowsingLocationLocalStore.value.district;
+  // }
 });
 const metaData = {
   // sets document title
@@ -144,13 +202,13 @@ useMeta(metaData);
 </script>
 <style scoped>
 .site-name {
-  font-size: 5rem;
+  font-size: 4rem;
   line-height: 3rem;
   letter-spacing: -0.01562em;
 }
 @media screen and (max-width: 800px) {
   .site-name {
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: 1.2rem;
     letter-spacing: -0.01562em;
   }
@@ -165,7 +223,7 @@ useMeta(metaData);
 @media screen and (max-width: 800px) {
   .welcome-text {
     margin-top: 1.3rem;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     line-height: 1.5rem;
     letter-spacing: 0.00735em;
   }
@@ -178,8 +236,8 @@ useMeta(metaData);
 }
 @media screen and (max-width: 800px) {
   .query-title {
-    margin-top: 1.3rem;
-    font-size: 1.3rem;
+    margin-top: 0.3rem;
+    font-size: 1.2rem;
     line-height: 1.5rem;
     letter-spacing: 0.00735em;
   }
@@ -201,5 +259,79 @@ useMeta(metaData);
   right: 0px;
   top: 0px;
   height: 40px;
+}
+
+
+.service-item{
+  /* min-width:78px; */
+  /* height: 50px; */
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 8px;
+font-size: 14px;
+box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+border-radius: 4px;
+vertical-align: top;
+background: #fff;
+position: relative;
+}
+@media screen and (max-width: 950px) {
+  .service-item{
+    padding-bottom: 4px;
+    font-size: 11px;
+    box-shadow: none;
+    border-radius: 4px;
+    vertical-align: top;
+    background: transparent;
+    position: relative;
+}
+}
+.margin-neg{
+  margin:-4px;
+}
+.icon-relative-cont{
+  position: relative;
+  width: 120px;
+  height: 100px;
+}
+.absolute-top-center{
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.shape{
+  width: 98px;
+  height: 98px;
+}
+.service-icon{
+  max-width: 70px;
+  max-height: 70px;
+}
+@media screen and (max-width: 950px) {
+
+.margin-neg{
+  margin:-4px;
+}
+.icon-relative-cont{
+  position: relative;
+  width: 60px;
+  height: 50px;
+}
+.absolute-top-center{
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.shape{
+  width: 48px;
+  height: 48px;
+}
+.service-icon{
+  max-width: 35px;
+  max-height: 35px;
+}
 }
 </style>

@@ -9,6 +9,7 @@ import { useAuthStore } from '../auth/authStore';
 import { usePublicUserStore } from '../user/publicStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
+const browsingLocation = useLocalStorage('browsing-location', {})
 const locationListGlobal = useLocalStorage('global-location-list', {})
 loader.title = 'Requesting To Server...'
 export const usePinlocationStore = defineStore('pinlocation store', () => {
@@ -55,8 +56,8 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
       pageNumber: pinlocationPage.value
     }
     pinlocationList.value.pinlocations = locationListGlobal.value.pinlocations.filter(e=>{
-      if(publicUserStore.browsingLocation.union){
-        return e.parent._id === publicUserStore.browsingLocation.union._id
+      if(browsingLocation.value.union){
+        return e.parent._id === browsingLocation.value.union._id
       }else{
         return true
       }
@@ -75,7 +76,6 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
     try {
       const responseData = await api.request(config);
       locationListGlobal.value.pinlocations = responseData.data;
-      getPinlocationList()
       loader.hideLoader()
       allPinlocationsLoading.value = false
     } catch (error) {
@@ -87,7 +87,7 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
   }
   const getAllPinlocations = async (id) => {
     const params = {}
-    if (id) {
+    if (id && id != undefined) {
       allPinlocations.value = locationListGlobal.value.pinlocations.filter(e=>{
         return e.parent._id === id
       })

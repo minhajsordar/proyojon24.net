@@ -1,19 +1,55 @@
 <template>
-  <q-layout class="bg-blue-grey-1">
+  <q-layout class="bg-blue-grey-1" view="hHh lpR fFf">
+    <!-- !$q.screen.gt.sm -->
     <q-header elevated class="text-white bg-blue-grey-10" height-hint="61.59">
-      <publicUserHeader/>
+      <publicUserHeader />
     </q-header>
 
-    <q-page-container>
+    <q-page-container class="q-page-cont">
       <router-view />
-    </q-page-container>
-    <publicLayoutAllDialogs/>
-    <q-footer class="q-py-sm text-center bg-blue-grey-10"
+      <div
+        class="q-py-sm text-center bg-blue-grey-10 text-white full-width footer-area"
       >
-      <div class="fs-12"><span class="text-yellow">Proyojon24.net</span> © 2023 All Rights Reserved</div>
-      <div class="fs-10">Developed & Powered By: <span class="text-yellow">Service Zone Ltd</span></div>
-      </q-footer
+        <div class="fs-12">
+          <span class="text-yellow">Proyojon24.net</span> © 2023 All Rights
+          Reserved
+        </div>
+        <div class="fs-10">
+          Developed & Powered By:
+          <span class="text-yellow">Service Zone Ltd</span>
+        </div>
+      </div>
+    </q-page-container>
+    <publicLayoutAllDialogs />
+    <q-footer
+      class="q-py-sm bg-blue-grey-10 flex justify-around"
+      v-if="!$q.screen.gt.sm"
     >
+      <q-btn
+        icon="home"
+        round
+        dense
+        glossy
+        flat
+        size="md"
+        color="white"
+        class="q-mr-sm"
+        no-caps
+        @click="$router.push('/')"
+      />
+      <q-btn
+        icon="arrow_back_ios"
+        round
+        dense
+        glossy
+        flat
+        size="md"
+        color="white"
+        class="q-mr-sm"
+        no-caps
+        @click="$router.back()"
+      />
+    </q-footer>
   </q-layout>
 </template>
 
@@ -28,4 +64,19 @@ languageStore.switchToBn();
 const router = useRouter();
 </script>
 
-<style lang="sass"></style>
+<style lang="scss" scoped>
+.q-page-cont {
+  min-height: 100vh;
+  position: relative;
+}
+.footer-area {
+  position: absolute;
+  bottom: 0px;
+}
+@media screen and (max-width: 1024px) {
+  .footer-area {
+    position: absolute;
+    bottom: 48px;
+  }
+}
+</style>

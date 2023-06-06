@@ -26,8 +26,8 @@ const routes = [
     component: () => import('layouts/PublicLayout.vue'),
     children: [
       { path: '/allservices', component: () => import('pages/publicpages/servicesList.vue') },
-      { path: '/service/:id', component: () => import('pages/publicpages/serviceCategorys.vue') },
-      { path: '/service_category/:id', component: () => import('pages/publicpages/serviceProviders.vue') },
+      { path: '/service_categorys_list/:id', component: () => import('pages/publicpages/serviceCategorys.vue') },
+      { path: '/service_providers_list/:id', component: () => import('pages/publicpages/serviceProviders.vue') },
       { path: '/service_provider/:id', component: () => import('pages/publicpages/serviceProviderProfile.vue') },
     ]
   },

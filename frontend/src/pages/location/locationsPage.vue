@@ -102,26 +102,18 @@ const divisionStore = useDivisionStore();
 const districtStore = useDistrictStore();
 const subDistrictStore = useSubDistrictStore();
 const unionStore = useUnionStore();
-const wardStore = useWardStore();
 const pinlocationStore = usePinlocationStore();
 
 divisionStore.getDivisionList();
 districtStore.getDistrictList();
-subDistrictStore.getSubDistrictList();
-unionStore.getUnionList();
-wardStore.getWardList();
-pinlocationStore.getPinlocationList();
+subDistrictStore.getSubDistrictListByBrowsingDistrictId();
+unionStore.getUnionListByBrowsingSubDistrictId();
+pinlocationStore.getPinlocationListByBrowsingUnionId();
 const publicUserStore = usePublicUserStore();
 const applyFilter = () => {
   subDistrictStore.getSubDistrictListByBrowsingDistrictId();
-  if (publicUserStore.browsingLocation.district) {
-  }
   unionStore.getUnionListByBrowsingSubDistrictId();
-  if (publicUserStore.browsingLocation.subDistrict) {
-  }
   pinlocationStore.getPinlocationListByBrowsingUnionId();
-  if (publicUserStore.browsingLocation.union) {
-  }
 };
 
 const metaData = {

@@ -9,6 +9,7 @@ import { useAuthStore } from '../auth/authStore';
 import { usePublicUserStore } from '../user/publicStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 const locationListGlobal = useLocalStorage('global-location-list', {})
+const browsingLocation = useLocalStorage('browsing-location', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
 export const useSubDistrictStore = defineStore('sub district store', () => {
@@ -50,9 +51,9 @@ export const useSubDistrictStore = defineStore('sub district store', () => {
     const params = {
       pageNumber: subDistrictPage.value
     }
-    subDistrictList.value.subDistricts = locationListGlobal.value.districts.filter(e => {
-      if(publicUserStore.browsingLocation.district){
-        return e.parent._id === publicUserStore.browsingLocation.district._id
+    subDistrictList.value.subDistricts = locationListGlobal.value.subDistricts.filter(e => {
+      if(browsingLocation.value.district){
+        return e.parent._id === browsingLocation.value.district._id
       }else{
         return true
       }
@@ -71,7 +72,6 @@ export const useSubDistrictStore = defineStore('sub district store', () => {
     try {
       const responseData = await api.request(config);
       locationListGlobal.value.subDistricts = responseData.data;
-      getSubDistrictList()
       loader.hideLoader()
     } catch (error) {
       console.log(error);

@@ -92,9 +92,9 @@
             </div>
             <div class="col-sm-4 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("location.ward") }}</div>
+                <div class="col-12 text-bold">{{ $t("location.pinlocation") }}</div>
                 <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderLocationR.ward.name[languageStore.language] }}
+                  {{ serviceProviderStore.serviceProviderLocationR?.pinlocation?.name[languageStore.language] }}
                 </div>
               </div>
             </div>

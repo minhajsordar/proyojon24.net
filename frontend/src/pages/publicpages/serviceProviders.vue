@@ -6,10 +6,11 @@
           <div class="q-mb-md">
             <div class="row q-col-gutter-sm">
               <div class="col-lg-3 col-sm-6 col-xs-6 col-6">
-                <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('searchInfoByLocation')" @click="publicUserStore.openBrowsingLocationDialog = true"/>
+                <q-btn v-if="selectedServiceAndCategory.serviceCategoryName" class=" bg-blue-grey-10 text-yellow-13 full-width" :label="selectedServiceAndCategory.serviceCategoryName[languageStore.language]" @click="publicUserStore.openFilterByServiceCategoryDialog = true"/>
+                <q-btn v-else class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('services.category')" @click="publicUserStore.openFilterByServiceCategoryDialog = true"/>
               </div>
               <div class="col-lg-3 col-sm-6 col-xs-6 col-6">
-                <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('services.category')" @click="publicUserStore.openFilterByServiceCategoryDialog = true"/>
+                <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('searchInfoByLocation')" @click="publicUserStore.openBrowsingLocationDialog = true"/>
               </div>
               <div class="col-lg-6 col-sm-12 col-xs-12 col-12">
                 <q-btn
@@ -60,7 +61,10 @@
                       serviceCategory, index
                     ) in serviceCategoryStore.allServiceCategoryList"
                     :key="index"
-                    @click="getServiceProviders(serviceCategory._id)"
+                    @click="getServiceProviders(serviceCategory._id);
+              selectedServiceAndCategory.serviceCategoryId = serviceCategory._id
+              selectedServiceAndCategory.serviceCategoryName = serviceCategory.name
+              "
                   >
                     {{ serviceCategory.name[languageStore.language] }}
                   </q-btn>
@@ -139,7 +143,7 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useQuasar, useMeta } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
@@ -150,7 +154,9 @@ import { useRoute, useRouter } from "vue-router";
 import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
 import serviceProviderListCard from "src/components/cards/serviceProviderListCard.vue";
 import { usePublicUserStore } from "src/stores/user/publicStore";
+import { useLocalStorage } from "@vueuse/core";
 
+const selectedServiceAndCategory = useLocalStorage('selected-service-and-category',{})
 const publicUserStore = usePublicUserStore()
 const { t } = useI18n();
 const languageStore = useLanguageStore();
@@ -159,14 +165,16 @@ const route = useRoute();
 const serviceCategoryStore = useServiceCategoryStore();
 // serviceCategoryStore.getAllServiceCategorys();
 const serviceProviderStore = useServiceProviderStore();
-if (route.params.id) {
-  serviceProviderStore.getAllServiceProviders(route.params.id);
-} else {
-  router.push("/allservices");
-}
+onMounted(() => {
+  if (route.params.id) {
+    serviceProviderStore.getAllServiceProviders(route.params.id);
+  } else {
+    router.push("/allservices");
+  }
+})
 const getServiceProviders = (id) => {
   serviceProviderStore.getAllServiceProviders(id);
-  router.push("/service_category/" + id);
+  router.push("/service_providers_list/" + id);
 };
 
 const metaData = {

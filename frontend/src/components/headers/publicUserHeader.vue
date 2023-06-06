@@ -1,6 +1,18 @@
 <template>
   <q-toolbar class="q-py-sm q-px-md">
     <q-btn
+      icon="home"
+      round
+      dense
+      glossy
+      flat
+      size="md"
+      color="white"
+      class="q-mr-sm"
+      no-caps
+      @click="$router.push('/')"
+    />
+    <!-- <q-btn
       v-if="!$q.screen.gt.sm"
       icon="menu"
       round
@@ -20,7 +32,7 @@
       <router-link to="/allservices" active-class="text-white">{{
         $t("headermenus.services")
       }}</router-link>
-    </div>
+    </div> -->
 
     <q-space />
 

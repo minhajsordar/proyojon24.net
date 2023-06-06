@@ -28,10 +28,12 @@
           options-dense
           outlined
           dense
-          @update:model-value="()=>{
-            searchServiceStore.updateServiceCategoryOnServiceProviderTable()
-            serviceProviderStore.filteredByServiseCategoryId = null
-          }"
+          @update:model-value="
+            () => {
+              searchServiceStore.updateServiceCategoryOnServiceProviderTable();
+              serviceProviderStore.filteredByServiseCategoryId = null;
+            }
+          "
         />
       </div>
       <div class="col-sm-8 col-xs-12 col-12">
@@ -52,17 +54,16 @@
               dense
             />
           </div>
-          <div class="col-lg-6 col-sm-6  col-xs-12 col-12 fs-16 text-bold">
+          <div class="col-lg-6 col-sm-6 col-xs-12 col-12 fs-16 text-bold">
             <q-btn
-            :label="$t('search')"
+              :label="$t('search')"
               color="primary"
               glossy
               @click="applyFilterFunc"
             />
             <q-btn
               class="q-ml-sm"
-
-          :label="$t('restore')"
+              :label="$t('restore')"
               color="primary"
               glossy
               @click="resetFilterFunc"
@@ -82,12 +83,13 @@
       </thead>
       <tbody>
         <tr
-          v-for="(serviceProvider, index) in serviceProviderStore.serviceProviderList?.serviceProviders"
+          v-for="(serviceProvider, index) in serviceProviderStore
+            .serviceProviderList?.serviceProviders"
           :key="index"
           :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
         >
           <td>
-            {{ enToBnToEn(String(index+1), languageStore.language) }}
+            {{ enToBnToEn(String(index + 1), languageStore.language) }}
           </td>
           <td>{{ serviceProvider.name[languageStore.language] }}</td>
           <td>
@@ -113,11 +115,12 @@
               @click="
                 serviceProviderStore.openServiceProviderEditDialogManager(
                   serviceProvider
-                )
+                );
+                editManager(serviceProvider);
               "
             />
             <q-btn
-            v-if="!serviceProvider.suggested"
+              v-if="!serviceProvider.suggested"
               class="q-ml-xs"
               :label="$t('addToSuggestion')"
               size="sm"
@@ -131,7 +134,7 @@
               "
             />
             <q-btn
-            v-else
+              v-else
               class="q-ml-xs"
               :label="$t('removeFromSuggestion')"
               size="sm"
@@ -157,10 +160,10 @@
         </tr>
       </tbody>
     </q-markup-table>
-    <q-separator class="q-mt-md"/>
+    <q-separator class="q-mt-md" />
     <q-pagination
-    class="q-mt-md"
-    color="blue-grey-7"
+      class="q-mt-md"
+      color="blue-grey-7"
       v-model="serviceProviderStore.paginationCurrent"
       :max="serviceProviderStore.serviceProviderList?.pages"
       :max-pages="6"
@@ -181,6 +184,15 @@ import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore
 import { useServiceStore } from "src/stores/service/serviceStore";
 import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
 import { useSearchServiceStore } from "src/stores/service/searchService";
+import { useDivisionStore } from "src/stores/locations/divisionStore";
+import { useDistrictStore } from "src/stores/locations/districtStore";
+import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
+import { useUnionStore } from "src/stores/locations/unionStore";
+import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
+const districtStore = useDistrictStore();
+const subDistrictStore = useSubDistrictStore();
+const unionStore = useUnionStore();
+const pinlocationStore = usePinlocationStore();
 const serviceStore = useServiceStore();
 const authStore = useAuthStore();
 const $q = useQuasar();
@@ -209,7 +221,7 @@ const applyFilterFunc = () => {
   if (serviceProviderStore?.filteredByServiseCategoryId) {
     // serviceProviderStore.getFilteredServiceProviderByServiceCategory();
     serviceProviderStore.getServiceProviderList();
-  }else{
+  } else {
     // serviceProviderStore.getServiceProviderList();
     // serviceCategoryStore.filteredByServiseId._id
   }
@@ -219,11 +231,30 @@ const resetFilterFunc = () => {
 };
 
 // pagination
-const current = ref(1)
-const paginationFunc =()=>{
-serviceProviderStore.serviceProviderPage = serviceProviderStore.paginationCurrent
-serviceProviderStore.getServiceProviderList()
-}
+const current = ref(1);
+const paginationFunc = () => {
+  serviceProviderStore.serviceProviderPage =
+    serviceProviderStore.paginationCurrent;
+  serviceProviderStore.getServiceProviderList();
+};
+const editManager = (data) => {
+  console.log(data);
+  // if (data.serviceProviderLocation.division) {
+  //   console.log(data.serviceProviderLocation.division._id);
+  //   districtStore.getAllDistricts(data.serviceProviderLocation.division._id);
+  // }
+  // if (data.serviceProviderLocation.district) {
+  //   subDistrictStore.getAllSubDistricts(
+  //     data.serviceProviderLocation.district._id
+  //   );
+  // }
+  // if (data.serviceProviderLocation.subDistrict) {
+  //   unionStore.getAllUnions(data.serviceProviderLocation.subDistrict._id);
+  // }
+  // if (data.serviceProviderLocation.union) {
+  //   pinlocationStore.getAllPinlocations(data.serviceProviderLocation.union._id);
+  // }
+};
 onMounted(() => {
   authStore.checkLogin();
 });
@@ -257,5 +288,4 @@ const metaData = {
 
 useMeta(metaData);
 </script>
-<style>
-</style>
+<style></style>

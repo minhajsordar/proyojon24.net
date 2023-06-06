@@ -58,7 +58,6 @@ onMounted(() => {
   districtStore.getGlobalDistricts();
   subDistrictStore.getGlobalSubDistricts();
   unionStore.getGlobalUnions();
-  wardStore.getGlobalWards();
   pinlocationStore.getGlobalPinlocations();
 })
 const publicUserStore = usePublicUserStore()

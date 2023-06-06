@@ -8,8 +8,9 @@
             v-for="(service,index) in servicePublicStore.allServices" :key="index"
             >
               <div class="text-center cursor-pointer service-item"
-              @click="$router.push('/service/'+service._id);
+              @click="$router.push('/service_categorys_list/'+service._id);
               selectedServiceAndCategory.serviceId = service._id;
+              selectedServiceAndCategory.serviceName = service.name;
               "
               >
                 <div class="icon-relative-cont">

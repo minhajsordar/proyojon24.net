@@ -20,6 +20,13 @@ export const useServiceCategoryStore = defineStore('service category store', () 
     imageIcon = ref(null),
     imageCover = ref(null),
     selectedService = ref(null),
+    selectedServiceCategory = reactive({
+      name:{
+        bn:null,
+        en:null
+      },
+      _id:null
+    }),
     filteredByServiseId = ref(null),
     allServiceCategoryList = ref(null),
     serviceCategoryList = ref([
@@ -323,6 +330,7 @@ imageCover.value = null
     openServiceCategoryCreateDialog,
     openServiceCategoryCreateDialogManager,
     paginationCurrent,
+    selectedServiceCategory,
     allServiceCategoryList,
     serviceCategoryList,
     serviceCategoryInfo,

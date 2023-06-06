@@ -222,10 +222,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       bn: null,
       en: null,
     }
-    serviceProviderInfo.phoneNumber = [{
+    serviceProviderInfo.phoneNumber = {
       bn: null,
       en: null,
-    }]
+    }
     serviceProviderInfo.keywords = []
   }
   const openServiceProviderCreateDialogManager = () => {
@@ -257,9 +257,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     })
     serviceProviderInfo.extraCources = {}
     serviceProviderInfo.extraCources = data.extraCources
-    console.log(serviceProviderInfo, data)
     serviceProviderInfo.id = data?._id
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
+    serviceProviderInfo.serviceList = data.serviceList
     serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
     imageCover.value = { name: serviceProviderInfo.coverImage }
     imageIcon.value = { name: serviceProviderInfo.icon }
@@ -268,21 +268,25 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.subDistrict = data.serviceProviderLocation.subDistrict
     serviceProviderLocationR.union = data.serviceProviderLocation.union
     serviceProviderLocationR.pinlocation = data.serviceProviderLocation.pinlocation
-
-    if (data.serviceProviderLocation.division._id) {
-      districtStore.getAllDistricts(data.serviceProviderLocation.division._id);
-    }
-    if (data.serviceProviderLocation.district._id) {
-      subDistrictStore.getAllSubDistricts(data.serviceProviderLocation.district._id);
-    }
-    if (data.serviceProviderLocation.subDistrict._id) {
-      unionStore.getAllUnions(data.serviceProviderLocation.subDistrict._id);
-    }
-    if (data.serviceProviderLocation.union._id) {
-      pinlocationStore.getAllPinlocations(data.serviceProviderLocation.union._id);
-    }
     searchServiceStore.updateServiceCategory()
     openServiceProviderEditDialog.value = true
+    setTimeout(()=>{
+
+      if (serviceProviderLocationR.division) {
+        console.log(serviceProviderLocationR.division._id)
+        districtStore.getAllDistricts(serviceProviderLocationR.division._id);
+      }
+      if (serviceProviderLocationR.district) {
+        subDistrictStore.getAllSubDistricts(serviceProviderLocationR.district._id);
+      }
+      if (serviceProviderLocationR.subDistrict) {
+        unionStore.getAllUnions(serviceProviderLocationR.subDistrict._id);
+      }
+      if (serviceProviderLocationR.union) {
+        pinlocationStore.getAllPinlocations(serviceProviderLocationR.union._id);
+      }
+
+    },5000)
   }
   const openServiceProviderPreviewDialogManager = (data) => {
     const serviceProviderInfoKeys = [
@@ -491,6 +495,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
     serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
+
     const data = serviceProviderInfo
     const config = {
       method: "post",
@@ -572,7 +577,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.subDistrict._id = serviceProviderLocationR.subDistrict._id
     serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
     serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
-    serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
+    serviceProviderInfo.serviceProviderLocation.pinlocation = serviceProviderLocationR.pinlocation
     serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
     const data = serviceProviderInfo

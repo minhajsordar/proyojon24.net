@@ -78,7 +78,7 @@ export const useDistrictStore = defineStore('district store', () => {
     }
   }
   const getAllDistricts = async (id) => {
-    if (id) {
+    if (id && id != undefined) {
       districtList.value.districts = allDistricts.value = locationListGlobal.value.districts.filter(e=>{
         return e.parent._id === id
       })
