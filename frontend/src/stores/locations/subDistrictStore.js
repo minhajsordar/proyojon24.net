@@ -7,6 +7,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { usePublicUserStore } from '../user/publicStore';
+import  { subDistricts } from "src/global_js/staticLocation"
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 const locationListGlobal = useLocalStorage('global-location-list', {})
 const browsingLocation = useLocalStorage('browsing-location', {})
@@ -44,14 +45,14 @@ export const useSubDistrictStore = defineStore('sub district store', () => {
     const params = {
       pageNumber: subDistrictPage.value
     }
-    subDistrictList.value.subDistricts = locationListGlobal.value.subDistricts;
+    subDistrictList.value.subDistricts = subDistricts;
 
   }
   const getSubDistrictListByBrowsingDistrictId = async () => {
     const params = {
       pageNumber: subDistrictPage.value
     }
-    subDistrictList.value.subDistricts = locationListGlobal.value.subDistricts.filter(e => {
+    subDistrictList.value.subDistricts = subDistricts.filter(e => {
       if(browsingLocation.value.district){
         return e.parent._id === browsingLocation.value.district._id
       }else{
@@ -83,11 +84,11 @@ export const useSubDistrictStore = defineStore('sub district store', () => {
   const getAllSubDistricts = async (id) => {
 
     if (id) {
-      allSubDistricts.value = locationListGlobal.value.subDistricts.filter(e => {
+      allSubDistricts.value = subDistricts.filter(e => {
         return e.parent._id === id
       })
     } else {
-      allSubDistricts.value = locationListGlobal.value.subDistricts
+      allSubDistricts.value = subDistricts
     }
 
   }

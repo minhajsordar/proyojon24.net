@@ -4,6 +4,9 @@ import { useSubDistrictStore } from 'src/stores/locations/subDistrictStore';
 import { useUnionStore } from 'src/stores/locations/unionStore';
 import { useServiceProviderStore } from 'src/stores/service/serviceProviderStore';
 import { usePinlocationStore } from '../locations/pinlocationStore';
+import { useLocalStorage } from '@vueuse/core';
+const browsingLocation = useLocalStorage('browsing-location', {})
+
 export const useSearchLocationStore = defineStore('search location store', () => {
   const serviceProviderStore = useServiceProviderStore()
   const districtStore = useDistrictStore()
@@ -15,6 +18,7 @@ export const useSearchLocationStore = defineStore('search location store', () =>
     districtStore.getAllDistricts()
     subDistrictStore.getAllSubDistricts()
     unionStore.getAllUnions()
+    pinLocationStore.getAllPinlocations()
   }
   const updateDistrict =()=>{
     districtStore.getAllDistricts(serviceProviderStore.serviceProviderLocationR.division._id)
@@ -28,11 +32,29 @@ export const useSearchLocationStore = defineStore('search location store', () =>
   const updatePinLocation =()=>{
     pinLocationStore.getAllPinlocations(serviceProviderStore.serviceProviderLocationR.union._id)
   }
+  const updateAllLocationByBrowsingLocation =()=>{
+    // if (browsingLocation.value.division) {
+    //   districtStore.getAllDistricts(browsingLocation.value.division._id);
+    // }
+    if (browsingLocation.value.district) {
+      console.log(browsingLocation.value.district)
+      subDistrictStore.getAllSubDistricts(browsingLocation.value.district._id);
+    }
+    if (browsingLocation.value.subDistrict) {
+      console.log(browsingLocation.value.subDistrict)
+      unionStore.getAllUnions(browsingLocation.value.subDistrict._id);
+    }
+    if (browsingLocation.value.union) {
+      console.log(browsingLocation.value.union)
+      pinLocationStore.getAllPinlocations(browsingLocation.value.union._id);
+    }
+  }
   return {
     updateAllLocation,
     updateDistrict,
     updateSubDistrict,
     updateUnion,
-    updatePinLocation
+    updatePinLocation,
+    updateAllLocationByBrowsingLocation
   }
 });

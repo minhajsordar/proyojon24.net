@@ -270,23 +270,19 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLocationR.pinlocation = data.serviceProviderLocation.pinlocation
     searchServiceStore.updateServiceCategory()
     openServiceProviderEditDialog.value = true
-    setTimeout(()=>{
-
-      if (serviceProviderLocationR.division) {
-        console.log(serviceProviderLocationR.division._id)
-        districtStore.getAllDistricts(serviceProviderLocationR.division._id);
-      }
-      if (serviceProviderLocationR.district) {
-        subDistrictStore.getAllSubDistricts(serviceProviderLocationR.district._id);
-      }
-      if (serviceProviderLocationR.subDistrict) {
-        unionStore.getAllUnions(serviceProviderLocationR.subDistrict._id);
-      }
-      if (serviceProviderLocationR.union) {
-        pinlocationStore.getAllPinlocations(serviceProviderLocationR.union._id);
-      }
-
-    },5000)
+    if (serviceProviderLocationR.division) {
+      console.log(serviceProviderLocationR.division._id)
+      districtStore.getAllDistricts(serviceProviderLocationR.division._id);
+    }
+    if (serviceProviderLocationR.district) {
+      subDistrictStore.getAllSubDistricts(serviceProviderLocationR.district._id);
+    }
+    if (serviceProviderLocationR.subDistrict) {
+      unionStore.getAllUnions(serviceProviderLocationR.subDistrict._id);
+    }
+    if (serviceProviderLocationR.union) {
+      pinlocationStore.getAllPinlocations(serviceProviderLocationR.union._id);
+    }
   }
   const openServiceProviderPreviewDialogManager = (data) => {
     const serviceProviderInfoKeys = [

@@ -70,7 +70,11 @@ import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import publicLayoutAllDialogs from "src/components/dialogs/publicLayoutAllDialogs.vue";
 
 import { useRouter } from "vue-router";
+import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
+import { useSearchLocationStore } from "src/stores/service/searchLocation";
 const languageStore = useLanguageStore();
+const pinlocationStore = usePinlocationStore();
+pinlocationStore.getGlobalPinlocations()
 languageStore.switchToBn();
 const router = useRouter();
 </script>

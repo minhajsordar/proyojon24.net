@@ -8,6 +8,7 @@ import { useDistrictStore } from "src/stores/locations/districtStore";
 import { isObjEmpty } from "src/global_js/utils";
 import { useSubDistrictStore } from '../locations/subDistrictStore';
 import { useUnionStore } from '../locations/unionStore';
+import { usePinlocationStore } from '../locations/pinlocationStore';
 const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
 const locationListGlobal = useLocalStorage("global-location-list", {});
 
@@ -19,9 +20,11 @@ export const usePublicUserStore = defineStore('Public user store', () => {
     division: null,
     district: null,
     subDistrict: null,
-    union: null
+    union: null,
+    pinlocation: null
   })
   const languageStore = useLanguageStore();
+  const pinlocationStore = usePinlocationStore();
   const unionStore = useUnionStore();
   const subDistrictStore = useSubDistrictStore();
   const districtStore = useDistrictStore();
@@ -33,8 +36,9 @@ export const usePublicUserStore = defineStore('Public user store', () => {
     subDistrictStore.getAllSubDistricts(browsingLocation.district?._id)
     userBrowsingLocationLocalStore.value.subDistrict = browsingLocation.subDistrict = null
     userBrowsingLocationLocalStore.value.union = browsingLocation.union = null
+    userBrowsingLocationLocalStore.value.pinlocation = browsingLocation.pinlocation = null
 
-    if (browsingLocation.district) {
+    if (browsingLocation.division) {
       userBrowsingLocationLocalStore.value.division = browsingLocation.division = locationListGlobal.value.divisions.filter(e => {
         return e._id == browsingLocation.district.parent._id
       })[0]
@@ -49,10 +53,17 @@ export const usePublicUserStore = defineStore('Public user store', () => {
       browsingLocation.subDistrict;
     unionStore.getAllUnions(browsingLocation.subDistrict?._id)
     userBrowsingLocationLocalStore.value.union = browsingLocation.union = null
+    userBrowsingLocationLocalStore.value.pinlocation = browsingLocation.pinlocation = null
   };
   const updateBrowsingUnion = () => {
     userBrowsingLocationLocalStore.value.union =
       browsingLocation.union;
+      pinlocationStore.getAllPinlocations(browsingLocation.union?._id)
+    userBrowsingLocationLocalStore.value.pinlocation = browsingLocation.pinlocation = null
+  };
+  const updateBrowsingPinlocation = () => {
+    userBrowsingLocationLocalStore.value.pinlocation =
+      browsingLocation.pinlocation;
   };
 
   const updateBrowsingLocationOnMounted = () => {
@@ -68,6 +79,8 @@ export const usePublicUserStore = defineStore('Public user store', () => {
         userBrowsingLocationLocalStore.value.subDistrict;
       browsingLocation.union =
         userBrowsingLocationLocalStore.value.union;
+      browsingLocation.pinlocation =
+        userBrowsingLocationLocalStore.value.pinlocation;
     }
 
   }
@@ -79,6 +92,7 @@ export const usePublicUserStore = defineStore('Public user store', () => {
     updateBrowsingDistrict,
     updateBrowsingSubDistrict,
     updateBrowsingUnion,
+    updateBrowsingPinlocation,
     updateBrowsingLocationOnMounted,
   }
 });

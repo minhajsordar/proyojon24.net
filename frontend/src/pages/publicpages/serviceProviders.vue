@@ -155,7 +155,9 @@ import { useServiceProviderStore } from "src/stores/service/serviceProviderStore
 import serviceProviderListCard from "src/components/cards/serviceProviderListCard.vue";
 import { usePublicUserStore } from "src/stores/user/publicStore";
 import { useLocalStorage } from "@vueuse/core";
+import { useSearchLocationStore } from "src/stores/service/searchLocation";
 
+const searchLocationStore = useSearchLocationStore();
 const selectedServiceAndCategory = useLocalStorage('selected-service-and-category',{})
 const publicUserStore = usePublicUserStore()
 const { t } = useI18n();
@@ -171,6 +173,8 @@ onMounted(() => {
   } else {
     router.push("/allservices");
   }
+searchLocationStore.updateAllLocationByBrowsingLocation()
+
 })
 const getServiceProviders = (id) => {
   serviceProviderStore.getAllServiceProviders(id);

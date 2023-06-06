@@ -8,6 +8,7 @@ import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { useWardStore } from './wardStore';
 import { usePublicUserStore } from '../user/publicStore';
+import  { unions } from "src/global_js/staticLocation"
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 const locationListGlobal = useLocalStorage('global-location-list', {})
@@ -48,7 +49,7 @@ export const useUnionStore = defineStore('union store', () => {
     const params = {
       pageNumber: unionPage.value
     }
-    unionList.value.unions = locationListGlobal.value.unions
+    unionList.value.unions = unions
 
   }
   const getUnionListByBrowsingSubDistrictId = async () => {
@@ -56,7 +57,7 @@ export const useUnionStore = defineStore('union store', () => {
     const params = {
       pageNumber: unionPage.value
     }
-    unionList.value.unions = locationListGlobal.value.unions.filter(e => {
+    unionList.value.unions = unions.filter(e => {
       if (browsingLocation.value.subDistrict) {
         return e.parent._id === browsingLocation.value.subDistrict._id
       } else {
@@ -89,11 +90,11 @@ export const useUnionStore = defineStore('union store', () => {
   }
   const getAllUnions = async (id) => {
     if (id) {
-      allUnions.value = locationListGlobal.value.unions.filter(e => {
+      allUnions.value = unions.filter(e => {
         return e.parent._id === id
       })
     } else {
-      allUnions.value = locationListGlobal.value.unions
+      allUnions.value = unions
     }
 
   }

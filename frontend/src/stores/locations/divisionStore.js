@@ -6,6 +6,7 @@ import {encode64} from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from 'src/stores/auth/authStore';
+import  { divisions } from "src/global_js/staticLocation"
 export const suggestUserData = useLocalStorage('proyojonuserkey',{})
 export const loginUser = useLocalStorage('proyojonloginuser',{})
 const locationListGlobal = useLocalStorage('global-location-list', {})
@@ -61,10 +62,10 @@ export const useDivisionStore = defineStore('division store', ()=>{
       }
     }
     const getDivisionList= async()=>{
-        divisionList.value.divisions = locationListGlobal.value.divisions;
+        divisionList.value.divisions = divisions;
     }
     const getAllDivisions= ()=>{
-      allDivisions.value = locationListGlobal.value.divisions;
+      allDivisions.value = divisions;
     }
 
     const createNewDivision= async()=>{

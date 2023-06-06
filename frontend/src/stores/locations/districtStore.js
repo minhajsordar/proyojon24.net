@@ -7,6 +7,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { useDivisionStore } from './divisionStore';
+import  { districts } from "src/global_js/staticLocation"
 const suggestUserData = useLocalStorage('proyojonuserkey', {})
 const loginUser = useLocalStorage('proyojonloginuser', {})
 const locationListGlobal = useLocalStorage('global-location-list', {})
@@ -79,11 +80,11 @@ export const useDistrictStore = defineStore('district store', () => {
   }
   const getAllDistricts = async (id) => {
     if (id && id != undefined) {
-      districtList.value.districts = allDistricts.value = locationListGlobal.value.districts.filter(e=>{
+      districtList.value.districts = allDistricts.value = districts.filter(e=>{
         return e.parent._id === id
       })
     }else{
-      districtList.value.districts = allDistricts.value = locationListGlobal.value.districts
+      districtList.value.districts = allDistricts.value = districts
     }
   }
   const createNewDistrict = async () => {
