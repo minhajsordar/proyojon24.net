@@ -117,7 +117,7 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useQuasar, useMeta } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useI18n } from "vue-i18n";
@@ -137,6 +137,11 @@ if (route.params.id) {
 } else {
   router.push("/allservices");
 }
+
+setTimeout(() => {
+  serviceProviderStore.increaseServiceProviderView(route.params.id)
+}, 5000);
+
 
 const metaData = {
   // sets document title

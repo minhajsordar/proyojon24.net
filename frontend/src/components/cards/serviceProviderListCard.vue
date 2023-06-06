@@ -4,6 +4,7 @@
   @click="$router.push('/service_provider/'+serviceProvider._id)"
   >
     <div class="listcard-cont">
+      <q-badge class="view-badge-top-right" color="orange"> <q-icon name="visibility"/> {{serviceProvider.viewCount}}</q-badge>
       <q-card-section class="image-section q-pa-sm">
         <q-img :src="serviceProvider.image" />
       </q-card-section>
@@ -19,11 +20,11 @@
         </div>
         <q-separator/>
         <div class="text-blue-grey-10">
-          <span>মোবাইল: <q-icon class="bg-yellow-14 text-white" name="call"/> ০১xxxxxxxxx</span>
+          <span>মোবাইল: <q-icon class="bg-primary text-white" name="call"/> ০১xxxxxxxxx</span>
         </div>
         <q-separator/>
         <div class="fs-12 text-bold">
-          <q-icon class="bg-yellow-14 text-white " name="location_on"/>
+          <q-icon class="bg-primary text-white " name="location_on"/>
           <span>{{serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]}}, </span>
           <span>{{serviceProvider.serviceProviderLocation?.district?.name[languageStore.language]}}, </span>
           <span>{{serviceProvider.serviceProviderLocation?.subDistrict?.name[languageStore.language]}}, </span>
@@ -50,6 +51,12 @@ const languageStore = useLanguageStore()
 .listcard-cont{
   display:flex;
   align-items: center;
+  position: relative;
+}
+.view-badge-top-right{
+  position: absolute;
+  left:4px;
+  top:4px;
 }
 .image-section{
 width: 100px;

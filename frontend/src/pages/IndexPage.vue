@@ -68,6 +68,7 @@
                   selectedServiceAndCategory.serviceName = service.name;
                 "
               >
+              <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge>
                 <div class="icon-relative-cont">
                   <!-- <q-img  src="/images/hexagonalshape.svg"
                   style="width: 56px; height: 48px;"
@@ -338,5 +339,11 @@ useMeta(metaData);
     max-width: 35px;
     max-height: 35px;
   }
+}
+.provider-count-badge{
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  z-index: 999999999;
 }
 </style>

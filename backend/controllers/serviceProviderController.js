@@ -1,5 +1,7 @@
 import expressAsyncHandler from "express-async-handler";
 import ServiceProvider from '../models/serviceProviderModel.js'
+import ServiceCategory from '../models/serviceCategoryModel.js'
+import Service from '../models/serviceModel.js'
 
 // @desc get ServiceProvider
 // @route Put api/ServiceProvider
@@ -66,10 +68,9 @@ const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
 const getServiceProviderById = expressAsyncHandler(async (req, res) => {
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
-        serviceProvider.viewCount += 1
-        const updatedServiceProvider = await serviceProvider.save()
+        
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-        res.json(updatedServiceProvider)
+        res.json(serviceProvider)
     } else {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.status(404)
@@ -115,8 +116,19 @@ const getServiceProviderByServiceCategory = expressAsyncHandler(async (req, res)
 // @acess Privet/Admin
 const deleteServiceProvider = expressAsyncHandler(async (req, res) => {
     const serviceProvider = await ServiceProvider.findById(req.params.id)
+    const serviceById = Service.findById(serviceProvider.service)
+    const serviceCategoryById = ServiceCategory.findById(serviceProvider.serviceCategory)
+    
     if (serviceProvider) {
         await serviceProvider.deleteOne()
+        serviceById.serviceProviderCount -= 1
+        if(serviceById.serviceProviderCount>= 0){
+            await serviceById.save()
+        }
+        serviceCategoryById.serviceProviderCount -= 1
+        if(serviceCategoryById.serviceProviderCount>=0){
+            await serviceCategoryById.save()
+        }
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json({ message: 'Service Provider removed' })
     } else {
@@ -238,7 +250,7 @@ const createServiceProviderViewCount = expressAsyncHandler(async (req, res) => {
     if (serviceProvider) {
         serviceProvider.viewCount += 1
         await serviceProvider.save()
-        res.status(201).json({ message: 'You previewed a service provider number' })
+        res.status(201).json(serviceProvider)
     } else {
         res.status(404)
         throw new Error('Service Provider Number not found')
@@ -297,6 +309,14 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         keywords
     })
     const createdServiceProvider = await serviceProvider.save()
+
+    const serviceById = await Service.findById(service)
+    serviceById.serviceProviderCount += 1
+    await serviceById.save()
+
+    const serviceCategoryById = await ServiceCategory.findById(serviceCategory)
+    serviceCategoryById.serviceProviderCount += 1
+    await serviceCategoryById.save()
     res.status(201).json(createdServiceProvider)
 
 })

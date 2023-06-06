@@ -777,8 +777,6 @@ const createServiceManager = () => {
   divisionEl.value.validate();
   districtEl.value.validate();
   subDistrictEl.value.validate();
-  unionEl.value.validate();
-  pinlocationEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   iconEl.value.validate();
@@ -791,8 +789,6 @@ const createServiceManager = () => {
     divisionEl.value.hasError ||
     districtEl.value.hasError ||
     subDistrictEl.value.hasError ||
-    unionEl.value.hasError ||
-    pinlocationEl.value.hasError ||
     nameEnEl.value.hasError ||
     nameBnEl.value.hasError ||
     iconEl.value.hasError ||

@@ -486,10 +486,14 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.district._id = serviceProviderLocationR.district._id
     serviceProviderInfo.serviceProviderLocation.subDistrict.name = serviceProviderLocationR.subDistrict.name
     serviceProviderInfo.serviceProviderLocation.subDistrict._id = serviceProviderLocationR.subDistrict._id
-    serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
-    serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
-    serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
-    serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
+    if(serviceProviderLocationR.union?._id){
+      serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
+      serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
+    }
+    if(serviceProviderLocationR.pinlocation?._id){
+      serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
+      serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
+    }
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
 
     const data = serviceProviderInfo
@@ -617,6 +621,24 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       loader.hideLoader()
     }
   }
+  const increaseServiceProviderView = async (id) => {
+    const config = {
+      method: "put",
+      url: "api/service_providers/service_provider_view/" + id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+
+      },data:{
+        _id : id
+      }
+    };
+    try {
+      const responseData = await api.request(config);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const addToSuggestionServiceProvider = async (id) => {
     const config = {
       method: "put",
@@ -681,6 +703,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderLoading,
     getServiceProviderById,
     getAllServiceProvidersByLocation,
+    increaseServiceProviderView,
     //  service provider list
     serviceProviderPage,
     serviceProviderList,

@@ -23,6 +23,11 @@ const serviceSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
+    serviceProviderCount: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     order: {
         type: Number,
         required: true,

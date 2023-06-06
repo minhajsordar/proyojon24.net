@@ -85,17 +85,17 @@ const serviceProviderSchema = new mongoose.Schema({
         },
         union: {
             name: {
-                bn: { type: String },
-                en: { type: String }
+                bn: { type: String, default: null },
+                en: { type: String, default: null }
             },
-            _id: { type: String }
+            _id: { type: String, default:null }
         },
         pinlocation: {
             name: {
-                bn: { type: String },
-                en: { type: String }
+                bn: { type: String, default: null },
+                en: { type: String, default: null }
             },
-            _id: { type: String }
+            _id: { type: String, default:null }
         },
         exact: {
             bn: { type: String },
