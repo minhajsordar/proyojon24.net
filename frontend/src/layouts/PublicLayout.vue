@@ -68,11 +68,11 @@ const router = useRouter();
 .q-page-cont {
   min-height: 100vh;
   position: relative;
-  padding-bottom: 48px;
+  padding-bottom: 48px !important;
 }
 @media screen and (max-width: 1024px) {
   .q-page-cont {
-    padding-bottom: 0px;
+    padding-bottom: 100px !important;
 }
 }
 .footer-area {
