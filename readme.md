@@ -10,4 +10,4 @@ subdistrict
 unionc
 ward
 git add . && git commit -m "create edit update added" && git push hostinger main
-git add . && git commit -m "frontend edit option added" && git push -u origin main
+git add . && git commit -m "frontend edit option add" && git push -u origin main
