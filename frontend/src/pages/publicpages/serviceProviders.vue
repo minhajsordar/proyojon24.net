@@ -6,17 +6,43 @@
           <div class="q-mb-md">
             <div class="row q-col-gutter-sm">
               <div class="col-lg-3 col-sm-6 col-xs-6 col-6">
-                <q-btn v-if="selectedServiceAndCategory.serviceCategoryName" class=" bg-blue-grey-10 text-yellow-13 full-width" :label="selectedServiceAndCategory.serviceCategoryName[languageStore.language]" @click="publicUserStore.openFilterByServiceCategoryDialog = true"/>
-                <q-btn v-else class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('services.category')" @click="publicUserStore.openFilterByServiceCategoryDialog = true"/>
+                <q-btn
+                  v-if="selectedServiceAndCategory.serviceCategoryName"
+                  class="bg-blue-grey-10 text-yellow-13 full-width"
+                  :label="
+                    selectedServiceAndCategory.serviceCategoryName[
+                      languageStore.language
+                    ]
+                  "
+                  @click="
+                    publicUserStore.openFilterByServiceCategoryDialog = true
+                  "
+                />
+                <q-btn
+                  v-else
+                  class="bg-blue-grey-10 text-yellow-13 full-width"
+                  :label="$t('services.category')"
+                  @click="
+                    publicUserStore.openFilterByServiceCategoryDialog = true
+                  "
+                />
               </div>
               <div class="col-lg-3 col-sm-6 col-xs-6 col-6">
-                <q-btn class=" bg-blue-grey-10 text-yellow-13 full-width" :label="$t('searchInfoByLocation')" @click="publicUserStore.openBrowsingLocationDialog = true"/>
+                <q-btn
+                  class="bg-blue-grey-10 text-yellow-13 full-width"
+                  :label="$t('searchInfoByLocation')"
+                  @click="publicUserStore.openBrowsingLocationDialog = true"
+                />
               </div>
               <div class="col-lg-6 col-sm-12 col-xs-12 col-12">
-                <q-btn
-                class="full-width bg-blue-grey-10 text-yellow-13"
-                 :label="$t('search')"
-                 />
+                <div class="flex full-width relative-position">
+                  <q-input class="searchbar" outlined dense/>
+                  <q-btn
+                    class="bg-blue-grey-10 text-yellow-13 search-btn"
+                    icon="search"
+                  />
+
+                </div>
               </div>
             </div>
           </div>
@@ -33,14 +59,14 @@
                   :thumb-style="{
                     right: '5px',
                     borderRadius: '8px',
-                    backgroundColor: '#027be3',
+                    backgroundColor: '#263238',
                     width: '8px',
                     opacity: 0.75,
                   }"
                   :bar-style="{
                     right: '2px',
                     borderRadius: '14px',
-                    backgroundColor: '#027be3',
+                    backgroundColor: '#263238',
                     width: '14px',
                     opacity: 0.2,
                     marginTop: '-3px',
@@ -61,10 +87,13 @@
                       serviceCategory, index
                     ) in serviceCategoryStore.allServiceCategoryList"
                     :key="index"
-                    @click="getServiceProviders(serviceCategory._id);
-              selectedServiceAndCategory.serviceCategoryId = serviceCategory._id
-              selectedServiceAndCategory.serviceCategoryName = serviceCategory.name
-              "
+                    @click="
+                      getServiceProviders(serviceCategory._id);
+                      selectedServiceAndCategory.serviceCategoryId =
+                        serviceCategory._id;
+                      selectedServiceAndCategory.serviceCategoryName =
+                        serviceCategory.name;
+                    "
                   >
                     {{ serviceCategory.name[languageStore.language] }}
                   </q-btn>
@@ -88,13 +117,17 @@
             </div>
             <div class="col-lg-9 col-sm-8 col-xs-12 col-12">
               <q-card class="q-pa-md">
-                <div v-if="serviceProviderStore?.suggestedServiceProvidersList.length > 0">
+                <div
+                  v-if="
+                    serviceProviderStore?.suggestedServiceProvidersList.length >
+                    0
+                  "
+                >
                   <div class="fs-18 text-bold">
                     {{ $t("services.suggestions") }}
                   </div>
                   <q-separator class="q-mb-sm"></q-separator>
                   <div class="row q-col-gutter-sm">
-
                     <div
                       class="col-12"
                       v-for="(
@@ -102,7 +135,9 @@
                       ) in serviceProviderStore.suggestedServiceProvidersList"
                       :key="index"
                     >
-                      <serviceProviderListCard :serviceProvider="serviceProvider" />
+                      <serviceProviderListCard
+                        :serviceProvider="serviceProvider"
+                      />
                     </div>
                   </div>
 
@@ -113,7 +148,6 @@
                 </div>
                 <q-separator class="q-mb-sm"></q-separator>
                 <div class="row q-col-gutter-sm">
-
                   <div
                     class="col-12"
                     v-for="(
@@ -121,7 +155,77 @@
                     ) in serviceProviderStore.allServiceProvidersList"
                     :key="index"
                   >
-                    <serviceProviderListCard :serviceProvider="serviceProvider" />
+                    <serviceProviderListCard
+                      :serviceProvider="serviceProvider"
+                    />
+                  </div>
+                  <div
+                    class="col-12"
+                  >
+                    <serviceProviderListCard
+                    class="bg-green-1"
+                      :serviceProvider="{
+                        name: {
+                          bn: 'আপনি কি সার্ভিস প্রদান করতে চান? আপনার তথ্য প্রদান করুন',
+                          en: 'Do you want to provide service? Fill up your informations.',
+                        },
+                        serviceProviderLocation: {
+                          division: {
+                            name: {
+                              bn: 'ঢাকা',
+                              en: 'Dhaka'
+                            }
+                          },
+                          district: {
+                            name: {
+                              bn: 'রাজবাড়ী',
+                              en: 'Rajbari'
+                            }
+                          },
+                          subDistrict: {
+                            name: {
+                              bn: 'গোয়ালন্দ',
+                              en: 'Goalunda'
+                            }
+                          },
+                          union: {
+                            name: {
+                              bn: 'মকবুলের দোকান',
+                              en: 'Mokbuler Dokan'
+                            }
+                          },
+                          pinlocation: {
+                            name: {
+                              bn: null,
+                              en: null,
+                            },
+                            _id: null,
+                          }
+                        },
+                        specialties: {
+                          bn: null,
+                          en: null,
+                        },
+                        serviceTitle: {
+                          bn: 'মুদি দোকান',
+                          en: 'Stationary',
+                        },
+                        suggested: false,
+                        _id: '647436a153654e270485a5b7',
+                        service: '646ddf32944253664c042aa9',
+                        serviceCategory: '646de0ea944253664c042afa',
+                        image: '/uploads/image-1685337335436.jpg',
+                        serviceImage: '/uploads/image-1685337338620.jpg',
+                        rankCount: 1.5,
+                        keywords: null,
+                        rating: 0,
+                        numReviews: 0,
+                        reviews: [],
+                        createdAt: '2023-05-29T05:22:41.902Z',
+                        updatedAt: '2023-05-29T05:34:23.007Z',
+                        __v: 1,
+                      }"
+                    />
                   </div>
                 </div>
                 <div
@@ -158,8 +262,11 @@ import { useLocalStorage } from "@vueuse/core";
 import { useSearchLocationStore } from "src/stores/service/searchLocation";
 
 const searchLocationStore = useSearchLocationStore();
-const selectedServiceAndCategory = useLocalStorage('selected-service-and-category',{})
-const publicUserStore = usePublicUserStore()
+const selectedServiceAndCategory = useLocalStorage(
+  "selected-service-and-category",
+  {}
+);
+const publicUserStore = usePublicUserStore();
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const router = useRouter();
@@ -173,9 +280,8 @@ onMounted(() => {
   } else {
     router.push("/allservices");
   }
-searchLocationStore.updateAllLocationByBrowsingLocation()
-
-})
+  searchLocationStore.updateAllLocationByBrowsingLocation();
+});
 const getServiceProviders = (id) => {
   serviceProviderStore.getAllServiceProviders(id);
   router.push("/service_providers_list/" + id);
@@ -219,5 +325,17 @@ a.sidebar-links .q-item {
 }
 a.sidebar-links:hover .q-item {
   background-color: $blue-grey-2 !important;
+}
+
+.searchbar {
+  height: 40px !important;
+  width: calc(100% - 50px) !important;
+}
+
+.search-btn {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 40px;
 }
 </style>

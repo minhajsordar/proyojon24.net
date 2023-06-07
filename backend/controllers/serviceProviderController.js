@@ -30,7 +30,15 @@ const getServiceProviders = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider
 // @acess Privet
 const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
-    const keyword = {}
+    // const keyword = {}
+    //     const pageSize = Number(req.query.pageSize) || 50;
+    // const page = Number(req.query.pageNumber) || 1;
+    const keyword = req.query.keyword ? {
+        name: {
+            $regex: req.query.keyword,
+            $options: 'i'
+        }
+    } : {}
     if(req.query.serviceId) {
         keyword.service=req.query.serviceId
     }

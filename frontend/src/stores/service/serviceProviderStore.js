@@ -322,6 +322,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
   const allServiceProvidersList = ref(null)
   const suggestedServiceProvidersList = ref([])
   const allServiceProvidersListLoading = ref(false)
+  const currentServiceProvidersListCount = ref(0)
   const getAllServiceProviders = async (id) => {
     allServiceProvidersListLoading.value = true
     const params = {}

@@ -4,7 +4,7 @@
   @click="$router.push('/service_provider/'+serviceProvider._id)"
   >
     <div class="listcard-cont">
-      <q-badge class="view-badge-top-right" color="orange"> <q-icon name="visibility"/> {{serviceProvider.viewCount}}</q-badge>
+      <q-badge v-if="serviceProvider.viewCount" class="view-badge-top-right" color="orange"> <q-icon name="visibility"/> {{serviceProvider.viewCount}}</q-badge>
       <q-card-section class="image-section q-pa-sm">
         <q-img :src="serviceProvider.image" />
       </q-card-section>

@@ -68,7 +68,7 @@
                   selectedServiceAndCategory.serviceName = service.name;
                 "
               >
-              <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge>
+              <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
                 <div class="icon-relative-cont">
                   <!-- <q-img  src="/images/hexagonalshape.svg"
                   style="width: 56px; height: 48px;"
@@ -92,7 +92,12 @@
                   /> -->
                 </div>
                 <div>
-                  {{ service.name[languageStore.language] }}
+                  <div>
+                    {{ service.name[languageStore.language] }}
+                  </div>
+                  <div>
+                    {{ service.serviceProviderCount }}
+                  </div>
                 </div>
               </div>
             </div>
