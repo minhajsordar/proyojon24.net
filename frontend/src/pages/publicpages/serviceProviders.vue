@@ -228,7 +228,7 @@
                     />
                   </div>
                 </div>
-                <div
+                <!-- <div
                   v-if="
                     serviceProviderStore?.allServiceProvidersList &&
                     serviceProviderStore?.allServiceProvidersList.length == 0
@@ -236,7 +236,7 @@
                   class="text-center"
                 >
                   এখনও তথ্য যুক্ত করা হয়নি।
-                </div>
+                </div> -->
               </q-card>
             </div>
             <!-- <div class="col-lg-2 col-md-4 col-4" v-if="$q.screen.gt.md">service providers3</div> -->
