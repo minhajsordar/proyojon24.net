@@ -4,7 +4,7 @@
       <div class="full-width">
         <q-card class="border-primary q-pa-md">
           <div>
-            <div class="fs-18">{{ $t("headermenus.users") }}</div>
+            <div class="fs-18">{{ $t("headermenus.pendinglist") }}</div>
             <q-separator class="q-my-sm" />
             <q-markup-table
               flat
@@ -16,13 +16,12 @@
                 <tr>
                   <th>{{ $t("serial") }}</th>
                   <th>{{ $t("name") }}</th>
-                  <th>{{ $t("permission") }}</th>
                   <th>{{ $t("action") }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="(user, index) in userList.users"
+                  v-for="(provider, index) in serviceProviderPendingStore.serviceProviderPendingList"
                   :key="index"
                   :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
                 >
@@ -30,22 +29,23 @@
                     {{ enToBnToEn(String(index+1), languageStore.language) }}
                   </td>
                   <td>
-                    {{ user.name[languageStore.language] }}
-                  <span v-if="user.isSuperAdmin">(Super Admin)</span>
-                  <span v-else-if="user.isAdmin">(Admin)</span>
-                  <span v-else>({{ user.permission }})</span>
-                  </td>
-                  <td>
-                    <userPermission :user="user"/>
+                    {{ provider.name[languageStore.language] }}
                   </td>
                   <td>
                     <q-btn
                       class="q-ml-xs"
-                      :label="$t('delete')"
+                      :label="$t('preview')"
                       size="sm"
                       dense
-                      color="negative"
-                      @click="confirm(user.name[languageStore.language])"
+                      color="blue-grey-10"
+                    />
+                    <q-btn
+                      class="q-ml-xs"
+                      :label="$t('approved')"
+                      size="sm"
+                      dense
+                      color="positive"
+                      @click="confirm(provider._id,provider.dataCollector)"
                     />
                   </td>
                 </tr>
@@ -68,6 +68,11 @@ import { onMounted, ref } from "vue";
 import { enToBnToEn } from "src/global_js/utils";
 import { useRouter } from "vue-router";
 import  userPermission  from "src/components/profile/userPermission.vue";
+import { useLocalStorage } from "@vueuse/core";
+import { useServiceProviderPendingStore } from "src/stores/service/serviceProviderPendingStore";
+const serviceProviderPendingStore = useServiceProviderPendingStore()
+serviceProviderPendingStore.getServiceProviderPendingList()
+const userInfo = useLocalStorage('proyojonloginuser',{})
 const router = useRouter();
 const authStore = useAuthStore();
 const $q = useQuasar();
@@ -77,22 +82,24 @@ const userStore = useUserStore();
 const { userList } = storeToRefs(userStore);
 const languageStore = useLanguageStore();
 const adminUserType = ref('self')
-const confirm = (data) => {
+const confirm = (id,dataCollector) => {
   $q.dialog({
     title: t("confirm"),
-    message: t("confirm_delete_start") + data + t("confirm_delete_end"),
+    message: "Are you sure to approved this.",
     cancel: true,
     persistent: true,
   }).onOk(() => {
+    serviceProviderPendingStore.approveServiceProviderProfile(id,dataCollector)
     console.log(">>>> OK");
   });
 };
 onMounted(() => {
   authStore.checkLogin();
-  if (!authStore.loginUserInfo.isSuperAdmin) {
+  if (!(userInfo.value.isAdmin ||
+  ["division", "district", "subDistrict", "union"].includes(userInfo.value.permission))
+  ) {
     router.push("/profile");
   }
-  userStore.getUserList();
 });
 const metaData = {
   // sets document title

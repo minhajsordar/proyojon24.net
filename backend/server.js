@@ -16,6 +16,7 @@ import unionRoutes from './routes/unionRoutes.js'
 import pinLocationRoutes from './routes/pinLocationRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
+import { importData } from './seeder.js'
 // import { importData } from './seederDivisions.js'
 // import { importData } from './seederDistricts.js'
 // import { importData } from './seederSubDistricts.js'
@@ -80,10 +81,10 @@ app.use('/api/subdistricts',subDistrictRoutes)
 app.use('/api/unions',unionRoutes)
 // app.use('/api/wards',wardRoutes)
 app.use('/api/pinlocations',pinLocationRoutes)
-// app.get('/api/seeder', (req,res)=>{
-//     importData()
-//     res.send("data Imported")
-// })
+app.get('/api/seeder', (req,res)=>{
+    importData()
+    res.send("data Imported")
+})
 
 // Upload router
 app.use('/api/upload', uploadRouter)

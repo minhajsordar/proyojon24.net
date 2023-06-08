@@ -14,6 +14,7 @@ import { useSubDistrictStore } from '../locations/subDistrictStore';
 import { useDistrictStore } from '../locations/districtStore';
 import { useDivisionStore } from '../locations/divisionStore';
 import { useSearchServiceStore } from './searchService';
+import { Notify } from 'quasar';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -129,10 +130,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         bn: null,
         en: null,
       },
-      phoneNumber: {
-        bn: null,
-        en: null,
-      },
+      phoneNumber1: null,
+      phoneNumber2: null,
+      facebook: null,
+      whatsapp: null,
       keywords: null,
     })
   const emptyServiceProviderInfo = () => {
@@ -222,10 +223,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       bn: null,
       en: null,
     }
-    serviceProviderInfo.phoneNumber = {
-      bn: null,
-      en: null,
-    }
+    serviceProviderInfo.phoneNumber1 =null
+    serviceProviderInfo.phoneNumber2 =null
+    serviceProviderInfo.facebook =null
+    serviceProviderInfo.whatsapp =null
     serviceProviderInfo.keywords = []
   }
   const openServiceProviderCreateDialogManager = () => {
@@ -249,7 +250,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "serviceTitle",
       "serviceList",
       "specialties",
-      "phoneNumber",
+      "phoneNumber1",
+      "phoneNumber2",
+      "facebook",
+      "whatsapp",
       "keywords"
     ]
     serviceProviderInfoKeys.forEach((keys, index) => {
@@ -301,7 +305,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "serviceTitle",
       "serviceList",
       "specialties",
-      "phoneNumber",
+      "phoneNumber1",
+      "phoneNumber2",
+      "facebook",
+      "whatsapp",
       "keywords"
     ]
     openServiceProviderPreviewDialog.value = true
@@ -497,6 +504,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     }
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
 
+    if(!(loginUser.value.isAdmin || loginUser.value.isSuperAdmin || loginUser.value.permission !== 'self')){
+      serviceProviderInfo.user = loginUser.value._id
+    }
     const data = serviceProviderInfo
     const config = {
       method: "post",
@@ -511,10 +521,17 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     try {
       const responseData = await api.request(config);
       openServiceProviderCreateDialog.value = false
-      getServiceProviderList()
+      if(loginUser.value.isAdmin){
+        getServiceProviderList()
+      }
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -539,6 +556,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       serviceProviderInfo.image = responseData.data
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
     }
   }
   const uploadCoverImage = async () => {
@@ -561,6 +583,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       serviceProviderInfo.serviceImage = responseData.data
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
     }
   }
   const updateServiceProvider = async () => {
@@ -599,6 +626,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -619,6 +651,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -659,6 +696,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -680,6 +722,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }

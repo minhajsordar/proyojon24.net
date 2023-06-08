@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
+import { Notify } from 'quasar';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -122,6 +123,32 @@ export const useServiceStore = defineStore('service store', () => {
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
+      loader.hideLoader()
+    }
+  }
+  const getAllServices = async () => {
+    const config = {
+      method: "get",
+      url: "api/services/all",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      responseData.data.sort((a, b) => a.order - b.order);
+      serviceList.value.services = responseData.data;
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
       loader.hideLoader()
     }
   }
@@ -144,6 +171,11 @@ export const useServiceStore = defineStore('service store', () => {
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -168,6 +200,11 @@ export const useServiceStore = defineStore('service store', () => {
       serviceInfo.icon = responseData.data
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
     }
   }
   const uploadCoverImage = async () => {
@@ -191,6 +228,11 @@ export const useServiceStore = defineStore('service store', () => {
       serviceInfo.coverImage = responseData.data
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
     }
   }
   const updateService = async () => {
@@ -229,6 +271,11 @@ export const useServiceStore = defineStore('service store', () => {
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -249,6 +296,11 @@ export const useServiceStore = defineStore('service store', () => {
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -264,6 +316,7 @@ export const useServiceStore = defineStore('service store', () => {
     serviceList,
     serviceInfo,
     getServiceList,
+    getAllServices,
     createService,
     updateService,
     deleteService,

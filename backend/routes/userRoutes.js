@@ -7,10 +7,11 @@ const router = express.Router()
 router.route('/').get(protect, superAdmin, getUsers)
 router.route('/register').post(registerUser)
 router.route('/login').post(authUser)
-router.route('/profile').get(protect,getUserProfile).put(protect,updateUserProfile)
+router.route('/profile').get(protect,getUserProfile)
 router.route('/:id')
     .delete(protect, superAdmin, deleteUser)
     .get(protect, superAdmin, getUserById)
-    .put(protect, superAdmin, updateUser)
+    .put(protect, updateUser)
+    .patch(protect, superAdmin, updateUserProfile)
 
 export default router

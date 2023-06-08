@@ -11,34 +11,34 @@ const userSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    profileImage: {
+    username: {
         type: String,
-        required: false,
+        required: true,
+        unique: true
     },
-    phone: [{
+    profileImage: {
+        type: String
+    },
+    phone: {
         type: String,
         required: true,
-    }],
-    nidNo: [{
-        type: String,
-        required: true,
-    }],
-    nidImage: [{
-        type: String,
-        required: true,
-    }],
-    presentAddress: [
-        {
-            bn: { type: String, required: true },
-            en: { type: String, required: true },
-        }
-    ],
-    permanentAddress: [
-        {
-            bn: { type: String, required: true },
-            en: { type: String, required: true },
-        }
-    ],
+    },
+    nidNo: {
+        type: String
+    },
+    nidImage: {
+        type: String
+    },
+    presentAddress: {
+        bn: { type: String },
+        en: { type: String }
+    }
+    ,
+    permanentAddress: {
+        bn: { type: String },
+        en: { type: String }
+    }
+    ,
     password: {
         type: String,
         required: true,
@@ -58,20 +58,25 @@ const userSchema = mongoose.Schema({
         default: false,
         required: true,
     },
-    permission:{
+    permission: {
         type: String,
         required: true,
-        default: "none",
+        default: "self",
+    },
+    ableToEditProfile: {
+        type: Boolean,
+        default: false,
+        required: true,
     }
 }, {
     timestamps: true
 })
-userSchema.methods.matchPassword = async function (enteredPassword){
-    return await bcryptjs.compare(enteredPassword,this.password)
+userSchema.methods.matchPassword = async function (enteredPassword) {
+    return await bcryptjs.compare(enteredPassword, this.password)
 }
 
-userSchema.pre('save', async function(next){
-    if(!this.isModified('password')){
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
         next()
     }
     const salt = await bcryptjs.genSalt(10)

@@ -7,6 +7,7 @@ const users = [
             en: 'Noor Mohammad'
         },
         email: 'mdnoor@gmail.com',
+        username: 'mdnoor@gmail.com',
         phone: '+8801756853831',
         nidNo: '123456789123',
         nidImage: '123456789123',
@@ -21,7 +22,8 @@ const users = [
         password: bcryptjs.hashSync('1234', 10),
         isActive: true,
         isAdmin: true,
-        isSuperAdmin: true
+        isSuperAdmin: true,
+        permission: 'self'
     },
     {
         name: {
@@ -29,6 +31,7 @@ const users = [
             en: 'Minhaj Sorder'
         },
         email: 'minhajsorder8567@gmail.com',
+        username: 'minhajsorder8567@gmail.com',
         phone: '+8801835158205',
         nidNo: '123456789123',
         nidImage: '123456789123',
@@ -43,6 +46,7 @@ const users = [
         password: bcryptjs.hashSync('1234', 10),
         isActive: true,
         isAdmin:true,
+        permission: 'self'
     },
     {
         name: {
@@ -50,6 +54,7 @@ const users = [
             en: 'Noor Mohammad'
         },
         email: 'noor@gmail.com',
+        username: 'noor@gmail.com',
         phone: '+8801756853831',
         nidNo: '123456789123',
         nidImage: '123456789123',
@@ -63,6 +68,7 @@ const users = [
         },
         password: bcryptjs.hashSync('1234', 10),
         isActive: true,
+        permission: 'self'
     },
 ]
 

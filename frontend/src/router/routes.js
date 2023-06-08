@@ -26,7 +26,7 @@ const routes = [
     component: () => import('layouts/PublicLayout.vue'),
     children: [
       // { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: '/allservices', component: () => import('pages/publicpages/servicesList.vue') },
+      { path: '/register', component: () => import('pages/auth/registerView.vue') },
       { path: '/service_categorys_list/:id', component: () => import('pages/publicpages/serviceCategorys.vue') },
       { path: '/service_providers_list/:id', component: () => import('pages/publicpages/serviceProviders.vue') },
       { path: '/service_provider/:id', component: () => import('pages/publicpages/serviceProviderProfile.vue') },
@@ -38,6 +38,14 @@ const routes = [
     children: [
       {
         path: '/profile', component: () => import('pages/user/profilePage.vue'),
+        beforeEnter: checkLogin,
+      },
+      {
+        path: '/service_provider_profile', component: () => import('pages/user/userServiceProviderProfile.vue'),
+        beforeEnter: checkLogin,
+      },
+      {
+        path: '/service_provider_pending_list', component: () => import('pages/user/serviceProviderPendingList.vue'),
         beforeEnter: checkLogin,
       },
       {

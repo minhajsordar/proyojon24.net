@@ -95,6 +95,9 @@ onMounted(() => {
   if (!authStore.checkLogin()) {
     router.push("/login");
   }
+  if(!authStore.loginUserInfo.isSuperAdmin || !authStore.loginUserInfo.isAdmin){
+    router.push("/profile")
+  }
 });
 const languageStore = useLanguageStore();
 const tab = ref("division");

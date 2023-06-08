@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import loader from 'loader-animation'
+import { Notify } from 'quasar';
 loader.title = 'Requesting To Server...'
 export const usePublicServiceStore = defineStore('Publice service store', () => {
   const router = useRouter(),

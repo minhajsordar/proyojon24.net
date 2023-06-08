@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { encode64 } from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
+import { Notify } from 'quasar';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -107,6 +108,11 @@ export const useUserStore = defineStore('user store', () => {
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -128,6 +134,11 @@ export const useUserStore = defineStore('user store', () => {
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -173,6 +184,11 @@ export const useUserStore = defineStore('user store', () => {
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -193,6 +209,11 @@ export const useUserStore = defineStore('user store', () => {
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }

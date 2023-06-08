@@ -56,7 +56,7 @@ const languageStore = useLanguageStore()
 .view-badge-top-right{
   position: absolute;
   left:4px;
-  top:4px;
+  bottom:4px;
 }
 .image-section{
 width: 100px;

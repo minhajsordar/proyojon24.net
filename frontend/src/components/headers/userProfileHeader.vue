@@ -65,20 +65,23 @@
       <!-- <span class="text-white" @click="router.push('/locations')" >
             {{$t('headermenus.locations')}}
           </span> -->
-      <router-link to="/locations" active-class="text-white">{{
+      <router-link v-if="authStore?.loginUserInfo?.isSuperAdmin" to="/locations" active-class="text-white">{{
         $t("headermenus.locations")
       }}</router-link>
       <!-- <span class="text-white" @click="router.push('/users')">
             {{$t('headermenus.users')}}
           </span> -->
-      <router-link to="/users" active-class="text-white">{{
+      <router-link v-if="authStore?.loginUserInfo?.isSuperAdmin" to="/users" active-class="text-white">{{
         $t("headermenus.users")
       }}</router-link>
       <!-- <span class="text-white" @click="router.push('/services')">
             {{$t('headermenus.services')}}
           </span> -->
-      <router-link to="/services" active-class="text-white">{{
+      <router-link v-if="authStore?.loginUserInfo?.isAdmin" to="/services" active-class="text-white">{{
         $t("headermenus.services")
+      }}</router-link>
+      <router-link v-if="authStore?.loginUserInfo?.isAdmin || authStore?.loginUserInfo?.permission !== 'self'" to="/service_provider_pending_list" active-class="text-white">{{
+        $t("headermenus.pending_list")
       }}</router-link>
     </div>
 
@@ -198,7 +201,10 @@
                       ? "Super Admin"
                       : authStore.loginUserInfo?.isAdmin
                       ? "Admin"
-                      : "Service Provider"
+                      : authStore.loginUserInfo?.permission == 'self'?
+                      'Service Provider'
+                      :authStore.loginUserInfo?.permission?
+                      "Admin "+authStore.loginUserInfo.permission:""
                   }}
                 </div>
               </q-item-section>
@@ -210,6 +216,13 @@
               @click="router.push('/profile')"
             >
               <q-item-section>{{ $t("usermenus.profile") }}</q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              class="GL__menu-link"
+              @click="router.push('/service_provider_profile')"
+            >
+              <q-item-section>{{ $t("headermenus.service_profile") }}</q-item-section>
             </q-item>
             <q-item
               clickable

@@ -19,7 +19,13 @@ export const fileValidate = (val) => {
   return val instanceof File ? true : "Please Attach File";
 };
 export const mobileNoBd = (val) => {
-  return (val && val.length > 10) ? true : "Too Short";
+  if((val && val.length == 11)){
+    return true
+  }else if((val && val.length > 11)){
+    return "Too Long. Accepting 11 charecter."
+  }else{
+    return "Too Short. Accepting 11 charecter."
+  }
 };
 export const short = (val) => {
   return (val && val.length > 5) ? true : "Too Short";

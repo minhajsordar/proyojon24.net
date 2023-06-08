@@ -6,6 +6,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { useServiceStore } from './serviceStore';
+import { Notify } from 'quasar';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -212,6 +213,11 @@ imageCover.value = null
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -236,6 +242,11 @@ imageCover.value = null
       serviceCategoryInfo.icon = responseData.data
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
     }
   }
   const uploadCoverImage = async () => {
@@ -259,6 +270,11 @@ imageCover.value = null
       serviceCategoryInfo.coverImage = responseData.data
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
     }
   }
   const updateServiceCategory = async () => {
@@ -299,6 +315,11 @@ imageCover.value = null
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }
@@ -319,6 +340,11 @@ imageCover.value = null
       loader.hideLoader()
     } catch (error) {
       console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
       loader.hideLoader()
     }
   }

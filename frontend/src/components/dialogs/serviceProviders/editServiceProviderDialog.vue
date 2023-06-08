@@ -46,7 +46,7 @@
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("services.services") }}
+                  {{ $t("services.services") }}*
                 </div>
                 <div class="col-12">
                   <q-select
@@ -73,7 +73,7 @@
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("services.service_category") }}
+                  {{ $t("services.service_category") }}*
                 </div>
                 <div class="col-12">
                   <q-select
@@ -164,6 +164,7 @@
                         null;
                       serviceProviderStore.serviceProviderLocationR.union =
                         null;
+                      serviceProviderStore.serviceProviderLocationR.ward = null;
                       serviceProviderStore.serviceProviderLocationR.pinlocation =
                         null;
                       searchLocationStore.updateSubDistrict();
@@ -200,6 +201,7 @@
                     @update:model-value="
                       serviceProviderStore.serviceProviderLocationR.union =
                         null;
+                      serviceProviderStore.serviceProviderLocationR.ward = null;
                       serviceProviderStore.serviceProviderLocationR.pinlocation =
                         null;
                       searchLocationStore.updateUnion();
@@ -214,7 +216,7 @@
             </div>
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("location.union") }}*</div>
+                <div class="col-12 text-bold">{{ $t("location.union") }}</div>
                 <div class="col-12">
                   <q-select
                     ref="unionEl"
@@ -231,7 +233,6 @@
                     options-dense
                     outlined
                     dense
-                    :rules="[requiredSelector]"
                     @update:model-value="
                       serviceProviderStore.serviceProviderLocationR.pinlocation =
                         null;
@@ -248,7 +249,7 @@
             <div class="col-sm-12 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("location.pinlocation") }}*
+                  {{ $t("location.pinlocation") }}
                 </div>
                 <div class="col-12">
                   <q-select
@@ -266,7 +267,6 @@
                     options-dense
                     outlined
                     dense
-                    :rules="[requiredSelector]"
                     clearable
                     use-input
                     input-debounce="0"
@@ -307,7 +307,7 @@
             <!-- name start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("nameinen") }}</div>
+                <div class="col-12 text-bold">{{ $t("nameinen") }}*</div>
                 <div class="col-12">
                   <q-input
                     ref="nameEnEl"
@@ -321,7 +321,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("nameinbn") }}</div>
+                <div class="col-12 text-bold">{{ $t("nameinbn") }}*</div>
                 <div class="col-12">
                   <q-input
                     ref="nameBnEl"
@@ -338,15 +338,14 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("phoneinen") }}
+                  {{ $t("phone") }}*
 
-                  <div class="fs-12">{{ $t("seperator") }}</div>
                 </div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberEnEl"
                     v-model="
-                      serviceProviderStore.serviceProviderInfo.phoneNumber.en
+                      serviceProviderStore.serviceProviderInfo.phoneNumber1
                     "
                     outlined
                     dense
@@ -358,24 +357,57 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("phoneinbn") }}
+                  {{ $t("phone") }}
 
-                  <div class="fs-12">{{ $t("seperator") }}</div>
                 </div>
                 <div class="col-12">
                   <q-input
-                    ref="phoneNumberBnEl"
                     v-model="
-                      serviceProviderStore.serviceProviderInfo.phoneNumber.bn
+                      serviceProviderStore.serviceProviderInfo.phoneNumber2
                     "
                     outlined
                     dense
-                    :rules="[required]"
                   />
                 </div>
               </div>
             </div>
             <!-- phoneNumber end -->
+            <!-- social start -->
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("facebook") }}
+
+                </div>
+                <div class="col-12">
+                  <q-input
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.facebook
+                    "
+                    outlined
+                    dense
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("whatsapp") }}
+
+                </div>
+                <div class="col-12">
+                  <q-input
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.whatsapp
+                    "
+                    outlined
+                    dense
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- social end -->
             <!-- degree start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
@@ -597,7 +629,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addicon") }}
+                  {{ $t("addicon") }}*
                   <span class="fs-10">Max 200kb</span>
                 </div>
                 <div class="col-12">
@@ -632,7 +664,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}
+                  {{ $t("addcoverimage") }}*
                   <span class="fs-10">Max 8MB</span>
                 </div>
                 <div class="col-12">
@@ -779,7 +811,6 @@ const createServiceManager = () => {
   iconEl.value.validate();
   coverImageEl.value.validate();
   phoneNumberEnEl.value.validate();
-  phoneNumberBnEl.value.validate();
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
@@ -792,7 +823,6 @@ const createServiceManager = () => {
     nameBnEl.value.hasError ||
     iconEl.value.hasError ||
     phoneNumberEnEl.value.hasError ||
-    phoneNumberBnEl.value.hasError ||
     coverImageEl.value.hasError
   ) {
     return;

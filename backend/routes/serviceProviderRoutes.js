@@ -11,14 +11,18 @@ import {
     getServiceProviderByServiceCategory,
     createServiceProvider,
     getAllServiceProviders,
-    suggestServiceProvider
+    suggestServiceProvider,
+    getServiceProviderPendingList,
+    rankAndApprovalServiceProvider
 } from "../controllers/serviceProviderController.js"
-import { admin, anyAdmin, protect, superAdmin } from "../middleware/authMiddleware.js"
+import { admin, anyAdmin, higherLavelPermission, protect, specialPermission, superAdmin } from "../middleware/authMiddleware.js"
 
 const router = express.Router()
 
-router.route('/').get(protect, anyAdmin, getServiceProviders).post(protect, anyAdmin, createServiceProvider)
+router.route('/').get(protect, anyAdmin, getServiceProviders).post(protect, createServiceProvider)
 router.route('/service_provider_review').put(protect, createServiceProviderReview)
+router.route('/top_service_provider').get(getTopServiceProvider)
+router.route('/pending_list').get(protect, specialPermission,getServiceProviderPendingList)
 router.route('/top_service_provider').get(getTopServiceProvider)
 router.route('/all')
 .get(getAllServiceProviders)
@@ -26,6 +30,7 @@ router.route('/:id')
 .delete(protect, admin, deleteServiceProvider)
 .get(getServiceProviderById)
 .put(protect, admin, updateServiceProvider)
+.patch(protect, higherLavelPermission, rankAndApprovalServiceProvider)
 router.route('/service_provider_view/:id').put(createServiceProviderViewCount)
 router.route('/preview/:id')
     .get(protect, anyAdmin, getServiceProviderByIdPreview)

@@ -1,46 +1,15 @@
 <template>
-  <q-dialog
-    v-model="serviceProviderStore.openServiceProviderCreateDialog"
-    persistent
-    :maximized="maximizedToggle"
-    transition-show="slide-up"
-    transition-hide="slide-down"
-  >
-    <q-card class="text-primary">
-      <q-bar class="bg-primary text-white">
-        <q-space />
-        <q-btn
-          dense
-          glossy
-          flat
-          icon="minimize"
-          @click="maximizedToggle = false"
-          :disable="!maximizedToggle"
-        >
-          <q-tooltip v-if="maximizedToggle" class="bg-white text-primary"
-            >Minimize</q-tooltip
-          >
-        </q-btn>
-        <q-btn
-          dense
-          glossy
-          flat
-          icon="crop_square"
-          @click="maximizedToggle = true"
-          :disable="maximizedToggle"
-        >
-          <q-tooltip v-if="!maximizedToggle" class="bg-white text-primary"
-            >Maximize</q-tooltip
-          >
-        </q-btn>
-        <q-btn dense glossy flat icon="close" v-close-popup>
-          <q-tooltip class="bg-white text-primary">Close</q-tooltip>
-        </q-btn>
-      </q-bar>
-      <q-card-section class="fs-18 text-bold">
-        {{ $t("services.addnew_service_provider") }}
-      </q-card-section>
-      <q-card-section>
+  <q-card class="q-pa-md border-primary">
+    <div class="flex justify-between q-mb-md">
+      <div class="fs-20 text-bold">Service Details</div>
+
+    </div>
+    <div class="full-width">
+      <q-separator />
+    </div>
+
+
+    <q-card-section>
         <q-card class="border-primary q-pa-md">
           <div class="row q-col-gutter-sm">
             <div class="col-sm-6 col-xs-6 col-6">
@@ -337,7 +306,10 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phone") }}*</div>
+                <div class="col-12 text-bold">
+                  {{ $t("phone") }}*
+
+                </div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberEnEl"
@@ -353,7 +325,10 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phone") }}</div>
+                <div class="col-12 text-bold">
+                  {{ $t("phone") }}
+
+                </div>
                 <div class="col-12">
                   <q-input
                     v-model="
@@ -371,10 +346,13 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("facebook") }}
+
                 </div>
                 <div class="col-12">
                   <q-input
-                    v-model="serviceProviderStore.serviceProviderInfo.facebook"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.facebook
+                    "
                     outlined
                     dense
                   />
@@ -385,10 +363,13 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("whatsapp") }}
+
                 </div>
                 <div class="col-12">
                   <q-input
-                    v-model="serviceProviderStore.serviceProviderInfo.whatsapp"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.whatsapp
+                    "
                     outlined
                     dense
                   />
@@ -687,46 +668,10 @@
               </div>
             </div>
             <!-- add image end -->
-            <!-- rank start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("serial") }}
-                </div>
-                <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.rankCount }}
-                  <q-slider
-                    v-model="serviceProviderStore.serviceProviderInfo.rankCount"
-                    color="green"
-                    :min="0"
-                    :step="0.5"
-                    :max="10"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  Keywords
-                  <div>Separate by comma (,)</div>
-                </div>
-                <div class="col-12">
-                  <q-input
-                    ref="keywordsEl"
-                    outlined
-                    dense
-                    v-model="serviceProviderStore.serviceProviderInfo.keywords"
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div> -->
-            <!-- rank end -->
             <div class="col-12">
               <div class="row">
                 <q-btn
-                  :label="$t('addnew')"
+                  :label="$t('update')"
                   color="light-green-8"
                   glossy
                   @click="createServiceManager"
@@ -736,13 +681,13 @@
           </div>
         </q-card>
       </q-card-section>
-    </q-card>
-  </q-dialog>
+  </q-card>
 </template>
 <script setup>
+
 import { ref, onMounted } from "vue";
 import { Notify } from "quasar";
-import { requiredSelector, required, fileValidate } from "src/global_js/utils";
+import { requiredSelector, required, fileValidate, enToBnToEn } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useUserStore } from "src/stores/user/userStore";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
@@ -756,17 +701,22 @@ import { useUnionStore } from "src/stores/locations/unionStore";
 import { useWardStore } from "src/stores/locations/wardStore";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 import { useSearchServiceStore } from "src/stores/service/searchService";
+import { useAuthStore } from "src/stores/auth/authStore";
+import { useLocalStorage } from "@vueuse/core";
 
+const loginUserinfo = useLocalStorage('proyojonloginuser',{})
 const languageStore = useLanguageStore();
 const serviceProviderStore = useServiceProviderStore();
 const serviceCategoryStore = useServiceCategoryStore();
+serviceCategoryStore.getAllServiceCategorys()
 const serviceStore = useServiceStore();
+serviceStore.getAllServices()
 const divisionStore = useDivisionStore();
 divisionStore.getAllDivisions();
 const districtStore = useDistrictStore();
 const subDistrictStore = useSubDistrictStore();
 const unionStore = useUnionStore();
-const wardStore = useWardStore();
+const authStore = useAuthStore();
 const pinlocationStore = usePinlocationStore();
 
 const searchLocationStore = useSearchLocationStore();
@@ -780,16 +730,14 @@ const divisionEl = ref(null);
 const districtEl = ref(null);
 const subDistrictEl = ref(null);
 const unionEl = ref(null);
+const wardEl = ref(null);
 const pinlocationEl = ref(null);
 const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 const iconEl = ref(null);
 const coverImageEl = ref(null);
 const phoneNumberEnEl = ref(null);
-const serviceTitleEnEl = ref(null);
-const serviceTitleBnEl = ref(null);
-const serviceListEnEl = ref(null);
-const serviceListinbn = ref(null);
+const phoneNumberBnEl = ref(null);
 
 const createServiceManager = () => {
   grandParentEl.value.validate();
@@ -801,11 +749,7 @@ const createServiceManager = () => {
   nameBnEl.value.validate();
   iconEl.value.validate();
   coverImageEl.value.validate();
-  serviceTitleEnEl.value.validate();
-  serviceTitleBnEl.value.validate();
-  serviceListEnEl.value.validate();
-  serviceListinbn.value.validate();
-  serviceListEl.value.validate();
+  phoneNumberEnEl.value.validate();
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
@@ -816,10 +760,6 @@ const createServiceManager = () => {
     nameBnEl.value.hasError ||
     iconEl.value.hasError ||
     phoneNumberEnEl.value.hasError ||
-    serviceTitleEnEl.value.hasError ||
-    serviceTitleBnEl.value.hasError ||
-    serviceListEnEl.value.hasError ||
-    serviceListinbn.value.hasError ||
     coverImageEl.value.hasError
   ) {
     return;
@@ -940,4 +880,16 @@ const pinlocationFilterFn = (val, update) => {
     });
   });
 };
+
+onMounted(()=>{
+
+  if(!(loginUserinfo.value.isAdmin || loginUserinfo.value.isSuperAdmin)){
+    if(loginUserinfo.value.name.bn && loginUserinfo.value.name.en){
+      serviceProviderStore.serviceProviderInfo.name = loginUserinfo.value.name
+    }
+    if(loginUserinfo.value.phone){
+      serviceProviderStore.serviceProviderInfo.phoneNumber1 = loginUserinfo.value.phone
+    }
+  }
+})
 </script>

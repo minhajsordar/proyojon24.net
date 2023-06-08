@@ -1,7 +1,7 @@
 <template >
   <div class="container-section-py-sm">
     <div class="inner-section">
-    Setting page
+    <profileEdit/>
     </div>
     </div>
 </template>
@@ -9,6 +9,7 @@
 import { useMeta } from "quasar";
 import { useAuthStore } from "src/stores/auth/authStore";
 import { onMounted } from "vue";
+import profileEdit from "src/components/profile/profileEdit.vue"
 const authStore = useAuthStore()
 onMounted(()=>{
   authStore.checkLogin()

@@ -101,45 +101,35 @@ const serviceProviderSchema = new mongoose.Schema({
             bn: { type: String },
             en: { type: String }
         },
-    }
-
-    ,
+    },
     degree:
     {
         bn: { type: String },
         en: { type: String }
-    }
-    ,
+    },
     specialties:
     {
         bn: { type: String },
         en: { type: String }
-    }
-    ,
+    },
     extraCources:
     {
         bn: { type: String },
         en: { type: String }
-    }
-    ,
+    },
     serviceTitle:
     {
         bn: { type: String },
         en: { type: String }
-    }
-    ,
-    serviceList:
-    {
+    },
+    serviceList:{
         bn: { type: String },
         en: { type: String }
-    }
-    ,
-    phoneNumber:
-    {
-        bn: { type: String, required: true },
-        en: { type: String, required: true }
-    }
-    ,
+    },
+    phoneNumber1:{ type: String },
+    phoneNumber2:{ type: String },
+    facebook:{ type: String },
+    whatsapp:{ type: String },
     rankCount: {
         type: Number,
         required: false,
@@ -169,6 +159,16 @@ const serviceProviderSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    approved: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    waitingForApproval: {
+        type: Boolean,
+        required: true,
+        default: true
     }
 }, {
     timestamps: true

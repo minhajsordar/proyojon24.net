@@ -90,9 +90,10 @@
 
                 <p class="text-center mt-2">
                   <span>New on our platform?</span>
-                  <a>
+                  <router-link to="/register">
+
                     <span>Create an account</span>
-                  </a>
+                  </router-link>
                 </p>
               </div>
             </q-card>
