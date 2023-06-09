@@ -48,7 +48,7 @@
       </div>
     </div>
     <q-separator class="q-mb-md q-mt-sm" />
-    <q-markup-table flat bordered dense separator="cell" class="text-left">
+    <q-markup-table flat bordered separator="cell" class="text-left">
       <thead class="bg-blue-grey-2">
         <tr>
           <th>{{ $t("serial") }}</th>

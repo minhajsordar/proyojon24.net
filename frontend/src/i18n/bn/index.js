@@ -111,7 +111,7 @@ export default {
     addnew_service:'নতুন সেবা যুক্ত করুন',
     edit_service:'সেবা পরির্তন করুন',
     category:'ক্যাটাগরি',
-    service_category:'ে ধরন সমূহ',
+    service_category:'সেবার ধরন সমূহ',
     addnew_service_category:'নতুন সেবার ধরন যুক্ত করুন',
     edit_service_category:'সেবার ধরন পরির্তন করুন',
     service_provider:'সেবা প্রদানকারী',

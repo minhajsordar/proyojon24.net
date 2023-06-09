@@ -505,7 +505,7 @@
                 </div>
                 <div class="col-12">
                   <q-input
-                    ref="serviceListBnEl"
+                    ref="serviceListinBn"
                     v-model="
                       serviceProviderStore.serviceProviderInfo.serviceList.bn
                     "
@@ -703,7 +703,9 @@ import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 import { useSearchServiceStore } from "src/stores/service/searchService";
 import { useAuthStore } from "src/stores/auth/authStore";
 import { useLocalStorage } from "@vueuse/core";
-
+import { useUserServiceProviderStore } from "src/stores/service/userServiceProviderStore";
+const userServiceProviderStore = useUserServiceProviderStore()
+userServiceProviderStore.getUserServiceProvider()
 const loginUserinfo = useLocalStorage('proyojonloginuser',{})
 const languageStore = useLanguageStore();
 const serviceProviderStore = useServiceProviderStore();
@@ -738,6 +740,10 @@ const iconEl = ref(null);
 const coverImageEl = ref(null);
 const phoneNumberEnEl = ref(null);
 const phoneNumberBnEl = ref(null);
+const serviceTitleEnEl = ref(null);
+const serviceTitleBnEl = ref(null);
+const serviceListEnEl = ref(null);
+const serviceListinBn = ref(null);
 
 const createServiceManager = () => {
   grandParentEl.value.validate();
@@ -750,6 +756,10 @@ const createServiceManager = () => {
   iconEl.value.validate();
   coverImageEl.value.validate();
   phoneNumberEnEl.value.validate();
+  serviceTitleEnEl.value.validate();
+  serviceTitleBnEl.value.validate();
+  serviceListEnEl.value.validate();
+  serviceListinBn.value.validate();
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
@@ -760,6 +770,10 @@ const createServiceManager = () => {
     nameBnEl.value.hasError ||
     iconEl.value.hasError ||
     phoneNumberEnEl.value.hasError ||
+    serviceTitleEnEl.value.hasError ||
+    serviceTitleBnEl.value.hasError ||
+    serviceListEnEl.value.hasError ||
+    serviceListinBn.value.hasError ||
     coverImageEl.value.hasError
   ) {
     return;

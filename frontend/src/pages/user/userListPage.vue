@@ -31,11 +31,11 @@
                   </td>
                   <td>
                     {{ user.name[languageStore.language] }}
-                  <span v-if="user.isSuperAdmin">(Super Admin)</span>
+                  <!-- <span v-if="user.isSuperAdmin">(Super Admin)</span>
                   <span v-else-if="user.isAdmin">(Admin)</span>
-                  <span v-else>({{ user.permission }})</span>
+                  <span v-else>({{ user.permission }})</span> -->
                   </td>
-                  <td>
+                  <td style="width: 300px;">
                     <userPermission :user="user"/>
                   </td>
                   <td>

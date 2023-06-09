@@ -1,7 +1,13 @@
 <template lang="">
   <q-card class="full-width hover-serviceprovider-card  cursor-pointer"
-
-  @click="$router.push('/service_provider/'+serviceProvider._id)"
+  @click="function(){
+    if(register){
+      $router.push('/register')
+    }else{
+      $router.push('/service_provider/'+serviceProvider._id)
+    }
+  }
+  "
   >
     <div class="listcard-cont">
       <q-badge v-if="serviceProvider.viewCount" class="view-badge-top-right" color="orange"> <q-icon name="visibility"/> {{serviceProvider.viewCount}}</q-badge>
@@ -43,6 +49,9 @@ defineProps({
   serviceProvider:{
     type:Object,
     default:null
+  },register:{
+    type: Boolean,
+    default: false
   }
 })
 const languageStore = useLanguageStore()

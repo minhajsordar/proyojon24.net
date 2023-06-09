@@ -163,6 +163,7 @@
                     class="col-12"
                   >
                     <serviceProviderListCard
+                    register
                     class="bg-green-1"
                       :serviceProvider="{
                         name: {

@@ -116,9 +116,22 @@ const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
 // @acess Privet
 const getServiceProviderPendingList = expressAsyncHandler(async (req, res) => {
     const serviceProvider = await ServiceProvider.find({waitingForApproval: true})
-    console.log(serviceProvider.length)
     if (serviceProvider) {
 
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.json(serviceProvider)
+    } else {
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.status(404)
+        throw new Error('Service Provider not found')
+    }
+})
+// @desc get product by id
+// @route Put api/ServiceProvider/:id
+// @acess Privet
+const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
+    const serviceProvider = await ServiceProvider.findOne({user: req.params.user})
+    if (serviceProvider) {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json(serviceProvider)
     } else {
@@ -446,5 +459,6 @@ export {
     getTopServiceProvider,
     getServiceProviderByServiceCategory,
     createServiceProvider,
+    getUserServiceProvider,
     getAllServiceProviders
 }

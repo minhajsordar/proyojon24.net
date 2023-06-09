@@ -29,7 +29,6 @@
         stack-label
         v-model="publicUserStore.browsingLocation.subDistrict"
         :options="subDistrictOptions"
-        options-dense
         :option-label="
           (opt) =>
             Object(opt) === opt && 'name' in opt
@@ -53,7 +52,6 @@
         stack-label
         v-model="publicUserStore.browsingLocation.union"
         :options="unionOptions"
-        options-dense
         :option-label="
           (opt) =>
             Object(opt) === opt && 'name' in opt

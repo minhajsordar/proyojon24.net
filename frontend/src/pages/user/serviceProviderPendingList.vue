@@ -4,7 +4,7 @@
       <div class="full-width">
         <q-card class="border-primary q-pa-md">
           <div>
-            <div class="fs-18">{{ $t("headermenus.pendinglist") }}</div>
+            <div class="fs-18">{{ $t("headermenus.pending_list") }}</div>
             <q-separator class="q-my-sm" />
             <q-markup-table
               flat

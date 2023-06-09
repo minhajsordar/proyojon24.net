@@ -524,7 +524,7 @@
                 </div>
                 <div class="col-12">
                   <q-input
-                    ref="serviceListBnEl"
+                    ref="serviceListinBn"
                     v-model="
                       serviceProviderStore.serviceProviderInfo.serviceList.bn
                     "
@@ -766,7 +766,6 @@ divisionStore.getAllDivisions();
 const districtStore = useDistrictStore();
 const subDistrictStore = useSubDistrictStore();
 const unionStore = useUnionStore();
-const wardStore = useWardStore();
 const pinlocationStore = usePinlocationStore();
 
 const searchLocationStore = useSearchLocationStore();
@@ -789,7 +788,7 @@ const phoneNumberEnEl = ref(null);
 const serviceTitleEnEl = ref(null);
 const serviceTitleBnEl = ref(null);
 const serviceListEnEl = ref(null);
-const serviceListinbn = ref(null);
+const serviceListinBn = ref(null);
 
 const createServiceManager = () => {
   grandParentEl.value.validate();
@@ -804,8 +803,7 @@ const createServiceManager = () => {
   serviceTitleEnEl.value.validate();
   serviceTitleBnEl.value.validate();
   serviceListEnEl.value.validate();
-  serviceListinbn.value.validate();
-  serviceListEl.value.validate();
+  serviceListinBn.value.validate();
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
@@ -819,7 +817,7 @@ const createServiceManager = () => {
     serviceTitleEnEl.value.hasError ||
     serviceTitleBnEl.value.hasError ||
     serviceListEnEl.value.hasError ||
-    serviceListinbn.value.hasError ||
+    serviceListinBn.value.hasError ||
     coverImageEl.value.hasError
   ) {
     return;
