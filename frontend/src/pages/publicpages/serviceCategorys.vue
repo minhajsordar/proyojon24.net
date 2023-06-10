@@ -52,7 +52,7 @@
             <div class="col-12"
             v-if="serviceCategoryStore.allServiceCategoryList && serviceCategoryStore.allServiceCategoryList.length ==0"
             >
-            এখনও তথ্য যুক্ত করা হয়নি।
+            {{ $t('noInfo') }}
             </div>
           </div>
         </div>

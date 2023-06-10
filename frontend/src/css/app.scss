@@ -1,6 +1,14 @@
 // app global css in SCSS form
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+body, .background-pattern{
+  // background-image: url("/images/gradientbg.png") !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  // background: rgb(255,239,221);
+  background: linear-gradient(45deg, rgba(255,239,221,0.3) 0%, rgba(194,233,255,0.3) 55%, rgba(245,195,255,0.3) 100%);
+}
+
 .auth-wrapper{
   font-family: 'Montserrat', sans-serif;
 }
@@ -210,5 +218,24 @@ height: 100vh !important;
   font-size: 32px !important;
 }
 .pattern-bg-image{
-  background-image: url("images/bd_map_pattern-01.png") !important;
+  background-image: url("/images/bd_map_pattern-01.png") !important;
+}
+
+.bg-primary-public{
+  background-color: $primary_public;
+}
+.text-primary-public{
+  color: $primary_public;
+}
+.bg-secondary-public{
+  background-color: $secondary_public;
+}
+.text-secondary-public{
+  color: $secondary_public;
+}
+.bg-accent-public{
+  background-color: $accent_public;
+}
+.text-accent-public{
+  color: $accent_public;
 }

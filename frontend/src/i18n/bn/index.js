@@ -56,6 +56,7 @@ export default {
   addToSuggestion: 'সাজেশন তালিকায় যোগ করুন',
   removeFromSuggestion: 'সাজেশন তালিকা থেকে সরান',
   permission: 'অনুমতি',
+  noInfo: 'এখনও তথ্য যুক্ত করা হয়নি।',
   usermenus:{
     profile: 'নিজ সম্পর্কিত',
     help: 'সাহায্য',

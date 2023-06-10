@@ -1,101 +1,81 @@
 <template>
+  <!-- <q-btn
+    v-if="!$q.screen.gt.sm"
+    icon="menu"
+    round
+    dense
+    glossy
+    flat
+    size="md"
+    color="white"
+    class="q-mr-sm"
+    no-caps
+    @click="menuControllerStore.headerMenuMobileScreen = true"
+  /> -->
+  <profileMobileMenus />
   <q-toolbar class="q-py-sm q-px-md">
-    <q-btn
-      v-if="!$q.screen.gt.sm"
-      icon="menu"
-      round
-      dense
-      glossy
-      flat
-      size="md"
-      color="white"
-      class="q-mr-sm"
-      no-caps
-      @click="menuControllerStore.headerMenuMobileScreen = true"
-    />
-    <!-- <q-select
-          ref="search" dark dense standout use-input hide-selected
-          class="GL__toolbar-select"
-          color="black" :stack-label="false" label="Search or jump to..."
-          v-model="text" :options="filteredOptions" @filter="filter"
-          style="width: 300px"
-        >
-
-          <template v-slot:append>
-            <img src="https://cdn.quasar.dev/img/layout-gallery/img-github-search-key-slash.svg">
-          </template>
-
-          <template v-slot:no-option>
-            <q-item>
-              <q-item-section>
-                <div class="text-center">
-                  <q-spinner-pie
-                    color="grey-5"
-                    size="24px"
-                  />
-                </div>
-              </q-item-section>
-            </q-item>
-          </template>
-
-          <template v-slot:option="scope">
-            <q-item
-              v-bind="scope.itemProps"
-              class="GL__select-GL__menu-link"
-            >
-              <q-item-section side>
-                <q-icon name="collections_bookmark" />
-              </q-item-section>
-              <q-item-section>
-              </q-item-section>
-              <q-item-section side :class="{ 'default-type': !scope.opt.type }">
-                <q-btn outline dense no-caps text-color="blue-grey-5" size="12px" class="bg-grey-1 q-px-sm">
-                  {{ scope.opt.type || 'Jump to' }}
-                  <q-icon name="subdirectory_arrow_left" size="14px" />
-                </q-btn>
-              </q-item-section>
-            </q-item>
-          </template>
-        </q-select> -->
-
+    <q-item clickable v-ripple @click="profileClickManager">
+      <q-item-section side>
+        <q-avatar rounded size="40px">
+          <img v-if="authStore?.loginUserInfo?.profileImage" :src="authStore?.loginUserInfo?.profileImage" />
+          <img v-else src="images/user-placeholder.jpg" />
+        </q-avatar>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label v-if="authStore?.loginUserInfo?.name">{{
+          authStore?.loginUserInfo?.name[languageStore.language]
+        }}</q-item-label>
+        <q-item-label v-else>Guest User</q-item-label>
+        <q-item-label v-if="authStore?.loginUserInfo?.username" caption class="text-white">
+          {{
+            authStore?.loginUserInfo?.isSuperAdmin
+              ? "Super Admin"
+              : authStore?.loginUserInfo?.isAdmin
+              ? "Admin"
+              : authStore?.loginUserInfo?.permission == "self"
+              ? "Service Provider"
+              : authStore?.loginUserInfo?.permission
+              ? "Admin " + authStore?.loginUserInfo.permission
+              : "Guest"
+          }}
+        </q-item-label>
+      </q-item-section>
+    </q-item>
     <div
       v-if="$q.screen.gt.sm"
       class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap cursor-pointer"
     >
-      <!-- <span class="text-white" @click="router.push('/locations')" >
-            {{$t('headermenus.locations')}}
-          </span> -->
-      <router-link v-if="authStore?.loginUserInfo?.isSuperAdmin" to="/locations" active-class="text-white">{{
-        $t("headermenus.locations")
-      }}</router-link>
-      <!-- <span class="text-white" @click="router.push('/users')">
-            {{$t('headermenus.users')}}
-          </span> -->
-      <router-link v-if="authStore?.loginUserInfo?.isSuperAdmin" to="/users" active-class="text-white">{{
-        $t("headermenus.users")
-      }}</router-link>
-      <!-- <span class="text-white" @click="router.push('/services')">
-            {{$t('headermenus.services')}}
-          </span> -->
-      <router-link v-if="authStore?.loginUserInfo?.isAdmin" to="/services" active-class="text-white">{{
-        $t("headermenus.services")
-      }}</router-link>
-      <router-link v-if="authStore?.loginUserInfo?.isAdmin || authStore?.loginUserInfo?.permission !== 'self'" to="/service_provider_pending_list" active-class="text-white">{{
-        $t("headermenus.pending_list")
-      }}</router-link>
+      <router-link
+        v-if="authStore?.loginUserInfo?.isSuperAdmin"
+        to="/locations"
+        active-class="text-white"
+        >{{ $t("headermenus.locations") }}</router-link
+      >
+      <router-link
+        v-if="authStore?.loginUserInfo?.isSuperAdmin"
+        to="/users"
+        active-class="text-white"
+        >{{ $t("headermenus.users") }}</router-link
+      >
+      <router-link
+        v-if="authStore?.loginUserInfo?.isAdmin"
+        to="/services"
+        active-class="text-white"
+        >{{ $t("headermenus.services") }}</router-link
+      >
+      <router-link
+        v-if="
+          authStore?.loginUserInfo?.isAdmin ||
+          authStore?.loginUserInfo?.permission !== 'self'
+        "
+        to="/service_provider_pending_list"
+        active-class="text-white"
+        >{{ $t("headermenus.pending_list") }}</router-link
+      >
     </div>
-
     <q-space />
 
     <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-      <!-- <q-btn
-            v-if="$q.screen.gt.xs"
-            dense
-            flat
-            round
-            size="sm"
-            icon="notifications"
-          /> -->
       <q-btn dense flat>
         <div class="row items-center no-wrap">
           <q-icon name="language" size="20px" />
@@ -125,69 +105,19 @@
           </q-list>
         </q-menu>
       </q-btn>
-      <q-btn dense flat>
-        <div class="row items-center no-wrap">
-          <q-icon name="add" size="20px" />
-          <q-icon
-            name="arrow_drop_down"
-            size="16px"
-            style="margin-left: -2px"
-          />
-        </div>
-        <q-menu auto-close>
-          <q-list dense style="min-width: 140px">
-            <q-item clickable class="GL__menu-link">
-              <q-item-section>{{
-                $t("headermenus.addnew_users")
-              }}</q-item-section>
-            </q-item>
-            <q-item clickable class="GL__menu-link">
-              <q-item-section>{{
-                $t("headermenus.addnew_services")
-              }}</q-item-section>
-            </q-item>
-            <q-item clickable class="GL__menu-link">
-              <q-item-section>{{
-                $t("location.addnew_division")
-              }}</q-item-section>
-            </q-item>
-            <q-item clickable class="GL__menu-link">
-              <q-item-section>{{
-                $t("location.addnew_district")
-              }}</q-item-section>
-            </q-item>
-            <q-item clickable class="GL__menu-link">
-              <q-item-section>{{
-                $t("location.addnew_subdistrict")
-              }}</q-item-section>
-            </q-item>
-            <q-item clickable class="GL__menu-link">
-              <q-item-section>{{ $t("location.addnew_union") }}</q-item-section>
-            </q-item>
-            <q-item clickable class="GL__menu-link">
-              <q-item-section>{{ $t("location.addnew_ward") }}</q-item-section>
-            </q-item>
-            <!-- <q-separator />
-                <q-item-label header>This location</q-item-label>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>New issue</q-item-section>
-                </q-item> -->
-          </q-list>
-        </q-menu>
-      </q-btn>
-
-      <q-btn dense flat no-wrap>
-        <q-avatar rounded size="20px">
-          <img src="/images/noormohammad.jpeg" />
+      <q-btn v-if="authStore.loginUserInfo" dense flat no-wrap>
+        <q-avatar rounded size="30px">
+          <img src="images/user-placeholder.jpg" />
         </q-avatar>
         <q-icon name="arrow_drop_down" size="16px" />
+        <!-- <q-icon name="person" size="26px" /> -->
 
         <q-menu auto-close>
           <q-list dense style="min-width: 140px">
             <q-item class="GL__menu-link-signed-in">
               <q-item-section>
                 <div>
-                  <strong>{{ authStore?.loginUserInfo?.name.bn }}</strong>
+                  <strong>{{ loginUser?.name.bn }}</strong>
                 </div>
               </q-item-section>
             </q-item>
@@ -201,10 +131,11 @@
                       ? "Super Admin"
                       : authStore.loginUserInfo?.isAdmin
                       ? "Admin"
-                      : authStore.loginUserInfo?.permission == 'self'?
-                      'Service Provider'
-                      :authStore.loginUserInfo?.permission?
-                      "Admin "+authStore.loginUserInfo.permission:""
+                      : authStore.loginUserInfo?.permission == "self"
+                      ? "Service Provider"
+                      : authStore.loginUserInfo?.permission
+                      ? "Admin " + authStore.loginUserInfo.permission
+                      : ""
                   }}
                 </div>
               </q-item-section>
@@ -222,7 +153,9 @@
               class="GL__menu-link"
               @click="router.push('/service_provider_profile')"
             >
-              <q-item-section>{{ $t("headermenus.service_profile") }}</q-item-section>
+              <q-item-section>{{
+                $t("headermenus.service_profile")
+              }}</q-item-section>
             </q-item>
             <q-item
               clickable
@@ -245,18 +178,22 @@
         </q-menu>
       </q-btn>
     </div>
-    <profileMobileMenus/>
+    <publicMobileMenus />
   </q-toolbar>
-
 </template>
 
 <script setup>
+
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { useLocalStorage } from "@vueuse/core";
-import { useAuthStore } from "src/stores/auth/authStore";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
+import publicMobileMenus from "./mobileView/publicMobileMenus.vue";
+import { useLocalStorage } from "@vueuse/core";
+import { isObjEmpty } from "src/global_js/utils";
+// seperator
+
+import { useAuthStore } from "src/stores/auth/authStore";
 import profileMobileMenus from "./mobileView/profileMobileMenus.vue";
 const menuControllerStore = useMenuControllerStore();
 const languageStore = useLanguageStore();
@@ -266,46 +203,17 @@ const logoutFunc = () => {
   authStore.logoutFunc();
   router.push("/login");
 };
-const stringOptions = [
-  "quasarframework/quasar",
-  "quasarframework/quasar-awesome",
-];
-const text = ref("");
-const options = ref(null);
-const filteredOptions = ref([]);
-const search = ref(null); // $refs.search
-function filter(val, update) {
-  if (options.value === null) {
-    // load data
-    setTimeout(() => {
-      options.value = stringOptions;
-      search.value.filter("");
-    }, 2000);
-    update();
-    return;
+
+const loginUser = useLocalStorage("proyojonloginuser", {});
+
+const profileClickManager = () => {
+  if (isObjEmpty(loginUser.value)) {
+    console.log(true);
+    router.push("/login");
+  } else {
+    router.push("/profile");
   }
-  if (val === "") {
-    update(() => {
-      filteredOptions.value = options.value.map((op) => ({ label: op }));
-    });
-    return;
-  }
-  update(() => {
-    filteredOptions.value = [
-      {
-        label: val,
-        type: "In this repository",
-      },
-      {
-        label: val,
-        type: "All GitHub",
-      },
-      ...options.value
-        .filter((op) => op.toLowerCase().includes(val.toLowerCase()))
-        .map((op) => ({ label: op })),
-    ];
-  });
-}
+};
 </script>
 
 <style lang="sass">

@@ -237,6 +237,9 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         phoneNumber2,
         facebook,
         whatsapp,
+        imo,
+        twitter,
+        gmail,
         keywords
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
@@ -259,6 +262,9 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceProvider.phoneNumber2 = phoneNumber2
         serviceProvider.facebook = facebook
         serviceProvider.whatsapp = whatsapp
+        serviceProvider.imo = imo
+        serviceProvider.twitter = twitter
+        serviceProvider.gmail = gmail
         serviceProvider.keywords = keywords
         serviceProvider.approved = false
         serviceProvider.waitingForApproval = true
@@ -397,6 +403,9 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         phoneNumber2,
         facebook,
         whatsapp,
+        imo,
+        twitter,
+        gmail,
         rankCount,
         keywords
     } = req.body
@@ -427,6 +436,9 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         phoneNumber2,
         facebook,
         whatsapp,
+        imo,
+        twitter,
+        gmail,
         rankCount,
         approved: false,
         waitingForApproval: true,

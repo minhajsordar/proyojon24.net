@@ -7,7 +7,7 @@
             <div >
               <q-avatar rounded size="130px">
               <img v-if="authStore.loginUserInfo?.profileImage" :src="authStore.loginUserInfo.profileImage" />
-              <img src="/images/noormohammad.jpeg" />
+              <img v-else src="images/noormohammad.jpeg" />
             </q-avatar>
             </div>
             <div class="q-ml-md">

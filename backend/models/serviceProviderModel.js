@@ -130,6 +130,9 @@ const serviceProviderSchema = new mongoose.Schema({
     phoneNumber2:{ type: String },
     facebook:{ type: String },
     whatsapp:{ type: String },
+    imo:{ type: String },
+    twitter:{ type: String },
+    gmail:{ type: String },
     rankCount: {
         type: Number,
         required: false,

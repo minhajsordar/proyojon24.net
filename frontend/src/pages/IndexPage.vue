@@ -1,14 +1,14 @@
 <template>
   <div
-    class="container-section-py-sm bg-blue-grey-10 text-white pattern-bg-image"
+    class="container-section-py-sm bg-primary-public text-white pattern-bg-image"
   >
     <div class="inner-section">
       <div class="full-width q-py-sm q-pa-md">
-        <div class="text-bold site-name text-center text-yellow-13">
+        <div class="text-bold site-name text-center text-secondary-public">
           Proyojon24
         </div>
         <div class="text-bold welcome-text text-center">
-          আপনাকে <span class="text-yellow-13">স্বাগতম</span>
+          আপনাকে <span class="text-secondary-public">স্বাগতম</span>
         </div>
         <!-- <div class="text-bold query-title text-center">
           আপনার <span class="text-yellow-13">জেলা</span> সিলেক্ট করুন
@@ -100,6 +100,12 @@
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div class="col-12"
+            v-if="servicePublicStore.allServices && servicePublicStore.allServices.length ==0"
+            >
+            {{ $t('noInfo') }}
             </div>
           </div>
         </div>

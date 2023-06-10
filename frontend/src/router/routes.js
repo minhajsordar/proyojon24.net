@@ -12,30 +12,32 @@ const checkLogin = (to, from, next) => {
   }
 }
 const routes = [
-  {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: '/login',
-      name:'login', component: () => import('pages/auth/loginPage.vue') },
-    ]
-  },
+  // {
+  //   path: '/',
+  //   component: () => import('layouts/MainLayout.vue'),
+  //   children: [
+  //     { path: '', component: () => import('pages/IndexPage.vue') },
+  //     { path: '/login',
+  //     name:'login', component: () => import('pages/auth/loginPage.vue') },
+  //   ]
+  // },
   {
     path: '/',
     component: () => import('layouts/PublicLayout.vue'),
     children: [
       // { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '/login', name:'login', component: () => import('pages/auth/loginPage.vue') },
       { path: '/register', component: () => import('pages/auth/registerView.vue') },
       { path: '/service_categorys_list/:id', component: () => import('pages/publicpages/serviceCategorys.vue') },
       { path: '/service_providers_list/:id', component: () => import('pages/publicpages/serviceProviders.vue') },
       { path: '/service_provider/:id', component: () => import('pages/publicpages/serviceProviderProfile.vue') },
-    ]
-  },
-  {
-    path: '/',
-    component: () => import('layouts/ProfileLayout.vue'),
-    children: [
+  //   ]
+  // },
+  // {
+  //   path: '/',
+  //   component: () => import('layouts/ProfileLayout.vue'),
+  //   children: [
       {
         path: '/profile', component: () => import('pages/user/profilePage.vue'),
         beforeEnter: checkLogin,

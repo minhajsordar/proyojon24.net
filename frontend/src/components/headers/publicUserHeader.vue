@@ -1,38 +1,32 @@
 <template>
   <q-toolbar class="q-py-sm q-px-md">
-    <q-btn
-      icon="home"
-      round
-      dense
-      glossy
-      flat
-      size="md"
-      color="white"
-      class="q-mr-sm"
-      no-caps
-      @click="$router.push('/')"
-    />
-    <!-- <q-btn
-      v-if="!$q.screen.gt.sm"
-      icon="menu"
-      round
-      dense
-      glossy
-      flat
-      size="md"
-      color="white"
-      class="q-mr-sm"
-      no-caps
-      @click="menuControllerStore.headerMenuMobileScreen = true"
-    />
-    <div
-      v-if="$q.screen.gt.sm"
-      class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap cursor-pointer"
-    >
-      <router-link to="/allservices" active-class="text-white">{{
-        $t("headermenus.services")
-      }}</router-link>
-    </div> -->
+    <q-item clickable v-ripple @click="profileClickManager">
+      <q-item-section side>
+        <q-avatar rounded size="40px">
+          <img v-if="loginUser?.profileImage" :src="loginUser?.profileImage" />
+          <img v-else src="images/user-placeholder.jpg" />
+        </q-avatar>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label v-if="loginUser?.name">{{
+          loginUser?.name[languageStore.language]
+        }}</q-item-label>
+        <q-item-label v-else>Guest User</q-item-label>
+        <q-item-label v-if="loginUser?.username" caption class="text-white">
+          {{
+            loginUser?.isSuperAdmin
+              ? "Super Admin"
+              : loginUser?.isAdmin
+              ? "Admin"
+              : loginUser?.permission == "self"
+              ? "Service Provider"
+              : loginUser?.permission
+              ? "Admin " + loginUser.permission
+              : "Guest"
+          }}
+        </q-item-label>
+      </q-item-section>
+    </q-item>
 
     <q-space />
 
@@ -67,9 +61,8 @@
         </q-menu>
       </q-btn>
     </div>
-    <publicMobileMenus/>
+    <publicMobileMenus />
   </q-toolbar>
-
 </template>
 
 <script setup>
@@ -78,9 +71,21 @@ import { useRouter } from "vue-router";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
 import publicMobileMenus from "./mobileView/publicMobileMenus.vue";
+import { useLocalStorage } from "@vueuse/core";
+import { isObjEmpty } from "src/global_js/utils";
+const loginUser = useLocalStorage("proyojonloginuser", {});
 const menuControllerStore = useMenuControllerStore();
 const languageStore = useLanguageStore();
 const router = useRouter();
+
+const profileClickManager = () => {
+  if (isObjEmpty(loginUser.value)) {
+    console.log(true);
+    router.push("/login");
+  } else {
+    router.push("/profile");
+  }
+};
 </script>
 
 <style lang="sass">

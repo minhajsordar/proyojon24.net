@@ -1,7 +1,5 @@
 <template>
-  <q-pull-to-refresh @refresh="refresh">
-    <router-view />
-  </q-pull-to-refresh>
+  <router-view />
 </template>
 
 <script setup>

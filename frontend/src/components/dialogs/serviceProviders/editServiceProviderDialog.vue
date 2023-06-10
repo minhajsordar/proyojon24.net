@@ -275,7 +275,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6 col-6">
+            <!-- <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
                 <div class="col-12 text-bold">{{ $t("location.exactbn") }}</div>
                 <div class="col-12">
@@ -302,7 +302,7 @@
                   />
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- end service provider location -->
             <!-- name start -->
             <div class="col-sm-6 col-xs-12 col-12">
@@ -634,6 +634,7 @@
                 </div>
                 <div class="col-12">
                   <q-file
+                    ref="iconEl"
                     outlined
                     dense
                     v-model="serviceProviderStore.imageIcon"
@@ -648,16 +649,6 @@
                     <template v-slot:prepend>
                       <q-icon name="cloud_upload" /> </template
                   ></q-file>
-                  <span>{{ $t("or") }}</span>
-                  <q-input
-                    class="q-mt-sm"
-                    ref="iconEl"
-                    outlined
-                    dense
-                    v-model="serviceProviderStore.serviceProviderInfo.image"
-                    :rules="[required]"
-                    label="Add image Url"
-                  />
                 </div>
               </div>
             </div>
@@ -670,6 +661,7 @@
                 <div class="col-12">
                   <q-file
                     outlined
+                    ref="coverImageEl"
                     dense
                     v-model="serviceProviderStore.imageCover"
                     :rules="[fileValidate]"
@@ -683,18 +675,6 @@
                     <template v-slot:prepend>
                       <q-icon name="cloud_upload" /> </template
                   ></q-file>
-                  <span>{{ $t("or") }}</span>
-                  <q-input
-                    class="q-mt-sm"
-                    ref="coverImageEl"
-                    outlined
-                    dense
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.serviceImage
-                    "
-                    :rules="[required]"
-                    label="Add image Url"
-                  />
                 </div>
               </div>
             </div>

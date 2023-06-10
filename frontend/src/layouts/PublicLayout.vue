@@ -1,28 +1,30 @@
 <template>
-  <q-layout class="bg-blue-grey-1" view="hHh lpR fFf">
+  <q-layout class="background-pattern" view="hHh lpR fFf">
     <!-- !$q.screen.gt.sm -->
-    <q-header elevated class="text-white bg-blue-grey-10" height-hint="61.59">
-      <publicUserHeader />
+    <q-header  class="text-white bg-accent-public" height-hint="61.59">
+      <publicUserHeader v-if="Object.keys(loginUser).length == 0" />
+      <userProfileHeader v-else />
     </q-header>
 
     <q-page-container class="q-page-cont">
       <router-view />
       <div
-        class="q-py-sm text-center bg-blue-grey-10 text-white full-width footer-area"
+        class="q-py-sm text-center bg-primary-public text-white full-width footer-area"
       >
         <div class="fs-12">
-          <span class="text-yellow">Proyojon24.net</span> © 2023 All Rights
+          <span class="text-secondary-public">Proyojon24.net</span> © 2023 All Rights
           Reserved
         </div>
         <div class="fs-10">
           Developed & Powered By:
-          <span class="text-yellow">Service Zone Ltd</span>
+          <span class="text-secondary-public">Service Zone Ltd</span>
         </div>
       </div>
     </q-page-container>
     <publicLayoutAllDialogs />
+    <profileLayoutAllDialogs />
     <q-footer
-      class="q-py-sm bg-blue-grey-10 flex justify-around"
+      class="q-py-sm bg-accent-public flex justify-around"
       v-if="!$q.screen.gt.sm"
     >
       <q-btn
@@ -38,7 +40,8 @@
         @click="$router.push('/')"
       />
       <q-btn
-        icon="person"
+        v-if="!$q.screen.gt.sm"
+        icon="menu"
         round
         dense
         glossy
@@ -47,6 +50,7 @@
         color="white"
         class="q-mr-sm"
         no-caps
+        @click="menuControllerStore.headerMenuMobileScreen = true"
       />
       <q-btn
         icon="arrow_back"
@@ -66,17 +70,28 @@
 
 <script setup>
 import publicUserHeader from "src/components/headers/publicUserHeader.vue";
+import userProfileHeader from "src/components/headers/userProfileHeader.vue";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import publicLayoutAllDialogs from "src/components/dialogs/publicLayoutAllDialogs.vue";
-
+import profileLayoutAllDialogs from "src/components/dialogs/profileLayoutAllDialogs.vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 import { useSearchLocationStore } from "src/stores/service/searchLocation";
+import { useLocalStorage } from "@vueuse/core";
+import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
+import { useAuthStore } from "src/stores/auth/authStore";
 const languageStore = useLanguageStore();
 const pinlocationStore = usePinlocationStore();
-pinlocationStore.getGlobalPinlocations()
+pinlocationStore.getGlobalPinlocations();
 languageStore.switchToBn();
 const router = useRouter();
+const menuControllerStore = useMenuControllerStore();
+const authStore = useAuthStore();
+const loginUser = useLocalStorage("proyojonloginuser", {});
+onMounted(() => {
+  authStore.checkLogin()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -88,7 +103,7 @@ const router = useRouter();
 @media screen and (max-width: 1024px) {
   .q-page-cont {
     padding-bottom: 100px !important;
-}
+  }
 }
 .footer-area {
   position: absolute;

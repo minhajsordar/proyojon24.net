@@ -56,6 +56,7 @@ export default {
   addToSuggestion: 'Add To Suggestion List',
   removeFromSuggestion: 'Remove From Suggestion List',
   permission: 'Permission',
+  noInfo: 'Information Not Added Yet.',
   usermenus:{
     profile: 'Profile',
     help: 'help',

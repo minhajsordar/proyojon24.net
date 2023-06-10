@@ -21,8 +21,9 @@
         <q-separator/>
         <div>
           <span>{{serviceProvider.serviceTitle[languageStore.language]}}</span>
-          <span v-show="serviceProvider.specialties[languageStore.language]">, </span>
-          <span>{{serviceProvider.specialties[languageStore.language]}}</span>
+          <span v-show="serviceProvider.specialties[languageStore.language]">,
+            {{serviceProvider.specialties[languageStore.language]}}
+          </span>
         </div>
         <q-separator/>
         <div class="text-blue-grey-10">

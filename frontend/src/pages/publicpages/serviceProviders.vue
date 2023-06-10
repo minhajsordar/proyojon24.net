@@ -36,12 +36,11 @@
               </div>
               <div class="col-lg-6 col-sm-12 col-xs-12 col-12">
                 <div class="flex full-width relative-position">
-                  <q-input class="searchbar" outlined dense/>
+                  <q-input class="searchbar" outlined dense />
                   <q-btn
                     class="bg-blue-grey-10 text-yellow-13 search-btn"
                     icon="search"
                   />
-
                 </div>
               </div>
             </div>
@@ -147,24 +146,24 @@
                   {{ $t("services.service_provider") }}
                 </div>
                 <q-separator class="q-mb-sm"></q-separator>
+                <div
+                  v-if="
+                    serviceProviderStore?.allServiceProvidersList &&
+                    serviceProviderStore?.allServiceProvidersList.length == 0 &&
+                    serviceProviderStore?.suggestedServiceProvidersList &&
+                    serviceProviderStore?.suggestedServiceProvidersList.length == 0
+                  "
+                  class="text-center"
+                >
+                  {{ $t("noInfo") }}
+                  <q-separator class="q-mb-sm"></q-separator>
+                </div>
                 <div class="row q-col-gutter-sm">
-                  <div
-                    class="col-12"
-                    v-for="(
-                      serviceProvider, index
-                    ) in serviceProviderStore.allServiceProvidersList"
-                    :key="index"
-                  >
+
+                  <div class="col-12">
                     <serviceProviderListCard
-                      :serviceProvider="serviceProvider"
-                    />
-                  </div>
-                  <div
-                    class="col-12"
-                  >
-                    <serviceProviderListCard
-                    register
-                    class="bg-green-1"
+                      register
+                      class="bg-green-1"
                       :serviceProvider="{
                         name: {
                           bn: 'আপনি কি সার্ভিস প্রদান করতে চান? আপনার তথ্য প্রদান করুন',
@@ -173,27 +172,27 @@
                         serviceProviderLocation: {
                           division: {
                             name: {
-                              bn: 'ঢাকা',
-                              en: 'Dhaka'
-                            }
+                              bn: 'বিভাগ',
+                              en: 'Division',
+                            },
                           },
                           district: {
                             name: {
-                              bn: 'রাজবাড়ী',
-                              en: 'Rajbari'
-                            }
+                              bn: 'জেলা',
+                              en: 'District',
+                            },
                           },
                           subDistrict: {
                             name: {
-                              bn: 'গোয়ালন্দ',
-                              en: 'Goalunda'
-                            }
+                              bn: 'উপজেলা',
+                              en: 'Uazela',
+                            },
                           },
                           union: {
                             name: {
-                              bn: 'মকবুলের দোকান',
-                              en: 'Mokbuler Dokan'
-                            }
+                              bn: 'স্থান',
+                              en: 'Location',
+                            },
                           },
                           pinlocation: {
                             name: {
@@ -201,15 +200,15 @@
                               en: null,
                             },
                             _id: null,
-                          }
+                          },
                         },
                         specialties: {
                           bn: null,
                           en: null,
                         },
                         serviceTitle: {
-                          bn: 'মুদি দোকান',
-                          en: 'Stationary',
+                          bn: 'সেবার শিরোনাম',
+                          en: 'Service Title',
                         },
                         suggested: false,
                         _id: '647436a153654e270485a5b7',
@@ -228,16 +227,19 @@
                       }"
                     />
                   </div>
+                  <div
+                    class="col-12"
+                    v-for="(
+                      serviceProvider, index
+                    ) in serviceProviderStore.allServiceProvidersList"
+                    :key="index"
+                  >
+                    <serviceProviderListCard
+                      :serviceProvider="serviceProvider"
+                    />
+                  </div>
                 </div>
-                <!-- <div
-                  v-if="
-                    serviceProviderStore?.allServiceProvidersList &&
-                    serviceProviderStore?.allServiceProvidersList.length == 0
-                  "
-                  class="text-center"
-                >
-                  এখনও তথ্য যুক্ত করা হয়নি।
-                </div> -->
+
               </q-card>
             </div>
             <!-- <div class="col-lg-2 col-md-4 col-4" v-if="$q.screen.gt.md">service providers3</div> -->
