@@ -71,6 +71,7 @@ const languageStore = useLanguageStore()
   position: absolute;
   left:4px;
   bottom:4px;
+  z-index: 1;
 }
 .image-section{
 width: 100px;

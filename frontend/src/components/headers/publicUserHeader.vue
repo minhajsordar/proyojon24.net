@@ -4,7 +4,7 @@
       <q-item-section side>
         <q-avatar rounded size="40px">
           <img v-if="loginUser?.profileImage" :src="loginUser?.profileImage" />
-          <img v-else src="images/user-placeholder.jpg" />
+          <img v-else src="/images/user-placeholder.jpg" />
         </q-avatar>
       </q-item-section>
       <q-item-section>

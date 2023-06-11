@@ -37,15 +37,12 @@ export const useSearchLocationStore = defineStore('search location store', () =>
     //   districtStore.getAllDistricts(browsingLocation.value.division._id);
     // }
     if (browsingLocation.value.district) {
-      console.log(browsingLocation.value.district)
       subDistrictStore.getAllSubDistricts(browsingLocation.value.district._id);
     }
     if (browsingLocation.value.subDistrict) {
-      console.log(browsingLocation.value.subDistrict)
       unionStore.getAllUnions(browsingLocation.value.subDistrict._id);
     }
     if (browsingLocation.value.union) {
-      console.log(browsingLocation.value.union)
       pinLocationStore.getAllPinlocations(browsingLocation.value.union._id);
     }
   }
