@@ -39,12 +39,20 @@
               : "Guest"
           }}
         </q-item-label>
+        <q-item-label v-else caption class="text-white">
+          Login/Register
+</q-item-label>
       </q-item-section>
     </q-item>
     <div
       v-if="$q.screen.gt.sm"
       class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap cursor-pointer"
     >
+      <router-link
+        to="/"
+        exact-active-class="text-white"
+        >{{ $t("headermenus.home") }}</router-link
+      >
       <router-link
         v-if="authStore?.loginUserInfo?.isSuperAdmin"
         to="/locations"
@@ -65,8 +73,8 @@
       >
       <router-link
         v-if="
-          authStore?.loginUserInfo?.isAdmin ||
-          authStore?.loginUserInfo?.permission !== 'self'
+          authStore?.loginUserInfo && (authStore?.loginUserInfo?.isAdmin ||
+          authStore?.loginUserInfo?.permission !== 'self')
         "
         to="/service_provider_pending_list"
         active-class="text-white"
@@ -201,7 +209,7 @@ const authStore = useAuthStore();
 const router = useRouter();
 const logoutFunc = () => {
   authStore.logoutFunc();
-  router.push("/login");
+  router.push("/");
 };
 
 const loginUser = useLocalStorage("proyojonloginuser", {});

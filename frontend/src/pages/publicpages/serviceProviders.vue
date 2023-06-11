@@ -8,7 +8,7 @@
               <div class="col-lg-3 col-sm-6 col-xs-6 col-6">
                 <q-btn
                   v-if="selectedServiceAndCategory.serviceCategoryName"
-                  class="bg-blue-grey-10 text-yellow-13 full-width"
+                  class="bg-primary text-white full-width"
                   :label="
                     selectedServiceAndCategory.serviceCategoryName[
                       languageStore.language
@@ -20,7 +20,7 @@
                 />
                 <q-btn
                   v-else
-                  class="bg-blue-grey-10 text-yellow-13 full-width"
+                  class="bg-primary text-white full-width"
                   :label="$t('services.category')"
                   @click="
                     publicUserStore.openFilterByServiceCategoryDialog = true
@@ -29,7 +29,7 @@
               </div>
               <div class="col-lg-3 col-sm-6 col-xs-6 col-6">
                 <q-btn
-                  class="bg-blue-grey-10 text-yellow-13 full-width"
+                  class="bg-primary text-white full-width"
                   :label="$t('searchInfoByLocation')"
                   @click="publicUserStore.openBrowsingLocationDialog = true"
                 />
@@ -38,7 +38,7 @@
                 <div class="flex full-width relative-position">
                   <q-input class="searchbar" outlined dense />
                   <q-btn
-                    class="bg-blue-grey-10 text-yellow-13 search-btn"
+                    class="bg-primary text-white search-btn"
                     icon="search"
                   />
                 </div>
@@ -49,7 +49,7 @@
             <div class="col-lg-3 col-md-4 col-4" v-if="$q.screen.gt.xs">
               <q-card class="bg-white border-radius-xs q-pa-md">
                 <div
-                  class="bg-blue-grey-10 text-center text-yellow-13 fs-19 q-pa-xs"
+                  class="bg-primary text-center text-white fs-19 q-pa-xs"
                 >
                   {{ $t("services.service_category") }}
                 </div>
@@ -58,14 +58,14 @@
                   :thumb-style="{
                     right: '5px',
                     borderRadius: '8px',
-                    backgroundColor: '#263238',
+                    backgroundColor: '#007c95',
                     width: '8px',
                     opacity: 0.75,
                   }"
                   :bar-style="{
                     right: '2px',
                     borderRadius: '14px',
-                    backgroundColor: '#263238',
+                    backgroundColor: '#007c95',
                     width: '14px',
                     opacity: 0.2,
                     marginTop: '-3px',

@@ -64,6 +64,7 @@ export default {
     signout: 'বাহির',
   },
   headermenus:{
+    home: "হোম",
     pending_list: 'অপেক্ষ্যমান তালিকা',
     locations: 'স্থান সমূহ',
     addnew_locations: 'নতুন স্থান যুক্ত করুন',

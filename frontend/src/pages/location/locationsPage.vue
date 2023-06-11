@@ -93,7 +93,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 onMounted(() => {
   if (!authStore.checkLogin()) {
-    router.push("/login");
+    router.push("/");
   }
   if(!authStore.loginUserInfo.isSuperAdmin || !authStore.loginUserInfo.isAdmin){
     router.push("/profile")
@@ -118,7 +118,6 @@ const applyFilter = () => {
   unionStore.getUnionListByBrowsingSubDistrictId();
   pinlocationStore.getPinlocationListByBrowsingUnionId();
 };
-
 const metaData = {
   // sets document title
   title: "Locations",

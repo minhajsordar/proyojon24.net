@@ -1,11 +1,12 @@
-<template >
+<template>
   <div class="app-content content">
     <div class="content-wrapper">
       <div class="content-body">
         <div class="auth-wrapper auth-basic q-px-md">
           <div class="auth-inner q-my-md">
             <!-- Login basic -->
-            <q-card class="card q-mb-none border-primary">
+            <q-card class="card q-mb-none">
+              <div class="gradient-bg"></div>
               <div class="card-body">
                 <div class="brand-logo">
                   <h2 class="brand-text text-primary ms-1">Proyojon24</h2>
@@ -25,7 +26,7 @@
                     </div>
                     <div>
                       <q-input
-                      ref="emailEl"
+                        ref="emailEl"
                         class="full-width"
                         v-model="authStore.userAuthInfo.email"
                         type="text"
@@ -50,7 +51,7 @@
                       class="input-group input-group-merge form-password-toggle"
                     >
                       <q-input
-                      ref="passwordEl"
+                        ref="passwordEl"
                         class="full-width"
                         v-model="authStore.userAuthInfo.password"
                         placeholder="******"
@@ -76,8 +77,11 @@
                       size="xs"
                       style="margin-left: -7px"
                     >
-                  <q-tooltip>Remember Email and Password. Don't check remember me option while you are using public computer.</q-tooltip>
-                  </q-checkbox>
+                      <q-tooltip
+                        >Remember Email and Password. Don't check remember me
+                        option while you are using public computer.</q-tooltip
+                      >
+                    </q-checkbox>
                   </div>
                   <button
                     class="btn btn-primary w-100 waves-effect waves-float waves-light"
@@ -91,7 +95,6 @@
                 <p class="text-center mt-2">
                   <span>New on our platform?</span>
                   <router-link to="/register">
-
                     <span>Create an account</span>
                   </router-link>
                 </p>
@@ -105,13 +108,13 @@
   </div>
 </template>
 <script setup>
-import { useMeta } from 'quasar'
-import { ref,onMounted } from "vue";
+import { useMeta } from "quasar";
+import { ref, onMounted } from "vue";
 import { useAuthStore, suggestUserData } from "src/stores/auth/authStore";
-import {isEmail, required } from 'src/global_js/utils'
-import {decode64} from 'src/global_js/utils'
+import { isEmail, required } from "src/global_js/utils";
+import { decode64 } from "src/global_js/utils";
 import { useRouter } from "vue-router";
-const router = useRouter()
+const router = useRouter();
 
 const isPwd = ref(true);
 const emailEl = ref(null);
@@ -119,18 +122,18 @@ const passwordEl = ref(null);
 
 const authStore = useAuthStore();
 
-const loginManager = ()=>{
-  emailEl.value.validate()
-  passwordEl.value.validate()
-  if(emailEl.value.hasError || passwordEl.value.hasError){
-    return
+const loginManager = () => {
+  emailEl.value.validate();
+  passwordEl.value.validate();
+  if (emailEl.value.hasError || passwordEl.value.hasError) {
+    return;
   }
-  authStore.loginFunc2()
-}
+  authStore.loginFunc2();
+};
 onMounted(() => {
   if (suggestUserData.value instanceof Object) {
     console.log("null value");
-  } else if(suggestUserData.value){
+  } else if (suggestUserData.value) {
     const userinfo = decode64(suggestUserData.value).split("seperator");
     authStore.userAuthInfo.email = userinfo[0];
     authStore.userAuthInfo.password = userinfo[1];
@@ -141,29 +144,35 @@ onMounted(() => {
 
 const metaData = {
   // sets document title
-  title: 'Login Page',
+  title: "Login Page",
   // optional; sets final title as "Index Page - My Website", useful for multiple level meta
-  titleTemplate: title => `${title} - Proyojon24.net`,
+  titleTemplate: (title) => `${title} - Proyojon24.net`,
 
   // meta tags
   meta: {
-    description: { name: 'description', content: 'Page 1' },
-    keywords: { name: 'keywords', content: 'proyojon24 services service-provider' },
-    equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+    description: { name: "description", content: "Page 1" },
+    keywords: {
+      name: "keywords",
+      content: "proyojon24 services service-provider",
+    },
+    equiv: {
+      "http-equiv": "Content-Type",
+      content: "text/html; charset=UTF-8",
+    },
     // note: for Open Graph type metadata you will need to use SSR, to ensure page is rendered by the server
-    ogTitle:  {
-      property: 'og:title',
+    ogTitle: {
+      property: "og:title",
       // optional; similar to titleTemplate, but allows templating with other meta properties
-      template (ogTitle) {
-        return `${ogTitle} - Proyojon24.net`
-      }
-    }
-  }
-}
+      template(ogTitle) {
+        return `${ogTitle} - Proyojon24.net`;
+      },
+    },
+  },
+};
 
-useMeta(metaData)
+useMeta(metaData);
 </script>
-<style scoped>
+<style scoped lang="scss">
 h2,
 h4 {
   margin-top: 0;
@@ -243,27 +252,29 @@ svg {
 }
 .btn-primary {
   color: #fff;
-  background-color: #009ef7;
-  border-color: #009ef7;
+  background-color: $primary;
+  border-color: $primary;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #0086d4;
-  border-color: #0086d4;
+  background-color: $primary;
+  border-color: $primary;
 }
 .btn-primary:focus {
   color: #fff;
-  background-color: #0086d4;
-  border-color: #0086d4;
-  box-shadow: 0 0 0 0.25rem rgba(0, 158, 247, 0.5);
+  background-color: $primary;
+  border-color: $primary;
+  box-shadow: 0 0 0 0.25rem rgba(0, 158, 247, 0.5) 0 0 0 0.5rem
+    rgba(0, 158, 247, 0.8) 0 0 0 0.75rem rgba(0, 158, 247, 1);
 }
 .btn-primary:active {
   color: #fff;
-  background-color: #0086d4;
-  border-color: #0086d4;
+  background-color: $primary;
+  border-color: $primary;
 }
 .btn-primary:active:focus {
-  box-shadow: 0 0 0 0.25rem rgba(0, 158, 247, 0.5);
+  box-shadow: 0 0 0 0.25rem rgba(0, 158, 247, 0.5) 0 0 0 0.5rem
+    rgba(0, 158, 247, 0.8) 0 0 0 0.75rem rgba(0, 158, 247, 1);
 }
 .btn-primary:disabled {
   color: #fff;
@@ -273,9 +284,8 @@ svg {
 .card {
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
   background-clip: border-box;
-  border: 0 solid rgba(0, 158, 247, 0.125);
+  // border: 2px solid rgba(0, 158, 247, 0.125);
   border-radius: 0.428rem;
 }
 .card-body {
@@ -379,8 +389,8 @@ a:hover {
   cursor: pointer;
 }
 .btn-primary {
-  border-color: #009ef7 !important;
-  background-color: #009ef7 !important;
+  border-color: $primary !important;
+  background-color: $primary !important;
   color: #fff !important;
 }
 .btn-primary:focus,
@@ -389,7 +399,7 @@ a:hover {
   background-color: #006dad !important;
 }
 .btn-primary:hover:not(.disabled):not(:disabled) {
-  box-shadow: 0 8px 25px -8px #009ef7;
+  box-shadow: 0 8px 25px -8px rgba(230, 6, 255, 0.536);
 }
 .btn-primary:not(:disabled):not(.disabled):active:focus {
   box-shadow: none;
@@ -442,7 +452,6 @@ a:hover {
 }
 @media (max-height: 825px) and (max-width: 991.98px) {
   .auth-wrapper .auth-inner {
-    background-color: #fff;
   }
 }
 </style>

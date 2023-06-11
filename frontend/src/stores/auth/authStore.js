@@ -81,7 +81,7 @@ export const useAuthStore = defineStore('auth store', () => {
     }
     if ((loginUser.value instanceof Object) && isObjEmpty(loginUser.value)) {
       isAuthorized.value = false;
-      router.push('/login')
+      router.push('/')
       return false;
     } else {
       loginUserInfo.value = loginUser.value

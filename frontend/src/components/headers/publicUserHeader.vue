@@ -81,7 +81,7 @@ const router = useRouter();
 const profileClickManager = () => {
   if (isObjEmpty(loginUser.value)) {
     console.log(true);
-    router.push("/login");
+    router.push("/");
   } else {
     router.push("/profile");
   }

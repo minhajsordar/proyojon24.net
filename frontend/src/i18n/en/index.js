@@ -64,6 +64,7 @@ export default {
     signout: 'Sign out',
   },
   headermenus:{
+    home: "Home",
     pending_list: 'Pending List',
     locations: 'Locations',
     users: 'Users',

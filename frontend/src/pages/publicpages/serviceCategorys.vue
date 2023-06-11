@@ -22,13 +22,13 @@
                   <q-img  src="/images/roundedsquareshape.svg"
                   class="shape"
                   />
-                  <q-img class="absolute-top-center service-icon"
+                  <q-img class="absolute-top-center service-icon gradient-bg"
                   v-if="serviceCategory.icon"
                   fit
                   :src="serviceCategory.icon"
                   />
                   <q-img
-                  v-else class="absolute-top-center service-icon"
+                  v-else class="absolute-top-center service-icon gradient-bg"
                    fit
                   src="images/placeholder_image.png"
                   />

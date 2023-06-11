@@ -75,14 +75,14 @@
                   /> -->
                   <q-img src="/images/roundedsquareshape.svg" class="shape" />
                   <q-img
-                    class="absolute-top-center service-icon"
+                    class="absolute-top-center service-icon gradient-bg"
                     v-if="service.icon"
                     fit
                     :src="service.icon"
                   />
                   <q-img
                     v-else
-                    class="absolute-top-center service-icon"
+                    class="absolute-top-center service-icon gradient-bg"
                     fit
                     src="images/placeholder_image.png"
                   />

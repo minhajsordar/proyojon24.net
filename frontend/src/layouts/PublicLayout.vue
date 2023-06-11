@@ -2,8 +2,8 @@
   <q-layout class="background-pattern" view="hHh lpR fFf">
     <!-- !$q.screen.gt.sm -->
     <q-header  class="text-white bg-accent-public" height-hint="61.59">
-      <publicUserHeader v-if="Object.keys(loginUser).length == 0" />
-      <userProfileHeader v-else />
+      <!-- <publicUserHeader v-if="Object.keys(loginUser).length == 0" /> -->
+      <userProfileHeader/>
     </q-header>
 
     <q-page-container class="q-page-cont">
@@ -89,9 +89,7 @@ const router = useRouter();
 const menuControllerStore = useMenuControllerStore();
 const authStore = useAuthStore();
 const loginUser = useLocalStorage("proyojonloginuser", {});
-onMounted(() => {
-  authStore.checkLogin()
-})
+
 </script>
 
 <style lang="scss" scoped>
