@@ -81,6 +81,7 @@ import { useSearchLocationStore } from "src/stores/service/searchLocation";
 import { useLocalStorage } from "@vueuse/core";
 import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
 import { useAuthStore } from "src/stores/auth/authStore";
+import { isObjEmpty } from "src/global_js/utils";
 const languageStore = useLanguageStore();
 const pinlocationStore = usePinlocationStore();
 pinlocationStore.getGlobalPinlocations();
@@ -89,7 +90,11 @@ const router = useRouter();
 const menuControllerStore = useMenuControllerStore();
 const authStore = useAuthStore();
 const loginUser = useLocalStorage("proyojonloginuser", {});
-
+onMounted(()=>{
+  if(!isObjEmpty(loginUser.value)){
+authStore.loginUserInfo = loginUser.value
+  }
+})
 </script>
 
 <style lang="scss" scoped>
