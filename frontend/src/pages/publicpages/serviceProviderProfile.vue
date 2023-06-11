@@ -93,7 +93,9 @@
                   }}
                 </div>
               </div>
-              <div class="q-mt-md fs-16">
+              <div class="q-mt-md fs-16" v-if="serviceProviderStore.serviceProvider?.specialties[
+                      languageStore.language
+                    ]">
                 <div
                   class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
                 >
@@ -107,7 +109,9 @@
                   }}
                 </div>
               </div>
-              <div class="q-mt-md fs-16">
+              <div class="q-mt-md fs-16" v-if=" serviceProviderStore.serviceProvider?.extraCources[
+                      languageStore.language
+                    ]">
                 <div
                   class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
                 >
