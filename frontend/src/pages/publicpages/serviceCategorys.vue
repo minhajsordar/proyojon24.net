@@ -22,16 +22,18 @@
                   <q-img  src="/images/roundedsquareshape.svg"
                   class="shape"
                   />
-                  <q-img class="absolute-top-center service-icon gradient-bg"
+                  <q-img class="absolute-top-center service-icon"
                   v-if="serviceCategory.icon"
                   fit
                   :src="serviceCategory.icon"
                   />
                   <q-img
-                  v-else class="absolute-top-center service-icon gradient-bg"
+                  v-else class="absolute-top-center service-icon"
                    fit
                   src="images/placeholder_image.png"
                   />
+
+                  <div class="absolute-top-center service-icon gradient-bg"></div>
                   <!-- <q-img fit
                   style="max-width: 50px; max-height: 50px;"
                   src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
