@@ -97,8 +97,19 @@
               @click="menuControllerStore.headerMenuMobileScreenClose"
             >
             <q-item class="flex items-center">
-                <div><q-icon name="notifications" /></div>
+                <div><q-icon name="pending_actions" /></div>
                 <div class="q-ml-md">{{ $t("headermenus.pending_list") }}</div>
+              </q-item>
+            </router-link>
+            <router-link
+              v-if="authStore?.loginUserInfo?.isSuperAdmin"
+              to="/notification_list"
+              active-class="text-white  link-bg-color"
+              @click="menuControllerStore.headerMenuMobileScreenClose"
+            >
+            <q-item class="flex items-center">
+                <div><q-icon name="notifications" /></div>
+                <div class="q-ml-md">{{ $t("notification.list") }}</div>
               </q-item>
             </router-link>
             <q-separator/>

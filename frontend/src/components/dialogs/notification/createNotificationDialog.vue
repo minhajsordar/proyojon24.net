@@ -6,7 +6,7 @@
     transition-show="slide-up"
     transition-hide="slide-down"
   >
-    <q-card class="text-accent">
+    <q-card class="text-black">
       <q-bar class="bg-accent text-white">
         <q-space />
         <q-btn
@@ -39,7 +39,7 @@
         </q-btn>
       </q-bar>
       <q-card-section class="fs-18 text-bold">
-        {{ $t("location.addnew_district") }}
+        {{ $t("notification.add") }}
       </q-card-section>
       <q-card-section>
         <q-card class="border-primary q-pa-md">
@@ -47,7 +47,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  {{ $t('location.selectDivision') }}
+                  {{ $t("notification.title") }} (বাংলা)*
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
@@ -63,7 +63,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  {{ $t('location.selectDivision') }}
+                  {{ $t("notification.title") }}  (In English)*
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
@@ -79,7 +79,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  বাংলা
+                  {{ $t("notification.description") }} (বাংলা)*
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-editor
@@ -95,12 +95,12 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  In English
+                  {{ $t("notification.description") }} (In English)*
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-editor
-                    ref="descriptionBnEl"
-                    v-model="notificationStore.notificationInfo.description.bn"
+                    ref="descriptionEnEl"
+                    v-model="notificationStore.notificationInfo.description.en"
                     outlined
                     dense
                     :rules="[required]"
@@ -119,7 +119,6 @@
                     v-model="notificationStore.notificationInfo.link"
                     outlined
                     dense
-                    :rules="[required]"
                   />
                 </div>
               </div>
@@ -143,7 +142,7 @@
             <div class="col-12">
               <div class="row">
                 <q-btn :label="$t('addnew')" color="light-green-8"
-              glossy @click="createDistrictManager"/>
+              glossy @click="createNotificationManager"/>
               </div>
             </div>
           </div>
@@ -163,20 +162,19 @@ const languageStore = useLanguageStore();
 const notificationStore = useNotificationStore();
 const maximizedToggle = ref(true);
 const titleBnEl = ref(null);
+const titleEnEl = ref(null);
 const descriptionBnEl = ref(null);
-const nameBnEl = ref(null);
+const descriptionEnEl = ref(null);
 
-const createDistrictManager = () => {
+const createNotificationManager = () => {
   titleBnEl.value.validate();
-  descriptionBnEl.value.validate();
-  nameBnEl.value.validate();
+  titleEnEl.value.validate();
   if (
     titleBnEl.value.hasError ||
-    descriptionBnEl.value.hasError ||
-    nameBnEl.value.hasError
+    titleEnEl.value.hasError
   ) {
     return;
   }
-  districtStore.createNewDistrict()
+  notificationStore.createNotification()
 };
 </script>

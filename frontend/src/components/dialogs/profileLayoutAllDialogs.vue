@@ -35,8 +35,9 @@
 
 <!-- location filter dialog -->
     <locationFilterDialog />
-<!-- location filter dialog -->
+<!-- notification dialog -->
     <createNotificationDialog />
+    <editNotificatinoDialog />
   </div>
 </template>
 <script setup>
@@ -71,4 +72,5 @@ import previewServiceProviderDialog from './serviceProviders/previewServiceProvi
 import locationFilterDialog from "src/components/dialogs/location/locationFilterDialog.vue";
 // location filter dialog
 import createNotificationDialog from "src/components/dialogs/notification/createNotificationDialog.vue";
+import editNotificatinoDialog from "src/components/dialogs/notification/editNotificatinoDialog.vue";
 </script>

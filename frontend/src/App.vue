@@ -11,7 +11,7 @@ import { onMounted, onBeforeMount } from "vue";
 // import { useUnionStore } from "./stores/locations/unionStore";
 // import { useWardStore } from "./stores/locations/wardStore";
 import { usePublicUserStore } from "./stores/user/publicStore";
-// import { socket, state } from "src/socket/socket";
+import { socket, state } from "src/socket/socket";
 // import { usePinlocationStore } from "./stores/locations/pinlocationStore";
 // const locationListGlobal = useLocalStorage("global-location-list", {});
 // const divisionStore = useDivisionStore();

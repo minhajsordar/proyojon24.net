@@ -107,22 +107,8 @@ const serviceProviderSchema = new mongoose.Schema({
         bn: { type: String },
         en: { type: String }
     },
-    specialties:
-    {
-        bn: { type: String },
-        en: { type: String }
-    },
-    extraCources:
-    {
-        bn: { type: String },
-        en: { type: String }
-    },
     serviceTitle:
     {
-        bn: { type: String },
-        en: { type: String }
-    },
-    serviceList:{
         bn: { type: String },
         en: { type: String }
     },

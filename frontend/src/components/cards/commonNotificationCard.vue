@@ -37,11 +37,7 @@
           >
             <span
               v-if="
-                date.isSameDate(
-                  date1,
-                  notification.updatedAt,
-                  /* optional */ 'hour'
-                )
+                date.getDateDiff(new Date(date1), notification.updatedAt, 'hour') == 1
               "
             >
               {{
@@ -49,7 +45,7 @@
               }}
               minute ago
             </span>
-            <span>
+            <span v-else>
               {{ date.getDateDiff(date1, notification.updatedAt, "hour") }} hour
               ago
             </span>
@@ -76,7 +72,6 @@ defineProps({
 const date1 = new Date();
 const date2 = new Date(2017, 3, 8);
 const unit = "days";
-
 const diff = date.getDateDiff(new Date(), date2, "days");
 const languageStore = useLanguageStore();
 </script>

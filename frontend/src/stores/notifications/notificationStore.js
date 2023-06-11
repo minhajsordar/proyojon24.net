@@ -15,6 +15,7 @@ export const useNotificationStore = defineStore('notification store', () => {
     publishedNotification = ref(null),
     last7DaysNotification = ref(null),
     openCreateNotificationDialog = ref(false),
+    openEditNotificationDialog = ref(false),
     notificationInfo = reactive({
       id: null,
       title: {
@@ -28,6 +29,30 @@ export const useNotificationStore = defineStore('notification store', () => {
       published: false,
       link: null,
     })
+  const openCreateNotificationManager =()=>{
+    notificationInfo.id = null
+    notificationInfo.title = {
+      bn: null,
+      en: null,
+    }
+    notificationInfo.description = {
+      bn: null,
+      en: null,
+    }
+    notificationInfo.published = false
+    notificationInfo.link = null
+
+    openCreateNotificationDialog.value =true
+  }
+  const openEditNotificationManager =(data)=>{
+    notificationInfo.id = data._id
+    notificationInfo.title = data.title
+    notificationInfo.description = data.description
+    notificationInfo.published = data.published
+    notificationInfo.link = data.link
+
+    openEditNotificationDialog.value =true
+  }
   const getNotificationList = async () => {
     const config = {
       method: "get",
@@ -62,7 +87,6 @@ export const useNotificationStore = defineStore('notification store', () => {
         published: true
       }
     };
-    loader.showLoader()
     try {
       const responseData = await api.request(config);
       publishedNotification.value = responseData.data;
@@ -72,7 +96,6 @@ export const useNotificationStore = defineStore('notification store', () => {
       publishedNotification.value = responseData.data.notifications.filter(e=>{
         return date.getDateDiff(new Date(), e.updatedAt, "days") >= 7
       })
-      loader.hideLoader()
     } catch (error) {
       console.log(error);
       Notify.create({
@@ -80,7 +103,6 @@ export const useNotificationStore = defineStore('notification store', () => {
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   const createNotification = async () => {
@@ -98,7 +120,13 @@ export const useNotificationStore = defineStore('notification store', () => {
     try {
       const responseData = await api.request(config);
       getNotificationList()
+      openCreateNotificationDialog.value = false
       loader.hideLoader()
+      Notify.create({
+        position: "center",
+        type: "positive",
+        message: "Notification Created Successfully.",
+      });
     } catch (error) {
       console.log(error);
       Notify.create({
@@ -110,20 +138,21 @@ export const useNotificationStore = defineStore('notification store', () => {
     }
   }
   const updateNotification = async () => {
-    const data = {}
+    const data = notificationInfo
     const config = {
-      method: "post",
+      method: "put",
       url: "api/common_notifications/" + notificationInfo.id,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
-      }
+      },data
     };
     loader.showLoader()
     try {
       const responseData = await api.request(config);
       getNotificationList()
+      openEditNotificationDialog.value = false
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -162,6 +191,9 @@ export const useNotificationStore = defineStore('notification store', () => {
   }
   return {
     openCreateNotificationDialog,
+    openCreateNotificationManager,
+    openEditNotificationDialog,
+    openEditNotificationManager,
     notificationInfo,
     notificationList,
     getPublishedNotification,

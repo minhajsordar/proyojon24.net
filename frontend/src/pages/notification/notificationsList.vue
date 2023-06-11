@@ -14,7 +14,7 @@
                 dense
                 glossy
                 size="sm"
-                @click="notificationStore.openCreateNotificationDialog= true"
+                @click="notificationStore.openCreateNotificationManager"
               />
             </div>
             <q-separator class="q-my-sm" />
@@ -22,7 +22,8 @@
               <thead class="bg-blue-grey-2">
                 <tr>
                   <th>{{ $t("serial") }}</th>
-                  <th>{{ $t("notification") }}</th>
+                  <th>{{ $t("notification.list") }}</th>
+                  <th>{{ $t("status") }}</th>
                   <th>{{ $t("action") }}</th>
                 </tr>
               </thead>
@@ -38,17 +39,28 @@
                   </td>
                   <td>
                     {{ notification.title[languageStore.language] }}
+                    <q-separator/>
                     <div
                       v-html="notification.description[languageStore.language]"
                     ></div>
+                    <div v-if="notification.link">
+                      <q-separator/>
+                      <a :href="notification.link" target="_blank">{{ notification.link }}</a></div>
+                  </td>
+
+                  <td>
+                    <q-badge :color="notification.published ? 'primary':'grey-8'">
+                      {{ notification.published ? "Published":"Not Published Yet" }}
+                    </q-badge>
                   </td>
                   <td>
                     <q-btn
                       class="q-ml-xs"
-                      :label="$t('preview')"
+                      :label="$t('edit')"
                       size="sm"
                       dense
                       color="positive"
+                      @click="notificationStore.openEditNotificationManager(notification)"
                     />
                     <q-btn
                       class="q-ml-xs"

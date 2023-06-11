@@ -84,13 +84,13 @@
         v-if="authStore?.loginUserInfo?.isSuperAdmin"
         to="/notification_list"
         active-class="text-white"
-        >{{ $t("notifications") }}</router-link
+        >{{ $t("notification.list") }}</router-link
       >
     </div>
     <q-space />
 
     <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-      <q-btn dense flat >
+      <q-btn dense flat @click="$router.push('notifications')" >
         <q-icon name="notifications" size="25px" />
           <q-badge :label="notificationStore?.last7DaysNotification?.length" class="absolute-top-right fs-10" color="red"/>
       </q-btn>
@@ -216,9 +216,12 @@ import { useAuthStore } from "src/stores/auth/authStore";
 import profileMobileMenus from "./mobileView/profileMobileMenus.vue";
 
 import { useNotificationStore } from "src/stores/notifications/notificationStore.js";
-
+import { socket, state } from "src/socket/socket";
 const notificationStore = useNotificationStore();
 notificationStore.getPublishedNotification();
+socket.on('push_new_notification',()=>{
+  notificationStore.getPublishedNotification();
+})
 
 
 const menuControllerStore = useMenuControllerStore();

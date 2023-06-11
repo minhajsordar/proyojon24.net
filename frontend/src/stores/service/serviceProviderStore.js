@@ -114,19 +114,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         bn: null,
         en: null,
       },
-      extraCources: {
-        bn: null,
-        en: null,
-      },
       serviceTitle: {
-        bn: null,
-        en: null,
-      },
-      serviceList: {
-        bn: null,
-        en: null,
-      },
-      specialties: {
         bn: null,
         en: null,
       },

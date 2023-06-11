@@ -306,10 +306,7 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("phone") }}*
-
-                </div>
+                <div class="col-12 text-bold">{{ $t("phone") }}*</div>
                 <div class="col-12">
                   <q-input
                     ref="phoneNumberEnEl"
@@ -325,10 +322,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("phone") }}
-
-                </div>
+                <div class="col-12 text-bold">{{ $t("phone") }}</div>
                 <div class="col-12">
                   <q-input
                     v-model="
@@ -346,13 +340,10 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("facebook") }}
-
                 </div>
                 <div class="col-12">
                   <q-input
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.facebook
-                    "
+                    v-model="serviceProviderStore.serviceProviderInfo.facebook"
                     outlined
                     dense
                   />
@@ -363,13 +354,10 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("whatsapp") }}
-
                 </div>
                 <div class="col-12">
                   <q-input
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.whatsapp
-                    "
+                    v-model="serviceProviderStore.serviceProviderInfo.whatsapp"
                     outlined
                     dense
                   />
@@ -407,40 +395,6 @@
               </div>
             </div>
             <!-- degree end -->
-            <!-- extraCources start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("extraCourcesinen") }}</div>
-                <div class="col-12">
-                  <q-input
-                    ref="extraCourcesEnEl"
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.extraCources.en
-                    "
-                    outlined
-                    dense
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("extraCourcesinbn") }}</div>
-                <div class="col-12">
-                  <q-input
-                    ref="extraCourcesBnEl"
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.extraCources.bn
-                    "
-                    outlined
-                    dense
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- extraCources end -->
             <!-- serviceTitle start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
@@ -475,85 +429,6 @@
               </div>
             </div>
             <!-- serviceTitle end -->
-            <!-- serviceList start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("serviceListinen") }}
-                  <div class="fs-12">{{ $t("seperator") }}</div>
-                </div>
-                <div class="col-12">
-                  <q-input
-                    ref="serviceListEnEl"
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.serviceList.en
-                    "
-                    outlined
-                    dense
-                    :rules="[required]"
-                    type="textarea"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("serviceListinbn") }}
-
-                  <div class="fs-12">{{ $t("seperator") }}</div>
-                </div>
-                <div class="col-12">
-                  <q-input
-                    ref="serviceListinBn"
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.serviceList.bn
-                    "
-                    outlined
-                    dense
-                    :rules="[required]"
-                    type="textarea"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- serviceList end -->
-            <!-- specialties start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("specialtiesinEn") }}</div>
-                <div class="col-12">
-                  <q-input
-                    ref="specialtiesEnEl"
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.specialties.en
-                    "
-                    outlined
-                    dense
-                    type="textarea"
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("specialtiesinBn") }}</div>
-                <div class="col-12">
-                  <q-input
-                    ref="specialtiesBnEl"
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.specialties.bn
-                    "
-                    outlined
-                    dense
-                    type="textarea"
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- specialties end -->
             <!-- description start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
@@ -561,15 +436,103 @@
                   {{ $t("descriptioninEn") }}
                 </div>
                 <div class="col-12">
-                  <q-input
-                    ref="descriptionEnEl"
+                  <q-editor
                     v-model="
                       serviceProviderStore.serviceProviderInfo.description.en
                     "
                     outlined
-                    dense
-                    type="textarea"
-                    :rules="[required]"
+                    :dense="$q.screen.lt.md"
+                    :toolbar="[
+                      [
+                        {
+                          label: $q.lang.editor.align,
+                          icon: $q.iconSet.editor.align,
+                          fixedLabel: true,
+                          list: 'only-icons',
+                          options: ['left', 'center', 'right', 'justify'],
+                        },
+                        {
+                          label: $q.lang.editor.align,
+                          icon: $q.iconSet.editor.align,
+                          fixedLabel: true,
+                          options: ['left', 'center', 'right', 'justify'],
+                        },
+                      ],
+                      [
+                        'bold',
+                        'italic',
+                        'strike',
+                        'underline',
+                        'subscript',
+                        'superscript',
+                      ],
+                      ['token', 'hr', 'link', 'custom_btn'],
+                      [
+                        {
+                          label: $q.lang.editor.formatting,
+                          icon: $q.iconSet.editor.formatting,
+                          list: 'no-icons',
+                          options: [
+                            'p',
+                            'h1',
+                            'h2',
+                            'h3',
+                            'h4',
+                            'h5',
+                            'h6',
+                            'code',
+                          ],
+                        },
+                        {
+                          label: $q.lang.editor.fontSize,
+                          icon: $q.iconSet.editor.fontSize,
+                          fixedLabel: true,
+                          fixedIcon: true,
+                          list: 'no-icons',
+                          options: [
+                            'size-1',
+                            'size-2',
+                            'size-3',
+                            'size-4',
+                            'size-5',
+                            'size-6',
+                            'size-7',
+                          ],
+                        },
+                        {
+                          label: $q.lang.editor.defaultFont,
+                          icon: $q.iconSet.editor.font,
+                          fixedIcon: true,
+                          list: 'no-icons',
+                          options: [
+                            'default_font',
+                            'arial',
+                            'arial_black',
+                            'comic_sans',
+                            'courier_new',
+                            'impact',
+                            'lucida_grande',
+                            'times_new_roman',
+                            'verdana',
+                          ],
+                        },
+                        'removeFormat',
+                      ],
+                      ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
+
+                      ['undo', 'redo'],
+                      ['viewsource'],
+                    ]"
+                    :fonts="{
+                      arial: 'Arial',
+                      arial_black: 'Arial Black',
+                      comic_sans: 'Comic Sans MS',
+                      courier_new: 'Courier New',
+                      impact: 'Impact',
+                      lucida_grande: 'Lucida Grande',
+                      times_new_roman: 'Times New Roman',
+                      verdana: 'Verdana',
+                    }"
                   />
                 </div>
               </div>
@@ -580,15 +543,102 @@
                   {{ $t("descriptioninBn") }}
                 </div>
                 <div class="col-12">
-                  <q-input
-                    ref="descriptionBnEl"
+                  <q-editor
                     v-model="
                       serviceProviderStore.serviceProviderInfo.description.bn
                     "
-                    outlined
-                    dense
-                    type="textarea"
-                    :rules="[required]"
+                    :dense="$q.screen.lt.md"
+                    :toolbar="[
+                      [
+                        {
+                          label: $q.lang.editor.align,
+                          icon: $q.iconSet.editor.align,
+                          fixedLabel: true,
+                          list: 'only-icons',
+                          options: ['left', 'center', 'right', 'justify'],
+                        },
+                        {
+                          label: $q.lang.editor.align,
+                          icon: $q.iconSet.editor.align,
+                          fixedLabel: true,
+                          options: ['left', 'center', 'right', 'justify'],
+                        },
+                      ],
+                      [
+                        'bold',
+                        'italic',
+                        'strike',
+                        'underline',
+                        'subscript',
+                        'superscript',
+                      ],
+                      ['token', 'hr', 'link', 'custom_btn'],
+                      [
+                        {
+                          label: $q.lang.editor.formatting,
+                          icon: $q.iconSet.editor.formatting,
+                          list: 'no-icons',
+                          options: [
+                            'p',
+                            'h1',
+                            'h2',
+                            'h3',
+                            'h4',
+                            'h5',
+                            'h6',
+                            'code',
+                          ],
+                        },
+                        {
+                          label: $q.lang.editor.fontSize,
+                          icon: $q.iconSet.editor.fontSize,
+                          fixedLabel: true,
+                          fixedIcon: true,
+                          list: 'no-icons',
+                          options: [
+                            'size-1',
+                            'size-2',
+                            'size-3',
+                            'size-4',
+                            'size-5',
+                            'size-6',
+                            'size-7',
+                          ],
+                        },
+                        {
+                          label: $q.lang.editor.defaultFont,
+                          icon: $q.iconSet.editor.font,
+                          fixedIcon: true,
+                          list: 'no-icons',
+                          options: [
+                            'default_font',
+                            'arial',
+                            'arial_black',
+                            'comic_sans',
+                            'courier_new',
+                            'impact',
+                            'lucida_grande',
+                            'times_new_roman',
+                            'verdana',
+                          ],
+                        },
+                        'removeFormat',
+                      ],
+                      ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
+
+                      ['undo', 'redo'],
+                      ['viewsource'],
+                    ]"
+                    :fonts="{
+                      arial: 'Arial',
+                      arial_black: 'Arial Black',
+                      comic_sans: 'Comic Sans MS',
+                      courier_new: 'Courier New',
+                      impact: 'Impact',
+                      lucida_grande: 'Lucida Grande',
+                      times_new_roman: 'Times New Roman',
+                      verdana: 'Verdana',
+                    }"
                   />
                 </div>
               </div>
@@ -738,8 +788,6 @@ const createServiceManager = () => {
   phoneNumberEnEl.value.validate();
   serviceTitleEnEl.value.validate();
   serviceTitleBnEl.value.validate();
-  serviceListEnEl.value.validate();
-  serviceListinBn.value.validate();
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
@@ -752,8 +800,6 @@ const createServiceManager = () => {
     phoneNumberEnEl.value.hasError ||
     serviceTitleEnEl.value.hasError ||
     serviceTitleBnEl.value.hasError ||
-    serviceListEnEl.value.hasError ||
-    serviceListinBn.value.hasError ||
     coverImageEl.value.hasError
   ) {
     return;

@@ -229,10 +229,7 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         degree,
         service,
         description,
-        extraCources,
         serviceTitle,
-        serviceList,
-        specialties,
         phoneNumber1,
         phoneNumber2,
         facebook,
@@ -249,15 +246,12 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceProvider.serviceCategory = serviceCategory
         serviceProvider.name = name
         serviceProvider.description = description
+        serviceProvider.degree = degree
         serviceProvider.image = image
         serviceProvider.serviceImage = serviceImage
         serviceProvider.serviceProviderLocation = serviceProviderLocation
-        serviceProvider.degree = degree
         serviceProvider.service = service
-        serviceProvider.specialties = specialties
-        serviceProvider.extraCources = extraCources
         serviceProvider.serviceTitle = serviceTitle
-        serviceProvider.serviceList = serviceList
         serviceProvider.phoneNumber1 = phoneNumber1
         serviceProvider.phoneNumber2 = phoneNumber2
         serviceProvider.facebook = facebook
@@ -392,13 +386,10 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         image,
         serviceImage,
         serviceProviderLocation,
-        degree,
         service,
+        degree,
         description,
-        extraCources,
         serviceTitle,
-        serviceList,
-        specialties,
         phoneNumber1,
         phoneNumber2,
         facebook,
@@ -425,13 +416,10 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         image,
         serviceImage,
         serviceProviderLocation,
-        degree,
         service,
-        extraCources,
         serviceTitle,
-        serviceList,
-        specialties,
         description,
+        degree,
         phoneNumber1,
         phoneNumber2,
         facebook,

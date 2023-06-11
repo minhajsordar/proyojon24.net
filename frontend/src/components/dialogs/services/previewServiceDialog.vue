@@ -6,7 +6,7 @@
     transition-show="slide-up"
     transition-hide="slide-down"
   >
-    <q-card class="text-primary">
+    <q-card class="text-black">
       <q-bar class="bg-primary text-white">
         <q-space />
         <q-btn

@@ -26,6 +26,7 @@ export default {
   descriptioninEn: 'Service Description In English',
   descriptioninBn: 'Service Description In Bangla',
   action: 'Action',
+  status: 'Status',
   delete: 'Delete',
   edit: 'Edit',
   preview: 'Preview',
@@ -57,6 +58,13 @@ export default {
   removeFromSuggestion: 'Remove From Suggestion List',
   permission: 'Permission',
   noInfo: 'Information Not Added Yet.',
+  notification:{
+    add: 'Add new notification',
+    edit: 'Edit notification',
+    list: 'Notifications',
+    title: 'Title',
+    description: 'Description',
+  },
   usermenus:{
     profile: 'Profile',
     help: 'help',

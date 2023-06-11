@@ -47,82 +47,21 @@
                   ]
                 }}
               </span>
-              <span v-if="serviceProviderStore.serviceProvider?.specialties[
-                  languageStore.language
-                ]">,{{
-                serviceProviderStore.serviceProvider?.specialties[
-                  languageStore.language
-                ]
-              }}</span>
             </div>
           </q-card-section>
         </q-card>
         <div class="row q-col-gutter-md q-mt-xs">
           <div class="col-lg-8 col-sm-8 col-xs-12">
             <q-card class="q-pa-md">
-              <div
-                class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
-              >
-                <span class="fs-18"> যেসকল সেবা প্রদান করেন। </span>
-              </div>
-              <div class="row q-col-gutter-sm q-mt-xs fs-18">
-                <div
-                  class="col-lg-6 col-sm-6 col-xs-12 col-12"
-                  v-for="(
-                    serviceL, index
-                  ) in serviceProviderStore.serviceProvider?.serviceList[
-                    languageStore.language
-                  ].split('_')"
-                  :key="index"
-                >
-                  <q-icon class="text-accent" name="check_box" />
-                  {{ serviceL }}
-                </div>
-              </div>
               <div class="q-mt-md fs-16">
                 <div
                   class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
                 >
                   <span class="fs-18"> বিস্তারিত: </span>
                 </div>
-                <div class="q-mt-md">
-                  {{
-                    serviceProviderStore.serviceProvider?.description[
-                      languageStore.language
-                    ]
-                  }}
-                </div>
-              </div>
-              <div class="q-mt-md fs-16" v-if="serviceProviderStore.serviceProvider?.specialties[
+                <div class="q-mt-md" v-html="serviceProviderStore.serviceProvider?.description[
                       languageStore.language
                     ]">
-                <div
-                  class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
-                >
-                  <span class="fs-18"> specialties: </span>
-                </div>
-                <div class="q-mt-md">
-                  {{
-                    serviceProviderStore.serviceProvider?.specialties[
-                      languageStore.language
-                    ]
-                  }}
-                </div>
-              </div>
-              <div class="q-mt-md fs-16" v-if=" serviceProviderStore.serviceProvider?.extraCources[
-                      languageStore.language
-                    ]">
-                <div
-                  class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
-                >
-                  <span class="fs-18"> extraCources: </span>
-                </div>
-                <div class="q-mt-md">
-                  {{
-                    serviceProviderStore.serviceProvider?.extraCources[
-                      languageStore.language
-                    ]
-                  }}
                 </div>
               </div>
             </q-card>
