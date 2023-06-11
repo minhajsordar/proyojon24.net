@@ -26,7 +26,7 @@
           authStore?.loginUserInfo?.name[languageStore.language]
         }}</q-item-label>
         <q-item-label v-else>Guest User</q-item-label>
-        <q-item-label v-if="authStore?.loginUserInfo?.username" caption class="text-white">
+        <q-item-label v-if="authStore?.loginUserInfo" caption class="text-white">
           {{
             authStore?.loginUserInfo?.isSuperAdmin
               ? "Super Admin"
@@ -39,7 +39,7 @@
               : "Guest"
           }}
         </q-item-label>
-        <q-item-label v-if="!authStore?.loginUserInfo?.username" caption class="text-white">
+        <q-item-label v-if="!authStore?.loginUserInfo" caption class="text-white">
           Login/Register
 </q-item-label>
       </q-item-section>
