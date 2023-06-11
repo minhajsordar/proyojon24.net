@@ -39,7 +39,7 @@
               : "Guest"
           }}
         </q-item-label>
-        <q-item-label v-else caption class="text-white">
+        <q-item-label v-if="!authStore?.loginUserInfo?.username" caption class="text-white">
           Login/Register
 </q-item-label>
       </q-item-section>
