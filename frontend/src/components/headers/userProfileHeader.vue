@@ -80,10 +80,20 @@
         active-class="text-white"
         >{{ $t("headermenus.pending_list") }}</router-link
       >
+      <router-link
+        v-if="authStore?.loginUserInfo?.isSuperAdmin"
+        to="/notification_list"
+        active-class="text-white"
+        >{{ $t("notifications") }}</router-link
+      >
     </div>
     <q-space />
 
     <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
+      <q-btn dense flat >
+        <q-icon name="notifications" size="25px" />
+          <q-badge :label="notificationStore?.last7DaysNotification?.length" class="absolute-top-right fs-10" color="red"/>
+      </q-btn>
       <q-btn dense flat>
         <div class="row items-center no-wrap">
           <q-icon name="language" size="20px" />
@@ -204,6 +214,13 @@ import { isObjEmpty } from "src/global_js/utils";
 
 import { useAuthStore } from "src/stores/auth/authStore";
 import profileMobileMenus from "./mobileView/profileMobileMenus.vue";
+
+import { useNotificationStore } from "src/stores/notifications/notificationStore.js";
+
+const notificationStore = useNotificationStore();
+notificationStore.getPublishedNotification();
+
+
 const menuControllerStore = useMenuControllerStore();
 const languageStore = useLanguageStore();
 const authStore = useAuthStore();

@@ -83,6 +83,13 @@ body,
     margin-left: auto;
     margin-right: auto;
   }
+  .notification-page-width {
+    padding: 0px 20px;
+    max-width: 40rem;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 @media screen and (max-width: 900px) {
   .container-section,
@@ -95,6 +102,10 @@ body,
   .container-section-py-xs {
     padding: 10px 0px;
     .inner-section {
+      padding: 0px 10px;
+      width: 100%;
+    }
+    .notification-page-width {
       padding: 0px 10px;
       width: 100%;
     }
@@ -111,6 +122,10 @@ body,
   .container-section-py-xs {
     padding: 5px 0px;
     .inner-section {
+      padding: 0px 5px;
+      width: 100%;
+    }
+    .notification-page-width {
       padding: 0px 5px;
       width: 100%;
     }

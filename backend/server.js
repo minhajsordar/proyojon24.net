@@ -13,6 +13,7 @@ import districtRoutes from './routes/districtRoutes.js'
 import subDistrictRoutes from './routes/subDistrictRoutes.js'
 import unionRoutes from './routes/unionRoutes.js'
 // import wardRoutes from './routes/wardRoutes.js'
+import commonNotificationRoutes from './routes/commonNotificationRoutes.js'
 import pinLocationRoutes from './routes/pinLocationRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
@@ -80,6 +81,7 @@ app.use('/api/districts',districtRoutes)
 app.use('/api/subdistricts',subDistrictRoutes)
 app.use('/api/unions',unionRoutes)
 // app.use('/api/wards',wardRoutes)
+app.use('/api/common_notifications',commonNotificationRoutes)
 app.use('/api/pinlocations',pinLocationRoutes)
 app.get('/api/seeder', (req,res)=>{
     importData()

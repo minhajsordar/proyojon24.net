@@ -32,6 +32,7 @@ const routes = [
       { path: '/service_categorys_list/:id', component: () => import('pages/publicpages/serviceCategorys.vue') },
       { path: '/service_providers_list/:id', component: () => import('pages/publicpages/serviceProviders.vue') },
       { path: '/service_provider/:id', component: () => import('pages/publicpages/serviceProviderProfile.vue') },
+      { path: '/notifications', component: () => import('pages/publicpages/commonNotifications.vue') },
   //   ]
   // },
   // {
@@ -56,6 +57,10 @@ const routes = [
       },
       {
         path: '/users', component: () => import('pages/user/userListPage.vue'),
+        beforeEnter: checkLogin,
+      },
+      {
+        path: '/notification_list', component: () => import('pages/notification/notificationsList.vue'),
         beforeEnter: checkLogin,
       },
       {
