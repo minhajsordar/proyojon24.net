@@ -2,7 +2,7 @@
   <div class="container-section-py-xs">
     <div class="inner-section">
       <div class="full-width">
-        <q-card class="q-pa-sm bg-blue-grey-10 text-white">
+        <q-card class="q-pa-sm bg-accent text-white">
           <q-card-section
             class="q-pa-none profile-image-section relative-position"
           >
@@ -32,12 +32,24 @@
             <div class="fs-23">
               <span
                 >{{
+                  serviceProviderStore.serviceProvider?.degree[
+                    languageStore.language
+                  ]
+                }}
+              </span>
+              <span
+              v-if="serviceProviderStore.serviceProvider?.serviceTitle[
+                    languageStore.language
+                  ]"
+                >, {{
                   serviceProviderStore.serviceProvider?.serviceTitle[
                     languageStore.language
                   ]
-                }},
+                }}
               </span>
-              <span>{{
+              <span v-if="serviceProviderStore.serviceProvider?.specialties[
+                  languageStore.language
+                ]">,{{
                 serviceProviderStore.serviceProvider?.specialties[
                   languageStore.language
                 ]
@@ -49,7 +61,7 @@
           <div class="col-lg-8 col-sm-8 col-xs-12">
             <q-card class="q-pa-md">
               <div
-                class="q-mt-sm q-pa-sm bg-blue-grey-10 text-yellow text-center"
+                class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
               >
                 <span class="fs-18"> যেসকল সেবা প্রদান করেন। </span>
               </div>
@@ -63,13 +75,13 @@
                   ].split('_')"
                   :key="index"
                 >
-                  <q-icon name="check_box" />
+                  <q-icon class="text-accent" name="check_box" />
                   {{ serviceL }}
                 </div>
               </div>
               <div class="q-mt-md fs-16">
                 <div
-                  class="q-mt-sm q-pa-sm bg-blue-grey-10 text-yellow text-center"
+                  class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
                 >
                   <span class="fs-18"> বিস্তারিত: </span>
                 </div>
@@ -81,12 +93,40 @@
                   }}
                 </div>
               </div>
+              <div class="q-mt-md fs-16">
+                <div
+                  class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
+                >
+                  <span class="fs-18"> specialties: </span>
+                </div>
+                <div class="q-mt-md">
+                  {{
+                    serviceProviderStore.serviceProvider?.specialties[
+                      languageStore.language
+                    ]
+                  }}
+                </div>
+              </div>
+              <div class="q-mt-md fs-16">
+                <div
+                  class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
+                >
+                  <span class="fs-18"> extraCources: </span>
+                </div>
+                <div class="q-mt-md">
+                  {{
+                    serviceProviderStore.serviceProvider?.extraCources[
+                      languageStore.language
+                    ]
+                  }}
+                </div>
+              </div>
             </q-card>
           </div>
           <div class="col-lg-4 col-sm-4 col-xs-12">
             <q-card class="q-pa-md">
               <div
-                class="q-mt-sm q-pa-sm bg-blue-grey-10 text-yellow text-center"
+                class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
               >
                 <span class="fs-18"> যোগাযোগ করুন </span>
               </div>
