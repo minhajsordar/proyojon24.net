@@ -2,7 +2,7 @@
   <div class="container-section-py-xs">
     <div class="inner-section">
       <div class="full-width">
-        <q-card class="q-pa-sm bg-accent text-white">
+        <q-card class="q-pa-sm bg-primary text-white">
           <q-card-section
             class="q-pa-none profile-image-section relative-position"
           >
