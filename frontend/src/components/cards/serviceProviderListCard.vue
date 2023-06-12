@@ -34,12 +34,11 @@
           <q-separator/>
           <div class="fs-12 text-bold">
             <q-icon class="bg-primary text-white " name="location_on"/>
-            <span>{{serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]}}, </span>
-            <span>{{serviceProvider.serviceProviderLocation?.district?.name[languageStore.language]}}, </span>
-            <span>{{serviceProvider.serviceProviderLocation?.subDistrict?.name[languageStore.language]}}, </span>
-            <span>{{serviceProvider.serviceProviderLocation?.union?.name[languageStore.language]}}</span>
-            <span v-show="serviceProvider.serviceProviderLocation?.exact">, </span>
-            <span v-if="serviceProvider.serviceProviderLocation?.exact">{{serviceProvider.serviceProviderLocation?.exact[languageStore.language]}}</span>
+            <span v-if="serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]">, {{serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]}} </span>
+            <span v-if="serviceProvider.serviceProviderLocation?.district?.name[languageStore.language]">, {{serviceProvider.serviceProviderLocation?.district?.name[languageStore.language]}} </span>
+            <span v-if="serviceProvider.serviceProviderLocation?.subDistrict?.name[languageStore.language]">, {{serviceProvider.serviceProviderLocation?.subDistrict?.name[languageStore.language]}} </span>
+            <span v-if="serviceProvider.serviceProviderLocation?.union?.name[languageStore.language]">, {{serviceProvider.serviceProviderLocation?.union?.name[languageStore.language]}}</span>
+            <span v-if="serviceProvider.serviceProviderLocation?.exact">, {{serviceProvider.serviceProviderLocation?.exact[languageStore.language]}}</span>
           </div>
         </q-card-section>
       </div>
