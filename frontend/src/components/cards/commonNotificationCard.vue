@@ -37,7 +37,7 @@
           >
             <span
               v-if="
-                date.getDateDiff(new Date(date1), notification.updatedAt, 'hour') == 1
+                date.getDateDiff(new Date(date1), notification.updatedAt, 'hour') == 0
               "
             >
               {{
