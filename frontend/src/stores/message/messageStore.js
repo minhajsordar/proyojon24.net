@@ -4,6 +4,7 @@ import loader from 'loader-animation'
 import { useRouter } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
+import { socket } from "src/socket/socket";
 import { Notify, date } from 'quasar';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
@@ -48,6 +49,7 @@ export const useMessageStore = defineStore('message store', () => {
       recipient: selectedRoomUser2.value.user._id,
       content: messageContent.value
     }
+    socket.emit('creating_new_message',{...data, token:loginUser.value.token})
     const config = {
       method: "post",
       url: "api/message",

@@ -1,5 +1,9 @@
 <template>
-  <div class="q-virtual-scroll__content" tabindex="-1">
+  <q-scroll-area
+    ref="scrollAreaRef"
+    class="full-width q-px-sm"
+    style="height: calc(100vh - 130px)"
+  >
     <div
       v-for="(message, index) in messageStore.messageList?.messages"
       :key="index"
@@ -36,7 +40,11 @@
                   : 'q-message-name--sent',
               ]"
             >
-              {{ message.sender.name[languageStore.language] }}
+              {{
+                authStore.loginUserInfo._id !== message.sender._id
+                  ? message.sender.name[languageStore.language]
+                  : "me"
+              }}
             </div>
             <div
               class="q-message-text"
@@ -74,16 +82,16 @@
                   <span
                     v-if="
                       date.isSameDate(
-                        date1,
+                        new Date(),
                         message.updatedAt,
-                        /* optional */ unit
+                        /* optional */ 'days'
                       )
                     "
                   >
                     <span
                       v-if="
                         date.getDateDiff(
-                          new Date(date1),
+                          new Date(),
                           message.updatedAt,
                           'hour'
                         ) == 0
@@ -91,7 +99,7 @@
                     >
                       {{
                         date.getDateDiff(
-                          date1,
+                          new Date(),
                           message.updatedAt,
                           "minute"
                         )
@@ -100,14 +108,14 @@
                     </span>
                     <span v-else>
                       {{
-                        date.getDateDiff(date1, message.updatedAt, "hour")
+                        date.getDateDiff(new Date(), message.updatedAt, "hour")
                       }}
                       hour ago
                     </span>
                   </span>
                   <span v-else>
                     {{
-                      date.getDateDiff(date1, message.updatedAt, unit)
+                      date.getDateDiff(new Date(), message.updatedAt, "days")
                     }}
                     days ago</span
                   >
@@ -118,19 +126,36 @@
         </div>
       </div>
     </div>
-  </div>
+  </q-scroll-area>
 </template>
 <script setup>
-import { date } from "quasar";
+import { ref, onMounted, watch } from "vue";
+import { date, scroll } from "quasar";
 import { useAuthStore } from "src/stores/auth/authStore";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useMessageStore } from "src/stores/message/messageStore";
+import { useRoomsStore } from "src/stores/message/roomStore";
+import { socket } from "src/socket/socket";
+import { storeToRefs } from "pinia";
 
-const date1 = new Date();
-const date2 = new Date(2017, 3, 8);
-const unit = "days";
-const diff = date.getDateDiff(new Date(), date2, "days");
 const messageStore = useMessageStore();
+const { messageList } = storeToRefs(messageStore);
 const authStore = useAuthStore();
 const languageStore = useLanguageStore();
+const scrollAreaRef = ref(null);
+const scrollToBottom = () => {
+  scrollAreaRef.value.setScrollPercentage("vertical", 1.0, 100);
+};
+watch(messageList, () => {
+  setTimeout(() => {
+    scrollToBottom();
+    console.log("watch effect");
+  }, 500);
+});
+// socket.on("new_message", (argument) => {
+//   if(argument._doc.receipent == authStore.loginUserInfo._id){
+//     console.log("playing sound")
+//   }
+//   console.log("new message")
+// });
 </script>

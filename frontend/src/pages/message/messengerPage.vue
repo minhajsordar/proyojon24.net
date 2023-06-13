@@ -21,7 +21,7 @@
     </q-drawer>
 
     <q-page-container>
-      <q-page padding>
+      <q-page >
         <messageArea />
       </q-page>
     </q-page-container>
@@ -72,6 +72,7 @@ onMounted(()=>{
 onBeforeMount(() => {
   authStore.checkLogin();
 });
+
 </script>
 <style lang="scss" scoped>
 .menu-list .q-item {

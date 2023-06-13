@@ -37,6 +37,7 @@
 import { ref } from "vue";
 import { dom } from "quasar";
 import { useMessageStore } from "src/stores/message/messageStore";
+
 const messageStore = useMessageStore()
 
 const { height, width } = dom;
@@ -56,5 +57,6 @@ const sendMessageManager =()=>{
     return
   }
   messageStore.createMessage()
+  inputTypeTextarea.value = false
 }
 </script>

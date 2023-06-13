@@ -23,17 +23,9 @@ socket.on("disconnect", () => {
   console.log("socket disconnected")
 });
 
-socket.on("foo", (...args) => {
-  state.fooEvents.push(args);
-  console.log(args)
-});
-
-socket.on("bar", (...args) => {
-  state.barEvents.push(args);
-});
-socket.on("new_message", (...args) => {
-  console.log("new message",args)
-});
+// socket.on("new_message", (...args) => {
+//   console.log("new message",args)
+// });
 socket.on("push_new_notification", (...args) => {
   state.pushNotifications.push(args);
   args.forEach(arg => {

@@ -27,23 +27,23 @@
 
     <q-item-section side top class="fs-10">
       <span
-        v-if="date.isSameDate(date1, room?.updatedAt, /* optional */ unit)"
+        v-if="date.isSameDate( new Date(), room?.updatedAt, /* optional */ unit)"
       >
         <span
           v-if="
-            date.getDateDiff(new Date(date1), room?.updatedAt, 'hour') == 0
+            date.getDateDiff(new Date(), room?.updatedAt, 'hour') == 0
           "
         >
-          {{ date.getDateDiff(date1, room?.updatedAt, "minute") }}
+          {{ date.getDateDiff( new Date(), room?.updatedAt, "minute") }}
           minute ago
         </span>
         <span v-else>
-          {{ date.getDateDiff(date1, room?.updatedAt, "hour") }}
+          {{ date.getDateDiff( new Date(), room?.updatedAt, "hour") }}
           hour ago
         </span>
       </span>
       <span v-else>
-        {{ date.getDateDiff(date1, room?.updatedAt, unit) }}
+        {{ date.getDateDiff( new Date(), room?.updatedAt, unit) }}
         days ago</span
       >
     </q-item-section>
@@ -100,5 +100,11 @@ const roomClickManager = (id) => {
 socket.on("new_message", () => {
   roomStore.getMyRooms();
   messageStore.getMessages();
+});
+
+var audio = new Audio("/sounds/new_messenge_ton.mp3"); // path to file
+
+socket.on("receiving_new_message", (argument) => {
+  audio.play();
 });
 </script>

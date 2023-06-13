@@ -53,12 +53,14 @@ const createPersonalMessage = expressAsyncHandler(async (req, res) => {
         personalRoom.messages = createdPersonalMessage._id              // assign last message id to personal room.
         await personalRoom.save()                                       // finally save last message id to personal room.
         req.io.to(req.body.room).emit('new_message', {...createdPersonalMessage })
+        console.log(req.body.room)
         res.status(201).json(createdPersonalMessage)
     } else {
         res.status(404)
         throw new Error('Room not provided.')
     }
 })
+
 
 export {
     getPersonalMessages,

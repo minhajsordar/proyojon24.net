@@ -42,25 +42,17 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-    // ...
-    // console.log("user connected, socket id: ", socket.id)
-    //   socket.emit('foo',{"message":"hello"})
     socket.on('joinRoom', (arg) => {
-
         // const user = userJoin(socket.id, room)
-if(arg?._id){
-
-    socket.join(arg._id)
-    console.log(arg._id, "joining")
-}
-
-
-        // Send users and room info
-        // io.to(user.room).emit('roomUsers', {
-        //     room: user.room,
-        //     users: getRoomUsers(user.room)
-        // })
+        if (arg?._id) {
+            socket.join(arg._id)
+        }
     })
+    socket.on('creating_new_message', (arg) => {
+        // const user = userJoin(socket.id, room)
+        socket.to(arg.room).emit('receiving_new_message','ping-new-message')
+    })
+    
 });
 
 app.use((req, res, next) => {
