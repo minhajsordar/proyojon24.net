@@ -6,20 +6,14 @@ const commonNotificationSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    title: {
-        bn: { type: String, required: true },
-        en: { type: String, required: true },
-    },
-    description: {
-        bn: { type: String, default: null },
-        en: { type: String, default: null },
-    },
+    title: { type: String, required: true },
+    description: { type: String},
     published: {
         type: Boolean,
         required: true,
         default: false
     },
-    link: { type: String, default:null }
+    link: { type: String, default: null }
 }, {
     timestamps: true
 });

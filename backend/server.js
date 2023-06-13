@@ -14,6 +14,8 @@ import subDistrictRoutes from './routes/subDistrictRoutes.js'
 import unionRoutes from './routes/unionRoutes.js'
 // import wardRoutes from './routes/wardRoutes.js'
 import commonNotificationRoutes from './routes/commonNotificationRoutes.js'
+import personalRoomRoutes from './routes/personalRoomRoutes.js'
+import personalMessageRoutes from './routes/personalMessageRoutes.js'
 import pinLocationRoutes from './routes/pinLocationRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
@@ -24,6 +26,7 @@ import { importData } from './seeder.js'
 // import { importData } from './seederUnions.js'
 import { createServer } from "http";
 import { Server } from "socket.io";
+import { userJoin } from './utils/chatUser.js'
 
 
 
@@ -34,23 +37,39 @@ const app = express()
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:9000"
+        origin: "http://localhost:9000"
     }
-  });
-
-io.on("connection", (socket) => {
-  // ...
-  console.log("user connected, socket id: ", socket.id)
-//   socket.emit('foo',{"message":"hello"})
 });
 
-app.use((req,res,next)=>{
+io.on("connection", (socket) => {
+    // ...
+    // console.log("user connected, socket id: ", socket.id)
+    //   socket.emit('foo',{"message":"hello"})
+    socket.on('joinRoom', (arg) => {
+
+        // const user = userJoin(socket.id, room)
+if(arg?._id){
+
+    socket.join(arg._id)
+    console.log(arg._id, "joining")
+}
+
+
+        // Send users and room info
+        // io.to(user.room).emit('roomUsers', {
+        //     room: user.room,
+        //     users: getRoomUsers(user.room)
+        // })
+    })
+});
+
+app.use((req, res, next) => {
     req.io = io
     next()
 })
 const __dirname = path.resolve()
 
-if(process.env.NODE_ENV === 'development'){
+if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
 }
 
@@ -59,7 +78,7 @@ const PORT = process.env.PORT || 5000
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors())
-app.options('*', cors()) 
+app.options('*', cors())
 
 // This routes is example route to allaw react getting data from same origin
 // This res.set route will remove Access-Control-Allow-OriginAccess
@@ -76,14 +95,16 @@ app.use('/api/users', userRouter)
 app.use('/api/services', serviceRouter)
 app.use('/api/service_categorys', serviceCategoryRouter)
 app.use('/api/service_providers', serviceProviderRouter)
-app.use('/api/divisions',divisionRouter)
-app.use('/api/districts',districtRoutes)
-app.use('/api/subdistricts',subDistrictRoutes)
-app.use('/api/unions',unionRoutes)
+app.use('/api/divisions', divisionRouter)
+app.use('/api/districts', districtRoutes)
+app.use('/api/subdistricts', subDistrictRoutes)
+app.use('/api/unions', unionRoutes)
 // app.use('/api/wards',wardRoutes)
-app.use('/api/common_notifications',commonNotificationRoutes)
-app.use('/api/pinlocations',pinLocationRoutes)
-app.get('/api/seeder', (req,res)=>{
+app.use('/api/common_notifications', commonNotificationRoutes)
+app.use('/api/room', personalRoomRoutes)
+app.use('/api/message', personalMessageRoutes)
+app.use('/api/pinlocations', pinLocationRoutes)
+app.get('/api/seeder', (req, res) => {
     importData()
     res.send("data Imported")
 })
@@ -96,12 +117,12 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 // Custom error handler
 app.use(errorHandler)
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname,'/build')))
-    app.get('*',(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'build','index.html'))
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '/build')))
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
     })
-}else{
+} else {
     // hands up routes
     app.get('/', (req, res) => {
         res.send('Api is running now')

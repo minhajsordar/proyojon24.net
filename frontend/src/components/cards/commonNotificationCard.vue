@@ -13,12 +13,12 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>{{
-            notification.title[languageStore.language]
+            notification.title
           }}</q-item-label>
 
-          <q-item-label caption>
+          <q-item-label caption v-if="notification?.description">
             <div
-              v-html="notification.description[languageStore.language]"
+              v-html="notification.description"
             ></div>
           </q-item-label>
           <q-item-label v-if="notification?.link">

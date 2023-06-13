@@ -2,8 +2,8 @@ import expressAsyncHandler from "express-async-handler";
 import ServiceProvider from '../models/serviceProviderModel.js'
 import ServiceProviderSuggestion from '../models/serviceProviderSuggestionModel.js'
 
-// @desc get products
-// @route Put api/products
+// @desc get service provider suggestions
+// @route Put api/service provider suggestions
 // @acess Public
 const getAllSuggestions =  expressAsyncHandler(async (req, res) => {
 
@@ -13,8 +13,8 @@ const getAllSuggestions =  expressAsyncHandler(async (req, res) => {
     res.status(200).json(serviceProviderSuggestions)
 })
 
-// @desc delete a product
-// @route Delete api/products/:id
+// @desc delete a service provider suggestion
+// @route Delete api/service provider suggestions/:id
 // @acess Privet/Admin
 const deleteSuggestion = expressAsyncHandler(async (req, res) => {
     const serviceProviderSuggestion = await ServiceProviderSuggestion.findById(req.params.id)
@@ -30,8 +30,8 @@ const deleteSuggestion = expressAsyncHandler(async (req, res) => {
 })
 
 
-// @desc create a product
-// @route create api/products/
+// @desc create a service provider suggestion
+// @route create api/service provider suggestions/
 // @acess Privet/Admin
 const createSuggestion = expressAsyncHandler(async (req, res) => {
     const serviceProvider = await ServiceProvider.findById(req.body.serviceProviderId)

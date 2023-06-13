@@ -3,8 +3,8 @@ import Union from '../models/unionModel.js'
 import Ward from '../models/wardModel.js'
 import SubDistrict from '../models/subDistrictModel.js'
 import commonWardList from '../data/ward.js'
-// @desc get products
-// @route Put api/products
+// @desc get unions
+// @route Put api/unions
 // @acess Privet
 const getUnions = expressAsyncHandler(async (req, res) => {
     const pageSize =  Number(req.query.pageSize) || 100;
@@ -20,8 +20,8 @@ const getUnions = expressAsyncHandler(async (req, res) => {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ unions, page, pages: Math.ceil(count / pageSize) })
 })
-// @desc get products
-// @route Put api/products
+// @desc get unions
+// @route Put api/unions
 // @acess Privet
 const getAllUnions = expressAsyncHandler(async (req, res) => {
     
@@ -31,8 +31,8 @@ const getAllUnions = expressAsyncHandler(async (req, res) => {
     res.status(200).json(unions)
 })
 
-// @desc get product by id
-// @route Put api/products/:id
+// @desc get union by id
+// @route Put api/unions/:id
 // @acess Privet
 const getUnionById = expressAsyncHandler(async (req, res) => {
     const unions = await Union.findById(req.params.id)
@@ -46,8 +46,8 @@ const getUnionById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc delete a product
-// @route Delete api/products/:id
+// @desc delete a union
+// @route Delete api/unions/:id
 // @acess Privet/Admin
 const deleteUnion = expressAsyncHandler(async (req, res) => {
     const unions = await Union.findById(req.params.id)
@@ -62,8 +62,8 @@ const deleteUnion = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
-// @route update api/products/
+// @desc update a union
+// @route update api/unions/
 // @acess Privet/Admin
 const updateUnion = expressAsyncHandler(async (req, res) => {
     const {
@@ -89,8 +89,8 @@ const updateUnion = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc create a product
-// @route create api/products/
+// @desc create a union
+// @route create api/unions/
 // @acess Privet/Admin
 const createUnion = expressAsyncHandler(async (req, res) => {
     const subDistricts = await SubDistrict.findById(req.body.parent._id)

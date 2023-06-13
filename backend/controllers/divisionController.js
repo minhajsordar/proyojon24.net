@@ -1,8 +1,8 @@
 import expressAsyncHandler from "express-async-handler";
 import Division from '../models/divisionModel.js'
 
-// @desc get products
-// @route Put api/products
+// @desc get divisions
+// @route Put api/divisions
 // @acess Privet
 const getDivisions =  expressAsyncHandler(async (req, res) => {
     const pageSize = Number(req.query.pageSize) || 20;
@@ -19,8 +19,8 @@ const getDivisions =  expressAsyncHandler(async (req, res) => {
     res.status(200).json({divisions, page, pages: Math.ceil(count / pageSize)})
 })
 
-// @desc get products
-// @route Put api/products
+// @desc get divisions
+// @route Put api/divisions
 // @acess Privet
 const getAllDivisions =  expressAsyncHandler(async (req, res) => {
     const divisions = await Division.find({})
@@ -28,8 +28,8 @@ const getAllDivisions =  expressAsyncHandler(async (req, res) => {
     res.status(200).json(divisions)
 })
 
-// @desc get product by id
-// @route Put api/products/:id
+// @desc get division by id
+// @route Put api/divisions/:id
 // @acess Privet
 const getDivisionById = expressAsyncHandler(async (req, res) => {
     const division = await Division.findById(req.params.id)
@@ -43,8 +43,8 @@ const getDivisionById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc delete a product
-// @route Delete api/products/:id
+// @desc delete a division
+// @route Delete api/divisions/:id
 // @acess Privet/Admin
 const deleteDivision = expressAsyncHandler(async (req, res) => {
     const division = await Division.findById(req.params.id)
@@ -59,8 +59,8 @@ const deleteDivision = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
-// @route update api/products/
+// @desc update a division
+// @route update api/divisions/
 // @acess Privet/Admin
 const updateDivision = expressAsyncHandler(async (req, res) => {
     const {
@@ -77,8 +77,8 @@ const updateDivision = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc create a product
-// @route create api/products/
+// @desc create a division
+// @route create api/divisions/
 // @acess Privet/Admin
 const createDivision = expressAsyncHandler(async (req, res) => {
     const division = new Division({

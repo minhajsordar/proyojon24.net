@@ -41,6 +41,14 @@
                   <td>
                     <q-btn
                       class="q-ml-xs"
+                      label="Send Message"
+                      size="sm"
+                      dense
+                      color="primary"
+                      @click="createRoomManager(user._id)"
+                    />
+                    <q-btn
+                      class="q-ml-xs"
                       :label="$t('delete')"
                       size="sm"
                       dense
@@ -61,6 +69,7 @@
 import { storeToRefs } from "pinia";
 import { useQuasar, useMeta } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
+import { useRoomsStore } from "src/stores/message/roomStore";
 import { useUserStore } from "src/stores/user/userStore";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "src/stores/auth/authStore";
@@ -68,6 +77,11 @@ import { onMounted, ref } from "vue";
 import { enToBnToEn } from "src/global_js/utils";
 import { useRouter } from "vue-router";
 import  userPermission  from "src/components/profile/userPermission.vue";
+import { useLocalStorage } from "@vueuse/core";
+
+ const myRooms = useLocalStorage('myrooms', {})
+
+const roomStore = useRoomsStore()
 const router = useRouter();
 const authStore = useAuthStore();
 const $q = useQuasar();
@@ -86,6 +100,15 @@ const confirm = (data) => {
   }).onOk(() => {
     console.log(">>>> OK");
   });
+};
+const createRoomManager = (id) => {
+  for(let room of myRooms.value.rooms){
+    if(room.participants[0].user._id == id || room.participants[1].user._id == id){
+      router.push('direct_message/'+room._id)
+      return
+    }
+  }
+  roomStore.createRoom(id)
 };
 onMounted(() => {
   authStore.checkLogin();

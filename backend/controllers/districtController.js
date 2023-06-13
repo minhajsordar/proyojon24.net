@@ -2,8 +2,8 @@ import expressAsyncHandler from "express-async-handler";
 import District from '../models/districtModel.js'
 import Division from '../models/divisionModel.js'
 
-// @desc get products
-// @route Put api/products
+// @desc get districts
+// @route Put api/districts
 // @acess Privet
 const getDistricts = expressAsyncHandler(async (req, res) => {
     const pageSize =  Number(req.query.pageSize) || 70;
@@ -20,8 +20,8 @@ const getDistricts = expressAsyncHandler(async (req, res) => {
     res.status(200).json({ districts, page, pages: Math.ceil(count / pageSize) })
 })
 
-// @desc get products
-// @route Put api/products
+// @desc get districts
+// @route Put api/districts
 // @acess Privet
 const getAllDistricts = expressAsyncHandler(async (req, res) => {
     const keyword = req.query.divisionId? {"parent._id":req.query.divisionId}:{}
@@ -32,8 +32,8 @@ const getAllDistricts = expressAsyncHandler(async (req, res) => {
     res.status(200).json(districts)
 })
 
-// @desc get product by id
-// @route Put api/products/:id
+// @desc get district by id
+// @route Put api/districts/:id
 // @acess Privet
 const getDistrictById = expressAsyncHandler(async (req, res) => {
     const district = await District.findById(req.params.id)
@@ -47,8 +47,8 @@ const getDistrictById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc delete a product
-// @route Delete api/products/:id
+// @desc delete a district
+// @route Delete api/districts/:id
 // @acess Privet/Admin
 const deleteDistrict = expressAsyncHandler(async (req, res) => {
     const district = await District.findById(req.params.id)
@@ -63,8 +63,8 @@ const deleteDistrict = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
-// @route update api/products/
+// @desc update a district
+// @route update api/districts/
 // @acess Privet/Admin
 const updateDistrict = expressAsyncHandler(async (req, res) => {
     const division = await Division.findById(req.body.parent._id)
@@ -89,8 +89,8 @@ const updateDistrict = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc create a product
-// @route create api/products/
+// @desc create a district
+// @route create api/districts/
 // @acess Privet/Admin
 const createDistrict = expressAsyncHandler(async (req, res) => {
     const division = await Division.findById(req.body.parent._id)

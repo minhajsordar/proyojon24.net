@@ -31,7 +31,7 @@ const getAllServiceCategorys = expressAsyncHandler(async (req, res) => {
     res.status(200).json(serviceCategorys)
 })
 
-// @desc get product by id
+// @desc get service category by id
 // @route Put api/ServiceCategory/:id
 // @acess Privet
 const getServiceCategoryById = expressAsyncHandler(async (req, res) => {
@@ -49,7 +49,7 @@ const getServiceCategoryById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc get product by id
+// @desc get service category by id
 // @route Put api/ServiceCategory/:id
 // @acess Privet
 const getServiceCategoryByIdPreview = expressAsyncHandler(async (req, res) => {
@@ -64,7 +64,7 @@ const getServiceCategoryByIdPreview = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc get product by id
+// @desc get service category by id
 // @route Put api/ServiceCategoryBy Service/:id
 // @acess Privet
 const getServiceCategoryByService = expressAsyncHandler(async (req, res) => {
@@ -99,7 +99,7 @@ const deleteServiceCategory = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
+// @desc update a service category
 // @route update api/ServiceCategory/
 // @acess Privet/Admin
 const updateServiceCategory = expressAsyncHandler(async (req, res) => {

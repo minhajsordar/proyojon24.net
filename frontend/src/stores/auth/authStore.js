@@ -10,6 +10,7 @@ import { Notify } from 'quasar';
 import { useUserStore } from '../user/userStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
+const myRooms = useLocalStorage('myrooms', {})
 loader.title = 'Requesting To Server...'
 export const useAuthStore = defineStore('auth store', () => {
   const userStore = useUserStore();
@@ -61,6 +62,7 @@ export const useAuthStore = defineStore('auth store', () => {
       rememberUserData()
       languageStore.switchToBn()
       router.push('/profile')
+      myRooms.value = null
     } catch (error) {
       console.log(error);
       // loader.hideLoader()

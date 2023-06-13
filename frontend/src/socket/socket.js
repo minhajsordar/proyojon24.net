@@ -31,14 +31,17 @@ socket.on("foo", (...args) => {
 socket.on("bar", (...args) => {
   state.barEvents.push(args);
 });
+socket.on("new_message", (...args) => {
+  console.log("new message",args)
+});
 socket.on("push_new_notification", (...args) => {
   state.pushNotifications.push(args);
   args.forEach(arg => {
     console.log(arg)
     Notification.requestPermission().then(perm => {
       if (perm == 'granted') {
-        new Notification(arg._doc.title[languageStore.value], {
-          body: arg._doc.description[languageStore.value],
+        new Notification(arg._doc.title, {
+          body: arg._doc.description,
         })
       } else {
         alert("Some notification is waiting. You need to enable notification to track notifications.")

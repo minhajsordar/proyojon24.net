@@ -27,7 +27,7 @@ const getAllServices = expressAsyncHandler(async (req, res) => {
     res.status(200).json(services)
 })
 
-// @desc get product by id
+// @desc get service controller by id
 // @route Put api/Service/:id
 // @acess Privet
 const getServiceById = expressAsyncHandler(async (req, res) => {
@@ -45,7 +45,7 @@ const getServiceById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc get product by id
+// @desc get service controller by id
 // @route Put api/Service/:id
 // @acess Privet
 const getServiceByIdPreview = expressAsyncHandler(async (req, res) => {
@@ -76,7 +76,7 @@ const deleteService = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
+// @desc update a service controller
 // @route update api/Service/
 // @acess Privet/Admin
 const updateService = expressAsyncHandler(async (req, res) => {

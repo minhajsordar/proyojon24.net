@@ -111,7 +111,7 @@ const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(serviceProviders)
 })
-// @desc get product by id
+// @desc get service provider by id
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getServiceProviderPendingList = expressAsyncHandler(async (req, res) => {
@@ -126,7 +126,7 @@ const getServiceProviderPendingList = expressAsyncHandler(async (req, res) => {
         throw new Error('Service Provider not found')
     }
 })
-// @desc get product by id
+// @desc get service provider by id
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
@@ -140,7 +140,7 @@ const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
         throw new Error('Service Provider not found')
     }
 })
-// @desc get product by id
+// @desc get service provider by id
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getServiceProviderById = expressAsyncHandler(async (req, res) => {
@@ -156,7 +156,7 @@ const getServiceProviderById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc get product by id
+// @desc get service provider by id
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getServiceProviderByIdPreview = expressAsyncHandler(async (req, res) => {
@@ -171,7 +171,7 @@ const getServiceProviderByIdPreview = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc get product by id
+// @desc get service provider by id
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getServiceProviderByServiceCategory = expressAsyncHandler(async (req, res) => {
@@ -216,7 +216,7 @@ const deleteServiceProvider = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
+// @desc update a service provider
 // @route update api/ServiceProvider/
 // @acess Privet/Admin
 const updateServiceProvider = expressAsyncHandler(async (req, res) => {
@@ -270,7 +270,7 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
+// @desc update a service provider
 // @route update api/ServiceProvider/
 // @acess Privet/Admin
 const rankAndApprovalServiceProvider = expressAsyncHandler(async (req, res) => {
@@ -295,7 +295,7 @@ const rankAndApprovalServiceProvider = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
+// @desc update a service provider
 // @route update api/ServiceProvider/
 // @acess Privet/Admin
 const suggestServiceProvider = expressAsyncHandler(async (req, res) => {
@@ -362,7 +362,7 @@ const createServiceProviderViewCount = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc Top rated product
+// @desc Top rated service provider
 // @route update api/ServiceProvider/topRated
 // @acess public
 const getTopServiceProvider = expressAsyncHandler(async (req, res) => {

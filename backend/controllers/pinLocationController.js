@@ -2,8 +2,8 @@ import expressAsyncHandler from "express-async-handler";
 import Union from '../models/unionModel.js'
 import PinLocation from '../models/pinLocationModel.js'
 
-// @desc get products
-// @route Put api/products
+// @desc get pinlocations
+// @route Put api/pinlocations
 // @acess Privet
 const getPinLocations =  expressAsyncHandler(async (req, res) => {
     const pageSize =  Number(req.query.pageSize) || 100;
@@ -20,8 +20,8 @@ const getPinLocations =  expressAsyncHandler(async (req, res) => {
     res.status(200).json({pinLocations, page, pages: Math.ceil(count / pageSize)})
 })
 
-// @desc get products
-// @route Put api/products
+// @desc get pinlocations
+// @route Put api/pinlocations
 // @acess Public
 const getAllPinLocations =  expressAsyncHandler(async (req, res) => {
 
@@ -31,8 +31,8 @@ const getAllPinLocations =  expressAsyncHandler(async (req, res) => {
     res.status(200).json(pinLocations)
 })
 
-// @desc get product by id
-// @route Put api/products/:id
+// @desc get pinlocation by id
+// @route Put api/pinlocations/:id
 // @acess Privet
 const getPinLocationById = expressAsyncHandler(async (req, res) => {
     const pinLocations = await PinLocation.findById(req.params.id)
@@ -46,8 +46,8 @@ const getPinLocationById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc delete a product
-// @route Delete api/products/:id
+// @desc delete a pinlocation
+// @route Delete api/pinlocations/:id
 // @acess Privet/Admin
 const deletePinLocation = expressAsyncHandler(async (req, res) => {
     const pinLocations = await PinLocation.findById(req.params.id)
@@ -62,8 +62,8 @@ const deletePinLocation = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
-// @route update api/products/
+// @desc update a pinlocation
+// @route update api/pinlocations/
 // @acess Privet/Admin
 const updatePinLocation = expressAsyncHandler(async (req, res) => {
     const {
@@ -88,8 +88,8 @@ const updatePinLocation = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc create a product
-// @route create api/products/
+// @desc create a pinlocation
+// @route create api/pinlocations/
 // @acess Privet/Admin
 const createPinLocation = expressAsyncHandler(async (req, res) => {
     const union = await Union.findById(req.body.parent._id)

@@ -1,17 +1,4 @@
 <template>
-  <!-- <q-btn
-    v-if="!$q.screen.gt.sm"
-    icon="menu"
-    round
-    dense
-    glossy
-    flat
-    size="md"
-    color="white"
-    class="q-mr-sm"
-    no-caps
-    @click="menuControllerStore.headerMenuMobileScreen = true"
-  /> -->
   <profileMobileMenus />
   <q-toolbar class="q-py-sm q-px-md">
     <q-item clickable v-ripple @click="profileClickManager">
@@ -90,9 +77,13 @@
     <q-space />
 
     <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
+      <q-btn dense flat @click="$router.push('direct_message')" >
+        <q-icon name="email" size="25px" />
+        <q-badge v-show="notificationStore?.last7DaysNotification?.length != 0" :label="notificationStore?.last7DaysNotification?.length" class="absolute-top-right fs-10" color="red" style="padding: 1px 4px"/>
+      </q-btn>
       <q-btn dense flat @click="$router.push('notifications')" >
         <q-icon name="notifications" size="25px" />
-          <q-badge :label="notificationStore?.last7DaysNotification?.length" class="absolute-top-right fs-10" color="red"/>
+        <q-badge v-show="notificationStore?.last7DaysNotification?.length != 0" :label="notificationStore?.last7DaysNotification?.length" class="absolute-top-right fs-10" color="red" style="padding: 1px 4px"/>
       </q-btn>
       <q-btn dense flat>
         <div class="row items-center no-wrap">
@@ -203,7 +194,7 @@
 
 <script setup>
 
-import { onMounted, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
@@ -217,12 +208,16 @@ import profileMobileMenus from "./mobileView/profileMobileMenus.vue";
 
 import { useNotificationStore } from "src/stores/notifications/notificationStore.js";
 import { socket, state } from "src/socket/socket";
+// room
+import { useRoomsStore } from "src/stores/message/roomStore";
+const roomStore = useRoomsStore()
+
 const notificationStore = useNotificationStore();
 notificationStore.getPublishedNotification();
-socket.on('push_new_notification',()=>{
+socket.on('push_new_notification',(l)=>{
+  console.log('new notificaiton came',l)
   notificationStore.getPublishedNotification();
 })
-
 
 const menuControllerStore = useMenuControllerStore();
 const languageStore = useLanguageStore();
@@ -243,6 +238,9 @@ const profileClickManager = () => {
     router.push("/profile");
   }
 };
+onBeforeMount(()=>{
+  roomStore.getMyRooms()
+})
 </script>
 
 <style lang="sass">

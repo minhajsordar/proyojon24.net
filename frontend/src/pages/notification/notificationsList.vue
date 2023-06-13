@@ -38,10 +38,10 @@
                     {{ enToBnToEn(String(index + 1), languageStore.language) }}
                   </td>
                   <td>
-                    {{ notification.title[languageStore.language] }}
+                    {{ notification.title }}
                     <q-separator/>
                     <div
-                      v-html="notification.description[languageStore.language]"
+                      v-html="notification.description"
                     ></div>
                     <div v-if="notification.link">
                       <q-separator/>

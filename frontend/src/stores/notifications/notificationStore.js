@@ -18,27 +18,15 @@ export const useNotificationStore = defineStore('notification store', () => {
     openEditNotificationDialog = ref(false),
     notificationInfo = reactive({
       id: null,
-      title: {
-        bn: null,
-        en: null,
-      },
-      description: {
-        bn: null,
-        en: null,
-      },
+      title: null,
+      description: null,
       published: false,
       link: null,
     })
   const openCreateNotificationManager =()=>{
     notificationInfo.id = null
-    notificationInfo.title = {
-      bn: null,
-      en: null,
-    }
-    notificationInfo.description = {
-      bn: null,
-      en: null,
-    }
+    notificationInfo.title = null
+    notificationInfo.description = null
     notificationInfo.published = false
     notificationInfo.link = null
 

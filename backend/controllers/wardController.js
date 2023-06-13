@@ -2,8 +2,8 @@ import expressAsyncHandler from "express-async-handler";
 import Ward from '../models/wardModel.js'
 import Union from '../models/unionModel.js'
 
-// @desc get products
-// @route Put api/products
+// @desc get wards
+// @route Put api/wards
 // @acess Privet
 const getWards =  expressAsyncHandler(async (req, res) => {
     const pageSize =  Number(req.query.pageSize) || 100;
@@ -20,8 +20,8 @@ const getWards =  expressAsyncHandler(async (req, res) => {
     res.status(200).json({wards, page, pages: Math.ceil(count / pageSize)})
 })
 
-// @desc get products
-// @route Put api/products
+// @desc get wards
+// @route Put api/wards
 // @acess Public
 const getAllWards =  expressAsyncHandler(async (req, res) => {
 
@@ -31,8 +31,8 @@ const getAllWards =  expressAsyncHandler(async (req, res) => {
     res.status(200).json(wards)
 })
 
-// @desc get product by id
-// @route Put api/products/:id
+// @desc get ward by id
+// @route Put api/wards/:id
 // @acess Privet
 const getWardById = expressAsyncHandler(async (req, res) => {
     const wards = await Ward.findById(req.params.id)
@@ -46,8 +46,8 @@ const getWardById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc delete a product
-// @route Delete api/products/:id
+// @desc delete a ward
+// @route Delete api/wards/:id
 // @acess Privet/Admin
 const deleteWard = expressAsyncHandler(async (req, res) => {
     const wards = await Ward.findById(req.params.id)
@@ -62,8 +62,8 @@ const deleteWard = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
-// @route update api/products/
+// @desc update a ward
+// @route update api/wards/
 // @acess Privet/Admin
 const updateWard = expressAsyncHandler(async (req, res) => {
     const {
@@ -88,8 +88,8 @@ const updateWard = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc create a product
-// @route create api/products/
+// @desc create a ward
+// @route create api/wards/
 // @acess Privet/Admin
 const createWard = expressAsyncHandler(async (req, res) => {
     const union = await Union.findById(req.body.parent._id)

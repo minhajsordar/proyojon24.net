@@ -22,6 +22,14 @@ const routes = [
   //   ]
   // },
   {
+    path: '/direct_message', component: () => import('pages/message/messengerPage.vue'),
+    beforeEnter: checkLogin,
+  },
+  {
+    path: '/direct_message/:id', component: () => import('pages/message/messengerPage.vue'),
+    beforeEnter: checkLogin,
+  },
+  {
     path: '/',
     component: () => import('layouts/PublicLayout.vue'),
     children: [
@@ -39,6 +47,10 @@ const routes = [
   //   path: '/',
   //   component: () => import('layouts/ProfileLayout.vue'),
   //   children: [
+      // {
+      //   path: '/direct_message/:id', component: () => import('pages/message/messengerPage.vue'),
+      //   beforeEnter: checkLogin,
+      // },
       {
         path: '/profile', component: () => import('pages/user/profilePage.vue'),
         beforeEnter: checkLogin,

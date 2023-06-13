@@ -1,8 +1,8 @@
 import expressAsyncHandler from "express-async-handler";
 import CommonNotification from '../models/commonNotificationModel.js'
 
-// @desc get products
-// @route Put api/products
+// @desc get notification
+// @route Put api/notification
 // @acess Privet
 const getCommonNotifications = expressAsyncHandler(async (req, res) => {
     const pageSize = Number(req.query.pageSize) || 30;
@@ -16,8 +16,8 @@ const getCommonNotifications = expressAsyncHandler(async (req, res) => {
     res.status(200).json({ notifications, page, pages: Math.ceil(count / pageSize) })
 })
 
-// @desc get products
-// @route Put api/products
+// @desc get notification
+// @route Put api/notification
 // @acess Public
 const getAllCommonNotifications = expressAsyncHandler(async (req, res) => {
     const notifications = await CommonNotification.find({ ...keyword })
@@ -25,8 +25,8 @@ const getAllCommonNotifications = expressAsyncHandler(async (req, res) => {
     res.status(200).json(notifications)
 })
 
-// @desc get product by id
-// @route Put api/products/:id
+// @desc get notification by id
+// @route Put api/notification/:id
 // @acess Privet
 const getCommonNotificationById = expressAsyncHandler(async (req, res) => {
     const commonNotifications = await CommonNotification.findById(req.params.id)
@@ -40,8 +40,8 @@ const getCommonNotificationById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc delete a product
-// @route Delete api/products/:id
+// @desc delete a notification
+// @route Delete api/notification/:id
 // @acess Privet/Admin
 const deleteCommonNotification = expressAsyncHandler(async (req, res) => {
     const commonNotifications = await CommonNotification.findById(req.params.id)
@@ -56,8 +56,8 @@ const deleteCommonNotification = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
-// @route update api/products/
+// @desc update a notification
+// @route update api/notification/
 // @acess Privet/Admin
 const updateCommonNotification = expressAsyncHandler(async (req, res) => {
     const {
@@ -83,8 +83,8 @@ const updateCommonNotification = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc create a product
-// @route create api/products/
+// @desc create a notification
+// @route create api/notification/
 // @acess Privet/Admin
 const createCommonNotification = expressAsyncHandler(async (req, res) => {
     if (req.body.title && req.body.description) {

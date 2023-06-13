@@ -1,8 +1,8 @@
 import expressAsyncHandler from "express-async-handler";
 import SubDistrict from '../models/subDistrictModel.js'
 import District from '../models/districtModel.js'
-// @desc get products
-// @route Put api/products
+// @desc get sub districtss
+// @route Put api/sub districtss
 // @acess Privet
 const getSubDistricts = expressAsyncHandler(async (req, res) => {
     const pageSize =  Number(req.query.pageSize) || 100;
@@ -18,8 +18,8 @@ const getSubDistricts = expressAsyncHandler(async (req, res) => {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ subDistricts, page, pages: Math.ceil(count / pageSize) })
 })
-// @desc get products
-// @route Put api/products
+// @desc get sub districtss
+// @route Put api/sub districtss
 // @acess Privet
 const getAllSubDistricts = expressAsyncHandler(async (req, res) => {
     const keyword = req.query.districtId? {"parent._id":req.query.districtId}:{}
@@ -28,8 +28,8 @@ const getAllSubDistricts = expressAsyncHandler(async (req, res) => {
     res.status(200).json(subDistricts)
 })
 
-// @desc get product by id
-// @route Put api/products/:id
+// @desc get sub districts by id
+// @route Put api/sub districtss/:id
 // @acess Privet
 const getSubDistrictById = expressAsyncHandler(async (req, res) => {
     const subDistricts = await SubDistrict.findById(req.params.id)
@@ -43,8 +43,8 @@ const getSubDistrictById = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc delete a product
-// @route Delete api/products/:id
+// @desc delete a sub districts
+// @route Delete api/sub districtss/:id
 // @acess Privet/Admin
 const deleteSubDistrict = expressAsyncHandler(async (req, res) => {
     const subDistricts = await SubDistrict.findById(req.params.id)
@@ -59,8 +59,8 @@ const deleteSubDistrict = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc update a product
-// @route update api/products/
+// @desc update a sub districts
+// @route update api/sub districtss/
 // @acess Privet/Admin
 const updateSubDistrict = expressAsyncHandler(async (req, res) => {
     const {
@@ -85,8 +85,8 @@ const updateSubDistrict = expressAsyncHandler(async (req, res) => {
     }
 })
 
-// @desc create a product
-// @route create api/products/
+// @desc create a sub districts
+// @route create api/sub districtss/
 // @acess Privet/Admin
 const createSubDistrict = expressAsyncHandler(async (req, res) => {
     const district = await District.findById(req.body.parent._id)
