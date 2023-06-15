@@ -115,7 +115,7 @@ const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getServiceProviderPendingList = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.find({waitingForApproval: true})
+    const serviceProvider = await ServiceProvider.find({ waitingForApproval: true })
     if (serviceProvider) {
 
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
@@ -130,7 +130,7 @@ const getServiceProviderPendingList = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.findOne({user: req.params.user})
+    const serviceProvider = await ServiceProvider.findOne({ user: req.params.user })
     if (serviceProvider) {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json(serviceProvider)
@@ -280,11 +280,11 @@ const rankAndApprovalServiceProvider = expressAsyncHandler(async (req, res) => {
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
-        if(approved){
+        if (approved) {
             serviceProvider.approved = true
             serviceProvider.waitingForApproval = false
         }
-        if(rankCount){
+        if (rankCount) {
             serviceProvider.rankCount = rankCount
         }
         const updatedServiceProvider = await serviceProvider.save()
@@ -433,8 +433,8 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         keywords
     })
     const createdServiceProvider = await serviceProvider.save()
-    serviceByUser.serviceProfileId = createdServiceProvider._id
-    await serviceByUser.save()
+    req.user.hasServiceProviderProfile = true
+    await req.user.save()
     const serviceById = await Service.findById(service)
     serviceById.serviceProviderCount += 1
     await serviceById.save()

@@ -652,6 +652,23 @@
               </div>
             </div>
           </div>
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="row">
+              <div class="col-12 text-bold">{{ $t("keywords") }}*</div>
+              <div class="col-12">
+                <q-input
+                  outlined
+                  ref="keywordsEl"
+                  dense
+                  v-model="serviceProviderStore.serviceProviderInfo.keywords"
+                  :rules="[validationEnabled && max10Words]"
+                  label="Keywords"
+                  hint="Max 16 characters"
+                />
+              </div>
+            </div>
+          </div>
+
           <!-- add image end -->
           <div class="col-12">
             <div class="row">
@@ -730,6 +747,7 @@ const phoneNumberEnEl = ref(null);
 const coverImageEl = ref(null);
 const serviceTitleEnEl = ref(null);
 const serviceTitleBnEl = ref(null);
+const keywordsEl = ref(null);
 const validationEnabled = ref(false);
 const createServiceManager = () => {
   if (!isObjEmpty(userServiceProviderStore.userServiceProvider)) {
@@ -750,6 +768,7 @@ const createServiceManager = () => {
   phoneNumberEnEl.value.validate();
   serviceTitleEnEl.value.validate();
   serviceTitleBnEl.value.validate();
+  keywordsEl.value.validate();
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
@@ -762,6 +781,7 @@ const createServiceManager = () => {
     phoneNumberEnEl.value.hasError ||
     serviceTitleEnEl.value.hasError ||
     serviceTitleBnEl.value.hasError ||
+    keywordsEl.value.hasError ||
     coverImageEl.value.hasError
   ) {
     return;
@@ -893,4 +913,7 @@ onMounted(() => {
     }
   }
 });
+const max10Words = (val)=>{
+  return val && val.split(" ").length <= 16 ? true : "Please Use Maximum 16 Words"
+}
 </script>

@@ -25,6 +25,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
       isSuperAdmin: user.isSuperAdmin,
       isActive: user.isActive,
       permission: user.permission,
+      hasServiceProviderProfile: user.hasServiceProviderProfile,
       token: generateToken(user._id),
     })
   } else {

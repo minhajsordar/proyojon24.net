@@ -45,16 +45,13 @@
         </div>
       </div>
       <div class="footer-buttons">
-        <q-btn
-          dense
-          flat
-          round
-          @click="$router.push('direct_message')"
-        >
+        <q-btn dense flat round @click="$router.push('direct_message')">
           <q-icon name="chat" size="25px" />
         </q-btn>
-        <div class="fs-10 footer-button-text-1" style="position: absolute;
-            width: 150px;">
+        <div
+          class="fs-10 footer-button-text-1"
+          style="position: absolute; width: 150px"
+        >
           Live chat
         </div>
       </div>
@@ -65,8 +62,10 @@
           round
           style="padding: 3px"
           class="bg-accent text-white absolute-add-serviceporvider"
+          @click="$router.push('/service_provider_profile')"
         >
-          <q-icon class="rotate-icon" name="add" size="45px" />
+          <q-icon v-if="authStore?.loginUserInfo?.hasServiceProviderProfile" class="manage_accounts" name="add" size="45px" />
+          <q-icon v-else class="rotate-icon" name="add" size="45px" />
         </q-btn>
         <div
           class="fs-10 text-center"
@@ -91,9 +90,12 @@
           color="white"
           class="q-mr-sm"
           no-caps
+          @click="$router.push('/profile')"
         />
-        <div class="fs-10 footer-button-text" style="position: absolute;
-            width: 150px;">
+        <div
+          class="fs-10 footer-button-text"
+          style="position: absolute; width: 150px"
+        >
           Profile
         </div>
       </div>
@@ -109,8 +111,10 @@
           no-caps
           @click="menuControllerStore.headerMenuMobileScreen = true"
         />
-        <div class="fs-10 footer-button-text" style="position: absolute;
-            width: 150px;">
+        <div
+          class="fs-10 footer-button-text"
+          style="position: absolute; width: 150px"
+        >
           Menu
         </div>
       </div>
@@ -215,7 +219,7 @@ onMounted(() => {
   .footer-area {
     position: absolute;
     bottom: 48px;
-    .bottom-fx{
+    .bottom-fx {
       height: 48px;
       width: 100%;
       position: absolute;
@@ -224,15 +228,17 @@ onMounted(() => {
     }
   }
 }
-.rotate-icon{
+.rotate-icon {
   transform: rotate(0deg);
   animation: rotateicon 5s ease-in-out 0s infinite forwards;
 }
 @keyframes rotateicon {
-  0%,40%{
+  0%,
+  40% {
     transform: rotate(0deg);
   }
-  60%,100%{
+  60%,
+  100% {
     transform: rotate(360deg);
   }
 }

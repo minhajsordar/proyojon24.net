@@ -68,10 +68,9 @@ const userSchema = mongoose.Schema({
         default: false,
         required: true,
     },
-    serviceProfileId: {
-        type: mongoose.Schema.Types.ObjectId,
-        default: null,
-        ref:'ServiceProvider',
+    hasServiceProviderProfile: {
+        type: Boolean,
+        default: false,
     }
 }, {
     timestamps: true

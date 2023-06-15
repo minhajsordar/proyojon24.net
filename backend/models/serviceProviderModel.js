@@ -96,16 +96,7 @@ const serviceProviderSchema = new mongoose.Schema({
                 en: { type: String, default: null }
             },
             _id: { type: String, default:null }
-        },
-        exact: {
-            bn: { type: String },
-            en: { type: String }
-        },
-    },
-    degree:
-    {
-        bn: { type: String },
-        en: { type: String }
+        }
     },
     serviceTitle:
     {
@@ -130,10 +121,10 @@ const serviceProviderSchema = new mongoose.Schema({
         default: 0
     },
     reviews: [reviewsSchema],
-    keywords: [{
+    keywords: {
         type: String,
         required: false
-    }],
+    },
     rating: {
         type: Number,
         required: true,

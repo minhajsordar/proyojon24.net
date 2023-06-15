@@ -208,9 +208,7 @@ import profileMobileMenus from "./mobileView/profileMobileMenus.vue";
 
 import { useNotificationStore } from "src/stores/notifications/notificationStore.js";
 import { socket, state } from "src/socket/socket";
-// room
-import { useRoomsStore } from "src/stores/message/roomStore";
-const roomStore = useRoomsStore()
+
 
 const notificationStore = useNotificationStore();
 notificationStore.getPublishedNotification();
@@ -238,9 +236,6 @@ const profileClickManager = () => {
     router.push("/profile");
   }
 };
-onBeforeMount(()=>{
-  roomStore.getMyRooms()
-})
 </script>
 
 <style lang="sass">

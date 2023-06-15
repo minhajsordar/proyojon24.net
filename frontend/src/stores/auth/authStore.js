@@ -8,11 +8,14 @@ import { reactive, ref } from 'vue';
 import { useLanguageStore } from '../lang/languageSettingsStore';
 import { Notify } from 'quasar';
 import { useUserStore } from '../user/userStore';
+// room
+import { useRoomsStore } from "src/stores/message/roomStore";
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 const myRooms = useLocalStorage('myrooms', {})
 loader.title = 'Requesting To Server...'
 export const useAuthStore = defineStore('auth store', () => {
+const roomStore = useRoomsStore()
   const userStore = useUserStore();
   const router = useRouter(),
     languageStore = useLanguageStore(),
@@ -63,6 +66,7 @@ export const useAuthStore = defineStore('auth store', () => {
       languageStore.switchToBn()
       router.push('/profile')
       myRooms.value = null
+      roomStore.getMyRooms()
     } catch (error) {
       console.log(error);
       // loader.hideLoader()
@@ -88,6 +92,7 @@ export const useAuthStore = defineStore('auth store', () => {
     } else {
       loginUserInfo.value = loginUser.value
       isAuthorized.value = true;
+      // roomStore.getMyRooms()
       return true;
     }
   }
