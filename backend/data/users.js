@@ -8,7 +8,7 @@ const users = [
         },
         email: 'mdnoor@gmail.com',
         username: 'mdnoor@gmail.com',
-        phone: '+8801756853831',
+        phone: '01756853831',
         nidNo: '123456789123',
         nidImage: '123456789123',
         presentAddress: {
@@ -23,6 +23,7 @@ const users = [
         isActive: true,
         isAdmin: true,
         isSuperAdmin: true,
+        serviceProfileId: null,
         permission: 'self'
     },
     {
@@ -32,7 +33,7 @@ const users = [
         },
         email: 'minhajsorder8567@gmail.com',
         username: 'minhajsorder8567@gmail.com',
-        phone: '+8801835158205',
+        phone: '01835158205',
         nidNo: '123456789123',
         nidImage: '123456789123',
         presentAddress: {
@@ -46,6 +47,7 @@ const users = [
         password: bcryptjs.hashSync('1234', 10),
         isActive: true,
         isAdmin:true,
+        serviceProfileId: null,
         permission: 'self'
     },
     {
@@ -55,7 +57,7 @@ const users = [
         },
         email: 'noor@gmail.com',
         username: 'noor@gmail.com',
-        phone: '+8801756853831',
+        phone: '01756853831',
         nidNo: '123456789123',
         nidImage: '123456789123',
         presentAddress: {
@@ -68,6 +70,7 @@ const users = [
         },
         password: bcryptjs.hashSync('1234', 10),
         isActive: true,
+        serviceProfileId: null,
         permission: 'self'
     },
 ]

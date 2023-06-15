@@ -4,7 +4,11 @@
 export default {
   failed: 'Action failed',
   success: 'Action was successful',
-  language: 'Lang',
+  register_success: 'Your Account Registration Success.',
+  create_service_provider: 'Press Ok To Complite Service Provider Profile.',
+  create_service_provider_success: 'Your Service Provider Account Created.',
+  wait_for_confirmation: 'Please Wait for Confirmation. Once We Confirm Your Profile Your Profile Will Be Visible To Public View.',
+  language: 'En',
   serial: 'Sl No',
   name: 'Name',
   nameinen: 'Service Provider Name In English',

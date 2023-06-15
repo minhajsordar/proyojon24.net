@@ -152,10 +152,4 @@ watch(messageList, () => {
     console.log("watch effect");
   }, 500);
 });
-// socket.on("new_message", (argument) => {
-//   if(argument._doc.receipent == authStore.loginUserInfo._id){
-//     console.log("playing sound")
-//   }
-//   console.log("new message")
-// });
 </script>

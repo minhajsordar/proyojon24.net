@@ -136,8 +136,8 @@ const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
         res.json(serviceProvider)
     } else {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-        res.status(404)
-        throw new Error('Service Provider not found')
+        res.status(200)
+        res.json({})
     }
 })
 // @desc get service provider by id
@@ -433,7 +433,8 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         keywords
     })
     const createdServiceProvider = await serviceProvider.save()
-
+    serviceByUser.serviceProfileId = createdServiceProvider._id
+    await serviceByUser.save()
     const serviceById = await Service.findById(service)
     serviceById.serviceProviderCount += 1
     await serviceById.save()

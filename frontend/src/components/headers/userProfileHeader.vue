@@ -77,9 +77,9 @@
     <q-space />
 
     <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-      <q-btn dense flat @click="$router.push('direct_message')" >
+      <q-btn  v-if="authStore.loginUserInfo && $q.screen.gt.sm" dense flat @click="$router.push('direct_message')" >
         <q-icon name="email" size="25px" />
-        <q-badge v-show="notificationStore?.last7DaysNotification?.length != 0" :label="notificationStore?.last7DaysNotification?.length" class="absolute-top-right fs-10" color="red" style="padding: 1px 4px"/>
+        <!-- <q-badge class="absolute-top-right fs-10" color="red" style="padding: 1px 4px"/> -->
       </q-btn>
       <q-btn dense flat @click="$router.push('notifications')" >
         <q-icon name="notifications" size="25px" />
@@ -115,9 +115,9 @@
         </q-menu>
       </q-btn>
       <q-btn v-if="authStore.loginUserInfo" dense flat no-wrap>
-        <q-avatar rounded size="30px">
-          <!-- <img src="images/user-placeholder.jpg" /> -->
-          <q-icon name="settings_input_component" size="20px" />
+        <q-avatar rounded size="20px">
+          <img src="images/user-placeholder.jpg" />
+          <!-- <q-icon name="settings_input_component" size="20px" /> -->
         </q-avatar>
         <q-icon name="arrow_drop_down" size="16px" />
         <!-- <q-icon name="person" size="26px" /> -->

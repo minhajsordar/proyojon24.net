@@ -31,17 +31,10 @@
             </div>
             <div class="fs-23">
               <span
-                >{{
-                  serviceProviderStore.serviceProvider?.degree[
-                    languageStore.language
-                  ]
-                }}
-              </span>
-              <span
               v-if="serviceProviderStore.serviceProvider?.serviceTitle[
                     languageStore.language
                   ]"
-                >, {{
+                >{{
                   serviceProviderStore.serviceProvider?.serviceTitle[
                     languageStore.language
                   ]
@@ -53,7 +46,7 @@
         <div class="row q-col-gutter-md q-mt-xs">
           <div class="col-lg-8 col-sm-8 col-xs-12">
             <q-card class="q-pa-md">
-              <div class="q-mt-md fs-16">
+              <div class="fs-16">
                 <div
                   class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
                 >
@@ -75,19 +68,27 @@
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center  cursor-pointer"
-                v-for="(
-                  phoneL, index
-                ) in serviceProviderStore.serviceProvider?.phoneNumber[
-                  languageStore.language
-                ].split('_')"
-                :key="index"
               >
                 <q-separator />
                 <div class="q-py-sm">
                   <span class="fs-18">
                     <q-icon class="bg-yellow-14 text-white" name="call" />
-                    <a :href="'tel:'+phoneL">
-                      {{ phoneL }}
+                    <a :href="'tel:'+serviceProviderStore.serviceProvider?.phoneNumber1">
+                      {{ serviceProviderStore.serviceProvider?.phoneNumber1 }}
+                    </a>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center  cursor-pointer"
+                v-if="serviceProviderStore.serviceProvider?.phoneNumber2"
+              >
+                <q-separator />
+                <div class="q-py-sm">
+                  <span class="fs-18">
+                    <q-icon class="bg-yellow-14 text-white" name="call" />
+                    <a :href="'tel:'+serviceProviderStore.serviceProvider?.phoneNumber2">
+                      {{ serviceProviderStore.serviceProvider?.phoneNumber2 }}
                     </a>
                   </span>
                 </div>

@@ -14,12 +14,14 @@ import { useSubDistrictStore } from '../locations/subDistrictStore';
 import { useDistrictStore } from '../locations/districtStore';
 import { useDivisionStore } from '../locations/divisionStore';
 import { useSearchServiceStore } from './searchService';
-import { Notify } from 'quasar';
+import { Notify,Dialog } from 'quasar';
+import { useI18n } from "vue-i18n";
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
 export const useServiceProviderStore = defineStore('service provider store', () => {
 
+  const { t } = useI18n();
   const searchServiceStore = useSearchServiceStore();
   const divisionEl = ref(null);
   const divisionStore = useDivisionStore();
@@ -233,11 +235,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "image",
       "rankCount",
       "serviceProviderLocation",
-      "degree",
-      "extraCources",
       "serviceTitle",
-      "serviceList",
-      "specialties",
       "phoneNumber1",
       "phoneNumber2",
       "facebook",
@@ -247,11 +245,8 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfoKeys.forEach((keys, index) => {
       serviceProviderInfo[keys] = data[keys]
     })
-    serviceProviderInfo.extraCources = {}
-    serviceProviderInfo.extraCources = data.extraCources
     serviceProviderInfo.id = data?._id
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
-    serviceProviderInfo.serviceList = data.serviceList
     serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
     imageCover.value = { name: serviceProviderInfo.coverImage }
     imageIcon.value = { name: serviceProviderInfo.icon }
@@ -263,7 +258,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     searchServiceStore.updateServiceCategory()
     openServiceProviderEditDialog.value = true
     if (serviceProviderLocationR.division) {
-      console.log(serviceProviderLocationR.division._id)
       districtStore.getAllDistricts(serviceProviderLocationR.division._id);
     }
     if (serviceProviderLocationR.district) {
@@ -512,6 +506,17 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       if(loginUser.value.isAdmin){
         getServiceProviderList()
       }
+
+      Dialog.create({
+        title: t("create_service_provider_success"),
+        message: t("wait_for_confirmation"),
+        ok: {
+          push: true
+        },
+        persistent: true
+      }).onOk(() => {
+        router.push('/profile')
+      })
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -524,7 +529,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     }
   }
   const uploadIcon = async () => {
-    if (!imageIcon.value || typeof imageIcon.value == 'string') {
+    if (!imageIcon.value || typeof imageIcon.value == 'string' || typeof imageIcon.value == 'Object') {
       return
     }
     const data = serviceProviderInfo.icon
@@ -595,7 +600,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
     serviceProviderInfo.serviceProviderLocation.pinlocation = serviceProviderLocationR.pinlocation
     serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
-    serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
     const data = serviceProviderInfo
     const config = {
       method: "put",
@@ -610,16 +614,26 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     try {
       const responseData = await api.request(config);
       openServiceProviderEditDialog.value = false
-      getServiceProviderList()
       loader.hideLoader()
+
+      Dialog.create({
+        title: t("success"),
+        message: t("wait_for_confirmation"),
+        ok: {
+          push: true
+        },
+        persistent: true
+      }).onOk(() => {
+        router.push('/profile')
+      })
     } catch (error) {
       console.log(error);
+      loader.hideLoader()
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
-      loader.hideLoader()
     }
   }
   const deleteServiceProvider = async () => {

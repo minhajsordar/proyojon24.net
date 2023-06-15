@@ -30,10 +30,10 @@
                         class="full-width"
                         v-model="authStore.userAuthInfo.email"
                         type="text"
-                        placeholder="john@example.com"
+                        placeholder="phone/email"
                         outlined
                         dense
-                        :rules="[isEmail]"
+                        :rules="[required]"
                       />
                     </div>
                   </div>

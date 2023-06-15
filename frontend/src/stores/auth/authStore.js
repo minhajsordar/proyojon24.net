@@ -48,7 +48,7 @@ export const useAuthStore = defineStore('auth store', () => {
         "Content-Type": "application/json"
       },
       data: {
-        email: userAuthInfo.email,
+        phoneOremail: userAuthInfo.email,
         password: userAuthInfo.password
       }
     };

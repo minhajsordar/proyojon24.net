@@ -6,12 +6,19 @@ import { encode64 } from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useLanguageStore } from '../lang/languageSettingsStore';
-import { Notify } from 'quasar';
+import { Notify, Dialog } from 'quasar';
+import { useI18n } from "vue-i18n";
+import { useAuthStore } from './authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
+const myRooms = useLocalStorage('myrooms', {})
 loader.title = 'Requesting To Server...'
 export const useRegisterStore = defineStore('register store', () => {
-  const router = useRouter(),
+
+  const { t } = useI18n();
+  const router = useRouter()
+  const languageStore = useLanguageStore()
+  const authStore = useAuthStore(),
     newUserInfo = reactive({
       name: {
         bn: null,
@@ -23,13 +30,13 @@ export const useRegisterStore = defineStore('register store', () => {
       password: null,
       password2: null,
     })
-const matchPassword = ()=>{
-  if(newUserInfo.password == newUserInfo.password2){
-    return true
-  }else{
-    return "Password Not Matched"
+  const matchPassword = () => {
+    if (newUserInfo.password == newUserInfo.password2) {
+      return true
+    } else {
+      return "Password Not Matched"
+    }
   }
-}
   const registerNewUser = async () => {
     const config = {
       method: "post",
@@ -46,18 +53,42 @@ const matchPassword = ()=>{
       }
     };
     loader.showLoader()
+
     try {
       const responseData = await api.request(config);
-      router.push('/login')
+      // router.push('/login')
       loader.hideLoader()
+      Dialog.create({
+        title: t("register_success"),
+        message: t("create_service_provider"),
+        ok: {
+          push: true
+        },
+        cancel: {
+          push: true,
+          color: 'negative'
+        },
+        persistent: true
+      }).onOk(() => {
+        authStore.loginUserInfo = responseData.data
+        loginUser.value = responseData.data
+        loginUser.value = responseData.data
+        authStore.isAuthorized = true
+        authStore.rememberUserData()
+        languageStore.switchToBn()
+        router.push('/service_provider_profile')
+        myRooms.value = null
+      }).onCancel(() => {
+        router.push('/login')
+      });
     } catch (error) {
       console.log(error);
+      loader.hideLoader()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   return {

@@ -3,8 +3,11 @@ import User from '../models/userModel.js'
 import generateToken from "../utils/generateToken.js";
 
 const authUser = expressAsyncHandler(async (req, res) => {
-  const { email, password } = req.body
-  const user = await User.findOne({ email })
+  const { phoneOremail, password } = req.body
+  let user = await User.findOne({ phone:phoneOremail })
+  if (!user) {
+    user = await User.findOne({ email: phoneOremail })
+  }
   if (user && await user.matchPassword(password)) {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.json({
@@ -80,6 +83,10 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       nidImage: user.nidImage,
       presentAddress: user.presentAddress,
       permanentAddress: user.permanentAddress,
+      isAdmin: user.isAdmin,
+      isSuperAdmin: user.isSuperAdmin,
+      isActive: user.isActive,
+      permission: user.permission,
       token: generateToken(user._id),
     })
   } else {

@@ -2,6 +2,9 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import users from './data/users.js'
 import User from './models/userModel.js'
+import ServiceProvider from './models/serviceProviderModel.js'
+import Notification from './models/commonNotificationModel.js'
+import PersonalMessage from './models/personalMessageModel.js'
 import connectDB from './config/db.js'
 
 dotenv.config()
@@ -11,6 +14,9 @@ connectDB()
 export const importData = async () => {
     try {
         await User.deleteMany()
+        await ServiceProvider.deleteMany()
+        await Notification.deleteMany()
+        await PersonalMessage.deleteMany()
 
         const createdUsers = await User.insertMany(users)
 
