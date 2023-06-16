@@ -5,7 +5,8 @@ import User from './models/userModel.js'
 import ServiceProvider from './models/serviceProviderModel.js'
 import Notification from './models/commonNotificationModel.js'
 import PersonalMessage from './models/personalMessageModel.js'
-import ServiceModel from './models/serviceModel.js'
+import ServiceCategory from './models/serviceCategoryModel.js'
+import Service from './models/serviceModel.js'
 import ServiceCategoryModel from './models/serviceCategoryModel.js'
 import connectDB from './config/db.js'
 
@@ -20,6 +21,8 @@ export const importData = async () => {
         await Notification.deleteMany()
         await PersonalMessage.deleteMany()
 
+        const serviceCat = await ServiceCategory.updateMany({},{viewCount:0,serviceProviderCount:0})
+        const serviceM = await Service.updateMany({},{viewCount:0,serviceProviderCount:0})
         const createdUsers = await User.insertMany(users)
 
         // const adminUser = createdUsers[0]._id
