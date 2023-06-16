@@ -14,7 +14,7 @@
     <div class="listcard-cont ">
         <q-badge v-if="serviceProvider.viewCount" class="view-badge-top-right" color="pink"> <q-icon name="visibility"/> {{serviceProvider.viewCount}}</q-badge>
         <q-card-section class="image-section q-pa-sm">
-          <q-img :src="serviceProvider.image" />
+          <q-img :src="web_root_url+serviceProvider.image" />
         </q-card-section>
         <q-card-section class="description-section q-pa-sm">
           <div class="text-bold">
@@ -45,7 +45,7 @@
 </template>
 <script setup>
 import { useLanguageStore } from 'src/stores/lang/languageSettingsStore';
-
+import { web_root_url } from 'src/global_constant/root_url';
 defineProps({
   serviceProvider:{
     type:Object,

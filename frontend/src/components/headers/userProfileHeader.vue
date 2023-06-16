@@ -4,7 +4,7 @@
     <q-item clickable v-ripple @click="profileClickManager">
       <q-item-section side>
         <q-avatar rounded size="40px">
-          <img v-if="authStore?.loginUserInfo?.profileImage" :src="authStore?.loginUserInfo?.profileImage" />
+          <img v-if="authStore?.loginUserInfo?.profileImage" :src="web_root_url +authStore?.loginUserInfo?.profileImage" />
           <img v-else src="/images/user-placeholder.jpg" />
         </q-avatar>
       </q-item-section>
@@ -116,7 +116,7 @@
       </q-btn>
       <q-btn v-if="authStore.loginUserInfo" dense flat no-wrap>
         <q-avatar rounded size="20px">
-          <img src="images/user-placeholder.jpg" />
+          <img src="/images/user-placeholder.jpg" />
           <!-- <q-icon name="settings_input_component" size="20px" /> -->
         </q-avatar>
         <q-icon name="arrow_drop_down" size="16px" />

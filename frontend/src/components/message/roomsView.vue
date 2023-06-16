@@ -4,9 +4,9 @@
       <q-avatar>
         <img
           v-if="room.participants[0].user._id !== authStore.loginUserInfo._id"
-          :src="room.participants[0].user.profileImage"
+          :src="web_root_url + room.participants[0].user.profileImage"
         />
-        <img v-else :src="room.participants[1].user.profileImage" />
+        <img v-else :src="web_root_url + room.participants[1].user.profileImage" />
       </q-avatar>
     </q-item-section>
 
@@ -105,6 +105,7 @@ socket.on("new_message", () => {
 var audio = new Audio("/sounds/new_messenge_ton.mp3"); // path to file
 
 socket.on("receiving_new_message", (argument) => {
+  console.log("receiving new message")
   audio.play();
 });
 </script>

@@ -67,7 +67,7 @@
                   {{ $t("icon") }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                  <q-img :src="serviceStore.serviceInfo.icon" style="width:200px;"/>
+                  <q-img :src="web_root_url+serviceStore.serviceInfo.icon" style="width:200px;"/>
                 </div>
               </div>
             </div>
@@ -77,7 +77,7 @@
                   {{ $t("coverimage") }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                  <q-img :src="serviceStore.serviceInfo.coverImage"/>
+                  <q-img :src="web_root_url + serviceStore.serviceInfo.coverImage"/>
                 </div>
               </div>
             </div>
@@ -108,6 +108,7 @@ import { requiredSelector, required, fileValidate } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useServiceStore } from "src/stores/service/serviceStore";
 import { useUserStore } from "src/stores/user/userStore";
+import { web_root_url } from 'src/global_constant/root_url';
 const languageStore = useLanguageStore();
 const serviceStore = useServiceStore();
 const maximizedToggle = ref(true);

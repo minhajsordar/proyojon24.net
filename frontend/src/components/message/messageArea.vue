@@ -24,7 +24,7 @@
         >
           <img
             class="q-message-avatar q-message-avatar--received"
-            :src="
+            :src=" web_root_url+
               authStore.loginUserInfo._id !== message.sender._id
                 ? message.sender?.profileImage
                 : message.receipent?.profileImage
@@ -137,6 +137,7 @@ import { useMessageStore } from "src/stores/message/messageStore";
 import { useRoomsStore } from "src/stores/message/roomStore";
 import { socket } from "src/socket/socket";
 import { storeToRefs } from "pinia";
+import { web_root_url } from "src/global_constant/root_url";
 
 const messageStore = useMessageStore();
 const { messageList } = storeToRefs(messageStore);

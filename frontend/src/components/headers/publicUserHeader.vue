@@ -3,7 +3,7 @@
     <q-item clickable v-ripple @click="profileClickManager">
       <q-item-section side>
         <q-avatar rounded size="40px">
-          <img v-if="loginUser?.profileImage" :src="loginUser?.profileImage" />
+          <img v-if="loginUser?.profileImage" :src="web_root_url + loginUser?.profileImage" />
           <img v-else src="/images/user-placeholder.jpg" />
         </q-avatar>
       </q-item-section>
@@ -73,6 +73,7 @@ import { useMenuControllerStore } from "src/stores/menucontroller/menuController
 import publicMobileMenus from "./mobileView/publicMobileMenus.vue";
 import { useLocalStorage } from "@vueuse/core";
 import { isObjEmpty } from "src/global_js/utils";
+import { web_root_url } from "src/global_constant/root_url";
 const loginUser = useLocalStorage("proyojonloginuser", {});
 const menuControllerStore = useMenuControllerStore();
 const languageStore = useLanguageStore();

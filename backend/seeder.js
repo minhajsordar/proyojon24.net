@@ -5,6 +5,8 @@ import User from './models/userModel.js'
 import ServiceProvider from './models/serviceProviderModel.js'
 import Notification from './models/commonNotificationModel.js'
 import PersonalMessage from './models/personalMessageModel.js'
+import ServiceModel from './models/serviceModel.js'
+import ServiceCategoryModel from './models/serviceCategoryModel.js'
 import connectDB from './config/db.js'
 
 dotenv.config()

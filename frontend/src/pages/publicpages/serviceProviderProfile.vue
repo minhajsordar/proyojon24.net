@@ -9,7 +9,7 @@
             <q-img
               height="230px"
               cover
-              :src="serviceProviderStore.serviceProvider?.serviceImage"
+              :src="web_root_url+serviceProviderStore.serviceProvider?.serviceImage"
             >
             </q-img>
             <q-img
@@ -17,7 +17,7 @@
               height="130px"
               width="130px"
               cover
-              :src="serviceProviderStore.serviceProvider?.image"
+              :src="web_root_url+serviceProviderStore.serviceProvider?.image"
             >
             </q-img>
           </q-card-section>
@@ -109,7 +109,7 @@ import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js"
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useRoute, useRouter } from "vue-router";
 import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
-
+import { web_root_url } from 'src/global_constant/root_url';
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const router = useRouter();

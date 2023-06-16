@@ -25,12 +25,12 @@
                   <q-img class="absolute-top-center service-icon"
                   v-if="serviceCategory.icon"
                   fit
-                  :src="serviceCategory.icon"
+                  :src="web_root_url+serviceCategory.icon"
                   />
                   <q-img
                   v-else class="absolute-top-center service-icon"
                    fit
-                  src="images/placeholder_image.png"
+                  src="/images/placeholder_image.png"
                   />
 
                   <div class="absolute-top-center service-icon gradient-bg"></div>
@@ -72,6 +72,7 @@ import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js"
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useRoute, useRouter } from "vue-router";
 import { useLocalStorage } from "@vueuse/core";
+import { web_root_url } from "src/global_constant/root_url";
 
 const selectedServiceAndCategory = useLocalStorage('selected-service-and-category',{})
 const { t } = useI18n();

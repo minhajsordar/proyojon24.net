@@ -62,7 +62,13 @@
           round
           style="padding: 3px"
           class="bg-accent text-white absolute-add-serviceporvider"
-          @click="$router.push('/service_provider_profile')"
+          @click="()=>{
+            if(authStore?.loginUserInfo){
+              $router.push('/service_provider_profile')
+            }else{
+              $router.push('/login')
+            }
+            }"
         >
           <q-icon v-if="authStore?.loginUserInfo?.hasServiceProviderProfile" class="manage_accounts" name="add" size="45px" />
           <q-icon v-else class="rotate-icon" name="add" size="45px" />

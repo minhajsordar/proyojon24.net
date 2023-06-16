@@ -6,7 +6,7 @@
           <div class="flex ">
             <div >
               <q-avatar rounded size="130px">
-              <img v-if="authStore.loginUserInfo?.profileImage" :src="authStore.loginUserInfo.profileImage" />
+              <img v-if="authStore.loginUserInfo?.profileImage" :src="web_root_url+authStore.loginUserInfo.profileImage" />
               <img v-else src="/images/user-placeholder.jpeg" />
             </q-avatar>
             </div>
@@ -55,6 +55,7 @@ import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import profileInformations from "src/components/profile/profileInformations.vue";
+import { web_root_url } from "src/global_constant/root_url";
 
 const languageStore = useLanguageStore()
 const authStore = useAuthStore()
