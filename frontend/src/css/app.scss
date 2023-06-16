@@ -14,7 +14,12 @@ body,
     rgba(245, 195, 255, 0.3) 100%
   );
 }
-
+@media screen and (max-width: 1024px) {
+  body,
+  .background-pattern {
+    background: transparent;
+  }
+}
 .auth-wrapper {
   font-family: "Montserrat", sans-serif;
 }
@@ -102,10 +107,10 @@ body,
     margin-right: auto;
   }
 }
-.slide-image{
+.slide-image {
   height: 300px;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1024px) {
   .container-section,
   .container-section-py-sm {
     .inner-section {
@@ -137,7 +142,7 @@ body,
       overflow: hidden;
     }
   }
-  .slide-image{
+  .slide-image {
     height: 250px;
   }
 }
@@ -150,9 +155,9 @@ body,
   }
 
   .container-section-py-xs {
-    padding: 5px 0px;
+    padding: 0px 0px;
     .inner-section {
-      padding: 0px 5px;
+      padding: 0px 0px;
       width: 100%;
     }
     .inner-section-px-0 {
@@ -172,9 +177,9 @@ body,
     }
   }
 
-.slide-image{
-  height: 200px;
-}
+  .slide-image {
+    height: 200px;
+  }
 }
 
 // links
@@ -302,7 +307,8 @@ body,
   color: $accent_public;
 }
 
-.card .gradient-bg, .gradient-bg {
+.card .gradient-bg,
+.gradient-bg {
   content: "";
   width: 100%;
   height: 100%;
@@ -316,7 +322,7 @@ body,
   overflow: hidden;
   background-color: transparent;
 }
-.gradient-bg{
+.gradient-bg {
   width: 100%;
   height: 100%;
   filter: blur(7px);
@@ -325,32 +331,40 @@ body,
 .gradient-bg::before {
   width: 130%;
   height: 130%;
-  content: '';
+  content: "";
   display: block;
   z-index: -1;
   position: absolute;
-  top: -2rem; right: 0; bottom: -2rem; left: 0;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,#23a6d5, #e73c7e, #ee7752);
+  top: -2rem;
+  right: 0;
+  bottom: -2rem;
+  left: 0;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #23a6d5, #e73c7e, #ee7752);
   transform: rotate(0deg);
 }
 .card .gradient-bg::before {
-  content: '';
+  content: "";
   display: block;
   z-index: -1;
   position: absolute;
-  top: -2rem; right: 0; bottom: -2rem; left: 0;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,#23a6d5, #e73c7e, #ee7752);
+  top: -2rem;
+  right: 0;
+  bottom: -2rem;
+  left: 0;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #23a6d5, #e73c7e, #ee7752);
   animation: rotate-gradient linear 5s infinite;
 }
 
 @keyframes rotate-gradient {
-  from { transform: rotate(0deg) }
-  to { transform: rotate(360deg) }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-
-
-.gradient-bg-medium{
+.gradient-bg-medium {
   content: "";
   width: 100%;
   height: 100%;
@@ -358,7 +372,7 @@ body,
   left: 0;
   top: 1px;
   background: rgb(131, 58, 180);
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,#23a6d5, #e73c7e, #ee7752);
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #23a6d5, #e73c7e, #ee7752);
 
   overflow: hidden;
   background-color: transparent;
@@ -371,11 +385,14 @@ body,
 .gradient-bg-medium::before {
   width: 130%;
   height: 130%;
-  content: '';
+  content: "";
   display: block;
   z-index: -1;
   position: absolute;
-  top: -2rem; right: 0; bottom: -2rem; left: 0;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,#23a6d5, #e73c7e, #ee7752);
+  top: -2rem;
+  right: 0;
+  bottom: -2rem;
+  left: 0;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #23a6d5, #e73c7e, #ee7752);
   transform: rotate(0deg);
 }

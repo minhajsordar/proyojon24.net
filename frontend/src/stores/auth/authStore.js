@@ -6,16 +6,17 @@ import { encode64 } from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useLanguageStore } from '../lang/languageSettingsStore';
-import { Notify } from 'quasar';
+import { Notify, date } from "quasar";
 import { useUserStore } from '../user/userStore';
 // room
 import { useRoomsStore } from "src/stores/message/roomStore";
+const sessionEndTimeStorage = useLocalStorage("session-timeout-end", {});
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 const myRooms = useLocalStorage('myrooms', {})
 loader.title = 'Requesting To Server...'
 export const useAuthStore = defineStore('auth store', () => {
-const roomStore = useRoomsStore()
+  const roomStore = useRoomsStore()
   const userStore = useUserStore();
   const router = useRouter(),
     languageStore = useLanguageStore(),
@@ -67,6 +68,7 @@ const roomStore = useRoomsStore()
       router.push('/profile')
       myRooms.value = null
       roomStore.getMyRooms()
+      sessionEndTimeStorage.value = date.addToDate(new Date(), { minute: 5 })
     } catch (error) {
       console.log(error);
       loader.hideLoader()
@@ -79,7 +81,7 @@ const roomStore = useRoomsStore()
     loginUser.value = null
     loginUserInfo.value = null
     isAuthorized.value = false
-    router.push('/login')
+    router.push('/')
   }
   const checkLogin = () => {
     function isObjEmpty(obj) {
@@ -122,7 +124,7 @@ const roomStore = useRoomsStore()
     },
   })
 
-  const updateUserPermission = async (id,permission) => {
+  const updateUserPermission = async (id, permission) => {
     const data = {}
     if (permission == "superAdmin") {
       data.isSuperAdmin = true
@@ -130,7 +132,7 @@ const roomStore = useRoomsStore()
     else if (permission == "admin") {
       data.isAdmin = true
     }
-    else{
+    else {
       data.permission = permission
     }
     const config = {
@@ -146,7 +148,7 @@ const roomStore = useRoomsStore()
     try {
       const responseData = await api.request(config);
       loader.hideLoader()
-  userStore.getUserList();
+      userStore.getUserList();
 
     } catch (error) {
       loader.hideLoader()

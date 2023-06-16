@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf" container style="height: 100vh" class="shadow-2">
-    <q-header elevated :class="$q.dark.isActive ? 'bg-primary' : 'bg-accent'">
+    <q-header elevated  :class="[$q.screen.gt.sm?'bg-accent-public':'bg-red-8']">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         <q-toolbar-title>Proyojon24</q-toolbar-title>

@@ -1,14 +1,19 @@
 <template>
   <q-layout class="background-pattern" view="hHh lpR fFf">
     <!-- !$q.screen.gt.sm -->
-    <q-header class="text-white bg-accent-public" height-hint="61.59">
+    <q-header
+      class="text-white"
+      :class="[$q.screen.gt.sm ? 'bg-accent-public' : 'bg-red-8']"
+      height-hint="61.59"
+    >
       <!-- <publicUserHeader v-if="Object.keys(loginUser).length == 0" /> -->
       <userProfileHeader />
     </q-header>
 
     <q-page-container class="q-page-cont">
       <router-view />
-      <div v-if="$q.screen.gt.sm"
+      <div
+        v-if="$q.screen.gt.sm"
         class="q-py-sm text-center bg-primary-public text-white full-width footer-area"
       >
         <div class="fs-12">
@@ -62,15 +67,23 @@
           round
           style="padding: 3px"
           class="bg-accent text-white absolute-add-serviceporvider"
-          @click="()=>{
-            if(authStore?.loginUserInfo){
-              $router.push('/service_provider_profile')
-            }else{
-              $router.push('/login')
+          :class="[$q.screen.gt.sm ? 'bg-accent' : 'bg-green']"
+          @click="
+            () => {
+              if (authStore?.loginUserInfo) {
+                $router.push('/service_provider_profile');
+              } else {
+                $router.push('/login');
+              }
             }
-            }"
+          "
         >
-          <q-icon v-if="authStore?.loginUserInfo?.hasServiceProviderProfile" class="manage_accounts" name="add" size="45px" />
+          <q-icon
+            v-if="authStore?.loginUserInfo?.hasServiceProviderProfile"
+            class="manage_accounts"
+            name="add"
+            size="45px"
+          />
           <q-icon v-else class="rotate-icon" name="add" size="45px" />
         </q-btn>
         <div
@@ -150,10 +163,13 @@ import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 import { useSearchLocationStore } from "src/stores/service/searchLocation";
-import { useLocalStorage } from "@vueuse/core";
 import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
-import { useAuthStore } from "src/stores/auth/authStore";
+import { useAuthStore, loginUser } from "src/stores/auth/authStore";
 import { isObjEmpty } from "src/global_js/utils";
+import { useIntervalFn, useLocalStorage } from "@vueuse/core";
+import { Dialog, Notify, date } from "quasar";
+const sessionEndTimeStorage = useLocalStorage("session-timeout-end", {});
+
 const languageStore = useLanguageStore();
 const pinlocationStore = usePinlocationStore();
 pinlocationStore.getGlobalPinlocations();
@@ -161,11 +177,33 @@ languageStore.switchToBn();
 const router = useRouter();
 const menuControllerStore = useMenuControllerStore();
 const authStore = useAuthStore();
-const loginUser = useLocalStorage("proyojonloginuser", {});
+const eventsList = [
+  "click",
+  "mousemove",
+  "mousedown",
+  "scroll",
+  "keypress",
+  "load",
+];
 onMounted(() => {
   if (!isObjEmpty(loginUser.value)) {
     authStore.loginUserInfo = loginUser.value;
   }
+  eventsList.forEach((event) => {
+    document.addEventListener(event, () => {
+      if (
+        !Boolean(authStore.loginUserInfo) &&
+        new Date(sessionEndTimeStorage.value) <= new Date()
+      ) {
+        Notify.create({
+          message: "We are going to logout you for 5 minutes inactivity.",
+          position: "center",
+        });
+        authStore.logoutFunc();
+      }
+      sessionEndTimeStorage.value = date.addToDate(new Date(), { minute: 5 });
+    });
+  });
 });
 </script>
 
@@ -180,6 +218,13 @@ onMounted(() => {
   z-index: -1;
   .fill-path {
     fill: $accent;
+  }
+}
+@media screen and (max-width: 1024px) {
+  #footer-bg-svg {
+    .fill-path {
+      fill: $green;
+    }
   }
 }
 .absolute-add-serviceporvider {

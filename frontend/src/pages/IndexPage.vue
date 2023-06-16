@@ -116,7 +116,7 @@
         </div>
       </div>
     </div>
-    <div class="container-section-py-sm">
+    <div class="container-section-py-xs">
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -184,7 +184,7 @@
         </div>
       </div>
     </div>
-    <div class="container-section-py-sm">
+    <div class="container-section-py-xs">
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">

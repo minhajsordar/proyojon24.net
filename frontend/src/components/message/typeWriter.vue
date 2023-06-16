@@ -25,7 +25,8 @@
         "
       >
         <q-icon
-          class="fs-32 text-primary"
+          class="fs-32 "
+          :class="[$q.screen.gt.sm?'text-primary':'text-green']"
           name="send"
           style="margin-top: -19px"
         />
