@@ -732,6 +732,59 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       loader.hideLoader()
     }
   }
+  const addToTopSuggestionServiceProvider = async (id) => {
+    const config = {
+      method: "put",
+      url: "api/service_providers/suggest/" + id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+
+      }, data: {
+        topSuggested: true
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      getServiceProviderList()
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
+      loader.hideLoader()
+    }
+  }
+  const removeFromTopSuggestionServiceProvider = async (id) => {
+    const config = {
+      method: "put",
+      url: "api/service_providers/suggest/" + id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+      }, data: {
+        topSuggested: false
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      getServiceProviderList()
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
+      loader.hideLoader()
+    }
+  }
   return {
     openServiceProviderEditDialog,
     openServiceProviderEditDialogManager,
@@ -770,6 +823,8 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     selectedServiceCategory,
     uploadCoverImage,
     filteredByServiseCategoryId,
-    getFilteredServiceProviderByServiceCategory
+    getFilteredServiceProviderByServiceCategory,
+    addToTopSuggestionServiceProvider,
+    removeFromTopSuggestionServiceProvider,
   }
 });

@@ -1,0 +1,7 @@
+{
+  "appId": "net.proyojon24.app",
+  "appName": "Proyojon24 App",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

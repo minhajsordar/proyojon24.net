@@ -17,7 +17,7 @@ connectDB()
 export const importData = async () => {
     try {
         await User.deleteMany()
-        // await ServiceProvider.deleteMany()
+        await ServiceProvider.deleteMany()
         // await Notification.deleteMany()
         // await PersonalMessage.deleteMany()
 

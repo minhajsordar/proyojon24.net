@@ -91,6 +91,24 @@
         </div>
       </div>
     </div>
+    <div class="container-section-py-xs">
+      <div class="inner-section">
+        <div class="full-width">
+          <q-card>
+            <div class="row q-col-gutter-sm">
+              <div class="col-3" v-for="(topProvider,index) in topSuggestedStore?.topSuggested" :key="index">
+                <div class="q-pa-sm fs-12 text-center">
+                  <div>{{ topProvider.serviceCategory.name[languageStore.language] }}</div>
+                  <div>{{ topProvider.name[languageStore.language] }}</div>
+                  <q-img v-if="topProvider.image" width="55px" :src="topProvider.image"/>
+                  <q-img v-else width="55px" src="/images/user-placeholder.jpg"/>
+                </div>
+              </div>
+            </div>
+          </q-card>
+        </div>
+      </div>
+    </div>
     <div class="container-section-py-xs-0">
       <div class="inner-section-px-0">
         <div class="full-width">
@@ -252,15 +270,23 @@ import { useI18n } from "vue-i18n";
 import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js";
 import { usePublicDashboardStore } from "src/stores/user/dashboardStore";
 import { web_root_url } from "src/global_constant/root_url";
+import { useTopSuggestedStore } from "src/stores/service/topSuggestedStore";
+const topSuggestedStore = useTopSuggestedStore()
+// get top suggested service providers
+topSuggestedStore.getTopSuggestedProvider()
 
 const dashboardStore = usePublicDashboardStore()
+// get dashboard data
 dashboardStore.getDashboardData()
 const selectedServiceAndCategory = useLocalStorage(
   "selected-service-and-category",
   {}
 );
 const servicePublicStore = usePublicServiceStore();
+// get all services
 servicePublicStore.getAllServices();
+
+// import language changing function
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 

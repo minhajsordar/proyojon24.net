@@ -300,12 +300,17 @@ const rankAndApprovalServiceProvider = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const suggestServiceProvider = expressAsyncHandler(async (req, res) => {
     const {
-        suggested
+        suggested, topSuggested
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
         if (req.user.isSuperAdmin) {
-            serviceProvider.suggested = suggested || false
+            if(suggested){
+                serviceProvider.suggested = suggested
+            }
+            if(topSuggested){
+                serviceProvider.topSuggested = topSuggested
+            }
         }
         const updatedServiceProvider = await serviceProvider.save()
         res.status(201).json(updatedServiceProvider)
@@ -365,9 +370,23 @@ const createServiceProviderViewCount = expressAsyncHandler(async (req, res) => {
 // @desc Top rated service provider
 // @route update api/ServiceProvider/topRated
 // @acess public
+const getSuggestedServiceProvider = expressAsyncHandler(async (req, res) => {
+    const serviceProvider = await ServiceProvider.find({suggested: true}).populate("serviceCategory","name")
+    res.status(200).json(serviceProvider)
+})
+// @desc Top rated service provider
+// @route update api/ServiceProvider/topRated
+// @acess public
+const getTopSuggestedServiceProvider = expressAsyncHandler(async (req, res) => {
+    const serviceProvider = await ServiceProvider.find({topSuggested: true}).populate("serviceCategory","name")
+    res.status(200).json(serviceProvider)
+})
+// @desc Top rated service provider
+// @route update api/ServiceProvider/topRated
+// @acess public
 const getTopServiceProvider = expressAsyncHandler(async (req, res) => {
     const serviceProvider = await ServiceProvider.find({}).sort({ rating: -1 }).limit(3)
-    res.json(serviceProvider)
+    res.status(200).json(serviceProvider)
 })
 
 // @desc create a ServiceProvider
@@ -461,5 +480,7 @@ export {
     getServiceProviderByServiceCategory,
     createServiceProvider,
     getUserServiceProvider,
+    getSuggestedServiceProvider,
+    getTopSuggestedServiceProvider,
     getAllServiceProviders
 }

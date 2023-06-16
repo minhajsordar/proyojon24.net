@@ -140,6 +140,11 @@ const serviceProviderSchema = new mongoose.Schema({
         required: true,
         default: false
     },
+    topSuggested: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     approved: {
         type: Boolean,
         required: true,

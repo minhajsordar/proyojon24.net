@@ -148,6 +148,34 @@
               "
             />
             <q-btn
+              v-if="!serviceProvider.topSuggested"
+              class="q-ml-xs"
+              :label="$t('addToTopSuggestion')"
+              size="sm"
+              dense
+              glossy
+              color="orange-14"
+              @click="
+                serviceProviderStore.addToTopSuggestionServiceProvider(
+                  serviceProvider._id
+                )
+              "
+            />
+            <q-btn
+              v-else
+              class="q-ml-xs"
+              :label="$t('removeFromTopSuggestion')"
+              size="sm"
+              dense
+              glossy
+              color="negative"
+              @click="
+                serviceProviderStore.removeFromTopSuggestionServiceProvider(
+                  serviceProvider._id
+                )
+              "
+            />
+            <q-btn
               class="q-ml-xs"
               :label="$t('delete')"
               size="sm"

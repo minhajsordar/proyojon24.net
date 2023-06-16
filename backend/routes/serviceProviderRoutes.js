@@ -14,6 +14,8 @@ import {
     suggestServiceProvider,
     getServiceProviderPendingList,
     rankAndApprovalServiceProvider,
+    getSuggestedServiceProvider,
+    getTopSuggestedServiceProvider,
     getUserServiceProvider
 } from "../controllers/serviceProviderController.js"
 import { admin, anyAdmin, higherLavelPermission, protect, specialPermission, superAdmin } from "../middleware/authMiddleware.js"
@@ -24,7 +26,8 @@ router.route('/').get(protect, anyAdmin, getServiceProviders).post(protect, crea
 router.route('/service_provider_review').put(protect, createServiceProviderReview)
 router.route('/top_service_provider').get(getTopServiceProvider)
 router.route('/pending_list').get(protect, specialPermission,getServiceProviderPendingList)
-router.route('/top_service_provider').get(getTopServiceProvider)
+router.route('/suggested_service_provider').get(getSuggestedServiceProvider)
+router.route('/top_suggested_service_provider').get(getTopSuggestedServiceProvider)
 router.route('/user_service_provider').get(protect,getUserServiceProvider)
 router.route('/all')
 .get(getAllServiceProviders)
