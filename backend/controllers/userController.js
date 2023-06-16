@@ -183,6 +183,27 @@ const deleteUser = expressAsyncHandler(async (req, res) => {
   }
 })
 
+// @desc Delete user
+// @route PUT api/users/:id
+// @acess Privet/Admin
+const deleteRequest = expressAsyncHandler(async (req, res) => {
+  if(req.user._id == req.params.id){
+    const user = await User.findById(req.params.id)
+    if (user) {
+      user.deleteRequest.requested = true
+      user.deleteRequest.note = req.body.note
+      await user.save()
+      res.json({ message: 'Delete Request Submitted' })
+    } else {
+      res.status(404)
+      throw new Error('User not found')
+    }
+  }else{
+    res.status(404)
+    throw new Error('You can\'t make delete request')
+  }
+})
+
 // @desc get user
 // @route Put api/users/:id
 // @acess Privet/Admin
@@ -276,5 +297,6 @@ export {
   getUsers,
   deleteUser,
   getUserById,
+  deleteRequest,
   updateUser
 }

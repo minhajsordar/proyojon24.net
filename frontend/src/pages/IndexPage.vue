@@ -1,5 +1,6 @@
 <template>
-  <div class="container-section-py-xs">
+  <!-- TODO Later we will need this anal -->
+  <!-- <div class="container-section-py-xs">
     <div class="inner-section">
       <div class="full-width">
         <div class="row q-col-gutter-sm">
@@ -7,7 +8,7 @@
             <q-card class="bg-cyan-6 text-white">
               <q-card-section>
                 <div class="fs-16">Total User</div>
-                <div  class="fs-28">100</div>
+                <div  class="fs-32 text-bold">{{ dashboardStore.dashboardData?.totalUser }}</div>
               </q-card-section>
             </q-card>
           </div>
@@ -15,14 +16,14 @@
             <q-card class="bg-teal-5 text-white">
               <q-card-section>
                 <div class="fs-16">Total Profile View</div>
-                <div  class="fs-28">100</div>
+                <div  class="fs-32 text-bold">{{ dashboardStore.dashboardData?.totalView }}</div>
               </q-card-section>
             </q-card>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <div
     v-if="
       servicePublicStore.allServices &&
@@ -249,8 +250,11 @@ import topSlide from "src/components/slide/topSlide.vue";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js";
+import { usePublicDashboardStore } from "src/stores/user/dashboardStore";
 import { web_root_url } from "src/global_constant/root_url";
 
+const dashboardStore = usePublicDashboardStore()
+dashboardStore.getDashboardData()
 const selectedServiceAndCategory = useLocalStorage(
   "selected-service-and-category",
   {}

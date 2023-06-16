@@ -8,7 +8,7 @@
 
     <q-page-container class="q-page-cont">
       <router-view />
-      <div
+      <div v-if="$q.screen.gt.sm"
         class="q-py-sm text-center bg-primary-public text-white full-width footer-area"
       >
         <div class="fs-12">

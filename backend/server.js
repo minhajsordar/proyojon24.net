@@ -18,6 +18,7 @@ import personalRoomRoutes from './routes/personalRoomRoutes.js'
 import personalMessageRoutes from './routes/personalMessageRoutes.js'
 import pinLocationRoutes from './routes/pinLocationRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
+import dashboardSummaryRouter from './routes/dashboardSummaryRoute.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import { importData } from './seeder.js'
 // import { importData } from './seederDivisions.js'
@@ -96,6 +97,7 @@ app.use('/api/common_notifications', commonNotificationRoutes)
 app.use('/api/room', personalRoomRoutes)
 app.use('/api/message', personalMessageRoutes)
 app.use('/api/pinlocations', pinLocationRoutes)
+app.use('/api/dashboard', dashboardSummaryRouter)
 app.get('/api/seeder', (req, res) => {
     importData()
     res.send("data Imported")

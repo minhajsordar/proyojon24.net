@@ -90,7 +90,9 @@ export const useUserStore = defineStore('user store', () => {
       isActive: true,
       isSuperAdmin: false,
       isAdmin: false,
-    })
+    }),
+    deleteRequestDialog = ref(false),
+    deleteNote = ref(null)
   const getUserList = async () => {
     const config = {
       method: "get",
@@ -217,9 +219,43 @@ export const useUserStore = defineStore('user store', () => {
       loader.hideLoader()
     }
   }
+  const requestDeleteUserProfile = async () => {
+    const config = {
+      method: "post",
+      url: "api/users/delete_request/" + loginUser.value._id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+
+      },body:{
+        note: deleteNote.value
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      loader.hideLoader()
+      Notify.create({
+        position: "center",
+        type: "positive",
+        message: "Your Profile Is Under Review, Once We Confirm Your Profile Will Delete Permanently.",
+      });
+    } catch (error) {
+      loader.hideLoader()
+      console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
+    }
+  }
   return {
     userList,
     userInfo,
     getUserList,
+    requestDeleteUserProfile,
+    deleteNote,
+    deleteRequestDialog
   }
 });

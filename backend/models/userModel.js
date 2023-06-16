@@ -71,6 +71,15 @@ const userSchema = mongoose.Schema({
     hasServiceProviderProfile: {
         type: Boolean,
         default: false,
+    },
+    deleteRequest: {
+        requested: {
+            type: Boolean,
+            default: false,
+        }, note: {
+            type: String,
+            default: null,
+        }
     }
 }, {
     timestamps: true

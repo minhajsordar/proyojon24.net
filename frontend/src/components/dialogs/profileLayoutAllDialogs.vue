@@ -38,6 +38,8 @@
 <!-- notification dialog -->
     <createNotificationDialog />
     <editNotificatinoDialog />
+     <!-- delete user profile -->
+    <deleteUserDialog />
   </div>
 </template>
 <script setup>
@@ -73,4 +75,6 @@ import locationFilterDialog from "src/components/dialogs/location/locationFilter
 // location filter dialog
 import createNotificationDialog from "src/components/dialogs/notification/createNotificationDialog.vue";
 import editNotificatinoDialog from "src/components/dialogs/notification/editNotificatinoDialog.vue";
+// delete user profile
+import deleteUserDialog from "src/components/dialogs/user/deleteUserDialog.vue";
 </script>

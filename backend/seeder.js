@@ -17,12 +17,12 @@ connectDB()
 export const importData = async () => {
     try {
         await User.deleteMany()
-        await ServiceProvider.deleteMany()
-        await Notification.deleteMany()
-        await PersonalMessage.deleteMany()
+        // await ServiceProvider.deleteMany()
+        // await Notification.deleteMany()
+        // await PersonalMessage.deleteMany()
 
-        const serviceCat = await ServiceCategory.updateMany({},{viewCount:0,serviceProviderCount:0})
-        const serviceM = await Service.updateMany({},{viewCount:0,serviceProviderCount:0})
+        // const serviceCat = await ServiceCategory.updateMany({},{viewCount:0,serviceProviderCount:0})
+        // const serviceM = await Service.updateMany({},{viewCount:0,serviceProviderCount:0})
         const createdUsers = await User.insertMany(users)
 
         // const adminUser = createdUsers[0]._id

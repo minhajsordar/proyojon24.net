@@ -69,7 +69,7 @@ const roomStore = useRoomsStore()
       roomStore.getMyRooms()
     } catch (error) {
       console.log(error);
-      // loader.hideLoader()
+      loader.hideLoader()
       rememberUserData()
 
     }
