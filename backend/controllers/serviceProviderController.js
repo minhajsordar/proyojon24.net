@@ -371,14 +371,14 @@ const createServiceProviderViewCount = expressAsyncHandler(async (req, res) => {
 // @route update api/ServiceProvider/topRated
 // @acess public
 const getSuggestedServiceProvider = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.find({suggested: true}).populate("serviceCategory","name")
+    const serviceProvider = await ServiceProvider.find({suggested: true}).select('image serviceTitle name').populate("serviceCategory","name")
     res.status(200).json(serviceProvider)
 })
 // @desc Top rated service provider
 // @route update api/ServiceProvider/topRated
 // @acess public
 const getTopSuggestedServiceProvider = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.find({topSuggested: true}).populate("serviceCategory","name")
+    const serviceProvider = await ServiceProvider.find({topSuggested: true}).select('image serviceTitle name').populate("serviceCategory","name")
     res.status(200).json(serviceProvider)
 })
 // @desc Top rated service provider

@@ -52,7 +52,7 @@ const router = useRouter()
 const authStore = useAuthStore()
 onMounted(()=>{
   if(!authStore.checkLogin()){
-    router.push('/')
+    router.push('/home')
   }
   if(!authStore.loginUserInfo.isSuperAdmin || !authStore.loginUserInfo.isAdmin){
     router.push("/profile")

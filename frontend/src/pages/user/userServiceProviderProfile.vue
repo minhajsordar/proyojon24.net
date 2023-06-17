@@ -603,8 +603,8 @@
           <div class="col-sm-6 col-xs-12 col-12">
             <div class="row">
               <div class="col-12 text-bold">
-                {{ $t("addicon") }}*
-                <span class="fs-10">Max 200kb</span>
+                {{ $t("addProfileImage") }}*
+                <span class="fs-10">Max 150kb</span>
               </div>
               <div class="col-12">
                 <q-file
@@ -613,8 +613,9 @@
                   dense
                   v-model="serviceProviderStore.imageIcon"
                   :rules="[validationEnabled && fileValidate]"
-                  label="Add png image"
-                  accept=".png,"
+                  label="Add image"
+                  counter
+                  accept=".jpg, .png, .jpeg"
                   max-total-size="20480"
                   use-chips
                   @update:model-value="serviceProviderStore.uploadIcon"
@@ -630,7 +631,7 @@
             <div class="row">
               <div class="col-12 text-bold">
                 {{ $t("addcoverimage") }}*
-                <span class="fs-10">Max 8MB</span>
+                <span class="fs-10">Max 150kb</span>
               </div>
               <div class="col-12">
                 <q-file
@@ -640,6 +641,7 @@
                   v-model="serviceProviderStore.imageCover"
                   :rules="[validationEnabled && fileValidate]"
                   label="Add image"
+                  counter
                   accept=".jpg, .png, .jpeg"
                   max-total-size="8000000"
                   use-chips

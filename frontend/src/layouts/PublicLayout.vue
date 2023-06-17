@@ -43,7 +43,7 @@
           color="white"
           class="q-mr-sm"
           no-caps
-          @click="$router.push('/')"
+          @click="$router.push('/home')"
         />
         <div class="fs-10 footer-button-text" style="position: absolute">
           Home

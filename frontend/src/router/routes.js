@@ -22,6 +22,9 @@ const routes = [
   //   ]
   // },
   {
+    path: '/', component: () => import('pages/startingPage.vue'),
+  },
+  {
     path: '/direct_message', component: () => import('pages/message/messengerPage.vue'),
     beforeEnter: checkLogin,
   },
@@ -33,8 +36,8 @@ const routes = [
     path: '/',
     component: () => import('layouts/PublicLayout.vue'),
     children: [
-      // { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '', component: () => import('pages/startingPage.vue') },
+      { path: '/home', component: () => import('pages/homePage.vue') },
       { path: '/login', name:'login', component: () => import('pages/auth/loginPage.vue') },
       { path: '/register', component: () => import('pages/auth/registerView.vue') },
       { path: '/service_categorys_list/:id', component: () => import('pages/publicpages/serviceCategorys.vue') },

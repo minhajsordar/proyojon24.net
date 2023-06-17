@@ -91,24 +91,6 @@
         </div>
       </div>
     </div>
-    <div class="container-section-py-xs">
-      <div class="inner-section">
-        <div class="full-width">
-          <q-card>
-            <div class="row q-col-gutter-sm">
-              <div class="col-3" v-for="(topProvider,index) in topSuggestedStore?.topSuggested" :key="index">
-                <div class="q-pa-sm fs-12 text-center">
-                  <div>{{ topProvider.serviceCategory.name[languageStore.language] }}</div>
-                  <div>{{ topProvider.name[languageStore.language] }}</div>
-                  <q-img v-if="topProvider.image" width="55px" :src="topProvider.image"/>
-                  <q-img v-else width="55px" src="/images/user-placeholder.jpg"/>
-                </div>
-              </div>
-            </div>
-          </q-card>
-        </div>
-      </div>
-    </div>
     <div class="container-section-py-xs-0">
       <div class="inner-section-px-0">
         <div class="full-width">
@@ -242,6 +224,24 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-section-py-xs">
+      <div class="inner-section">
+        <div class="full-width">
+          <q-card>
+            <div class="row q-col-gutter-sm">
+              <div class="col-3" v-for="(topProvider,index) in topSuggestedStore?.topSuggested" :key="index">
+                <div class="q-pa-sm fs-12 text-center">
+                  <q-img v-if="topProvider.image" width="55px" :src="topProvider.image"/>
+                  <q-img v-else width="55px" src="/images/user-placeholder.jpg"/>
+                  <div>{{ topProvider.serviceTitle[languageStore.language] }}</div>
+                  <div>{{ topProvider.name[languageStore.language] }}</div>
+                </div>
+              </div>
+            </div>
+          </q-card>
         </div>
       </div>
     </div>

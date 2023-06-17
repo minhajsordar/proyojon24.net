@@ -46,6 +46,7 @@ export default {
   goback: 'Go Back',
   addnew: 'Add new',
   addicon: 'Add icon',
+  addProfileImage: 'Add icon',
   icon: 'Icon',
   coverimage: 'Cover image',
   addcoverimage: 'Add cover image',
