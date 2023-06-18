@@ -7,87 +7,164 @@
             class="q-pa-none profile-image-section relative-position"
           >
             <q-img
-              height="230px"
-              cover
-              :src="web_root_url+serviceProviderStore.serviceProvider?.serviceImage"
-            >
-            </q-img>
-            <q-img
-              class="profile-image"
-              height="130px"
-              width="130px"
-              cover
-              :src="web_root_url+serviceProviderStore.serviceProvider?.image"
+              height="280px"
+              width="100%"
+fit="contain"
+              :src="
+                web_root_url +
+                serviceProviderStore.serviceProvider?.serviceImage
+              "
             >
             </q-img>
           </q-card-section>
-          <q-card-section class="q-pa-sm q-mt-lg text-center text-yellow">
-            <div class="fs-26">
-              {{
-                serviceProviderStore.serviceProvider?.name[
-                  languageStore.language
-                ]
-              }}
-            </div>
-            <div class="fs-23">
-              <span
-              v-if="serviceProviderStore.serviceProvider?.serviceTitle[
-                    languageStore.language
-                  ]"
-                >{{
-                  serviceProviderStore.serviceProvider?.serviceTitle[
-                    languageStore.language
-                  ]
-                }}
-              </span>
-            </div>
-          </q-card-section>
+        </q-card>
+        <q-card
+          class="full-width hover-serviceprovider-card cursor-pointer"
+        >
+          <div class="listcard-cont">
+            <q-badge
+              v-if="serviceProviderStore.serviceProvider?.viewCount"
+              class="view-badge-top-right"
+              color="pink"
+            >
+              <q-icon name="visibility" />
+              {{ serviceProviderStore.serviceProvider.viewCount }}</q-badge
+            >
+            <q-card-section class="image-section q-pa-sm">
+              <q-img :src="web_root_url + serviceProviderStore.serviceProvider?.image" />
+            </q-card-section>
+            <q-card-section class="description-section q-pa-sm">
+              <div class="text-bold">
+                {{ serviceProviderStore.serviceProvider?.name[languageStore.language] }}
+              </div>
+              <q-separator />
+              <div>
+                <span>{{
+                  serviceProviderStore.serviceProvider?.serviceTitle[languageStore.language]
+                }}</span>
+              </div>
+              <q-separator />
+              <div class="fs-12 text-bold">
+                <q-icon class="bg-primary text-white" name="location_on" />
+                <span
+                  v-if="
+                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.division?.name[
+                      languageStore.language
+                    ]
+                  "
+                  >
+                  {{
+                    " "+serviceProviderStore.serviceProvider?.serviceProviderLocation?.division?.name[
+                      languageStore.language
+                    ]
+                  }}
+                </span>
+                <span
+                  v-if="
+                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.district?.name[
+                      languageStore.language
+                    ]
+                  "
+                  >,
+                  {{
+                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.district?.name[
+                      languageStore.language
+                    ]
+                  }}
+                </span>
+                <span
+                  v-if="
+                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.subDistrict?.name[
+                      languageStore.language
+                    ]
+                  "
+                  >,
+                  {{
+                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.subDistrict?.name[
+                      languageStore.language
+                    ]
+                  }}
+                </span>
+                <span
+                  v-if="
+                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.union?.name[
+                      languageStore.language
+                    ]
+                  "
+                  >,
+                  {{
+                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.union?.name[
+                      languageStore.language
+                    ]
+                  }}</span
+                >
+                <span v-if="serviceProviderStore.serviceProvider?.serviceProviderLocation?.exact"
+                  >,
+                  {{
+                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.exact[
+                      languageStore.language
+                    ]
+                  }}</span
+                >
+              </div>
+            </q-card-section>
+          </div>
         </q-card>
         <div class="row q-col-gutter-md q-mt-xs">
           <div class="col-lg-8 col-sm-8 col-xs-12">
             <q-card class="q-pa-md">
               <div class="fs-16">
-                <div
-                  class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
-                >
+                <div class="q-mt-sm q-pa-sm bg-accent text-yellow text-center">
                   <span class="fs-18"> বিস্তারিত: </span>
                 </div>
-                <div class="q-mt-md" v-html="serviceProviderStore.serviceProvider?.description[
+                <div
+                  class="q-mt-md"
+                  v-html="
+                    serviceProviderStore.serviceProvider?.description[
                       languageStore.language
-                    ]">
-                </div>
+                    ]
+                  "
+                ></div>
               </div>
             </q-card>
           </div>
           <div class="col-lg-4 col-sm-4 col-xs-12">
             <q-card class="q-pa-md">
-              <div
-                class="q-mt-sm q-pa-sm bg-accent text-yellow text-center"
-              >
+              <div class="q-mt-sm q-pa-sm bg-accent text-yellow text-center">
                 <span class="fs-18"> যোগাযোগ করুন </span>
               </div>
               <div
-                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center  cursor-pointer"
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >
                 <q-separator />
                 <div class="q-py-sm">
                   <span class="fs-18">
                     <q-icon class="bg-yellow-14 text-white" name="call" />
-                    <a :href="'tel:'+serviceProviderStore.serviceProvider?.phoneNumber1">
+                    <a
+                      :href="
+                        'tel:' +
+                        serviceProviderStore.serviceProvider?.phoneNumber1
+                      "
+                    >
                       {{ serviceProviderStore.serviceProvider?.phoneNumber1 }}
                     </a>
                   </span>
                 </div>
               </div>
               <div
-                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center  cursor-pointer"
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
                 v-if="serviceProviderStore.serviceProvider?.phoneNumber2"
               >
                 <q-separator />
                 <div class="q-py-sm">
                   <span class="fs-18">
                     <q-icon class="bg-yellow-14 text-white" name="call" />
-                    <a :href="'tel:'+serviceProviderStore.serviceProvider?.phoneNumber2">
+                    <a
+                      :href="
+                        'tel:' +
+                        serviceProviderStore.serviceProvider?.phoneNumber2
+                      "
+                    >
                       {{ serviceProviderStore.serviceProvider?.phoneNumber2 }}
                     </a>
                   </span>
@@ -109,7 +186,7 @@ import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js"
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
 import { useRoute, useRouter } from "vue-router";
 import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
-import { web_root_url } from 'src/global_constant/root_url';
+import { web_root_url } from "src/global_constant/root_url";
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const router = useRouter();
@@ -123,9 +200,8 @@ if (route.params.id) {
 }
 
 setTimeout(() => {
-  serviceProviderStore.increaseServiceProviderView(route.params.id)
+  serviceProviderStore.increaseServiceProviderView(route.params.id);
 }, 5000);
-
 
 const metaData = {
   // sets document title

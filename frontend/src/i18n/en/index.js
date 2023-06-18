@@ -86,6 +86,7 @@ export default {
     addnew_services: 'Add New Service',
     edit_services: 'Edit Service',
     service_profile: 'Service Profile',
+    banners: 'Banners',
   },
   location:{
     division:'Division',

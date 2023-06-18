@@ -91,6 +91,18 @@
             </router-link>
             <q-separator/>
             <router-link
+              v-if="authStore?.loginUserInfo?.isSuperAdmin"
+              to="/banners_create_update"
+              active-class="text-white  link-bg-color"
+              @click="menuControllerStore.headerMenuMobileScreenClose"
+            >
+            <q-item class="flex items-center">
+                <div><q-icon name="ad_units" /></div>
+                <div class="q-ml-md">{{ $t("headermenus.banners") }}</div>
+              </q-item>
+            </router-link>
+            <q-separator/>
+            <router-link
               v-if="authStore?.loginUserInfo?.isAdmin || authStore?.loginUserInfo?.permission !== 'self'"
               to="/service_provider_pending_list"
               active-class="text-white  link-bg-color"

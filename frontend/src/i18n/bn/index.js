@@ -86,6 +86,7 @@ export default {
     addnew_services: 'নতুন সেবা যুক্ত করুন',
     edit_services: 'সেবা পরির্তন করুন',
     service_profile: 'সেবা প্রফাইল',
+    banners: 'ব্যনার',
   },
   location: {
     division: 'বিভাগ',

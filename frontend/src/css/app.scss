@@ -396,3 +396,25 @@ body,
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #23a6d5, #e73c7e, #ee7752);
   transform: rotate(0deg);
 }
+// service provider list
+
+.listcard-cont{
+  display:flex;
+  align-items: center;
+  position: relative;
+}
+.view-badge-top-right{
+  position: absolute;
+  left:4px;
+  bottom:4px;
+  z-index: 1;
+}
+.image-section{
+width: 100px;
+}
+.description-section{
+width: calc(100% - 100px);
+}
+.hover-serviceprovider-card:hover{
+  background-color: $blue-grey-2;
+}

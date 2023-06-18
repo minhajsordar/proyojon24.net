@@ -4,7 +4,10 @@
     <q-item clickable v-ripple @click="profileClickManager">
       <q-item-section side>
         <q-avatar rounded size="40px">
-          <img v-if="authStore?.loginUserInfo?.profileImage" :src="web_root_url +authStore?.loginUserInfo?.profileImage" />
+          <img
+            v-if="authStore?.loginUserInfo?.profileImage"
+            :src="web_root_url + authStore?.loginUserInfo?.profileImage"
+          />
           <img v-else src="/images/user-placeholder.jpg" />
         </q-avatar>
       </q-item-section>
@@ -13,7 +16,11 @@
           authStore?.loginUserInfo?.name[languageStore.language]
         }}</q-item-label>
         <q-item-label v-else>Guest User</q-item-label>
-        <q-item-label v-if="authStore?.loginUserInfo" caption class="text-white">
+        <q-item-label
+          v-if="authStore?.loginUserInfo"
+          caption
+          class="text-white"
+        >
           {{
             authStore?.loginUserInfo?.isSuperAdmin
               ? "Super Admin"
@@ -26,20 +33,25 @@
               : "Guest"
           }}
         </q-item-label>
-        <q-item-label v-if="!authStore?.loginUserInfo" caption class="text-white">
+        <q-item-label
+          v-if="!authStore?.loginUserInfo"
+          caption
+          class="text-white"
+        >
           Login/Register
-</q-item-label>
+        </q-item-label>
       </q-item-section>
     </q-item>
     <div
       v-if="$q.screen.gt.sm"
       class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap cursor-pointer"
     >
-      <router-link
-        to="/"
-        exact-active-class="text-white"
-        >{{ $t("headermenus.home") }}</router-link
-      >
+      <!-- <router-link v-for="(menuItem,index) in header_menus" :key="index" :to="menuItem.link" exact-active-class="text-white">{{
+        $t(menuItem.name)
+      }}</router-link> -->
+      <router-link to="/home" exact-active-class="text-white">{{
+        $t("headermenus.home")
+      }}</router-link>
       <router-link
         v-if="authStore?.loginUserInfo?.isSuperAdmin"
         to="/locations"
@@ -59,15 +71,16 @@
         >{{ $t("headermenus.services") }}</router-link
       >
       <router-link
-        v-if="authStore?.loginUserInfo?.isAdmin"
+        v-if="authStore?.loginUserInfo?.isSuperAdmin"
         to="/banners_create_update"
         active-class="text-white"
         >{{ $t("headermenus.banners") }}</router-link
       >
       <router-link
         v-if="
-          authStore?.loginUserInfo && (authStore?.loginUserInfo?.isAdmin ||
-          authStore?.loginUserInfo?.permission !== 'self')
+          authStore?.loginUserInfo &&
+          (authStore?.loginUserInfo?.isAdmin ||
+            authStore?.loginUserInfo?.permission !== 'self')
         "
         to="/service_provider_pending_list"
         active-class="text-white"
@@ -83,13 +96,24 @@
     <q-space />
 
     <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-      <q-btn  v-if="authStore.loginUserInfo && $q.screen.gt.sm" dense flat @click="$router.push('direct_message')" >
+      <q-btn
+        v-if="authStore.loginUserInfo && $q.screen.gt.sm"
+        dense
+        flat
+        @click="$router.push('direct_message')"
+      >
         <q-icon name="email" size="25px" />
         <!-- <q-badge class="absolute-top-right fs-10" color="red" style="padding: 1px 4px"/> -->
       </q-btn>
-      <q-btn dense flat @click="$router.push('notifications')" >
+      <q-btn dense flat @click="$router.push('notifications')">
         <q-icon name="notifications" size="25px" />
-        <q-badge v-show="notificationStore?.last7DaysNotification?.length != 0" :label="notificationStore?.last7DaysNotification?.length" class="absolute-top-right fs-10" color="red" style="padding: 1px 4px"/>
+        <q-badge
+          v-show="notificationStore?.last7DaysNotification?.length != 0"
+          :label="notificationStore?.last7DaysNotification?.length"
+          class="absolute-top-right fs-10"
+          color="red"
+          style="padding: 1px 4px"
+        />
       </q-btn>
       <q-btn dense flat>
         <div class="row items-center no-wrap">
@@ -199,7 +223,7 @@
 </template>
 
 <script setup>
-
+import { header_menus } from "src/global_constant/header_menus";
 import { onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
@@ -215,13 +239,12 @@ import profileMobileMenus from "./mobileView/profileMobileMenus.vue";
 import { useNotificationStore } from "src/stores/notifications/notificationStore.js";
 import { socket, state } from "src/socket/socket";
 
-
 const notificationStore = useNotificationStore();
 notificationStore.getPublishedNotification();
-socket.on('push_new_notification',(l)=>{
-  console.log('new notificaiton came',l)
+socket.on("push_new_notification", (l) => {
+  console.log("new notificaiton came", l);
   notificationStore.getPublishedNotification();
-})
+});
 
 const menuControllerStore = useMenuControllerStore();
 const languageStore = useLanguageStore();
@@ -229,7 +252,6 @@ const authStore = useAuthStore();
 const router = useRouter();
 const logoutFunc = () => {
   authStore.logoutFunc();
-  router.push("/");
 };
 
 const loginUser = useLocalStorage("proyojonloginuser", {});
