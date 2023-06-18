@@ -92,7 +92,7 @@
       </div>
     </div>
     <div v-else class="q-py-xs"></div>
-    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider1">
+    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider1.length != 0">
       <div class="inner-section-px-0">
         <div class="full-width">
           <topSlide slide="slider1" />
@@ -161,7 +161,7 @@
       </div>
     </div>
     <div v-else class="q-py-xs"></div>
-    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider2">
+    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider2.length != 0">
       <div class="inner-section-px-0">
         <div class="full-width">
           <topSlide slide="slider2"/>
@@ -230,7 +230,7 @@
       </div>
     </div>
     <div v-else class="q-py-xs"></div>
-    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider3">
+    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider3.length != 0">
       <div class="inner-section-px-0">
         <div class="full-width">
           <topSlide slide="slider3" />
@@ -299,7 +299,7 @@
       </div>
     </div>
     <div v-else class="q-py-xs"></div>
-    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider4">
+    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider4.length != 0">
       <div class="inner-section-px-0">
         <div class="full-width">
           <topSlide slide="slider4" />

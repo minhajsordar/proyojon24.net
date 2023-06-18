@@ -2,20 +2,21 @@
 import { defineStore } from 'pinia';
 import { api } from 'src/boot/axios';
 import loader from 'loader-animation'
-import {  ref,reactive } from 'vue';
+import { ref, reactive } from 'vue';
 import { useAuthStore } from '../auth/authStore';
+import { Notify } from 'quasar';
 loader.title = 'Requesting To Server...'
 export const usePublicSliderCreateUpdateStore = defineStore('public slider create Update store', () => {
   const authStore = useAuthStore()
   const sliderInfo = reactive({
-    id:"",
-    slider1:[],
-    slider2:[],
-    slider3:[],
-    slider4:[],
+    id: "",
+    slider1: [],
+    slider2: [],
+    slider3: [],
+    slider4: [],
   })
   const createSliders = async () => {
-    const data = {...sliderInfo}
+    const data = { ...sliderInfo }
 
     const config = {
       method: "post",
@@ -23,32 +24,46 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
-      },data
+      }, data
     };
+    loader.showLoader()
     try {
       const responseData = await api.request(config);
+      loader.hideLoader()
+      Notify.create({
+        message: "Successfully Created Banner Image"
+      })
     } catch (error) {
       console.log(error);
+      loader.hideLoader()
     }
   }
   const updateSlider = async () => {
-    const data = {...sliderInfo}
+    const data = { ...sliderInfo }
 
     const config = {
       method: "put",
-      url: "api/sliders/"+sliderInfo.id,
+      url: "api/sliders/" + sliderInfo.id,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
-      },data
+      }, data
     };
+    loader.showLoader()
     try {
       const responseData = await api.request(config);
+      loader.hideLoader()
+      Notify.create({
+        message: "Successfully Updated Banner Image",
+        type: "positive",
+        position:"center"
+      })
     } catch (error) {
       console.log(error);
+      loader.hideLoader()
     }
   }
-  const uploadSliderImage = async (slidercount,imageposition) => {
+  const uploadSliderImage = async (slidercount, imageposition) => {
     if (!sliderInfo[slidercount][imageposition] || typeof sliderInfo[slidercount][imageposition] == 'string') {
       return
     }
@@ -96,7 +111,7 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
     }
   }
   return {
-getSliderData,
+    getSliderData,
     sliderInfo,
     createSliders,
     updateSlider,
