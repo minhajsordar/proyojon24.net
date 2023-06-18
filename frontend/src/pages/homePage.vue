@@ -91,6 +91,7 @@
         </div>
       </div>
     </div>
+    <div v-else class="q-py-xs"></div>
     <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider1">
       <div class="inner-section-px-0">
         <div class="full-width">
@@ -159,6 +160,7 @@
         </div>
       </div>
     </div>
+    <div v-else class="q-py-xs"></div>
     <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider2">
       <div class="inner-section-px-0">
         <div class="full-width">
@@ -227,6 +229,7 @@
         </div>
       </div>
     </div>
+    <div v-else class="q-py-xs"></div>
     <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider3">
       <div class="inner-section-px-0">
         <div class="full-width">
@@ -295,6 +298,7 @@
         </div>
       </div>
     </div>
+    <div v-else class="q-py-xs"></div>
     <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider4">
       <div class="inner-section-px-0">
         <div class="full-width">
