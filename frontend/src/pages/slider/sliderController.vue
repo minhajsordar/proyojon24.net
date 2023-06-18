@@ -21,7 +21,7 @@
                 "
                 class="border-primary border-radius-sm q-pa-sm"
               >
-              <q-img :src="'/'+publicSliderCUStore.sliderInfo[`slider${sliderindex}`][
+              <q-img :src="web_root_url+'/'+publicSliderCUStore.sliderInfo[`slider${sliderindex}`][
                       index - 1
                     ]" width="300px"/>
                     <div class=" flex justify-between">
@@ -83,6 +83,7 @@
 </template>
 <script setup>
 import { Notify } from "quasar";
+import { web_root_url } from "src/global_constant/root_url";
 import { fileValidate } from "src/global_js/utils";
 import { usePublicSliderCreateUpdateStore } from "src/stores/slider/sliderCreateUpdate";
 

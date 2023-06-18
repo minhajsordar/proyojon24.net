@@ -1,7 +1,7 @@
 <template>
   <div class="">
+    <!-- class="slide-image" -->
     <q-carousel
-    class="slide-image"
       animated
       v-model="slide"
       navigation
@@ -13,13 +13,14 @@
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
     >
-      <q-carousel-slide v-for="(sliderImage, index) in publicSliderStore?.sliderData[slide]" :key="index"  :name="index" :img-src="sliderImage" />
+      <q-carousel-slide v-for="(sliderImage, index) in publicSliderStore?.sliderData['slider1']" :key="index"  :name="index" :img-src="web_root_url+'/uploads/image-1687054044168.png'" />
     </q-carousel>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { web_root_url } from 'src/global_constant/root_url';
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
 defineProps({
   slide:{
@@ -27,7 +28,7 @@ defineProps({
   }
 })
 const publicSliderStore = usePublicSliderStore()
-const slide= ref(1)
+const slide= ref(0)
 const autoplay= ref(true)
 </script>
 <style>
