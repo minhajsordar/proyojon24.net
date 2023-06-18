@@ -3,7 +3,7 @@
     <!-- class="slide-image" -->
     <q-carousel
       animated
-      v-model="slide"
+      v-model="slideImg"
       navigation
       infinite
       :autoplay="autoplay"
@@ -28,7 +28,7 @@ defineProps({
   }
 })
 const publicSliderStore = usePublicSliderStore()
-const slide= ref(0)
+const slideImg= ref(0)
 const autoplay= ref(true)
 </script>
 <style>
