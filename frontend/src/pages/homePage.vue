@@ -30,7 +30,7 @@
       servicePublicStore.allServices.length >= 0
     "
   >
-    <div class="container-section-py-xs">
+    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 1">
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -98,7 +98,7 @@
         </div>
       </div>
     </div>
-    <div class="container-section-py-xs">
+    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 12">
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -166,7 +166,7 @@
         </div>
       </div>
     </div>
-    <div class="container-section-py-xs">
+    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 24">
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -234,7 +234,7 @@
         </div>
       </div>
     </div>
-    <div class="container-section-py-xs">
+    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 36">
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -302,7 +302,7 @@
         </div>
       </div>
     </div>
-    <div class="container-section-py-xs">
+    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 48">
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
