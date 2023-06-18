@@ -6,7 +6,7 @@ import axios from 'axios'
 // If any client changes this (global) instance, it might be a
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
-// for each client) s
+// for each client)
 const api = axios.create({ baseURL: 'https://www.proyojon24.net/' })
 // const api = axios.create({ baseURL: 'http://127.0.0.1:5002' })
 
