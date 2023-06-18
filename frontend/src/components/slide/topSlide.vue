@@ -2,6 +2,7 @@
   <div class="">
     <!-- class="slide-image" -->
     <q-carousel
+    class="slide-image"
       animated
       v-model="slideImg"
       navigation
