@@ -56,7 +56,7 @@
                     index - 1
                   ]
                 "
-                label="Add image"
+                label="Add image Max Size 150KB"
                 accept=".jpg, .png, .jpeg"
                 max-total-size="150000"
                 counter
