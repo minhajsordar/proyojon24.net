@@ -13,7 +13,7 @@
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
     >
-      <q-carousel-slide v-for="(sliderImage, index) in publicSliderStore?.sliderData['slider1']" :key="index"  :name="index" :img-src="web_root_url+sliderImage" />
+      <q-carousel-slide v-for="(sliderImage, index) in publicSliderStore?.sliderData[slide]" :key="index"  :name="index" :img-src="web_root_url+sliderImage" />
     </q-carousel>
   </div>
 </template>
