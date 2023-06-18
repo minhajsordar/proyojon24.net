@@ -2,7 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import Slider from '../models/sliderModel.js'
 
 // @desc get sliders
-// @route Put api/sliders
+// @route Get api/sliders
 // @acess Public
 const getSlider =  expressAsyncHandler(async (req, res) => {
     const sliders = await Slider.find({})
@@ -11,7 +11,7 @@ const getSlider =  expressAsyncHandler(async (req, res) => {
 })
 
 // @desc get slider by id
-// @route Put api/sliders/:id
+// @route Get api/sliders/:id
 // @acess Privet
 const getSliderById = expressAsyncHandler(async (req, res) => {
     const slider = await Slider.findById(req.params.id)
@@ -26,7 +26,7 @@ const getSliderById = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc update a slider
-// @route update api/sliders/
+// @route put api/sliders/
 // @acess Privet/Admin
 const updateSlider = expressAsyncHandler(async (req, res) => {
     const {
@@ -60,13 +60,18 @@ const updateSlider = expressAsyncHandler(async (req, res) => {
 // @desc create a slider
 // @route create api/sliders/
 // @acess Privet/Admin
-const createslider = expressAsyncHandler(async (req, res) => {
-    const union = await Union.findById(req.body.parent._id)
-    if (union) {
-        const sliders = new slider({
+const createSlider = expressAsyncHandler(async (req, res) => {
+    if (req.body.slider1 ||
+        req.body.slider2 ||
+        req.body.slider3 ||
+        req.body.slider4
+        ) {
+        const sliders = new Slider({
             user: req.user._id,
-            name: req.body.name,
-            parent: req.body.parent,
+            slider1: req.body.slider1,
+            slider2: req.body.slider2,
+            slider3: req.body.slider3,
+            slider4: req.body.slider4,
         })
         const createdslider = await sliders.save()
         res.status(201).json(createdslider)
@@ -77,10 +82,8 @@ const createslider = expressAsyncHandler(async (req, res) => {
 })
 
 export {
-    getsliders,
-    getAllsliders,
-    getsliderById,
-    deleteslider,
-    updateslider,
-    createslider,
+    getSlider,
+    getSliderById,
+    updateSlider,
+    createSlider
 }

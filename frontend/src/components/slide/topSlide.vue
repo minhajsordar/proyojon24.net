@@ -13,17 +13,20 @@
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
     >
-      <q-carousel-slide  :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
-      <q-carousel-slide  :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
-      <q-carousel-slide  :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
-      <q-carousel-slide  :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" />
+      <q-carousel-slide v-for="(sliderImage, index) in publicSliderStore?.sliderData[slide]" :key="index"  :name="index" :img-src="sliderImage" />
     </q-carousel>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
+import { usePublicSliderStore } from "src/stores/slider/sliderGet";
+defineProps({
+  slide:{
+    type: String
+  }
+})
+const publicSliderStore = usePublicSliderStore()
 const slide= ref(1)
 const autoplay= ref(true)
 </script>

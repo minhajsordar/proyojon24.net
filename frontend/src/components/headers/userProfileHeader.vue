@@ -59,6 +59,12 @@
         >{{ $t("headermenus.services") }}</router-link
       >
       <router-link
+        v-if="authStore?.loginUserInfo?.isAdmin"
+        to="/banners_create_update"
+        active-class="text-white"
+        >{{ $t("headermenus.banners") }}</router-link
+      >
+      <router-link
         v-if="
           authStore?.loginUserInfo && (authStore?.loginUserInfo?.isAdmin ||
           authStore?.loginUserInfo?.permission !== 'self')

@@ -89,6 +89,10 @@ const routes = [
       {
         path: '/settings', component: () => import('pages/user/settingsPage.vue'),
         beforeEnter: checkLogin,
+      },
+      {
+        path: '/banners_create_update', component: () => import('pages/slider/sliderController.vue'),
+        beforeEnter: checkLogin,
       }
     ]
   },

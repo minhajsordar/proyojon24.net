@@ -94,7 +94,7 @@
     <div class="container-section-py-xs-0">
       <div class="inner-section-px-0">
         <div class="full-width">
-          <topSlide />
+          <topSlide slide="slider1" />
         </div>
       </div>
     </div>
@@ -162,7 +162,7 @@
     <div class="container-section-py-xs-0">
       <div class="inner-section-px-0">
         <div class="full-width">
-          <topSlide />
+          <topSlide slide="slider2"/>
         </div>
       </div>
     </div>
@@ -176,6 +176,142 @@
                 v-for="(
                   service, index
                 ) in servicePublicStore?.allServices?.slice(24, 36)"
+                :key="index"
+              >
+                <div
+                  class="text-center cursor-pointer service-item"
+                  @click="
+                    $router.push('/service_categorys_list/' + service._id);
+                    selectedServiceAndCategory.serviceId = service._id;
+                    selectedServiceAndCategory.serviceName = service.name;
+                  "
+                >
+                  <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
+                  <div class="icon-relative-cont">
+                    <!-- <q-img  src="/images/hexagonalshape.svg"
+                    style="width: 56px; height: 48px;"
+                    /> -->
+                    <q-img src="/images/roundedsquareshape.svg" class="shape" />
+                    <q-img
+                      class="absolute-top-center service-icon"
+                      v-if="service.icon"
+                      fit
+                      :src="web_root_url + service.icon"
+                    />
+                    <q-img
+                      v-else
+                      class="absolute-top-center service-icon"
+                      fit
+                      src="/images/placeholder_image.png"
+                    />
+                    <div
+                      class="absolute-top-center service-icon gradient-bg"
+                    ></div>
+                    <!-- <q-img fit
+                    style="max-width: 50px; max-height: 50px;"
+                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
+                    /> -->
+                  </div>
+                  <div>
+                    <div>
+                      {{ service.name[languageStore.language] }}
+                    </div>
+                    <div>
+                      {{ service.serviceProviderCount }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-section-py-xs-0">
+      <div class="inner-section-px-0">
+        <div class="full-width">
+          <topSlide slide="slider3" />
+        </div>
+      </div>
+    </div>
+    <div class="container-section-py-xs">
+      <div class="inner-section">
+        <div class="full-width">
+          <div class="q-py-md">
+            <div class="row q-col-gutter-sm">
+              <div
+                class="col-lg-3 col-md-3 col-sm-2 col-3"
+                v-for="(
+                  service, index
+                ) in servicePublicStore?.allServices?.slice(36, 48)"
+                :key="index"
+              >
+                <div
+                  class="text-center cursor-pointer service-item"
+                  @click="
+                    $router.push('/service_categorys_list/' + service._id);
+                    selectedServiceAndCategory.serviceId = service._id;
+                    selectedServiceAndCategory.serviceName = service.name;
+                  "
+                >
+                  <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
+                  <div class="icon-relative-cont">
+                    <!-- <q-img  src="/images/hexagonalshape.svg"
+                    style="width: 56px; height: 48px;"
+                    /> -->
+                    <q-img src="/images/roundedsquareshape.svg" class="shape" />
+                    <q-img
+                      class="absolute-top-center service-icon"
+                      v-if="service.icon"
+                      fit
+                      :src="web_root_url + service.icon"
+                    />
+                    <q-img
+                      v-else
+                      class="absolute-top-center service-icon"
+                      fit
+                      src="/images/placeholder_image.png"
+                    />
+                    <div
+                      class="absolute-top-center service-icon gradient-bg"
+                    ></div>
+                    <!-- <q-img fit
+                    style="max-width: 50px; max-height: 50px;"
+                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
+                    /> -->
+                  </div>
+                  <div>
+                    <div>
+                      {{ service.name[languageStore.language] }}
+                    </div>
+                    <div>
+                      {{ service.serviceProviderCount }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-section-py-xs-0">
+      <div class="inner-section-px-0">
+        <div class="full-width">
+          <topSlide slide="slider4" />
+        </div>
+      </div>
+    </div>
+    <div class="container-section-py-xs">
+      <div class="inner-section">
+        <div class="full-width">
+          <div class="q-py-md">
+            <div class="row q-col-gutter-sm">
+              <div
+                class="col-lg-3 col-md-3 col-sm-2 col-3"
+                v-for="(
+                  service, index
+                ) in servicePublicStore?.allServices?.slice(48, 60)"
                 :key="index"
               >
                 <div
@@ -271,6 +407,11 @@ import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js"
 import { usePublicDashboardStore } from "src/stores/user/dashboardStore";
 import { web_root_url } from "src/global_constant/root_url";
 import { useTopSuggestedStore } from "src/stores/service/topSuggestedStore";
+import { usePublicSliderStore } from "src/stores/slider/sliderGet";
+
+const publicSliderStore = usePublicSliderStore()
+publicSliderStore.getSliderData()
+
 const topSuggestedStore = useTopSuggestedStore()
 // get top suggested service providers
 topSuggestedStore.getTopSuggestedProvider()

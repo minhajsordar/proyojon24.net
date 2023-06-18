@@ -81,7 +81,7 @@ export const useAuthStore = defineStore('auth store', () => {
     loginUser.value = null
     loginUserInfo.value = null
     isAuthorized.value = false
-    router.push('/')
+    router.push('/home')
   }
   const checkLogin = () => {
     function isObjEmpty(obj) {
