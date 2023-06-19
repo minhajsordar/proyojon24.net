@@ -349,6 +349,51 @@
               </div>
             </div>
           </div>
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="row">
+              <div class="col-12 text-bold">
+                {{ $t("imo") }}
+              </div>
+              <div class="col-12">
+                <q-input
+                  v-model="serviceProviderStore.serviceProviderInfo.imo"
+                  outlined
+                  dense
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="row">
+              <div class="col-12 text-bold">
+                {{ $t("twitter") }}
+              </div>
+              <div class="col-12">
+                <q-input
+                  v-model="serviceProviderStore.serviceProviderInfo.twitter"
+                  outlined
+                  dense
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="row">
+              <div class="col-12 text-bold">
+                {{ $t("email") }}
+              </div>
+              <div class="col-12">
+                <q-input
+                  v-model="serviceProviderStore.serviceProviderInfo.email"
+                  outlined
+                  dense
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xs-12 col-12">
+
+          </div>
           <!-- social end -->
           <!-- serviceTitle start -->
           <div class="col-sm-6 col-xs-12 col-12">

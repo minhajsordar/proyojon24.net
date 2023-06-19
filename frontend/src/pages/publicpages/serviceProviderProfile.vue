@@ -131,14 +131,14 @@ fit="contain"
           <div class="col-lg-4 col-sm-4 col-xs-12">
             <q-card class="q-pa-md">
               <div class="q-mt-sm q-pa-sm bg-accent text-yellow text-center">
-                <span class="fs-18"> যোগাযোগ করুন </span>
+                <span class="fs-18"> {{$t('contact')}} </span>
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >
                 <q-separator />
                 <div class="q-py-sm">
-                  <span class="fs-18">
+                  <span class="fs-18" v-if="serviceProviderStore.serviceProvider?.phoneNumber1">
                     <q-icon class="bg-yellow-14 text-white" name="call" />
                     <a
                       :href="
@@ -146,7 +146,7 @@ fit="contain"
                         serviceProviderStore.serviceProvider?.phoneNumber1
                       "
                     >
-                      {{ serviceProviderStore.serviceProvider?.phoneNumber1 }}
+                      {{ enToBnToEn(serviceProviderStore.serviceProvider?.phoneNumber1,languageStore.language) }}
                     </a>
                   </span>
                 </div>
@@ -157,7 +157,7 @@ fit="contain"
               >
                 <q-separator />
                 <div class="q-py-sm">
-                  <span class="fs-18">
+                  <span class="fs-18" v-if="serviceProviderStore.serviceProvider?.phoneNumber2">
                     <q-icon class="bg-yellow-14 text-white" name="call" />
                     <a
                       :href="
@@ -165,10 +165,77 @@ fit="contain"
                         serviceProviderStore.serviceProvider?.phoneNumber2
                       "
                     >
-                      {{ serviceProviderStore.serviceProvider?.phoneNumber2 }}
+                      {{ enToBnToEn(serviceProviderStore.serviceProvider?.phoneNumber2,languageStore.language) }}
                     </a>
                   </span>
                 </div>
+              </div>
+            </q-card>
+            <q-card class="q-pa-md q-mt-sm">
+              <div class="q-mt-sm q-pa-sm bg-accent text-yellow text-center">
+                <span class="fs-18"> {{$t('social_links')}} </span>
+              </div>
+              <div
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+              >
+                <q-separator />
+                <div class="q-py-sm">
+                  <q-img style="margin-top: -8px" width="25px" src="/images/whatsapp.svg"/>
+                  <span class="fs-18 q-mt-sm" v-if="serviceProviderStore.serviceProvider?.whatsapp">
+                    <a :href="`//api.whatsapp.com/send?phone=${serviceProviderStore.serviceProvider?.whatsapp}&text=Hello`" title="Share on whatsapp">
+                      {{ enToBnToEn(serviceProviderStore.serviceProvider?.whatsapp,languageStore.language) }}
+                    </a>
+                  </span>
+                </div>
+
+              </div>
+              <div
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+              >
+                <q-separator />
+                <div class="q-py-sm">
+                  <q-img style="margin-top: -8px" width="25px" src="/images/imo.svg"/>
+                  <span class="fs-18 q-mt-sm" v-if="serviceProviderStore.serviceProvider?.imo">
+                  {{ enToBnToEn(serviceProviderStore.serviceProvider?.imo,languageStore.language) }}
+                  </span>
+                </div>
+
+              </div>
+              <div
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+              >
+                <q-separator />
+                <div class="q-py-sm">
+                  <q-img style="margin-top: -8px" width="25px" src="/images/facebook.svg"/>
+                  <span class="fs-18 q-mt-sm">
+                  {{ serviceProviderStore.serviceProvider?.facebook }}
+                  </span>
+                </div>
+
+              </div>
+              <div
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+              >
+                <q-separator />
+                <div class="q-py-sm">
+                  <q-img style="margin-top: -8px" width="25px" src="/images/twitter.svg"/>
+                  <span class="fs-18 q-mt-sm">
+                  {{ serviceProviderStore.serviceProvider?.twitter }}
+                  </span>
+                </div>
+
+              </div>
+              <div
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+              >
+                <q-separator />
+                <div class="q-py-sm">
+                  <q-img style="margin-top: -8px" width="25px" src="/images/email.svg"/>
+                  <span class="fs-18 q-mt-sm">
+                  {{ serviceProviderStore.serviceProvider?.email }}
+                  </span>
+                </div>
+
               </div>
             </q-card>
           </div>
@@ -187,6 +254,8 @@ import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore
 import { useRoute, useRouter } from "vue-router";
 import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
 import { web_root_url } from "src/global_constant/root_url";
+import { enToBnToEn } from "src/global_js/utils";
+
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const router = useRouter();

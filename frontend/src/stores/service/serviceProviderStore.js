@@ -124,6 +124,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       phoneNumber2: null,
       facebook: null,
       whatsapp: null,
+      imo: null,
+      twitter: null,
+      email: null,
       keywords: null,
     })
   const emptyServiceProviderInfo = () => {
@@ -217,6 +220,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.phoneNumber2 =null
     serviceProviderInfo.facebook =null
     serviceProviderInfo.whatsapp =null
+    serviceProviderInfo.imo =null
+    serviceProviderInfo.email =null
+    serviceProviderInfo.twitter =null
     serviceProviderInfo.keywords = []
   }
   const openServiceProviderCreateDialogManager = () => {
@@ -240,6 +246,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "phoneNumber2",
       "facebook",
       "whatsapp",
+      "imo",
+      "email",
+      "twitter",
       "keywords"
     ]
     serviceProviderInfoKeys.forEach((keys, index) => {
@@ -291,6 +300,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "phoneNumber2",
       "facebook",
       "whatsapp",
+      "imo",
+      "email",
+      "twitter",
       "keywords"
     ]
     openServiceProviderPreviewDialog.value = true

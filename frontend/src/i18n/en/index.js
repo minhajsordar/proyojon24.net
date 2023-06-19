@@ -16,6 +16,9 @@ export default {
   phone: 'Phone No',
   facebook: 'Facebook Link',
   whatsapp: 'Whats app number',
+  imo: 'Imo Number',
+  twitter: 'Twitter',
+  email: 'Email',
   degreeinen: 'Degree No In English',
   degreeinbn: 'Degree No In Bangla',
   extraCourcesinen: 'Extra Courses In English',
@@ -63,6 +66,8 @@ export default {
   removeFromSuggestion: 'Remove From Suggestion List',
   permission: 'Permission',
   noInfo: 'Information Not Added Yet.',
+  contact: 'Contact',
+  social_links: 'Social Media',
   notification:{
     add: 'Add new notification',
     edit: 'Edit notification',

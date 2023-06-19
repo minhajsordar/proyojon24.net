@@ -55,11 +55,6 @@ export const useUserServiceProviderStore = defineStore('user service provider st
     } catch (error) {
       console.log(error);
       userServiceProviderLoading.value = false
-      Notify.create({
-        position: "center",
-        type: "negative",
-        message: error,
-      });
       loader.hideLoader()
     }
   }
@@ -81,6 +76,9 @@ export const useUserServiceProviderStore = defineStore('user service provider st
       "phoneNumber2",
       "facebook",
       "whatsapp",
+      "imo",
+      "email",
+      "twitter",
       "keywords"
     ]
     serviceProviderInfoKeys.forEach((keys, index) => {
