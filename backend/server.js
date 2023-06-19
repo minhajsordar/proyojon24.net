@@ -42,7 +42,6 @@ const io = new Server(httpServer, {
         origin: [
             "*", 
             "https://proyojon24.net", 
-            "https://www.proyojon24.net", 
             "https://156.67.217.198", 
             "https://156.67.217.198:5002", 
             "http://localhost:9000"
@@ -78,8 +77,8 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(cors())
-app.options('*', cors())
+// app.use(cors())
+// app.options('*', cors())
 
 // This routes is example route to allaw react getting data from same origin
 // This res.set route will remove Access-Control-Allow-OriginAccess
