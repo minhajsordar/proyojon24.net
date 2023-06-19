@@ -40,7 +40,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
     allowRequest: (req, callback) => {
         const noOriginHeader = req.headers.origin === undefined;
-        callback(null, noOriginHeader);
+        callback(null, true);
     }
 });
 
