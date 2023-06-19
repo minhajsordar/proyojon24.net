@@ -29,7 +29,7 @@ const getServiceProviders = expressAsyncHandler(async (req, res) => {
 // @desc get ServiceProvider
 // @route Put api/ServiceProvider
 // @acess Privet
-const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
+const getPublicServiceProviders = expressAsyncHandler(async (req, res) => {
     // console.log(req.query.keyword)
     // const keyword = {}
     //     const pageSize = Number(req.query.pageSize) || 50;
@@ -42,46 +42,10 @@ const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
     // serviceTitle
     // serviceList
     const keyword = req.query.keyword ? {
-        "name.bn": {
-            $regex: req.query.name,
-            $options: 'i'
-        },
-        // "name.en": {
-        //     $regex: req.query.keyword,
-        //     $options: 'i'
-        // },
-        // "description.bn": {
-        //     $regex: req.query.keyword,
-        //     $options: 'i'
-        // },
-        // "description.en": {
-        //     $regex: req.query.keyword,
-        //     $options: 'i'
-        // },
-        // "serviceList.bn": {
-        //     $regex: req.query.keyword,
-        //     $options: 'i'
-        // },
-        // "serviceList.en": {
-        //     $regex: req.query.keyword,
-        //     $options: 'i'
-        // },
-        "serviceTitle.bn": {
+        "keyword": {
             $regex: req.query.keyword,
             $options: 'i'
-        },
-        // "serviceTitle.en": {
-        //     $regex: req.query.keyword,
-        //     $options: 'i'
-        // },
-        // "serviceProviderLocation.exact.bn": {
-        //     $regex: req.query.keyword,
-        //     $options: 'i'
-        // },
-        // "serviceProviderLocation.exact.en": {
-        //     $regex: req.query.keyword,
-        //     $options: 'i'
-        // }
+        }
     } : {}
     if (req.query.serviceId) {
         keyword.service = req.query.serviceId
@@ -107,7 +71,8 @@ const getAllServiceProviders = expressAsyncHandler(async (req, res) => {
     if (req.query.suggested) {
         keyword.suggested = req.query.suggested
     }
-    const serviceProviders = await ServiceProvider.find({ ...keyword }).select('-user -dataUpdatedHistory -dataUpdatedBy -dataCollector -description -phoneNumber -extraCources -degree -serviceList')
+    keyword.approved = true
+    const serviceProviders = await ServiceProvider.find({ ...keyword }).select('name image serviceProviderLocation serviceTitle viewCount rankCount rating numReviews createdAt suggested')
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(serviceProviders)
 })
@@ -236,7 +201,7 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         whatsapp,
         imo,
         twitter,
-        gmail,
+        email,
         keywords
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
@@ -258,7 +223,7 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceProvider.whatsapp = whatsapp
         serviceProvider.imo = imo
         serviceProvider.twitter = twitter
-        serviceProvider.gmail = gmail
+        serviceProvider.email = email
         serviceProvider.keywords = keywords
         serviceProvider.approved = false
         serviceProvider.waitingForApproval = true
@@ -415,21 +380,15 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         whatsapp,
         imo,
         twitter,
-        gmail,
+        email,
         rankCount,
         keywords
     } = req.body
-    let user = null
-    if (req.user.isSuperAdmin || req.user.isAdmin || req.user.permission !== 'self') {
-        user = null
-    } else {
-        user = req.user._id
-    }
     const serviceProvider = new ServiceProvider({
         dataCollector: req.user._id,
         dataUpdatedBy: req.user._id,
         dataUpdatedHistory: req.user._id,
-        user,
+        user: req.user._id,
         serviceCategory,
         name,
         image,
@@ -445,7 +404,7 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         whatsapp,
         imo,
         twitter,
-        gmail,
+        email,
         rankCount,
         approved: false,
         waitingForApproval: true,
@@ -482,5 +441,5 @@ export {
     getUserServiceProvider,
     getSuggestedServiceProvider,
     getTopSuggestedServiceProvider,
-    getAllServiceProviders
+    getPublicServiceProviders
 }

@@ -81,6 +81,14 @@ export default {
     settings: 'Settings',
     signout: 'Sign out',
   },
+  bottom_menus:{
+    home: "Home",
+    live_chat: "Live Chat",
+    add_provider: "Add Service Profile",
+    service_profile: "Service Profile",
+    profile: "Profile",
+    menu: "Menu",
+  },
   headermenus:{
     home: "Home",
     pending_list: 'Pending List',

@@ -30,7 +30,10 @@
       servicePublicStore.allServices.length >= 0
     "
   >
-    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 1">
+    <div
+      class="container-section-py-xs"
+      v-if="servicePublicStore?.allServices.length >= 1"
+    >
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -55,19 +58,25 @@
                     <!-- <q-img  src="/images/hexagonalshape.svg"
                     style="width: 56px; height: 48px;"
                     /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape" />
+                    <q-img src="/images/roundedsquareshape.svg" class="shape">
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       class="absolute-top-center service-icon"
                       v-if="service.icon"
                       fit
                       :src="web_root_url + service.icon"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       v-else
                       class="absolute-top-center service-icon"
                       fit
                       src="/images/placeholder_image.png"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <div
                       class="absolute-top-center service-icon gradient-bg"
                     ></div>
@@ -92,14 +101,20 @@
       </div>
     </div>
     <div v-else class="q-py-xs"></div>
-    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider1.length != 0">
+    <div
+      class="container-section-py-xs-0"
+      v-if="publicSliderStore?.sliderData?.slider1.length != 0"
+    >
       <div class="inner-section-px-0">
         <div class="full-width">
           <topSlide slide="slider1" />
         </div>
       </div>
     </div>
-    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 12">
+    <div
+      class="container-section-py-xs"
+      v-if="servicePublicStore?.allServices.length >= 12"
+    >
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -124,19 +139,25 @@
                     <!-- <q-img  src="/images/hexagonalshape.svg"
                     style="width: 56px; height: 48px;"
                     /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape" />
+                    <q-img src="/images/roundedsquareshape.svg" class="shape">
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       class="absolute-top-center service-icon"
                       v-if="service.icon"
                       fit
                       :src="web_root_url + service.icon"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       v-else
                       class="absolute-top-center service-icon"
                       fit
                       src="/images/placeholder_image.png"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <div
                       class="absolute-top-center service-icon gradient-bg"
                     ></div>
@@ -161,14 +182,20 @@
       </div>
     </div>
     <div v-else class="q-py-xs"></div>
-    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider2.length != 0">
+    <div
+      class="container-section-py-xs-0"
+      v-if="publicSliderStore?.sliderData?.slider2.length != 0"
+    >
       <div class="inner-section-px-0">
         <div class="full-width">
-          <topSlide slide="slider2"/>
+          <topSlide slide="slider2" />
         </div>
       </div>
     </div>
-    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 24">
+    <div
+      class="container-section-py-xs"
+      v-if="servicePublicStore?.allServices.length >= 24"
+    >
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -193,19 +220,25 @@
                     <!-- <q-img  src="/images/hexagonalshape.svg"
                     style="width: 56px; height: 48px;"
                     /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape" />
+                    <q-img src="/images/roundedsquareshape.svg" class="shape">
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       class="absolute-top-center service-icon"
                       v-if="service.icon"
                       fit
                       :src="web_root_url + service.icon"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       v-else
                       class="absolute-top-center service-icon"
                       fit
                       src="/images/placeholder_image.png"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <div
                       class="absolute-top-center service-icon gradient-bg"
                     ></div>
@@ -230,14 +263,20 @@
       </div>
     </div>
     <div v-else class="q-py-xs"></div>
-    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider3.length != 0">
+    <div
+      class="container-section-py-xs-0"
+      v-if="publicSliderStore?.sliderData?.slider3.length != 0"
+    >
       <div class="inner-section-px-0">
         <div class="full-width">
           <topSlide slide="slider3" />
         </div>
       </div>
     </div>
-    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 36">
+    <div
+      class="container-section-py-xs"
+      v-if="servicePublicStore?.allServices.length >= 36"
+    >
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -262,19 +301,25 @@
                     <!-- <q-img  src="/images/hexagonalshape.svg"
                     style="width: 56px; height: 48px;"
                     /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape" />
+                    <q-img src="/images/roundedsquareshape.svg" class="shape">
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       class="absolute-top-center service-icon"
                       v-if="service.icon"
                       fit
                       :src="web_root_url + service.icon"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       v-else
                       class="absolute-top-center service-icon"
                       fit
                       src="/images/placeholder_image.png"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <div
                       class="absolute-top-center service-icon gradient-bg"
                     ></div>
@@ -299,14 +344,20 @@
       </div>
     </div>
     <div v-else class="q-py-xs"></div>
-    <div class="container-section-py-xs-0" v-if="publicSliderStore?.sliderData?.slider4.length != 0">
+    <div
+      class="container-section-py-xs-0"
+      v-if="publicSliderStore?.sliderData?.slider4.length != 0"
+    >
       <div class="inner-section-px-0">
         <div class="full-width">
           <topSlide slide="slider4" />
         </div>
       </div>
     </div>
-    <div class="container-section-py-xs" v-if="servicePublicStore?.allServices.length >= 48">
+    <div
+      class="container-section-py-xs"
+      v-if="servicePublicStore?.allServices.length >= 48"
+    >
       <div class="inner-section">
         <div class="full-width">
           <div class="q-py-md">
@@ -331,19 +382,25 @@
                     <!-- <q-img  src="/images/hexagonalshape.svg"
                     style="width: 56px; height: 48px;"
                     /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape" />
+                    <q-img src="/images/roundedsquareshape.svg" class="shape">
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       class="absolute-top-center service-icon"
                       v-if="service.icon"
                       fit
                       :src="web_root_url + service.icon"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <q-img
                       v-else
                       class="absolute-top-center service-icon"
                       fit
                       src="/images/placeholder_image.png"
-                    />
+                    >
+                      <template v-slot:loading> </template>
+                    </q-img>
                     <div
                       class="absolute-top-center service-icon gradient-bg"
                     ></div>
@@ -372,11 +429,25 @@
         <div class="full-width">
           <q-card>
             <div class="row q-col-gutter-sm">
-              <div class="col-3" v-for="(topProvider,index) in topSuggestedStore?.topSuggested" :key="index">
+              <div
+                class="col-3"
+                v-for="(topProvider, index) in topSuggestedStore?.topSuggested"
+                :key="index"
+              >
                 <div class="q-pa-sm fs-12 text-center">
-                  <q-img v-if="topProvider.image" width="55px" :src="topProvider.image"/>
-                  <q-img v-else width="55px" src="/images/user-placeholder.jpg"/>
-                  <div>{{ topProvider.serviceTitle[languageStore.language] }}</div>
+                  <q-img
+                    v-if="topProvider.image"
+                    width="55px"
+                    :src="topProvider.image"
+                  />
+                  <q-img
+                    v-else
+                    width="55px"
+                    src="/images/user-placeholder.jpg"
+                  />
+                  <div>
+                    {{ topProvider.serviceTitle[languageStore.language] }}
+                  </div>
                   <div>{{ topProvider.name[languageStore.language] }}</div>
                 </div>
               </div>
@@ -385,7 +456,6 @@
         </div>
       </div>
     </div>
-
   </div>
   <div v-else class="container-section-py-sm">
     <div class="inner-section">
@@ -412,17 +482,21 @@ import { usePublicDashboardStore } from "src/stores/user/dashboardStore";
 import { web_root_url } from "src/global_constant/root_url";
 import { useTopSuggestedStore } from "src/stores/service/topSuggestedStore";
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
+import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 
-const publicSliderStore = usePublicSliderStore()
-publicSliderStore.getSliderData()
+const pinlocationStore = usePinlocationStore();
+pinlocationStore.getGlobalPinlocations();
 
-const topSuggestedStore = useTopSuggestedStore()
+const publicSliderStore = usePublicSliderStore();
+publicSliderStore.getSliderData();
+
+const topSuggestedStore = useTopSuggestedStore();
 // get top suggested service providers
-topSuggestedStore.getTopSuggestedProvider()
+topSuggestedStore.getTopSuggestedProvider();
 
-const dashboardStore = usePublicDashboardStore()
+const dashboardStore = usePublicDashboardStore();
 // get dashboard data
-dashboardStore.getDashboardData()
+// dashboardStore.getDashboardData()
 const selectedServiceAndCategory = useLocalStorage(
   "selected-service-and-category",
   {}

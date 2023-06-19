@@ -18,7 +18,7 @@ quasar dev -m android --ide
 quasar dev -m capacitor -T android
 quasar dev -m ios --ide
 quasar dev -m capacitor -T ios
-quasar build -m android
+quasar build -m capacitor -T android
 ```
 
 <!-- generate icon -->
@@ -27,7 +27,7 @@ $ icongenie generate [options]
 
     # generate icons for all installed Quasar modes
     $ icongenie generate -i /path/to/icon.png
-    $ icongenie g -i /path/to/icon.png
+    $ icongenie g -i icon.png
 
     # generate for (as example) PWA mode only
     $ icongenie generate -m pwa --icon /path/to/icon.png

@@ -10,7 +10,7 @@ import {
     getTopServiceProvider,
     getServiceProviderByServiceCategory,
     createServiceProvider,
-    getAllServiceProviders,
+    getPublicServiceProviders,
     suggestServiceProvider,
     getServiceProviderPendingList,
     rankAndApprovalServiceProvider,
@@ -30,7 +30,7 @@ router.route('/suggested_service_provider').get(getSuggestedServiceProvider)
 router.route('/top_suggested_service_provider').get(getTopSuggestedServiceProvider)
 router.route('/user_service_provider').get(protect,getUserServiceProvider)
 router.route('/all')
-.get(getAllServiceProviders)
+.get(getPublicServiceProviders)
 router.route('/:id')
 .delete(protect, admin, deleteServiceProvider)
 .get(getServiceProviderById)

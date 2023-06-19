@@ -128,7 +128,7 @@
             class="full-width bg-blue-grey-10 text-yellow-13"
             :label="$t('search')"
             @click="
-              serviceProviderStore.getAllServiceProvidersByLocation(
+              serviceProviderStore.getPublicServiceProvidersByLocation(
                 $route.params.id
               )
             "

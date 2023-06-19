@@ -46,7 +46,7 @@
           @click="$router.push('/home')"
         />
         <div class="fs-10 footer-button-text" style="position: absolute">
-          Home
+          {{ $t("bottom_menus.home") }}
         </div>
       </div>
       <div class="footer-buttons">
@@ -57,7 +57,7 @@
           class="fs-10 footer-button-text-1"
           style="position: absolute; width: 150px"
         >
-          Live chat
+        {{ $t("bottom_menus.live_chat") }}
         </div>
       </div>
       <div class="relative-position" style="width: 80px">
@@ -96,7 +96,7 @@
             transform: translate(-50%, 50%);
           "
         >
-          Add provider
+        {{ $t("bottom_menus.add_provider") }}
         </div>
       </div>
       <div class="footer-buttons">
@@ -115,7 +115,7 @@
           class="fs-10 footer-button-text"
           style="position: absolute; width: 150px"
         >
-          Profile
+        {{ $t("bottom_menus.profile") }}
         </div>
       </div>
       <div class="footer-buttons">
@@ -134,7 +134,7 @@
           class="fs-10 footer-button-text"
           style="position: absolute; width: 150px"
         >
-          Menu
+        {{ $t("bottom_menus.menu") }}
         </div>
       </div>
       <!-- "home" "live chat" "add provider" "menu". -->
@@ -171,8 +171,6 @@ import { Dialog, Notify, date } from "quasar";
 const sessionEndTimeStorage = useLocalStorage("session-timeout-end", {});
 
 const languageStore = useLanguageStore();
-const pinlocationStore = usePinlocationStore();
-pinlocationStore.getGlobalPinlocations();
 languageStore.switchToBn();
 const router = useRouter();
 const menuControllerStore = useMenuControllerStore();

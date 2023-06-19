@@ -166,7 +166,7 @@
                       class="bg-green-1"
                       :serviceProvider="{
                         name: {
-                          bn: 'আপনি কি সার্ভিস প্রদান করতে চান? আপনার তথ্য প্রদান করুন',
+                          bn: 'আপনি কি সার্ভিসটি প্রদান করতে চান? আপনার তথ্য প্রদান করুন।',
                           en: 'Do you want to provide service? Fill up your informations.',
                         },
                         serviceProviderLocation: {
@@ -279,14 +279,14 @@ const serviceCategoryStore = useServiceCategoryStore();
 const serviceProviderStore = useServiceProviderStore();
 onMounted(() => {
   if (route.params.id) {
-    serviceProviderStore.getAllServiceProviders(route.params.id);
+    serviceProviderStore.getPublicServiceProviders(route.params.id);
   } else {
     router.push("/allservices");
   }
   searchLocationStore.updateAllLocationByBrowsingLocation();
 });
 const getServiceProviders = (id) => {
-  serviceProviderStore.getAllServiceProviders(id);
+  serviceProviderStore.getPublicServiceProviders(id);
   router.push("/service_providers_list/" + id);
 };
 

@@ -324,7 +324,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
   const suggestedServiceProvidersList = ref([])
   const allServiceProvidersListLoading = ref(false)
   const currentServiceProvidersListCount = ref(0)
-  const getAllServiceProviders = async (id) => {
+  const getPublicServiceProviders = async (id) => {
     allServiceProvidersListLoading.value = true
     const params = {}
     if (id) {
@@ -354,7 +354,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       allServiceProvidersListLoading.value = false
     }
   }
-  const getAllServiceProvidersByLocation = async (id) => {
+  const getPublicServiceProvidersByLocation = async (id) => {
     allServiceProvidersListLoading.value = true
     const params = {}
     if (id) {
@@ -808,7 +808,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     allServiceProvidersList,
     allServiceProvidersListLoading,
     suggestedServiceProvidersList,
-    getAllServiceProviders,
+    getPublicServiceProviders,
     addToSuggestionServiceProvider,
     removeFromSuggestionServiceProvider,
 
@@ -817,7 +817,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProvider,
     serviceProviderLoading,
     getServiceProviderById,
-    getAllServiceProvidersByLocation,
+    getPublicServiceProvidersByLocation,
     increaseServiceProviderView,
     //  service provider list
     serviceProviderPage,

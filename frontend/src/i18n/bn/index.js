@@ -50,7 +50,7 @@ export default {
   addnew: 'নতুন যুক্ত করুন',
   addicon: 'আইকন যুক্ত করুন',
   icon: 'আইকন',
-  addProfileImage:'প্রফাইল ছবি',
+  addProfileImage: 'প্রফাইল ছবি',
   coverimage: 'কভার ছবি',
   addcoverimage: 'কভার ছবি যুক্ত করুন',
   serial: 'ক্রমিক নং',
@@ -80,6 +80,14 @@ export default {
     help: 'সাহায্য',
     settings: 'পরিমার্জন',
     signout: 'বাহির',
+  },
+  bottom_menus: {
+    home: "হোম",
+    live_chat: "লাইভ চ্যাট",
+    add_provider: "সাভিস প্রফাইল যুক্ত করুন",
+    service_profile: "সাভিস প্রফাইল ",
+    profile: "প্রফাইল",
+    menu: "মেনু",
   },
   headermenus: {
     home: "হোম",

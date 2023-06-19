@@ -1,5 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
 import User from '../models/userModel.js'
+import ServiceProvider from '../models/serviceProviderModel.js'
 import generateToken from "../utils/generateToken.js";
 
 const authUser = expressAsyncHandler(async (req, res) => {
@@ -9,7 +10,10 @@ const authUser = expressAsyncHandler(async (req, res) => {
     user = await User.findOne({ email: phoneOremail })
   }
   if (user && await user.matchPassword(password)) {
+    const serviceProviderExist = await ServiceProvider.findOne({user: user._id})
+    console.log(serviceProviderExist)
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    user.hasServiceProviderProfile = serviceProviderExist?true:false
     res.json({
       _id: user._id,
       name: user.name,

@@ -60,7 +60,7 @@ const serviceCategoryStore = useServiceCategoryStore();
 serviceCategoryStore.getAllServiceCategorys(selectedServiceAndCategory.value.serviceId)
 
 const getServiceProviders = (id) => {
-  serviceProviderStore.getAllServiceProviders(id);
+  serviceProviderStore.getPublicServiceProviders(id);
   router.push("/service_providers_list/" + id);
 };
 </script>

@@ -38,16 +38,16 @@ const updateSlider = expressAsyncHandler(async (req, res) => {
     const sliders = await Slider.findById(req.params.id)
     if(sliders){
         if(slider1){
-            sliders.slider1 = slider1
+            sliders.slider1 = slider1.filter(e=>(e != null && e!= ""))
         }
         if(slider2){
-            sliders.slider2 = slider2
+            sliders.slider2 = slider2.filter(e=>(e != null && e!= ""))
         }
         if(slider3){
-            sliders.slider3 = slider3
+            sliders.slider3 = slider3.filter(e=>(e != null && e!= ""))
         }
         if(slider4){
-            sliders.slider4 = slider4
+            sliders.slider4 = slider4.filter(e=>(e != null && e!= ""))
         }
         const updatedSlider = await sliders.save()
         res.status(201).json(updatedSlider)
