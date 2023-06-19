@@ -77,8 +77,8 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-// app.use(cors())
-// app.options('*', cors())
+app.use(cors())
+app.options('*', cors())
 
 // This routes is example route to allaw react getting data from same origin
 // This res.set route will remove Access-Control-Allow-OriginAccess
