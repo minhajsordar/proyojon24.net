@@ -38,10 +38,10 @@ dotenv.config()
 const app = express()
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-    cors: {
-        // origin: "http://localhost:9000"
-        origin: "*",
-    },
+    allowRequest: (req, callback) => {
+        const noOriginHeader = req.headers.origin === undefined;
+        callback(null, noOriginHeader);
+    }
 });
 
 io.on("connection", (socket) => {
@@ -53,9 +53,9 @@ io.on("connection", (socket) => {
     })
     socket.on('creating_new_message', (arg) => {
         // const user = userJoin(socket.id, room)
-        socket.to(arg.room).emit('receiving_new_message','ping-new-message')
+        socket.to(arg.room).emit('receiving_new_message', 'ping-new-message')
     })
-    
+
 });
 
 app.use((req, res, next) => {
