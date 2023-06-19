@@ -86,13 +86,16 @@ import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { enToBnToEn } from "src/global_js/utils";
 import { useQuasar, useMeta } from "quasar";
 import { useI18n } from "vue-i18n";
+import { socket } from "src/socket/socket";
 
 const { t } = useI18n();
 const $q = useQuasar();
 const languageStore = useLanguageStore();
 const notificationStore = useNotificationStore();
 notificationStore.getNotificationList();
-
+socket.on('push_new_notification',(...args)=>{
+  notificationStore.getNotificationList();
+})
 const confirm = (id) => {
   notificationStore.notificationInfo.id = id;
   $q.dialog({

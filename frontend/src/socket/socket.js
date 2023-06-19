@@ -26,7 +26,9 @@ socket.on("disconnect", () => {
 // socket.on("new_message", (...args) => {
 //   console.log("new message",args)
 // });
+var audio = new Audio("/sounds/new_messenge_ton.mp3"); // path to file
 socket.on("push_new_notification", (...args) => {
+  audio.play();
   state.pushNotifications.push(args);
   args.forEach(arg => {
     console.log(arg)
