@@ -49,7 +49,7 @@ export default {
   goback: 'Go Back',
   addnew: 'Add new',
   addicon: 'Add icon',
-  addProfileImage: 'Add icon',
+  addProfileImage: 'Profile Image',
   icon: 'Icon',
   coverimage: 'Cover image',
   addcoverimage: 'Add cover image',

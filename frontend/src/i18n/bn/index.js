@@ -50,6 +50,7 @@ export default {
   addnew: 'নতুন যুক্ত করুন',
   addicon: 'আইকন যুক্ত করুন',
   icon: 'আইকন',
+  addProfileImage:'প্রফাইল ছবি',
   coverimage: 'কভার ছবি',
   addcoverimage: 'কভার ছবি যুক্ত করুন',
   serial: 'ক্রমিক নং',

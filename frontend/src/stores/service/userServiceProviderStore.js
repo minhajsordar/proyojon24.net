@@ -89,8 +89,6 @@ export const useUserServiceProviderStore = defineStore('user service provider st
 
 
     serviceProviderStore.serviceProviderInfo.id = data?._id
-    serviceProviderStore.serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderStore.serviceProviderInfo.service)[0]
-    serviceProviderStore.serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderStore.serviceProviderInfo.serviceCategory)[0]
     serviceProviderStore.imageCover.value = { name: serviceProviderStore.serviceProviderInfo.serviceImage }
     serviceProviderStore.imageIcon.value = { name: serviceProviderStore.serviceProviderInfo.image }
     serviceProviderStore.serviceProviderLocationR.division = data.serviceProviderLocation.division

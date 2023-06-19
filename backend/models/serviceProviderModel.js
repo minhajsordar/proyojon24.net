@@ -109,7 +109,7 @@ const serviceProviderSchema = new mongoose.Schema({
     whatsapp:{ type: String },
     imo:{ type: String },
     twitter:{ type: String },
-    gmail:{ type: String },
+    email:{ type: String },
     rankCount: {
         type: Number,
         required: false,

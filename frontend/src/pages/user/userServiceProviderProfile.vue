@@ -649,7 +649,7 @@
             <div class="row">
               <div class="col-12 text-bold">
                 {{ $t("addProfileImage") }}*
-                <span class="fs-10">Max 150kb</span>
+                <span class="fs-10">Max 100kb</span>
               </div>
               <div class="col-12">
                 <q-file
@@ -661,7 +661,7 @@
                   label="Add image"
                   counter
                   accept=".jpg, .png, .jpeg"
-                  max-total-size="20480"
+                  max-total-size="100000"
                   use-chips
                   @update:model-value="serviceProviderStore.uploadIcon"
                   @rejected="onRejected"
@@ -688,7 +688,7 @@
                   label="Add image"
                   counter
                   accept=".jpg, .png, .jpeg"
-                  max-total-size="8000000"
+                  max-total-size="150000"
                   use-chips
                   @update:model-value="serviceProviderStore.uploadCoverImage"
                   @rejected="onRejected"

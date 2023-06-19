@@ -130,7 +130,7 @@ const getServiceProviderPendingList = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.findOne({ user: req.params.user }).populate('Service','name')
+    const serviceProvider = await ServiceProvider.findOne({ user: req.params.user }).populate('service','name').populate('serviceCategory','name')
     if (serviceProvider) {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json(serviceProvider)
