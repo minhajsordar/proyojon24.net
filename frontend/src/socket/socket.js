@@ -12,7 +12,7 @@ const languageStore = useLocalStorage('proyojon24language', {})
 const URL = process.env.NODE_ENV === "production" ? undefined : "http://localhost:5002";
 
 export const socket = io(URL, {
-  withCredentials: false
+  transports: ['websocket', 'polling', 'flushsocket']
 });
 
 socket.on("connect", () => {
