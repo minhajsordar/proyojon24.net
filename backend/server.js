@@ -38,9 +38,12 @@ dotenv.config()
 const app = express()
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-    cors: {
-        origin: "*"
-    },
+    // cors: {
+    //     origin: "http://localhost:9000"
+    // },
+    allowRequest: (req, callback) => {
+        callback(null, req.headers.origin === undefined); // cross-origin requests will not be allowed
+      }
 });
 
 io.on("connection", (socket) => {
