@@ -248,6 +248,8 @@
       </div>
     </div>
   </div>
+  <serviceCategoryFilterDialog />
+  <locationFilterDialog />
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
@@ -263,6 +265,12 @@ import serviceProviderListCard from "src/components/cards/serviceProviderListCar
 import { usePublicUserStore } from "src/stores/user/publicStore";
 import { useLocalStorage } from "@vueuse/core";
 import { useSearchLocationStore } from "src/stores/service/searchLocation";
+import serviceCategoryFilterDialog from "src/components/dialogs/serviceCategorys/serviceCategoryFilterDialog.vue";
+import locationFilterDialog from "src/components/dialogs/location/locationFilterDialog.vue";
+import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
+
+const pinlocationStore = usePinlocationStore();
+pinlocationStore.getGlobalPinlocations();
 
 const searchLocationStore = useSearchLocationStore();
 const selectedServiceAndCategory = useLocalStorage(

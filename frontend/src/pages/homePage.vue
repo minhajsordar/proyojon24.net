@@ -482,10 +482,7 @@ import { usePublicDashboardStore } from "src/stores/user/dashboardStore";
 import { web_root_url } from "src/global_constant/root_url";
 import { useTopSuggestedStore } from "src/stores/service/topSuggestedStore";
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
-import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 
-const pinlocationStore = usePinlocationStore();
-pinlocationStore.getGlobalPinlocations();
 
 const publicSliderStore = usePublicSliderStore();
 publicSliderStore.getSliderData();
