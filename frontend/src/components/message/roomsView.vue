@@ -98,14 +98,14 @@ const roomClickManager = (id) => {
 };
 
 var audio = new Audio("/sounds/new_messenge_ton.mp3"); // path to file
+
 socket.on("new_message", () => {
-  audio.play();
   roomStore.getMyRooms();
   messageStore.getMessages();
 });
 
-
-// socket.on("new_message", (argument) => {
-//   audio.play();
-// });
+socket.on("receiving_new_message", (argument) => {
+  console.log("receiving new message")
+  audio.play();
+});
 </script>
