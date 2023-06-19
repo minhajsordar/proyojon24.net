@@ -44,6 +44,7 @@ const io = new Server(httpServer, {
             "https://proyojon24.net", 
             "https://www.proyojon24.net", 
             "https://156.67.217.198", 
+            "https://156.67.217.198:5002", 
             "http://localhost:9000"
         ],
     },
