@@ -38,7 +38,11 @@ dotenv.config()
 const app = express()
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-    
+    cors: {
+        // origin: "http://localhost:9000"
+        origin: "*",
+        credentials: true
+    },
 });
 
 io.on("connection", (socket) => {
