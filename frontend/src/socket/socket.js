@@ -9,7 +9,7 @@ export const state = reactive({
 });
 const languageStore = useLocalStorage('proyojon24language', {})
 // "undefined" means the URL will be computed from the `window.location` object
-const URL = process.env.NODE_ENV === "production" ? undefined : "http://localhost:5002";
+const URL = process.env.NODE_ENV === "production" ? undefined : "http://156.67.217.198:5002";
 
 export const socket = io(URL, {
   transports: ['websocket', 'polling', 'flushsocket']
