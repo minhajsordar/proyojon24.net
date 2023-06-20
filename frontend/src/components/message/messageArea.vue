@@ -24,11 +24,7 @@
         >
           <img
             class="q-message-avatar q-message-avatar--received"
-            :src=" web_root_url+
-              authStore.loginUserInfo._id !== message.sender._id
-                ? message.sender?.profileImage
-                : message.receipent?.profileImage
-            "
+            :src="web_root_url+ message.sender?.profileImage"
             aria-hidden="true"
           />
           <div class="">

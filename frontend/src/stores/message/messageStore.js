@@ -49,7 +49,7 @@ export const useMessageStore = defineStore('message store', () => {
       recipient: selectedRoomUser2.value.user._id,
       content: messageContent.value
     }
-    socket.emit('creating_new_message',{...data, token:loginUser.value.token})
+    socket.emit('creating_new_message',{...data})
     const config = {
       method: "post",
       url: "api/message",

@@ -18,7 +18,7 @@ quasar dev -m android --ide
 quasar dev -m capacitor -T android
 quasar dev -m ios --ide
 quasar dev -m capacitor -T ios
-quasar build -m capacitor -T android
+quasar build -m capacitor -T android --ide
 ```
 
 <!-- generate icon -->
