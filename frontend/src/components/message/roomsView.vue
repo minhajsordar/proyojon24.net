@@ -60,7 +60,7 @@ import { socket } from "src/socket/socket";
 import { useRoomsStore } from "src/stores/message/roomStore";
 import { useMessageStore } from "src/stores/message/messageStore";
 import { useLocalStorage } from "@vueuse/core";
-
+import { web_root_url } from "src/global_constant/root_url";
 import { date } from "quasar";
 
 const date1 = new Date();
