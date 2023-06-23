@@ -6,8 +6,8 @@ const checkLogin = (to, from, next) => {
     return Object.keys(obj).length === 0;
   }
   if ((proyojonloginuser.value instanceof Object) && isObjEmpty(proyojonloginuser.value)) {
-    next({name: 'login' })
-  }else{
+    next({ name: 'login' })
+  } else {
     next()
   }
 }
@@ -38,22 +38,26 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/startingPage.vue') },
       { path: '/home', component: () => import('pages/homePage.vue') },
-      { path: '/login', name:'login', component: () => import('pages/auth/loginPage.vue') },
+      { path: '/login', name: 'login', component: () => import('pages/auth/loginPage.vue') },
       { path: '/register', component: () => import('pages/auth/registerView.vue') },
       { path: '/service_categorys_list/:id', component: () => import('pages/publicpages/serviceCategorys.vue') },
       { path: '/service_providers_list/:id', component: () => import('pages/publicpages/serviceProviders.vue') },
       { path: '/service_provider/:id', component: () => import('pages/publicpages/serviceProviderProfile.vue') },
       { path: '/notifications', component: () => import('pages/publicpages/commonNotifications.vue') },
-  //   ]
-  // },
-  // {
-  //   path: '/',
-  //   component: () => import('layouts/ProfileLayout.vue'),
-  //   children: [
+      //   ]
+      // },
+      // {
+      //   path: '/',
+      //   component: () => import('layouts/ProfileLayout.vue'),
+      //   children: [
       // {
       //   path: '/direct_message/:id', component: () => import('pages/message/messengerPage.vue'),
       //   beforeEnter: checkLogin,
       // },
+      {
+        path: '/service_provider_preview/:id', component: () => import('pages/user/userServiceProviderPreview.vue'),
+        beforeEnter: checkLogin,
+      },
       {
         path: '/profile', component: () => import('pages/user/profilePage.vue'),
         beforeEnter: checkLogin,

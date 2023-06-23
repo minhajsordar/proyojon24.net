@@ -118,7 +118,7 @@
               <q-card class="q-pa-md">
                 <div
                   v-if="
-                    serviceProviderStore?.suggestedServiceProvidersList.length >
+                    serviceProviderStore?.suggestedServiceProvidersList?.length >
                     0
                   "
                 >

@@ -1,11 +1,11 @@
 <template>
-  <div class="container-section-py-sm">
+  <div class="container-section-py-sm" @keypress.enter="registerManager">
     <div class="inner-section">
       <div class="full-width">
         <div class="flex justify-between items-center">
-          <div class="fs-24">Create Your Account</div>
+          <div class="fs-24">{{ $t('create_new_account') }}</div>
           <div>
-            Already member? <router-link to="/login">Sign In</router-link> here
+            {{ $t('already_have_account') }}? <router-link to="/login">{{ $t('signin') }}</router-link>
           </div>
         </div>
         <q-card class="q-pa-md q-mt-md">
@@ -17,7 +17,7 @@
                     <q-input
                       ref="usernameEl"
                       v-model="registerStore.newUserInfo.username"
-                      label="Username"
+                      :label="$t('username')"
                       stack-label
                       outlined
                       dense
@@ -28,7 +28,7 @@
                     <q-input
                       ref="emailEl"
                       v-model="registerStore.newUserInfo.email"
-                      label="Email"
+                      :label="$t('email')"
                       type="email"
                       stack-label
                       outlined
@@ -40,25 +40,42 @@
                     <q-input
                       ref="passwordEl"
                       v-model="registerStore.newUserInfo.password"
-                      label="Password"
-                      type="password"
+                      :label="$t('password')"
                       stack-label
                       outlined
                       dense
+                      :type="isPwd ? 'password' : 'text'"
                       :rules="[required]"
-                    />
+                    >
+                      <template v-slot:append>
+                        <q-icon
+                          :name="isPwd ? 'visibility_off' : 'visibility'"
+                          class="cursor-pointer"
+                          @click="isPwd = !isPwd"
+                        />
+                      </template>
+                    </q-input>
+
                   </div>
                   <div class="col-12">
                     <q-input
                       ref="confirmPasswordEl"
                       v-model="registerStore.newUserInfo.password2"
-                      label="Confirm Password"
-                      type="password"
+                      :label="$t('confirm_password')"
                       stack-label
                       outlined
                       dense
                       :rules="[required, registerStore.matchPassword]"
-                    />
+                      :type="isPwdC ? 'password' : 'text'"
+                    >
+                      <template v-slot:append>
+                        <q-icon
+                          :name="isPwdC ? 'visibility_off' : 'visibility'"
+                          class="cursor-pointer"
+                          @click="isPwdC = !isPwdC"
+                        />
+                      </template>
+                    </q-input>
                   </div>
                 </div>
               </div>
@@ -68,7 +85,7 @@
                     <q-input
                       ref="phoneEl"
                       v-model="registerStore.newUserInfo.phone"
-                      label="Phone number"
+                      :label="$t('phone')"
                       stack-label
                       outlined
                       dense
@@ -79,7 +96,7 @@
                     <q-input
                       ref="fullnameBnEl"
                       v-model="registerStore.newUserInfo.name.bn"
-                      label="Full name In Bangla"
+                      :label="$t('full_name_bangla')"
                       stack-label
                       outlined
                       dense
@@ -90,7 +107,7 @@
                     <q-input
                       ref="fullnameEnEl"
                       v-model="registerStore.newUserInfo.name.en"
-                      label="Full name In English"
+                      :label="$t('full_name_english')"
                       stack-label
                       outlined
                       dense
@@ -118,9 +135,16 @@
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
-import { required, isEmail, mobileNoBd } from "src/global_js/utils";
+import {
+  required,
+  isEmail,
+  mobileNoBd,
+  fileValidate,
+} from "src/global_js/utils";
 import { useRegisterStore } from "src/stores/auth/registerStore";
 import { useRoute, useRouter } from "vue-router";
+const isPwd = ref(true)
+const isPwdC = ref(true)
 const router = useRouter();
 const route = useRoute();
 const registerStore = useRegisterStore();
@@ -177,6 +201,9 @@ onMounted(() => {
   }
   if (route.query.phone) {
     registerStore.newUserInfo.phone = route.query.phone;
+  }
+  if (route.query.nid) {
+    registerStore.newUserInfo.nid = route.query.nid;
   }
 });
 </script>

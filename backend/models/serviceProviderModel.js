@@ -150,6 +150,15 @@ const serviceProviderSchema = new mongoose.Schema({
         required: true,
         default: false
     },
+    rejected: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    rejectNote: {
+        type: String,
+        default: ""
+    },
     waitingForApproval: {
         type: Boolean,
         required: true,

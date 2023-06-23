@@ -29,40 +29,42 @@ import { importData } from './seeder.js'
 import { createServer } from "http";
 import { Server } from "socket.io";
 import { userJoin } from './utils/chatUser.js'
-
-
-
+import socket from './socket.js'
 connectDB()
 dotenv.config()
 
 const app = express()
 const httpServer = createServer(app);
-const io = new Server(httpServer, {
-    cors: {
-        origin: [
-            "*", 
-            "https://proyojon24.net", 
-            "https://156.67.217.198", 
-            "https://156.67.217.198:5002", 
-            "http://localhost:9000"
-        ],
-    },
-});
+socket.init(httpServer)
+// const io = new Server(httpServer, {
+//     cors: {
+//         origin: [
+//             "*", 
+//             "https://proyojon24.net", 
+//             "https://156.67.217.198", 
+//             "https://156.67.217.198:5002", 
+//             "http://localhost:9000"
+//         ],
+//     },
+// });
+const io = socket.get()
 
-io.on("connection", (socket) => {
-    socket.on('joinRoom', (arg) => {
-        // const user = userJoin(socket.id, room)
-        if (arg?._id) {
-            socket.join(arg._id)
-        }
-    })
-    socket.on('creating_new_message', (arg) => {
-        // const user = userJoin(socket.id, room)
-        socket.to(arg.room).emit('receiving_new_message','ping-new-message')
-    })
+// io.on("connection", (socket) => {
+//     socket.on('joinRoom', (arg) => {
+//         // const user = userJoin(socket.id, room)
+//         if (arg?._id) {
+//             socket.join(arg._id)
+//         }
+//     })
+//     // socket.on('creating_new_message', (arg) => {
+//     //     // const user = userJoin(socket.id, room)
+//     //     console.log(arg.toString)
+//     //     // socket.to(arg.room).emit('receiving_new_message','ping-new-message')
+//     // })
     
-});
+// });
 
+// createPersonalMessageOnReceive(io)
 app.use((req, res, next) => {
     req.io = io
     next()

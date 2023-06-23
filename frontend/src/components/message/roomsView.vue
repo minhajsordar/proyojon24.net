@@ -105,7 +105,7 @@ socket.on("new_message", () => {
 });
 
 socket.on("receiving_new_message", (argument) => {
-  console.log("receiving new message")
+  console.log("receiving new message",argument)
   audio.play();
 });
 </script>

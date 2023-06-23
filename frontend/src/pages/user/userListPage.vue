@@ -16,7 +16,7 @@
                 <tr>
                   <th>{{ $t("serial") }}</th>
                   <th>{{ $t("name") }}</th>
-                  <th>{{ $t("permission") }}</th>
+                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("permission") }}</th>
                   <th>{{ $t("action") }}</th>
                 </tr>
               </thead>
@@ -31,11 +31,11 @@
                   </td>
                   <td>
                     {{ user.name[languageStore.language] }}
-                  <!-- <span v-if="user.isSuperAdmin">(Super Admin)</span>
-                  <span v-else-if="user.isAdmin">(Admin)</span>
+                  <!-- <span v-if="user.permission == 'superAdmin'">(Super Admin)</span>
+                  <span v-else-if="user.permission == 'admin'">(Admin)</span>
                   <span v-else>({{ user.permission }})</span> -->
                   </td>
-                  <td style="width: 300px;">
+                  <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
                     <userPermission :user="user"/>
                   </td>
                   <td>
@@ -48,6 +48,7 @@
                       @click="createRoomManager(user._id)"
                     />
                     <q-btn
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
                       class="q-ml-xs"
                       :label="$t('delete')"
                       size="sm"
@@ -112,9 +113,6 @@ const createRoomManager = (id) => {
 };
 onMounted(() => {
   authStore.checkLogin();
-  if (!authStore.loginUserInfo.isSuperAdmin) {
-    router.push("/profile");
-  }
   userStore.getUserList();
 });
 const metaData = {

@@ -1,5 +1,6 @@
 <template>
-  <div class="app-content content">
+  <div class="app-content content"
+  @keypress.enter="loginManager">
     <div class="content-wrapper">
       <div class="content-body">
         <div class="auth-wrapper auth-basic q-px-md">
@@ -66,7 +67,8 @@
                             class="cursor-pointer"
                             @click="isPwd = !isPwd"
                           /> </template
-                      ></q-input>
+                      >
+                    </q-input>
                       <div></div>
                     </div>
                   </div>

@@ -3,7 +3,10 @@
     <q-header elevated  :class="[$q.screen.gt.sm?'bg-accent-public':'bg-red-8']">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-        <q-toolbar-title>Proyojon24</q-toolbar-title>
+        <q-toolbar-title>{{ messageStore.selectedRoomUser2 ? messageStore.selectedRoomUser2?.user?.name[languageStore.language] : 'Select user.' }}</q-toolbar-title>
+        <q-btn flat dense
+        @click="$router.push('/users')"
+        >{{ $t('headermenus.users') }}</q-btn>
       </q-toolbar>
     </q-header>
 
@@ -43,10 +46,14 @@ import { useRoute } from "vue-router";
 import { useMessageStore } from "src/stores/message/messageStore";
 import { isObjEmpty } from "src/global_js/utils";
 import { useLocalStorage } from "@vueuse/core";
+import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
+import { socket } from "src/socket/socket";
+
 
 const myRooms = useLocalStorage("myrooms", {});
 const loginUser = useLocalStorage("proyojonloginuser", {});
 
+const languageStore = useLanguageStore();
 const roomStore = useRoomsStore();
 const messageStore = useMessageStore();
 const authStore = useAuthStore();
@@ -72,7 +79,10 @@ onMounted(()=>{
 onBeforeMount(() => {
   authStore.checkLogin();
 });
-
+socket.on("new_message",()=>{
+  messageStore.getMessages()
+  console.log("new message")
+})
 </script>
 <style lang="scss" scoped>
 .menu-list .q-item {

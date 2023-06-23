@@ -300,7 +300,7 @@
                   "
                   outlined
                   dense
-                  :rules="[validationEnabled && required]"
+                  :rules="[validationEnabled && required, mobileNoBd]"
                 />
               </div>
             </div>
@@ -315,6 +315,7 @@
                   "
                   outlined
                   dense
+                  :rules="[mobileNoBd]"
                 />
               </div>
             </div>
@@ -345,6 +346,7 @@
                   v-model="serviceProviderStore.serviceProviderInfo.whatsapp"
                   outlined
                   dense
+                  :rules="[mobileNoBd]"
                 />
               </div>
             </div>
@@ -359,6 +361,7 @@
                   v-model="serviceProviderStore.serviceProviderInfo.imo"
                   outlined
                   dense
+                  :rules="[mobileNoBd]"
                 />
               </div>
             </div>
@@ -739,7 +742,7 @@ import {
   requiredSelector,
   required,
   fileValidate,
-  enToBnToEn,
+  mobileNoBd,
   isObjEmpty,
 } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
@@ -950,7 +953,7 @@ const pinlocationFilterFn = (val, update) => {
 };
 
 onMounted(() => {
-  if (!(loginUserinfo.value.isAdmin || loginUserinfo.value.isSuperAdmin)) {
+  if (!(loginUserinfo.value.permission == 'admin' || loginUserinfo.value.permission == 'superAdmin')) {
     if (loginUserinfo.value.name.bn && loginUserinfo.value.name.en) {
       serviceProviderStore.serviceProviderInfo.name = loginUserinfo.value.name;
     }

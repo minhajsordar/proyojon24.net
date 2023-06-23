@@ -11,7 +11,6 @@ const authUser = expressAsyncHandler(async (req, res) => {
   }
   if (user && await user.matchPassword(password)) {
     const serviceProviderExist = await ServiceProvider.findOne({user: user._id})
-    console.log(serviceProviderExist)
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     user.hasServiceProviderProfile = serviceProviderExist?true:false
     res.json({
@@ -25,8 +24,6 @@ const authUser = expressAsyncHandler(async (req, res) => {
       nidImage: user.nidImage,
       presentAddress: user.presentAddress,
       permanentAddress: user.permanentAddress,
-      isAdmin: user.isAdmin,
-      isSuperAdmin: user.isSuperAdmin,
       isActive: user.isActive,
       permission: user.permission,
       hasServiceProviderProfile: user.hasServiceProviderProfile,
@@ -88,8 +85,6 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       nidImage: user.nidImage,
       presentAddress: user.presentAddress,
       permanentAddress: user.permanentAddress,
-      isAdmin: user.isAdmin,
-      isSuperAdmin: user.isSuperAdmin,
       isActive: user.isActive,
       permission: user.permission,
       token: generateToken(user._id),
@@ -117,8 +112,7 @@ const getUserProfile = expressAsyncHandler(async (req, res) => {
       nidImage: user.nidImage,
       presentAddress: user.presentAddress,
       permanentAddress: user.permanentAddress,
-      isAdmin: user.isAdmin,
-      isSuperAdmin: user.isSuperAdmin,
+      permission: user.permission,
       isActive: user.isActive,
     })
   } else {
@@ -133,17 +127,8 @@ const getUserProfile = expressAsyncHandler(async (req, res) => {
 const updateUserProfile = expressAsyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
   if (user) {
-    if (req.body.isSuperAdmin) {
-      user.isSuperAdmin = req.body.isSuperAdmin
-    }
-    if (req.body.isAdmin) {
-      user.isAdmin = req.body.isAdmin
-      user.isSuperAdmin = false
-    }
     if (req.body.permission) {
       user.permission = req.body.permission
-      user.isSuperAdmin = false
-      user.isAdmin = false
     }
     if (req.body.password) {
       user.password = req.body.password
@@ -151,8 +136,6 @@ const updateUserProfile = expressAsyncHandler(async (req, res) => {
     const updatedUser = await user.save()
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.json({
-      isSuperAdmin: updatedUser.isSuperAdmin,
-      isAdmin: updatedUser.isAdmin,
       permission: updatedUser.permission,
     })
   } else {
@@ -213,7 +196,7 @@ const deleteRequest = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const getUserById = expressAsyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select('-password')
-  if (!user.isSuperAdmin) {
+  if (!user.permission == 'superAdmin') {
     user.phone = user.phone
     user.nidNo = user.nidNo
     user.nidImage = user.nidImage
@@ -281,8 +264,7 @@ const updateUser = expressAsyncHandler(async (req, res) => {
       nidImage: updatedUser.nidImage,
       presentAddress: updatedUser.presentAddress,
       permanentAddress: updatedUser.permanentAddress,
-      isAdmin: updatedUser.isAdmin,
-      isSuperAdmin: updatedUser.isSuperAdmin,
+      permission: updatedUser.permission,
       isActive: updatedUser.isActive,
       token: generateToken(updatedUser._id),
     })

@@ -31,7 +31,7 @@
     </q-select>
     <div>
       <q-btn
-        class="q-ml-lg"
+        class="q-ml-md"
         :label="$t('confirm')"
         size="sm"
         dense
@@ -75,17 +75,6 @@ const options = [
   },
 ];
 const adminUserType = ref(options.filter(opt=>opt.value == props.user.permission)[0]);
-if(props.user.isSuperAdmin){
-  adminUserType.value = {
-    label: "Super Admin",
-    value: "superAdmin",
-  }
-}else if(props.user.isAdmin){
-  adminUserType.value = {
-    label: "Admin",
-    value: "admin",
-  }
-}
 const authStore = useAuthStore();
 
 const props = defineProps({

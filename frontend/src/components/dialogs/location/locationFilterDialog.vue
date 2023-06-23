@@ -16,7 +16,7 @@
       <q-separator class="q-my-md" />
       <div class="row q-col-gutter-sm">
         <div class="col-12">
-          <div class="q-py-sm q-px-md bg-blue-grey-10 text-yellow-13">
+          <div class="q-py-sm q-px-md bg-accent text-white">
             {{ $t("location.district") }}
           </div>
         </div>
@@ -43,7 +43,7 @@
           />
         </div>
         <div class="col-12">
-          <div class="q-py-sm q-px-md bg-blue-grey-10 text-yellow-13">
+          <div class="q-py-sm q-px-md bg-accent text-white">
             {{ $t("location.subdistrict") }}
           </div>
         </div>
@@ -70,7 +70,7 @@
           />
         </div>
         <div class="col-12">
-          <div class="q-py-sm q-px-md bg-blue-grey-10 text-yellow-13">
+          <div class="q-py-sm q-px-md bg-accent text-white">
             {{ $t("location.union") }}
           </div>
         </div>
@@ -97,7 +97,7 @@
           />
         </div>
         <div class="col-12">
-          <div class="q-py-sm q-px-md bg-blue-grey-10 text-yellow-13">
+          <div class="q-py-sm q-px-md bg-accent text-white">
             {{ $t("location.pinlocation") }}
           </div>
         </div>
@@ -125,10 +125,10 @@
         </div>
         <div class="col-12">
           <q-btn
-            class="full-width bg-blue-grey-10 text-yellow-13"
+            class="full-width bg-accent text-white"
             :label="$t('search')"
             @click="
-              serviceProviderStore.getPublicServiceProvidersByLocation(
+              serviceProviderFilterStore.getPublicServiceProvidersByLocation(
                 $route.params.id
               )
             "
@@ -149,14 +149,12 @@ import { ref, onBeforeMount } from "vue";
 import { isObjEmpty } from "src/global_js/utils";
 import { useSubDistrictStore } from "src/stores/locations/subDistrictStore";
 import { useUnionStore } from "src/stores/locations/unionStore";
-import { useWardStore } from "src/stores/locations/wardStore";
-import { useServiceProviderStore } from "src/stores/service/serviceProviderStore";
 import { useRoute } from "vue-router";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 import { useDivisionStore } from "src/stores/locations/divisionStore";
-// const route = useRoute()
+import { useServiceProviderFilterStore } from "src/stores/service/serviceProviderFilterStore";
 const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
-const serviceProviderStore = useServiceProviderStore();
+const serviceProviderFilterStore = useServiceProviderFilterStore()
 const publicUserStore = usePublicUserStore();
 const languageStore = useLanguageStore();
 const divisionStore = useDivisionStore();

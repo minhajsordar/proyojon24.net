@@ -6,30 +6,48 @@
           <div>
             <div class="fs-18">{{ $t("headermenus.pending_list") }}</div>
             <q-separator class="q-my-sm" />
-            <q-markup-table
-              flat
-              bordered
-              separator="cell"
-              class="text-left"
-            >
+            <q-markup-table flat bordered separator="cell" class="text-left">
               <thead class="bg-blue-grey-2">
                 <tr>
                   <th>{{ $t("serial") }}</th>
                   <th>{{ $t("name") }}</th>
+                  <th>{{ $t('datetime') }}</th>
                   <th>{{ $t("action") }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="(provider, index) in serviceProviderPendingStore.serviceProviderPendingList"
+                  v-for="(
+                    provider, index
+                  ) in serviceProviderPendingStore.serviceProviderPendingList"
                   :key="index"
                   :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
                 >
                   <td>
-                    {{ enToBnToEn(String(index+1), languageStore.language) }}
+                    {{ enToBnToEn(String(index + 1), languageStore.language) }}
                   </td>
                   <td>
                     {{ provider.name[languageStore.language] }}
+                  </td>
+                  <td>
+                    <p>
+                      Created At:
+                      {{
+                        date.formatDate(
+                          provider.createdAt,
+                          "YYYY-MM-DD"
+                        )
+                      }}
+                    </p>
+                    <p>
+                      Updated At:
+                      {{
+                        date.formatDate(
+                          provider.updatedAt,
+                          "YYYY-MM-DD"
+                        )
+                      }}
+                    </p>
                   </td>
                   <td>
                     <q-btn
@@ -38,6 +56,11 @@
                       size="sm"
                       dense
                       color="blue-grey-10"
+                      @click="
+                        $router.push(
+                          '/service_provider_preview/' + provider._id
+                        )
+                      "
                     />
                     <q-btn
                       class="q-ml-xs"
@@ -45,7 +68,17 @@
                       size="sm"
                       dense
                       color="positive"
-                      @click="confirm(provider._id,provider.dataCollector)"
+                      @click="confirm(provider._id, provider.dataCollector)"
+                    />
+                    <q-btn
+                      class="q-ml-xs"
+                      :label="$t('reject')"
+                      size="sm"
+                      dense
+                      color="negative"
+                      @click="
+                        rejectDialog(provider._id, provider.dataCollector)
+                      "
                     />
                   </td>
                 </tr>
@@ -59,7 +92,7 @@
 </template>
 <script setup>
 import { storeToRefs } from "pinia";
-import { useQuasar, useMeta } from "quasar";
+import { useQuasar, useMeta, date } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useUserStore } from "src/stores/user/userStore";
 import { useI18n } from "vue-i18n";
@@ -67,12 +100,12 @@ import { useAuthStore } from "src/stores/auth/authStore";
 import { onMounted, ref } from "vue";
 import { enToBnToEn } from "src/global_js/utils";
 import { useRouter } from "vue-router";
-import  userPermission  from "src/components/profile/userPermission.vue";
+import userPermission from "src/components/profile/userPermission.vue";
 import { useLocalStorage } from "@vueuse/core";
 import { useServiceProviderPendingStore } from "src/stores/service/serviceProviderPendingStore";
-const serviceProviderPendingStore = useServiceProviderPendingStore()
-serviceProviderPendingStore.getServiceProviderPendingList()
-const userInfo = useLocalStorage('proyojonloginuser',{})
+const serviceProviderPendingStore = useServiceProviderPendingStore();
+serviceProviderPendingStore.getServiceProviderPendingList();
+const userInfo = useLocalStorage("proyojonloginuser", {});
 const router = useRouter();
 const authStore = useAuthStore();
 const $q = useQuasar();
@@ -81,22 +114,51 @@ const userStore = useUserStore();
 
 const { userList } = storeToRefs(userStore);
 const languageStore = useLanguageStore();
-const adminUserType = ref('self')
-const confirm = (id,dataCollector) => {
+const adminUserType = ref("self");
+const confirm = (id, dataCollector) => {
   $q.dialog({
     title: t("confirm"),
-    message: "Are you sure to approved this.",
+    message: "Are you sure to approved this?",
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    serviceProviderPendingStore.approveServiceProviderProfile(id,dataCollector)
+    serviceProviderPendingStore.approveServiceProviderProfile(
+      id,
+      dataCollector
+    );
     console.log(">>>> OK");
+  });
+};
+const rejectDialog = (id, dataCollector) => {
+  $q.dialog({
+    title: t("reject"),
+    message: "Are you sure to reject this?",
+    prompt: {
+      model: "",
+      type: "text", // optional
+    },
+    cancel: true,
+    persistent: true,
+  }).onOk((data) => {
+    serviceProviderPendingStore.rejectServiceProviderProfile(
+      id,
+      dataCollector,
+      data
+    );
+    console.log(">>>> OK", data);
   });
 };
 onMounted(() => {
   authStore.checkLogin();
-  if (!(userInfo.value.isAdmin ||
-  ["division", "district", "subDistrict", "union"].includes(userInfo.value.permission))
+  if (
+    ![
+      "superAdmin",
+      "admin",
+      "district",
+      "division",
+      "subDistrict",
+      "union",
+    ].includes(authStore?.loginUserInfo?.permission)
   ) {
     router.push("/profile");
   }

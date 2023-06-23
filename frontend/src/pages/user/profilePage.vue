@@ -7,7 +7,7 @@
             <div >
               <q-avatar rounded size="130px">
               <img v-if="authStore.loginUserInfo?.profileImage" :src="web_root_url+authStore.loginUserInfo.profileImage" />
-              <img v-else src="/images/user-placeholder.jpeg" />
+              <!-- <img v-else src="images/user-placeholder.jpeg" /> -->
             </q-avatar>
             </div>
             <div class="q-ml-md">
@@ -16,9 +16,9 @@
                 <q-icon name="person"/>
                 <span>
                   {{
-                    authStore.loginUserInfo?.isSuperAdmin
+                    authStore.loginUserInfo?.permission == 'superAdmin'
                       ? "Super Admin"
-                      : authStore.loginUserInfo?.isAdmin
+                      : authStore.loginUserInfo?.permission == 'admin'
                       ? "Admin"
                       : authStore.loginUserInfo?.permission == 'self'?
                       'Service Provider'

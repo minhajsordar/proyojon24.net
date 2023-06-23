@@ -9,7 +9,7 @@
             <q-img
               height="280px"
               width="100%"
-fit="contain"
+              fit="contain"
               :src="
                 web_root_url +
                 serviceProviderStore.serviceProvider?.serviceImage
@@ -18,95 +18,130 @@ fit="contain"
             </q-img>
           </q-card-section>
         </q-card>
-        <q-card
-          class="full-width hover-serviceprovider-card cursor-pointer"
-        >
+        <q-card class="full-width hover-serviceprovider-card cursor-pointer">
           <div class="listcard-cont">
-            <q-badge
-              v-if="serviceProviderStore.serviceProvider?.viewCount"
-              class="view-badge-top-right"
-              color="pink"
-            >
-              <q-icon name="visibility" />
-              {{ serviceProviderStore.serviceProvider.viewCount }}</q-badge
-            >
             <q-card-section class="image-section q-pa-sm">
-              <q-img :src="web_root_url + serviceProviderStore.serviceProvider?.image" />
+              <q-img
+                :src="
+                  web_root_url + serviceProviderStore.serviceProvider?.image
+                "
+              />
             </q-card-section>
             <q-card-section class="description-section q-pa-sm">
               <div class="text-bold">
-                {{ serviceProviderStore.serviceProvider?.name[languageStore.language] }}
+                {{
+                  serviceProviderStore.serviceProvider?.name[
+                    languageStore.language
+                  ]
+                }}
               </div>
               <q-separator />
               <div>
                 <span>{{
-                  serviceProviderStore.serviceProvider?.serviceTitle[languageStore.language]
+                  serviceProviderStore.serviceProvider?.serviceTitle[
+                    languageStore.language
+                  ]
                 }}</span>
               </div>
               <q-separator />
-              <div class="fs-12 text-bold">
+              <div
+                class="fs-12 text-bold"
+                style="padding-top: 1px; padding-bottom: 1px"
+              >
                 <q-icon class="bg-primary text-white" name="location_on" />
                 <span
                   v-if="
-                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.division?.name[
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.division?.name[
                       languageStore.language
                     ]
                   "
-                  >
+                >
                   {{
-                    " "+serviceProviderStore.serviceProvider?.serviceProviderLocation?.division?.name[
+                    " " +
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.division?.name[
                       languageStore.language
                     ]
                   }}
                 </span>
                 <span
                   v-if="
-                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.district?.name[
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.district?.name[
                       languageStore.language
                     ]
                   "
                   >,
                   {{
-                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.district?.name[
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.district?.name[
                       languageStore.language
                     ]
                   }}
                 </span>
                 <span
                   v-if="
-                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.subDistrict?.name[
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.subDistrict?.name[
                       languageStore.language
                     ]
                   "
                   >,
                   {{
-                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.subDistrict?.name[
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.subDistrict?.name[
                       languageStore.language
                     ]
                   }}
                 </span>
                 <span
                   v-if="
-                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.union?.name[
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.union?.name[
                       languageStore.language
                     ]
                   "
                   >,
                   {{
-                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.union?.name[
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.union?.name[
                       languageStore.language
                     ]
                   }}</span
                 >
-                <span v-if="serviceProviderStore.serviceProvider?.serviceProviderLocation?.exact"
+                <span
+                  v-if="
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.exact
+                  "
                   >,
                   {{
-                    serviceProviderStore.serviceProvider?.serviceProviderLocation?.exact[
-                      languageStore.language
-                    ]
+                    serviceProviderStore.serviceProvider
+                      ?.serviceProviderLocation?.exact[languageStore.language]
                   }}</span
                 >
               </div>
+              <q-separator />
+              <div v-if="serviceProviderStore.serviceProvider?.createdAt">
+                {{$t('joined_date_s')}}
+                {{ enToBnToEn(
+                          date.formatDate(serviceProviderStore.serviceProvider?.createdAt, "YYYY-MM-DD") ,
+                          languageStore.language
+                        )}}
+                {{$t('joined_date_e')}}
+
+              </div>
+
+              <q-separator />
+              <q-badge
+                style="padding-top: 1px; padding-bottom: 1px"
+                v-if="serviceProviderStore.serviceProvider?.viewCount"
+                color="pink"
+              >
+                <q-icon name="visibility" />
+                {{ serviceProviderStore.serviceProvider.viewCount }}</q-badge
+              >
             </q-card-section>
           </div>
         </q-card>
@@ -115,7 +150,7 @@ fit="contain"
             <q-card class="q-pa-md">
               <div class="fs-16">
                 <div class="q-mt-sm q-pa-sm bg-accent text-yellow text-center">
-                  <span class="fs-18"> বিস্তারিত: </span>
+                  <span class="fs-18"> {{$t('details')}} </span>
                 </div>
                 <div
                   class="q-mt-md"
@@ -131,14 +166,17 @@ fit="contain"
           <div class="col-lg-4 col-sm-4 col-xs-12">
             <q-card class="q-pa-md">
               <div class="q-mt-sm q-pa-sm bg-accent text-yellow text-center">
-                <span class="fs-18"> {{$t('contact')}} </span>
+                <span class="fs-18"> {{ $t("contact") }} </span>
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >
                 <q-separator />
                 <div class="q-py-sm">
-                  <span class="fs-18" v-if="serviceProviderStore.serviceProvider?.phoneNumber1">
+                  <span
+                    class="fs-18"
+                    v-if="serviceProviderStore.serviceProvider?.phoneNumber1"
+                  >
                     <q-icon class="bg-yellow-14 text-white" name="call" />
                     <a
                       :href="
@@ -146,7 +184,12 @@ fit="contain"
                         serviceProviderStore.serviceProvider?.phoneNumber1
                       "
                     >
-                      {{ enToBnToEn(serviceProviderStore.serviceProvider?.phoneNumber1,languageStore.language) }}
+                      {{
+                        enToBnToEn(
+                          serviceProviderStore.serviceProvider?.phoneNumber1,
+                          languageStore.language
+                        )
+                      }}
                     </a>
                   </span>
                 </div>
@@ -157,7 +200,10 @@ fit="contain"
               >
                 <q-separator />
                 <div class="q-py-sm">
-                  <span class="fs-18" v-if="serviceProviderStore.serviceProvider?.phoneNumber2">
+                  <span
+                    class="fs-18"
+                    v-if="serviceProviderStore.serviceProvider?.phoneNumber2"
+                  >
                     <q-icon class="bg-yellow-14 text-white" name="call" />
                     <a
                       :href="
@@ -165,7 +211,12 @@ fit="contain"
                         serviceProviderStore.serviceProvider?.phoneNumber2
                       "
                     >
-                      {{ enToBnToEn(serviceProviderStore.serviceProvider?.phoneNumber2,languageStore.language) }}
+                      {{
+                        enToBnToEn(
+                          serviceProviderStore.serviceProvider?.phoneNumber2,
+                          languageStore.language
+                        )
+                      }}
                     </a>
                   </span>
                 </div>
@@ -173,69 +224,103 @@ fit="contain"
             </q-card>
             <q-card class="q-pa-md q-mt-sm">
               <div class="q-mt-sm q-pa-sm bg-accent text-yellow text-center">
-                <span class="fs-18"> {{$t('social_links')}} </span>
+                <span class="fs-18"> {{ $t("social_links") }} </span>
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >
                 <q-separator />
                 <div class="q-py-sm">
-                  <q-img style="margin-top: -8px" width="25px" src="/images/whatsapp.svg"/>
-                  <span class="fs-18 q-mt-sm" v-if="serviceProviderStore.serviceProvider?.whatsapp">
-                    <a :href="`//api.whatsapp.com/send?phone=${serviceProviderStore.serviceProvider?.whatsapp}&text=Hello`" title="Share on whatsapp">
-                      {{ enToBnToEn(serviceProviderStore.serviceProvider?.whatsapp,languageStore.language) }}
+                  <q-img
+                    style="margin-top: -8px"
+                    width="25px"
+                    src="/images/whatsapp.svg"
+                  />
+                  <span
+                    class="fs-16 q-mt-sm"
+                    v-if="serviceProviderStore.serviceProvider?.whatsapp"
+                  >
+                    <a
+                      :href="`//api.whatsapp.com/send?phone=${serviceProviderStore.serviceProvider?.whatsapp}&text=Hello`"
+                      title="Share on whatsapp"
+                    >
+                      {{
+                        enToBnToEn(
+                          serviceProviderStore.serviceProvider?.whatsapp,
+                          languageStore.language
+                        )
+                      }}
                     </a>
                   </span>
                 </div>
-
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >
                 <q-separator />
                 <div class="q-py-sm">
-                  <q-img style="margin-top: -8px" width="25px" src="/images/imo.svg"/>
-                  <span class="fs-18 q-mt-sm" v-if="serviceProviderStore.serviceProvider?.imo">
-                  {{ enToBnToEn(serviceProviderStore.serviceProvider?.imo,languageStore.language) }}
+                  <q-img
+                    style="margin-top: -8px"
+                    width="25px"
+                    src="/images/imo.svg"
+                  />
+                  <span
+                    class="fs-16 q-mt-sm"
+                    v-if="serviceProviderStore.serviceProvider?.imo"
+                  >
+                    {{
+                      enToBnToEn(
+                        serviceProviderStore.serviceProvider?.imo,
+                        languageStore.language
+                      )
+                    }}
                   </span>
                 </div>
-
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >
                 <q-separator />
                 <div class="q-py-sm">
-                  <q-img style="margin-top: -8px" width="25px" src="/images/facebook.svg"/>
-                  <span class="fs-18 q-mt-sm">
-                  {{ serviceProviderStore.serviceProvider?.facebook }}
+                  <q-img
+                    style="margin-top: -8px"
+                    width="25px"
+                    src="/images/facebook.svg"
+                  />
+                  <span class="fs-16 q-mt-sm word-wrap">
+                    {{ serviceProviderStore.serviceProvider?.facebook }}
                   </span>
                 </div>
-
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >
                 <q-separator />
                 <div class="q-py-sm">
-                  <q-img style="margin-top: -8px" width="25px" src="/images/twitter.svg"/>
-                  <span class="fs-18 q-mt-sm">
-                  {{ serviceProviderStore.serviceProvider?.twitter }}
+                  <q-img
+                    style="margin-top: -8px"
+                    width="25px"
+                    src="/images/twitter.svg"
+                  />
+                  <span class="fs-16 q-mt-sm word-wrap">
+                    {{ serviceProviderStore.serviceProvider?.twitter }}
                   </span>
                 </div>
-
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >
                 <q-separator />
                 <div class="q-py-sm">
-                  <q-img style="margin-top: -8px" width="25px" src="/images/email.svg"/>
-                  <span class="fs-18 q-mt-sm">
-                  {{ serviceProviderStore.serviceProvider?.email }}
+                  <q-img
+                    style="margin-top: -8px"
+                    width="25px"
+                    src="/images/email.svg"
+                  />
+                  <span class="fs-16 q-mt-sm word-wrap">
+                    {{ serviceProviderStore.serviceProvider?.email }}
                   </span>
                 </div>
-
               </div>
             </q-card>
           </div>
@@ -246,7 +331,7 @@ fit="contain"
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
-import { useQuasar, useMeta } from "quasar";
+import { useQuasar, useMeta, date } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useI18n } from "vue-i18n";
 import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js";
@@ -310,5 +395,8 @@ useMeta(metaData);
   transform: translateX(-50%);
   border: 4px solid white !important;
   border-radius: 100px;
+}
+.word-wrap{
+  word-wrap: break-word;
 }
 </style>

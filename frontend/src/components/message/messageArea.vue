@@ -131,7 +131,6 @@ import { useAuthStore } from "src/stores/auth/authStore";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useMessageStore } from "src/stores/message/messageStore";
 import { useRoomsStore } from "src/stores/message/roomStore";
-import { socket } from "src/socket/socket";
 import { storeToRefs } from "pinia";
 import { web_root_url } from "src/global_constant/root_url";
 

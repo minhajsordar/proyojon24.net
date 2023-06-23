@@ -62,6 +62,11 @@ export const useAuthStore = defineStore('auth store', () => {
       loginUser.value = responseData.data
       loginUserInfo.value = responseData.data;
       loader.hideLoader()
+      Notify.create({
+        position: "top",
+        type: "positive",
+        message: "Login successful",
+      });
       isAuthorized.value = true
       rememberUserData()
       languageStore.switchToBn()
@@ -73,7 +78,11 @@ export const useAuthStore = defineStore('auth store', () => {
       console.log(error);
       loader.hideLoader()
       rememberUserData()
-
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
     }
 
   }
@@ -126,13 +135,7 @@ export const useAuthStore = defineStore('auth store', () => {
 
   const updateUserPermission = async (id, permission) => {
     const data = {}
-    if (permission == "superAdmin") {
-      data.isSuperAdmin = true
-    }
-    else if (permission == "admin") {
-      data.isAdmin = true
-    }
-    else {
+    if (permission) {
       data.permission = permission
     }
     const config = {

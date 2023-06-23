@@ -57,7 +57,7 @@
           class="fs-10 footer-button-text-1"
           style="position: absolute; width: 150px"
         >
-        {{ $t("bottom_menus.live_chat") }}
+          {{ $t("bottom_menus.live_chat") }}
         </div>
       </div>
       <div class="relative-position" style="width: 80px">
@@ -78,12 +78,12 @@
             }
           "
         >
-          <q-icon
-            v-if="authStore?.loginUserInfo?.hasServiceProviderProfile"
-            class="manage_accounts"
-            name="add"
-            size="45px"
-          />
+          <div
+            class="q-pa-sm"
+            v-if="authStore?.loginUserInfo?.hasServiceProviderProfile == true"
+          >
+            <q-icon class="fs-32" name="manage_accounts" size="45px" />
+          </div>
           <q-icon v-else class="rotate-icon" name="add" size="45px" />
         </q-btn>
         <div
@@ -96,7 +96,14 @@
             transform: translate(-50%, 50%);
           "
         >
-        {{ $t("bottom_menus.add_provider") }}
+          <span
+            v-if="authStore?.loginUserInfo?.hasServiceProviderProfile == true"
+          >
+            {{ $t("bottom_menus.service_profile") }}
+          </span>
+          <span v-else>
+            {{ $t("bottom_menus.add_provider") }}
+          </span>
         </div>
       </div>
       <div class="footer-buttons">
@@ -115,7 +122,7 @@
           class="fs-10 footer-button-text"
           style="position: absolute; width: 150px"
         >
-        {{ $t("bottom_menus.profile") }}
+          {{ $t("bottom_menus.profile") }}
         </div>
       </div>
       <div class="footer-buttons">
@@ -134,7 +141,7 @@
           class="fs-10 footer-button-text"
           style="position: absolute; width: 150px"
         >
-        {{ $t("bottom_menus.menu") }}
+          {{ $t("bottom_menus.menu") }}
         </div>
       </div>
       <!-- "home" "live chat" "add provider" "menu". -->
@@ -189,17 +196,16 @@ onMounted(() => {
   }
   eventsList.forEach((event) => {
     document.addEventListener(event, () => {
-      if (
-        !Boolean(authStore.loginUserInfo) &&
-        new Date(sessionEndTimeStorage.value) <= new Date()
-      ) {
-        Notify.create({
-          message: "We are going to logout you for 5 minutes inactivity.",
-          position: "center",
-        });
-        authStore.logoutFunc();
+      if (Boolean(authStore.loginUserInfo)) {
+        if (new Date(sessionEndTimeStorage.value) <= new Date()) {
+          Notify.create({
+            message: "We are going to logout you for 5 minutes inactivity.",
+            position: "center",
+          });
+          authStore.logoutFunc();
+        }
+        sessionEndTimeStorage.value = date.addToDate(new Date(), { minute: 5 });
       }
-      sessionEndTimeStorage.value = date.addToDate(new Date(), { minute: 5 });
     });
   });
 });

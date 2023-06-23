@@ -104,6 +104,7 @@
             stack-label
             outlined
             dense
+            :rules="[mobileNoBd]"
           />
         </div>
         <div class="col-sm-6 col-xs-12 col-12">

@@ -30,8 +30,7 @@ export const useUserStore = defineStore('user store', () => {
           en: 'Goalonda'
         },
         isActive: true,
-        isAdmin: true,
-        isSuperAdmin: true
+        permission: 'superAdmin'
       },
       {
         name: {
@@ -51,7 +50,7 @@ export const useUserStore = defineStore('user store', () => {
           en: 'Rajbari'
         },
         isActive: true,
-        isAdmin: true,
+        permission : 'admin'
       },
       {
         name: {
@@ -88,8 +87,7 @@ export const useUserStore = defineStore('user store', () => {
       permanentAddress: null,
       password: null,
       isActive: true,
-      isSuperAdmin: false,
-      isAdmin: false,
+      permission: 'self',
     }),
     deleteRequestDialog = ref(false),
     deleteNote = ref(null)
@@ -156,8 +154,7 @@ export const useUserStore = defineStore('user store', () => {
       "permanentAddress",
       "password",
       "isActive",
-      "isSuperAdmin",
-      "isAdmin"
+      "permission"
     ]
     const data = {}
     userInfoKeys.forEach((value,index)=>{

@@ -80,7 +80,7 @@ const getPublicServiceProviders = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getServiceProviderPendingList = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.find({ waitingForApproval: true })
+    const serviceProvider = await ServiceProvider.find({ waitingForApproval: true }).select("name createdAt updatedAt dataCollector phoneNumber1")
     if (serviceProvider) {
 
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
@@ -95,7 +95,7 @@ const getServiceProviderPendingList = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.findOne({ user: req.params.user }).populate('service','name').populate('serviceCategory','name')
+    const serviceProvider = await ServiceProvider.findOne({ user: req.query.user }).populate('service','name').populate('serviceCategory','name')
     if (serviceProvider) {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json(serviceProvider)
@@ -240,14 +240,24 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const rankAndApprovalServiceProvider = expressAsyncHandler(async (req, res) => {
     const {
+        rejectNote,
+        rankCount,
         approved,
-        rankCount
+        rejected
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
         if (approved) {
             serviceProvider.approved = true
             serviceProvider.waitingForApproval = false
+            serviceProvider.rejected = false
+            serviceProvider.rejectNote = ""
+        }
+        if (rejected) {
+            serviceProvider.approved = false
+            serviceProvider.rejected = true
+            serviceProvider.waitingForApproval = false
+            serviceProvider.rejectNote = rejectNote
         }
         if (rankCount) {
             serviceProvider.rankCount = rankCount
@@ -269,7 +279,7 @@ const suggestServiceProvider = expressAsyncHandler(async (req, res) => {
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
-        if (req.user.isSuperAdmin) {
+        if (req.user.permission == 'superAdmin') {
             if(suggested){
                 serviceProvider.suggested = suggested
             }
@@ -424,6 +434,70 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
 
 })
 
+// @desc create a UserServiceProvider
+// @route create api/ServiceProviders/UserAndServiceProvider
+// @acess Privet/Admin
+const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
+    const {
+        serviceCategory,
+        name,
+        image,
+        serviceImage,
+        serviceProviderLocation,
+        service,
+        degree,
+        description,
+        serviceTitle,
+        phoneNumber1,
+        phoneNumber2,
+        facebook,
+        whatsapp,
+        imo,
+        twitter,
+        email,
+        rankCount,
+        keywords
+    } = req.body
+    const serviceProvider = new ServiceProvider({
+        dataCollector: req.user._id,
+        dataUpdatedBy: req.user._id,
+        dataUpdatedHistory: req.user._id,
+        user: req.user._id,
+        serviceCategory,
+        name,
+        image,
+        serviceImage,
+        serviceProviderLocation,
+        service,
+        serviceTitle,
+        description,
+        degree,
+        phoneNumber1,
+        phoneNumber2,
+        facebook,
+        whatsapp,
+        imo,
+        twitter,
+        email,
+        rankCount,
+        approved: false,
+        waitingForApproval: true,
+        keywords
+    })
+    const createdServiceProvider = await serviceProvider.save()
+    req.user.hasServiceProviderProfile = true
+    await req.user.save()
+    const serviceById = await Service.findById(service)
+    serviceById.serviceProviderCount += 1
+    await serviceById.save()
+
+    const serviceCategoryById = await ServiceCategory.findById(serviceCategory)
+    serviceCategoryById.serviceProviderCount += 1
+    await serviceCategoryById.save()
+    res.status(201).json(createdServiceProvider)
+
+})
+
 export {
     getServiceProviders,
     getServiceProviderById,
@@ -441,5 +515,6 @@ export {
     getUserServiceProvider,
     getSuggestedServiceProvider,
     getTopSuggestedServiceProvider,
+    createUserAndServiceProvider,
     getPublicServiceProviders
 }

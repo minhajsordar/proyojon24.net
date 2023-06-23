@@ -4,7 +4,7 @@ import User from "../models/userModel.js";
 
 
 const protect = expressAsyncHandler(async (req, res, next) => {
-  if(req.body.dataCollectorId){
+  if (req.body.dataCollectorId) {
     req.dataCollector = await User.findById(req.body.dataCollectorId)
   }
   let token
@@ -14,11 +14,16 @@ const protect = expressAsyncHandler(async (req, res, next) => {
   ) {
     try {
       token = req.headers.authorization.split(' ')[1]
+      if (token) {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-      const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
-      req.user = await User.findById(decoded.id).select('-password')
-      next()
+        req.user = await User.findById(decoded.id).select('-password')
+        next()
+      } else {
+        console.error(error)
+        res.status(401)
+        throw new Error('Not authorized, token failed')
+      }
     } catch (error) {
       // console.log(req.user)
       console.error(error)
@@ -38,49 +43,45 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 // union
 // ward
 const higherLavelPermission = (req, res, next) => {
-  if (req.user && req.user.isSuperAdmin) {
+  if (req.user && req.user.permission === "superAdmin") {
     next()
     return
   }
-  else if (req.user && req.user.isAdmin) {
+  else if (req.user && req.user.permission === "admin") {
     next()
     return
   }
   else if (req.user && req.dataCollector.permission == "district" && (
-    req.user.isSuperAdmin ||
-    ["division"].includes(req.user.permission)
+    ["superAdmin", "division"].includes(req.user.permission)
   )) {
     next()
     return
   }
   else if (req.user && req.dataCollector.permission == "subDistrict" && (
-    req.user.isSuperAdmin ||
-    ["division", "district"].includes(req.user.permission)
+    ["superAdmin", "division", "district"].includes(req.user.permission)
   )) {
     next()
     return
   }
   else if (req.user && req.dataCollector.permission == "union" && (
-    req.user.isSuperAdmin ||
-    ["division", "district", "subDistrict"].includes(req.user.permission)
+    ["superAdmin", "division", "district", "subDistrict"].includes(req.user.permission)
   )) {
     next()
     return
   }
   else if (req.user && req.dataCollector.permission == "self" && (
-    req.user.isSuperAdmin ||
-    ["division", "district", "subDistrict", "union"].includes(req.user.permission)
+    ["superAdmin", "division", "district", "subDistrict", "union"].includes(req.user.permission)
   )) {
     next()
     return
   }
-  else{
+  else {
     res.status(401)
     throw new Error('Need Higher Lavel Permission.')
   }
 }
 const admin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
+  if (req.user && req.user.permission === 'admin') {
     next()
   } else {
     res.status(401)
@@ -89,8 +90,8 @@ const admin = (req, res, next) => {
 }
 const anyAdmin = (req, res, next) => {
   if (req.user && (
-    req.user.isSuperAdmin ||
-    req.user.isAdmin
+    req.user.permission === 'superAdmin' ||
+    req.user.permission === 'admin'
   )) {
     next()
   } else {
@@ -100,9 +101,7 @@ const anyAdmin = (req, res, next) => {
 }
 const specialPermission = (req, res, next) => {
   if (req.user && (
-    req.user.isSuperAdmin ||
-    req.user.isAdmin ||
-    ["division", "district", "subDistrict", "union"].includes(req.user.permission)
+    ["superAdmin", "admin", "division", "district", "subDistrict", "union"].includes(req.user.permission)
   )) {
     next()
   } else {
@@ -111,7 +110,7 @@ const specialPermission = (req, res, next) => {
   }
 }
 const superAdmin = (req, res, next) => {
-  if (req.user && req.user.isSuperAdmin) {
+  if (req.user && req.user.permission === 'superAdmin') {
     next()
   } else {
     res.status(401)

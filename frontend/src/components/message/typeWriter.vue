@@ -1,5 +1,7 @@
 <template>
-  <div class="relative-position q-pa-sm text-black">
+  <div class="relative-position q-pa-sm text-black"
+  @keypress.enter="sendMessageManager"
+  >
     <div ref="inputTextEl" style="width: calc(100% - 50px)">
       <q-input
         v-model="messageStore.messageContent"

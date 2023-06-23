@@ -78,6 +78,7 @@
         <tr>
           <th>{{ $t("serial") }}</th>
           <th>{{ $t("name") }}</th>
+          <th>{{ $t('datetime') }}</th>
           <th>{{ $t("action") }}</th>
         </tr>
       </thead>
@@ -92,6 +93,16 @@
             {{ enToBnToEn(String(index + 1), languageStore.language) }}
           </td>
           <td>{{ serviceProvider.name[languageStore.language] }}</td>
+          <td>
+            <p>
+              Created At:
+              {{ date.formatDate(serviceProvider.createdAt, "YYYY-MM-DD") }}
+            </p>
+            <p>
+              Updated At:
+              {{ date.formatDate(serviceProvider.updatedAt, "YYYY-MM-DD") }}
+            </p>
+          </td>
           <td>
             <q-btn
               :label="$t('preview')"
@@ -202,7 +213,7 @@
 </template>
 <script setup>
 import { storeToRefs } from "pinia";
-import { useQuasar, useMeta } from "quasar";
+import { useQuasar, useMeta, date } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "src/stores/auth/authStore";

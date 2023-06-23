@@ -21,10 +21,8 @@ const users = [
         },
         password: bcryptjs.hashSync('1234', 10),
         isActive: true,
-        isAdmin: true,
-        isSuperAdmin: true,
         serviceProfileId: null,
-        permission: 'self'
+        permission: 'superAdmin'
     },
     {
         name: {
@@ -46,9 +44,8 @@ const users = [
         },
         password: bcryptjs.hashSync('1234', 10),
         isActive: true,
-        isAdmin:true,
         serviceProfileId: null,
-        permission: 'self'
+        permission: 'admin'
     },
     {
         name: {

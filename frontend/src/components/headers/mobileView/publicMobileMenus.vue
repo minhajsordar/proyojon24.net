@@ -14,7 +14,6 @@
         <q-btn
           v-close-popup
           icon="close"
-          push
           round
           dense
           size="sm"
@@ -55,7 +54,7 @@
           <q-list class="rounded-borders">
             <q-separator/>
             <router-link
-              v-if="authStore?.loginUserInfo?.isSuperAdmin"
+              v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
               to="/locations"
               active-class="text-white  link-bg-color"
               @click="menuControllerStore.headerMenuMobileScreenClose"
@@ -67,7 +66,7 @@
             </router-link>
             <q-separator/>
             <router-link
-              v-if="authStore?.loginUserInfo?.isSuperAdmin"
+              v-if="authStore?.loginUserInfo && authStore?.loginUserInfo?.permission"
               to="/users"
               active-class="text-white  link-bg-color"
               @click="menuControllerStore.headerMenuMobileScreenClose"
@@ -79,7 +78,7 @@
             </router-link>
             <q-separator/>
             <router-link
-              v-if="authStore?.loginUserInfo?.isAdmin"
+              v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
               to="/services"
               active-class="text-white  link-bg-color"
               @click="menuControllerStore.headerMenuMobileScreenClose"
@@ -91,7 +90,7 @@
             </router-link>
             <q-separator/>
             <router-link
-              v-if="authStore?.loginUserInfo?.isSuperAdmin"
+              v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
               to="/banners_create_update"
               active-class="text-white  link-bg-color"
               @click="menuControllerStore.headerMenuMobileScreenClose"
@@ -103,7 +102,7 @@
             </router-link>
             <q-separator/>
             <router-link
-              v-if="authStore?.loginUserInfo?.isAdmin || authStore?.loginUserInfo?.permission !== 'self'"
+              v-if="['superAdmin','admin'].includes(authStore?.loginUserInfo?.permission) || authStore?.loginUserInfo?.permission !== 'self'"
               to="/service_provider_pending_list"
               active-class="text-white  link-bg-color"
               @click="menuControllerStore.headerMenuMobileScreenClose"
@@ -113,8 +112,9 @@
                 <div class="q-ml-md">{{ $t("headermenus.pending_list") }}</div>
               </q-item>
             </router-link>
+            <q-separator/>
             <router-link
-              v-if="authStore?.loginUserInfo?.isSuperAdmin"
+              v-if="['superAdmin','admin'].includes(authStore?.loginUserInfo?.permission)"
               to="/notification_list"
               active-class="text-white  link-bg-color"
               @click="menuControllerStore.headerMenuMobileScreenClose"

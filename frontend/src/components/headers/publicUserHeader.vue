@@ -14,9 +14,9 @@
         <q-item-label v-else>Guest User</q-item-label>
         <q-item-label v-if="loginUser?.username" caption class="text-white">
           {{
-            loginUser?.isSuperAdmin
+            loginUser?.permission == "superAdmin"
               ? "Super Admin"
-              : loginUser?.isAdmin
+              : loginUser?.permission == "admin"
               ? "Admin"
               : loginUser?.permission == "self"
               ? "Service Provider"

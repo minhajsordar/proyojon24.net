@@ -107,9 +107,6 @@ body,
     margin-right: auto;
   }
 }
-.slide-image {
-  height: 300px;
-}
 @media screen and (max-width: 1024px) {
   .container-section,
   .container-section-py-sm {
@@ -138,12 +135,8 @@ body,
     .inner-section-px-0 {
       padding: 0px 0px;
       width: 100%;
-      height: 200px;
       overflow: hidden;
     }
-  }
-  .slide-image {
-    height: 250px;
   }
 }
 @media screen and (max-width: 600px) {
@@ -177,11 +170,14 @@ body,
     }
   }
 
-  .slide-image {
-    height: 200px;
-  }
 }
 
+.slide-image {
+  height: 450px;
+}
+@media screen and (max-width: 600px) {
+
+}
 // links
 .inactive-link {
   color: rgb(209, 233, 255);

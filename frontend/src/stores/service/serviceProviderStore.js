@@ -55,6 +55,17 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       }
     }),
     serviceProviderList = ref([]),
+    serviceProviderRegisterInfo = reactive({
+      name: {
+        bn: null,
+        en: null
+      },
+      username: null,
+      phone: null,
+      email: null,
+      password: null,
+      password2: null,
+    }),
     serviceProviderInfo = reactive({
       id: null,
       user: null,
@@ -341,55 +352,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      responseData.data.sort((b, a) => a.viewCount - b.viewCount);
-      responseData.data.sort((b, a) => a.rankCount - b.rankCount);
       allServiceProvidersList.value = responseData.data.filter(e=>e.suggested == false);
       suggestedServiceProvidersList.value =  responseData.data.filter(e=>e.suggested == true)
 
-      loader.hideLoader()
-      allServiceProvidersListLoading.value = false
-    } catch (error) {
-      console.log(error);
-      loader.hideLoader()
-      allServiceProvidersListLoading.value = false
-    }
-  }
-  const getPublicServiceProvidersByLocation = async (id) => {
-    allServiceProvidersListLoading.value = true
-    const params = {}
-    if (id) {
-      params.serviceCategoryId = id
-    }
-    if (publicUserStore.browsingLocation.pinlocation) {
-      params.pinlocationId = publicUserStore.browsingLocation.pinlocation._id
-    }
-    else if (publicUserStore.browsingLocation.union) {
-      params.unionId = publicUserStore.browsingLocation.union._id
-    }
-    else if (publicUserStore.browsingLocation.subDistrict) {
-      params.subDistrictId = publicUserStore.browsingLocation.subDistrict._id
-    }
-    else if (publicUserStore.browsingLocation.district) {
-      params.districtId = publicUserStore.browsingLocation.district._id
-    }
-    else if (publicUserStore.browsingLocation.division) {
-      params.divisionId = publicUserStore.browsingLocation.division._id
-    }
-
-    const config = {
-      method: "get",
-      url: "api/service_providers/all",
-      headers: {
-        "Content-Type": "application/json",
-
-      }, params
-    };
-    loader.showLoader()
-    try {
-      const responseData = await api.request(config);
-      responseData.data.sort((a, b) => a.viewCount - b.viewCount);
-      responseData.data.sort((a, b) => a.rankCount - b.rankCount);
-      allServiceProvidersList.value = responseData.data;
       loader.hideLoader()
       allServiceProvidersListLoading.value = false
     } catch (error) {
@@ -473,6 +438,73 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       loader.hideLoader()
     }
   }
+  const createUserAndServiceProvider = async () => {
+    if (serviceProviderInfo.service instanceof Object) {
+      serviceProviderInfo.service = serviceProviderInfo.service._id
+    }
+    if (serviceProviderInfo.serviceCategory instanceof Object) {
+      serviceProviderInfo.serviceCategory = serviceProviderInfo.serviceCategory._id
+    }
+
+
+    serviceProviderInfo.serviceProviderLocation.division.name = serviceProviderLocationR.division.name
+    serviceProviderInfo.serviceProviderLocation.division._id = serviceProviderLocationR.division._id
+    serviceProviderInfo.serviceProviderLocation.district.name = serviceProviderLocationR.district.name
+    serviceProviderInfo.serviceProviderLocation.district._id = serviceProviderLocationR.district._id
+    serviceProviderInfo.serviceProviderLocation.subDistrict.name = serviceProviderLocationR.subDistrict.name
+    serviceProviderInfo.serviceProviderLocation.subDistrict._id = serviceProviderLocationR.subDistrict._id
+    if(serviceProviderLocationR.union?._id){
+      serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
+      serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
+    }
+    if(serviceProviderLocationR.pinlocation?._id){
+      serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
+      serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
+    }
+    serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
+
+    if(!(loginUser.value.permission == 'admin' || loginUser.value.permission == 'superAdmin' || loginUser.value.permission !== 'self')){
+      serviceProviderInfo.user = loginUser.value._id
+    }
+    const data = {...serviceProviderInfo, ...serviceProviderRegisterInfo}
+    const config = {
+      method: "post",
+      url: "api/service_providers/user_and_provider",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+
+      }, data
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      openServiceProviderCreateDialog.value = false
+      if(loginUser.value.permission == 'admin'){
+        getServiceProviderList()
+      }
+
+      Dialog.create({
+        title: t("create_service_provider_success"),
+        message: t("wait_for_confirmation"),
+        ok: {
+          push: true
+        },
+        persistent: true
+      }).onOk(() => {
+        router.push('/profile')
+      })
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
+      loader.hideLoader()
+    }
+  }
   const createServiceProvider = async () => {
     if (serviceProviderInfo.service instanceof Object) {
       serviceProviderInfo.service = serviceProviderInfo.service._id
@@ -498,7 +530,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     }
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
 
-    if(!(loginUser.value.isAdmin || loginUser.value.isSuperAdmin || loginUser.value.permission !== 'self')){
+    if(!(loginUser.value.permission == 'admin' || loginUser.value.permission == 'superAdmin' || loginUser.value.permission !== 'self')){
       serviceProviderInfo.user = loginUser.value._id
     }
     const data = serviceProviderInfo
@@ -515,7 +547,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     try {
       const responseData = await api.request(config);
       openServiceProviderCreateDialog.value = false
-      if(loginUser.value.isAdmin){
+      if(loginUser.value.permission == 'admin'){
         getServiceProviderList()
       }
 
@@ -817,7 +849,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProvider,
     serviceProviderLoading,
     getServiceProviderById,
-    getPublicServiceProvidersByLocation,
     increaseServiceProviderView,
     //  service provider list
     serviceProviderPage,

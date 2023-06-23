@@ -43,9 +43,6 @@ export const useServiceProviderPendingStore = defineStore('service provider pend
     }
   }
   const approveServiceProviderProfile = async (id,dataCollector) => {
-    // const params = {
-    //   pageNumber: servicePage.value
-    // }
     const config = {
       method: "patch",
       url: "api/service_providers/"+id,
@@ -73,10 +70,40 @@ export const useServiceProviderPendingStore = defineStore('service provider pend
       loader.hideLoader()
     }
   }
+  const rejectServiceProviderProfile = async (id,dataCollector, note) => {
+    const config = {
+      method: "patch",
+      url: "api/service_providers/"+id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+
+      },data:{
+        rejected: true,
+        rejectNote: note,
+        dataCollectorId: dataCollector
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      getServiceProviderPendingList()
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
+      loader.hideLoader()
+    }
+  }
   return {
     serviceProviderPendingList,
     serviceProviderPendingListLoading,
     getServiceProviderPendingList,
-    approveServiceProviderProfile
+    approveServiceProviderProfile,
+    rejectServiceProviderProfile,
   }
 });

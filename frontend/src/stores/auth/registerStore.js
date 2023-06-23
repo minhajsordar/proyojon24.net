@@ -19,6 +19,7 @@ export const useRegisterStore = defineStore('register store', () => {
   const router = useRouter()
   const languageStore = useLanguageStore()
   const authStore = useAuthStore(),
+  nidImage= ref(null),
     newUserInfo = reactive({
       name: {
         bn: null,
@@ -91,9 +92,38 @@ export const useRegisterStore = defineStore('register store', () => {
       });
     }
   }
+  const uploadNidAndRegisterUser = async () => {
+    if (!nidImage.value || typeof nidImage.value == 'string' || typeof nidImage.value == 'Object') {
+      return
+    }
+    const config = {
+      method: "post",
+      url: "api/upload",
+      headers: {
+        "Content-Type": "multipart/form-data",
+
+      }, data: {
+        image: nidImage.value
+      }
+    };
+    try {
+      const responseData = await api.request(config);
+      newUserInfo.nidImage = responseData.data
+
+      registerNewUser()
+    } catch (error) {
+      console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
+    }
+  }
   return {
     newUserInfo,
     matchPassword,
+    nidImage,
     registerNewUser
   }
 });

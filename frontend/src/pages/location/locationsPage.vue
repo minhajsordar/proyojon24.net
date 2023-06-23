@@ -95,7 +95,7 @@ onMounted(() => {
   if (!authStore.checkLogin()) {
     router.push("/");
   }
-  if(!authStore.loginUserInfo.isSuperAdmin || !authStore.loginUserInfo.isAdmin){
+  if(!authStore.loginUserInfo.permission == 'superAdmin' || !authStore.loginUserInfo.permission == 'admin'){
     router.push("/profile")
   }
 });

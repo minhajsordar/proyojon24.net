@@ -14,10 +14,12 @@ import { useSearchServiceStore } from './searchService';
 import { useServiceStore } from './serviceStore';
 import { useServiceCategoryStore } from './serviceCategoryStore';
 import { isObjEmpty } from 'src/global_js/utils';
+import { useAuthStore } from '../auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
 export const useUserServiceProviderStore = defineStore('user service provider store', () => {
+  const authStore = useAuthStore();
   const searchServiceStore = useSearchServiceStore();
   const serviceCategoryStore = useServiceCategoryStore()
   const serviceStore = useServiceStore();
@@ -47,8 +49,10 @@ export const useUserServiceProviderStore = defineStore('user service provider st
     try {
       const responseData = await api.request(config);
       userServiceProvider.value = responseData.data
-      if(!isObjEmpty(responseData.data)){
+      if (!isObjEmpty(responseData.data)) {
         fillUpUserServiceProviderInfo(responseData.data)
+      } else {
+        fillUpBasicInfo()
       }
       userServiceProviderLoading.value = false
       loader.hideLoader()
@@ -109,6 +113,11 @@ export const useUserServiceProviderStore = defineStore('user service provider st
     if (serviceProviderStore.serviceProviderLocationR.union) {
       pinlocationStore.getAllPinlocations(serviceProviderStore.serviceProviderLocationR.union._id);
     }
+  }
+  const fillUpBasicInfo = () => {
+    serviceProviderStore.serviceProviderInfo['name'] = authStore.loginUserInfo.name
+    serviceProviderStore.serviceProviderInfo['phoneNumber1'] = authStore.loginUserInfo.phone
+    serviceProviderStore.serviceProviderInfo['email'] = authStore.loginUserInfo.email
   }
   return {
     userServiceProvider,

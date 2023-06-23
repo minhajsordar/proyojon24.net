@@ -48,16 +48,6 @@ const userSchema = mongoose.Schema({
         default: true,
         required: true,
     },
-    isSuperAdmin: {
-        type: Boolean,
-        default: false,
-        required: true,
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false,
-        required: true,
-    },
     permission: {
         type: String,
         required: true,

@@ -47,34 +47,35 @@ export const useMessageStore = defineStore('message store', () => {
     const data = {
       room: selectedRoom.value,
       recipient: selectedRoomUser2.value.user._id,
-      content: messageContent.value
+      content: messageContent.value,
+      token: loginUser.value.token
     }
     socket.emit('creating_new_message',{...data})
-    const config = {
-      method: "post",
-      url: "api/message",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${loginUser.value.token}`
+    // const config = {
+    //   method: "post",
+    //   url: "api/message",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${loginUser.value.token}`
 
-      }, data
-    };
-    messageSending.value = true
-    messageSent.value = false
-    try {
-      const responseData = await api.request(config);
-      getMessages()
-      messageSending.value = true
-      messageSent.value = false
-      messageContent.value = ""
-    } catch (error) {
-      console.log(error);
-      Notify.create({
-        position: "center",
-        type: "negative",
-        message: error.response.data.message,
-      });
-    }
+    //   }, data
+    // };
+    // messageSending.value = true
+    // messageSent.value = false
+    // try {
+    //   const responseData = await api.request(config);
+    //   getMessages()
+    //   messageSending.value = true
+    //   messageSent.value = false
+    //   messageContent.value = ""
+    // } catch (error) {
+    //   console.log(error);
+    //   Notify.create({
+    //     position: "center",
+    //     type: "negative",
+    //     message: error.response.data.message,
+    //   });
+    // }
   }
   return {
     selectedRoom,

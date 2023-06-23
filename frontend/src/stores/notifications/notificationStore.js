@@ -54,13 +54,13 @@ export const useNotificationStore = defineStore('notification store', () => {
       const responseData = await api.request(config);
       notificationList.value = responseData.data;
       loader.hideLoader()
-    } catch (error) {
-      console.log(error);
       Notify.create({
         position: "center",
-        type: "negative",
-        message: error.response.data.message,
+        type: "positive",
+        message: "you have "+ responseData.data.length +" unread notifications",
       });
+    } catch (error) {
+      console.log(error);
       loader.hideLoader()
     }
   }
@@ -89,7 +89,7 @@ export const useNotificationStore = defineStore('notification store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error,
+        message: "notification not found",
       });
     }
   }

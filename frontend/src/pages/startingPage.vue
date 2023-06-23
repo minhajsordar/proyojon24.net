@@ -1,7 +1,16 @@
 <template>
-  <div class="sp-cont">
+  <div class="sp-cont relative-position">
     <div class="sp-anim">
       <q-img width="300px" src="/images/icon.png"/>
+
+    </div>
+    <div
+      class="q-py-sm text-center bg-primary-public text-white full-width footer-area absolute-bottom"
+    >
+      <div class="fs-14">
+        From Service Zone LTD.
+      </div>
+      <div class="bottom-fx"></div>
     </div>
   </div>
 </template>

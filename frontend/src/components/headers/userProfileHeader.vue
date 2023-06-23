@@ -22,9 +22,9 @@
           class="text-white"
         >
           {{
-            authStore?.loginUserInfo?.isSuperAdmin
+            authStore?.loginUserInfo?.permission == "superAdmin"
               ? "Super Admin"
-              : authStore?.loginUserInfo?.isAdmin
+              : authStore?.loginUserInfo?.permission == "admin"
               ? "Admin"
               : authStore?.loginUserInfo?.permission == "self"
               ? "Service Provider"
@@ -53,25 +53,25 @@
         $t("headermenus.home")
       }}</router-link>
       <router-link
-        v-if="authStore?.loginUserInfo?.isSuperAdmin"
+        v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
         to="/locations"
         active-class="text-white"
         >{{ $t("headermenus.locations") }}</router-link
       >
       <router-link
-        v-if="authStore?.loginUserInfo?.isSuperAdmin"
+        v-if="authStore?.loginUserInfo && authStore?.loginUserInfo?.permission"
         to="/users"
         active-class="text-white"
         >{{ $t("headermenus.users") }}</router-link
       >
       <router-link
-        v-if="authStore?.loginUserInfo?.isAdmin"
+        v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
         to="/services"
         active-class="text-white"
         >{{ $t("headermenus.services") }}</router-link
       >
       <router-link
-        v-if="authStore?.loginUserInfo?.isSuperAdmin"
+        v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
         to="/banners_create_update"
         active-class="text-white"
         >{{ $t("headermenus.banners") }}</router-link
@@ -79,15 +79,14 @@
       <router-link
         v-if="
           authStore?.loginUserInfo &&
-          (authStore?.loginUserInfo?.isAdmin ||
-            authStore?.loginUserInfo?.permission !== 'self')
+          ['superAdmin','admin', 'district', 'division', 'subDistrict','union' ].includes(authStore?.loginUserInfo?.permission)
         "
         to="/service_provider_pending_list"
         active-class="text-white"
         >{{ $t("headermenus.pending_list") }}</router-link
       >
       <router-link
-        v-if="authStore?.loginUserInfo?.isSuperAdmin"
+        v-if="authStore?.loginUserInfo?.permission == 'admin'"
         to="/notification_list"
         active-class="text-white"
         >{{ $t("notification.list") }}</router-link
@@ -167,9 +166,9 @@
                 <div>
                   <q-icon name="account_circle" color="blue-9" size="18px" />
                   {{
-                    authStore.loginUserInfo?.isSuperAdmin
+                    authStore.loginUserInfo?.permission == "superAdmin"
                       ? "Super Admin"
-                      : authStore.loginUserInfo?.isAdmin
+                      : authStore.loginUserInfo?.permission == "admin"
                       ? "Admin"
                       : authStore.loginUserInfo?.permission == "self"
                       ? "Service Provider"

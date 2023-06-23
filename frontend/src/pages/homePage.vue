@@ -1,9 +1,12 @@
 <template>
   <!-- TODO Later we will need this anal -->
-  <!-- <div class="container-section-py-xs">
+  <div class="container-section-py-xs">
     <div class="inner-section">
       <div class="full-width">
-        <div class="row q-col-gutter-sm">
+        <div class="marque-animation">
+          <div class="marque-text">Total User: {{ dashboardStore.dashboardData?.totalUser }}. Total Profile View: {{ dashboardStore.dashboardData?.totalView }}.</div>
+        </div>
+        <!-- <div class="row q-col-gutter-sm">
           <div class="col-6">
             <q-card class="bg-cyan-6 text-white">
               <q-card-section>
@@ -20,10 +23,10 @@
               </q-card-section>
             </q-card>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
-  </div> -->
+  </div>
   <div
     v-if="
       servicePublicStore.allServices &&
@@ -103,7 +106,7 @@
     <div v-else class="q-py-xs"></div>
     <div
       class="container-section-py-xs-0"
-      v-if="publicSliderStore?.sliderData?.slider1.length != 0"
+      v-if="publicSliderStore?.sliderData?.slider1?.length != 0"
     >
       <div class="inner-section-px-0">
         <div class="full-width">
@@ -184,7 +187,7 @@
     <div v-else class="q-py-xs"></div>
     <div
       class="container-section-py-xs-0"
-      v-if="publicSliderStore?.sliderData?.slider2.length != 0"
+      v-if="publicSliderStore?.sliderData?.slider2?.length != 0"
     >
       <div class="inner-section-px-0">
         <div class="full-width">
@@ -265,7 +268,7 @@
     <div v-else class="q-py-xs"></div>
     <div
       class="container-section-py-xs-0"
-      v-if="publicSliderStore?.sliderData?.slider3.length != 0"
+      v-if="publicSliderStore?.sliderData?.slider3?.length != 0"
     >
       <div class="inner-section-px-0">
         <div class="full-width">
@@ -346,7 +349,7 @@
     <div v-else class="q-py-xs"></div>
     <div
       class="container-section-py-xs-0"
-      v-if="publicSliderStore?.sliderData?.slider4.length != 0"
+      v-if="publicSliderStore?.sliderData?.slider4?.length != 0"
     >
       <div class="inner-section-px-0">
         <div class="full-width">
@@ -493,7 +496,7 @@ topSuggestedStore.getTopSuggestedProvider();
 
 const dashboardStore = usePublicDashboardStore();
 // get dashboard data
-// dashboardStore.getDashboardData()
+dashboardStore.getDashboardData()
 const selectedServiceAndCategory = useLocalStorage(
   "selected-service-and-category",
   {}
@@ -726,5 +729,28 @@ useMeta(metaData);
   left: 5px;
   top: 5px;
   z-index: 999999999;
+}
+.marque-animation{
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+}
+.marque-text{
+  text-wrap:nowrap;
+  width: fit-content;
+  text-align: center;
+  min-width: 100%;
+  animation: marqueanimation 20s linear 0s infinite forwards;
+}
+.marque-text:hover{
+  animation-play-state: paused;
+}
+@keyframes marqueanimation {
+  0%{
+    transform: translateX(100%);
+  }
+  100%{
+    transform: translateX(-50%);
+  }
 }
 </style>
