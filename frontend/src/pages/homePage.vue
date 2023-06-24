@@ -726,14 +726,14 @@ useMeta(metaData);
   width: fit-content;
   text-align: center;
   min-width: 100%;
-  animation: marqueanimation 30s linear 0s infinite forwards;
+  animation: marqueanimation 80s linear 0s infinite forwards;
 }
 .marque-text:hover{
   animation-play-state: paused;
 }
 @keyframes marqueanimation {
   0%{
-    transform: translateX(35%);
+    transform: translateX(50%);
   }
   100%{
     transform: translateX(-100%);
