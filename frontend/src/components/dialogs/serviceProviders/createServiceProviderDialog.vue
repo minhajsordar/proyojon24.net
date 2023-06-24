@@ -43,6 +43,127 @@
       <q-card-section>
         <q-card class="border-primary q-pa-md">
           <div class="row q-col-gutter-sm">
+            <div class="col-sm-6 col-xs-6 col-12">
+              <div class="text-bold">{{ $t('username') }}*</div>
+              <q-input
+                ref="usernameEl"
+                v-model="serviceProviderStore.serviceProviderRegisterInfo.username"
+                stack-label
+                outlined
+                dense
+                :rules="[required]"
+              />
+            </div>
+            <div class="col-sm-6 col-xs-6 col-12">
+              <div class="text-bold">{{ $t('email') }}*</div>
+              <q-input
+                ref="emailEl"
+                v-model="serviceProviderStore.serviceProviderRegisterInfo.email"
+                type="email"
+                stack-label
+                outlined
+                dense
+                :rules="[required, isEmail]"
+              />
+            </div>
+            <div class="col-sm-6 col-xs-6 col-12">
+              <div class="text-bold">{{ $t('full_name_bangla') }}*</div>
+
+              <q-input
+                ref="nameBnEl"
+                v-model="serviceProviderStore.serviceProviderRegisterInfo.name.bn"
+                stack-label
+                outlined
+                dense
+                :rules="[required]"
+              />
+            </div>
+            <div class="col-sm-6 col-xs-6 col-12">
+              <div class="text-bold">{{ $t('full_name_english') }}*</div>
+
+              <q-input
+                ref="nameEnEl"
+                v-model="serviceProviderStore.serviceProviderRegisterInfo.name.en"
+                stack-label
+                outlined
+                dense
+                :rules="[required]"
+              />
+            </div>
+            <div class="col-sm-6 col-xs-6 col-12">
+              <div class="text-bold">{{ $t('password') }}*</div>
+              <q-input
+                ref="passwordEl"
+                v-model="serviceProviderStore.serviceProviderRegisterInfo.password"
+                stack-label
+                outlined
+                dense
+                :type="isPwd ? 'password' : 'text'"
+                :rules="[required]"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
+            </div>
+            <div class="col-sm-6 col-xs-6 col-12">
+              <div class="text-bold">{{ $t('confirm_password') }}*</div>
+
+              <q-input
+                ref="confirmPasswordEl"
+                v-model="serviceProviderStore.serviceProviderRegisterInfo.password2"
+                stack-label
+                outlined
+                dense
+                :rules="[required, serviceProviderStore.serviceProviderRegisterInfo]"
+                :type="isPwdC ? 'password' : 'text'"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwdC ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwdC = !isPwdC"
+                  />
+                </template>
+              </q-input>
+            </div>
+
+            <!-- phoneNumber start -->
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">{{ $t("phone") }}*</div>
+                <div class="col-12">
+                  <q-input
+                    ref="phoneNumberEnEl"
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.phoneNumber1
+                    "
+                    outlined
+                    dense
+                    :rules="[required]"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">{{ $t("phone") }}</div>
+                <div class="col-12">
+                  <q-input
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.phoneNumber2
+                    "
+                    outlined
+                    dense
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- phoneNumber end -->
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
                 <div class="col-12 text-bold">
@@ -275,97 +396,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="col-sm-6 col-xs-6 col-6">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("location.exactbn") }}</div>
-                <div class="col-12">
-                  <q-input
-                    v-model="
-                      serviceProviderStore.serviceProviderLocationR.exact.bn
-                    "
-                    outlined
-                    dense
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-6 col-6">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("location.exacten") }}</div>
-                <div class="col-12">
-                  <q-input
-                    v-model="
-                      serviceProviderStore.serviceProviderLocationR.exact.en
-                    "
-                    outlined
-                    dense
-                  />
-                </div>
-              </div>
-            </div> -->
             <!-- end service provider location -->
-            <!-- name start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("nameinen") }}*</div>
-                <div class="col-12">
-                  <q-input
-                    ref="nameEnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.name.en"
-                    outlined
-                    dense
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("nameinbn") }}*</div>
-                <div class="col-12">
-                  <q-input
-                    ref="nameBnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.name.bn"
-                    outlined
-                    dense
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- name end -->
-            <!-- phoneNumber start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("phone") }}*</div>
-                <div class="col-12">
-                  <q-input
-                    ref="phoneNumberEnEl"
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.phoneNumber1
-                    "
-                    outlined
-                    dense
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("phone") }}</div>
-                <div class="col-12">
-                  <q-input
-                    v-model="
-                      serviceProviderStore.serviceProviderInfo.phoneNumber2
-                    "
-                    outlined
-                    dense
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- phoneNumber end -->
             <!-- social start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
@@ -396,40 +427,10 @@
               </div>
             </div>
             <!-- social end -->
-            <!-- degree start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("degreeinen") }}</div>
-                <div class="col-12">
-                  <q-input
-                    ref="degreeEnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.degree.en"
-                    outlined
-                    dense
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("degreeinbn") }}</div>
-                <div class="col-12">
-                  <q-input
-                    ref="degreeBnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.degree.bn"
-                    outlined
-                    dense
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- degree end -->
             <!-- serviceTitle start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("serviceTitleinen") }}</div>
+                <div class="col-12 text-bold">{{ $t("serviceTitleinen") }}*</div>
                 <div class="col-12">
                   <q-input
                     ref="serviceTitleEnEl"
@@ -445,7 +446,7 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("serviceTitleinbn") }}</div>
+                <div class="col-12 text-bold">{{ $t("serviceTitleinbn") }}*</div>
                 <div class="col-12">
                   <q-input
                     ref="serviceTitleBnEl"
@@ -464,7 +465,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 fs-16 text-bold">
-                  {{ $t("descriptioninEn") }}
+                  {{ $t("descriptioninEn") }}*
                 </div>
                 <div class="col-12">
                   <q-editor
@@ -571,7 +572,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 fs-16 text-bold">
-                  {{ $t("descriptioninBn") }}
+                  {{ $t("descriptioninBn") }}*
                 </div>
                 <div class="col-12">
                   <q-editor
@@ -679,7 +680,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addicon") }}*
+                  {{ $t("addProfileImage") }}*
                   <span class="fs-10">Max 100KB</span>
                 </div>
                 <div class="col-12">
@@ -710,8 +711,8 @@
                 </div>
                 <div class="col-12">
                   <q-file
-                    outlined
-                    ref="coverImageEl"
+                  ref="coverImageEl"
+                  outlined
                     dense
                     v-model="serviceProviderStore.imageCover"
                     :rules="[fileValidate]"
@@ -733,7 +734,21 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("serial") }}
+                  {{ $t("keywords") }}*
+                </div>
+                <div class="col-12">
+                  <q-input
+                    v-model="serviceProviderStore.serviceProviderInfo.keywords"
+                    outlined
+                    dense
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("rank") }}
                 </div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.rankCount }}
@@ -860,7 +875,7 @@ const createServiceManager = () => {
   ) {
     return;
   }
-  serviceProviderStore.createServiceProvider();
+  serviceProviderStore.createUserAndServiceProvider();
 };
 const onRejected = (rejectedEntries) => {
   // Notify plugin needs to be installed

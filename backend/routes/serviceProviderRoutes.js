@@ -24,7 +24,7 @@ import { admin, anyAdmin, higherLavelPermission, protect, specialPermission, sup
 const router = express.Router()
 
 router.route('/').get(protect, anyAdmin, getServiceProviders).post(protect, createServiceProvider)
-router.route('/user_and_provider').put(createUserAndServiceProvider)
+router.route('/user_and_provider').post(protect, superAdmin ,createUserAndServiceProvider)
 router.route('/service_provider_review').put(protect, createServiceProviderReview)
 router.route('/top_service_provider').get(getTopServiceProvider)
 router.route('/pending_list').get(protect, specialPermission,getServiceProviderPendingList)

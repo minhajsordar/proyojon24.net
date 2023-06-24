@@ -1,21 +1,44 @@
 <template>
   <profileMobileMenus />
-  <q-toolbar class="q-py-sm q-px-md">
+  <q-toolbar class="q-py-none q-px-md">
     <q-item clickable v-ripple @click="profileClickManager">
       <q-item-section side>
-        <q-avatar rounded size="40px">
-          <img
-            v-if="authStore?.loginUserInfo?.profileImage"
-            :src="web_root_url + authStore?.loginUserInfo?.profileImage"
-          />
-          <img v-else src="/images/user-placeholder.jpg" />
-        </q-avatar>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label v-if="authStore?.loginUserInfo?.name">{{
-          authStore?.loginUserInfo?.name[languageStore.language]
-        }}</q-item-label>
-        <q-item-label v-else>Guest User</q-item-label>
+        <div class="flex">
+          <q-avatar rounded size="40px">
+            <img
+              v-if="authStore?.loginUserInfo?.profileImage"
+              :src="web_root_url + authStore?.loginUserInfo?.profileImage"
+            />
+            <img v-else src="/images/user-placeholder.jpg" />
+          </q-avatar>
+          <div class="q-ml-xs text-white">
+            <div>
+              <q-img
+                class="dashboard-data border-radius-sm"
+                src="/images/service_provider_count.jpg"
+              />
+              {{ dashboardStore.dashboardData?.totalUser }}
+            </div>
+            <div >
+              <q-img
+                class="dashboard-data border-radius-sm"
+                src="/images/service_provider_view.jpeg"
+              />
+              {{ dashboardStore.dashboardData?.totalView }}
+            </div>
+          </div>
+        </div>
+        <q-item-label
+          class="text-white"
+          v-if="authStore?.loginUserInfo?.name"
+          >{{
+            authStore?.loginUserInfo?.name[languageStore.language]
+          }}</q-item-label
+        >
+        <q-item-label v-else class="text-white fs-12 q-mt-xs">
+          <div>Guest User</div>
+          <div class="fs-10">Login/Register</div>
+        </q-item-label>
         <q-item-label
           v-if="authStore?.loginUserInfo"
           caption
@@ -33,14 +56,30 @@
               : "Guest"
           }}
         </q-item-label>
-        <q-item-label
+        <!-- <q-item-label
           v-if="!authStore?.loginUserInfo"
           caption
           class="text-white"
         >
           Login/Register
-        </q-item-label>
+        </q-item-label> -->
       </q-item-section>
+      <!-- <q-item-section>
+        <div>
+          <q-img
+            class="dashboard-data border-radius-sm"
+            src="/images/service_provider_count.jpg"
+          />
+          {{ dashboardStore.dashboardData?.totalUser }}.
+        </div>
+        <div>
+          <q-img
+            class="dashboard-data border-radius-sm"
+            src="/images/service_provider_view.jpeg"
+          />
+          {{ dashboardStore.dashboardData?.totalView }}.
+        </div>
+      </q-item-section> -->
     </q-item>
     <div
       v-if="$q.screen.gt.sm"
@@ -79,7 +118,14 @@
       <router-link
         v-if="
           authStore?.loginUserInfo &&
-          ['superAdmin','admin', 'district', 'division', 'subDistrict','union' ].includes(authStore?.loginUserInfo?.permission)
+          [
+            'superAdmin',
+            'admin',
+            'district',
+            'division',
+            'subDistrict',
+            'union',
+          ].includes(authStore?.loginUserInfo?.permission)
         "
         to="/service_provider_pending_list"
         active-class="text-white"
@@ -238,6 +284,11 @@ import profileMobileMenus from "./mobileView/profileMobileMenus.vue";
 import { useNotificationStore } from "src/stores/notifications/notificationStore.js";
 import { socket, state } from "src/socket/socket";
 
+import { usePublicDashboardStore } from "src/stores/user/dashboardStore";
+
+const dashboardStore = usePublicDashboardStore();
+// get dashboard data
+dashboardStore.getDashboardData();
 const notificationStore = useNotificationStore();
 notificationStore.getPublishedNotification();
 socket.on("push_new_notification", (l) => {
@@ -299,4 +350,6 @@ const profileClickManager = () => {
     width: 450px !important
     .q-field__append
       display: none
+.dashboard-data
+  width: 20px
 </style>

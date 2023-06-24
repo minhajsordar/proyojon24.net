@@ -476,6 +476,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
 
       }, data
     };
+    console.log(data)
     loader.showLoader()
     try {
       const responseData = await api.request(config);
@@ -854,8 +855,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderPage,
     serviceProviderList,
     serviceProviderInfo,
+    serviceProviderRegisterInfo,
     getServiceProviderList,
     createServiceProvider,
+    createUserAndServiceProvider,
     updateServiceProvider,
     deleteServiceProvider,
     serviceProviderLocationR,

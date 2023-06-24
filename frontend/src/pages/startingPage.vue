@@ -5,10 +5,13 @@
 
     </div>
     <div
-      class="q-py-sm text-center bg-primary-public text-white full-width footer-area absolute-bottom"
+      class="q-py-sm text-center text-accent full-width footer-area absolute-bottom"
     >
       <div class="fs-14">
-        From Service Zone LTD.
+        from
+      </div>
+      <div class="fs-14">
+        Service Zone Ltd.
       </div>
       <div class="bottom-fx"></div>
     </div>

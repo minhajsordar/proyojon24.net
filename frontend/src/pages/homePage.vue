@@ -4,26 +4,8 @@
     <div class="inner-section">
       <div class="full-width">
         <div class="marque-animation">
-          <div class="marque-text">Total User: {{ dashboardStore.dashboardData?.totalUser }}. Total Profile View: {{ dashboardStore.dashboardData?.totalView }}.</div>
+          <div class="marque-text">{{ $t('proyojon24descriptions') }}</div>
         </div>
-        <!-- <div class="row q-col-gutter-sm">
-          <div class="col-6">
-            <q-card class="bg-cyan-6 text-white">
-              <q-card-section>
-                <div class="fs-16">Total User</div>
-                <div  class="fs-32 text-bold">{{ dashboardStore.dashboardData?.totalUser }}</div>
-              </q-card-section>
-            </q-card>
-          </div>
-          <div class="col-6">
-            <q-card class="bg-teal-5 text-white">
-              <q-card-section>
-                <div class="fs-16">Total Profile View</div>
-                <div  class="fs-32 text-bold">{{ dashboardStore.dashboardData?.totalView }}</div>
-              </q-card-section>
-            </q-card>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -430,14 +412,16 @@
     <div class="container-section-py-xs">
       <div class="inner-section">
         <div class="full-width">
-          <q-card>
-            <div class="row q-col-gutter-sm">
+            <div class="row q-col-gutter-md">
               <div
-                class="col-3"
+                class="col-3 cursor-pointer"
                 v-for="(topProvider, index) in topSuggestedStore?.topSuggested"
                 :key="index"
+                @click="
+                  $router.push('/service_provider/'+topProvider._id)
+                "
               >
-                <div class="q-pa-sm fs-12 text-center">
+                <q-card class="q-pa-sm fs-12 text-center border-primary">
                   <q-img
                     v-if="topProvider.image"
                     width="55px"
@@ -452,10 +436,9 @@
                     {{ topProvider.serviceTitle[languageStore.language] }}
                   </div>
                   <div>{{ topProvider.name[languageStore.language] }}</div>
-                </div>
+                </q-card>
               </div>
             </div>
-          </q-card>
         </div>
       </div>
     </div>
@@ -740,17 +723,17 @@ useMeta(metaData);
   width: fit-content;
   text-align: center;
   min-width: 100%;
-  animation: marqueanimation 20s linear 0s infinite forwards;
+  animation: marqueanimation 30s linear 0s infinite forwards;
 }
 .marque-text:hover{
   animation-play-state: paused;
 }
 @keyframes marqueanimation {
   0%{
-    transform: translateX(100%);
+    transform: translateX(35%);
   }
   100%{
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 </style>

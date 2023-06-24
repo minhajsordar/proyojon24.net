@@ -2,6 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import ServiceProvider from '../models/serviceProviderModel.js'
 import ServiceCategory from '../models/serviceCategoryModel.js'
 import Service from '../models/serviceModel.js'
+import User from '../models/userModel.js'
 
 // @desc get ServiceProvider
 // @route Put api/ServiceProvider
@@ -95,7 +96,7 @@ const getServiceProviderPendingList = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.findOne({ user: req.query.user }).populate('service','name').populate('serviceCategory','name')
+    const serviceProvider = await ServiceProvider.findOne({ user: req.query.user }).populate('service', 'name').populate('serviceCategory', 'name')
     if (serviceProvider) {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json(serviceProvider)
@@ -280,10 +281,10 @@ const suggestServiceProvider = expressAsyncHandler(async (req, res) => {
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
         if (req.user.permission == 'superAdmin') {
-            if(suggested){
+            if (suggested) {
                 serviceProvider.suggested = suggested
             }
-            if(topSuggested){
+            if (topSuggested) {
                 serviceProvider.topSuggested = topSuggested
             }
         }
@@ -346,14 +347,14 @@ const createServiceProviderViewCount = expressAsyncHandler(async (req, res) => {
 // @route update api/ServiceProvider/topRated
 // @acess public
 const getSuggestedServiceProvider = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.find({suggested: true}).select('image serviceTitle name').populate("serviceCategory","name")
+    const serviceProvider = await ServiceProvider.find({ suggested: true }).select('image serviceTitle name').populate("serviceCategory", "name")
     res.status(200).json(serviceProvider)
 })
 // @desc Top rated service provider
 // @route update api/ServiceProvider/topRated
 // @acess public
 const getTopSuggestedServiceProvider = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.find({topSuggested: true}).select('image serviceTitle name').populate("serviceCategory","name")
+    const serviceProvider = await ServiceProvider.find({ topSuggested: true }).select('image serviceTitle name').populate("serviceCategory", "name")
     res.status(200).json(serviceProvider)
 })
 // @desc Top rated service provider
@@ -439,8 +440,11 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
     const {
-        serviceCategory,
+        username,
+        email,
         name,
+        password,
+        serviceCategory,
         image,
         serviceImage,
         serviceProviderLocation,
@@ -454,47 +458,81 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
         whatsapp,
         imo,
         twitter,
-        email,
         rankCount,
         keywords
     } = req.body
-    const serviceProvider = new ServiceProvider({
-        dataCollector: req.user._id,
-        dataUpdatedBy: req.user._id,
-        dataUpdatedHistory: req.user._id,
-        user: req.user._id,
-        serviceCategory,
-        name,
-        image,
-        serviceImage,
-        serviceProviderLocation,
-        service,
-        serviceTitle,
-        description,
-        degree,
-        phoneNumber1,
-        phoneNumber2,
-        facebook,
-        whatsapp,
-        imo,
-        twitter,
-        email,
-        rankCount,
-        approved: false,
-        waitingForApproval: true,
-        keywords
-    })
-    const createdServiceProvider = await serviceProvider.save()
-    req.user.hasServiceProviderProfile = true
-    await req.user.save()
-    const serviceById = await Service.findById(service)
-    serviceById.serviceProviderCount += 1
-    await serviceById.save()
 
-    const serviceCategoryById = await ServiceCategory.findById(serviceCategory)
-    serviceCategoryById.serviceProviderCount += 1
-    await serviceCategoryById.save()
-    res.status(201).json(createdServiceProvider)
+    // register
+    const userEmailExists = await User.findOne({ email })
+    const userNameExists = await User.findOne({ username })
+
+    if (userEmailExists && userNameExists) {
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.status(400)
+        throw new Error('User already exists with this email and username.')
+    }
+    if (userEmailExists) {
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.status(400)
+        throw new Error('User already exists with this email.')
+    }
+    if (userNameExists) {
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.status(400)
+        throw new Error('User already exists with this username.')
+    }
+
+    const user = await User.create({
+        name,
+        email,
+        username,
+        password,
+        phone: phoneNumber1,
+        hasServiceProviderProfile: true
+    })
+
+    if (user) {
+        const serviceProvider = new ServiceProvider({
+            dataCollector: req.user._id,
+            dataUpdatedBy: req.user._id,
+            dataUpdatedHistory: req.user._id,
+            user: user._id,
+            serviceCategory,
+            name,
+            image,
+            serviceImage,
+            serviceProviderLocation,
+            service,
+            serviceTitle,
+            description,
+            degree,
+            phoneNumber1,
+            phoneNumber2,
+            facebook,
+            whatsapp,
+            imo,
+            twitter,
+            email,
+            rankCount,
+            approved: false,
+            waitingForApproval: true,
+            keywords
+        })
+        const createdServiceProvider = await serviceProvider.save()
+        const serviceById = await Service.findById(service)
+        serviceById.serviceProviderCount += 1
+        await serviceById.save()
+
+        const serviceCategoryById = await ServiceCategory.findById(serviceCategory)
+        serviceCategoryById.serviceProviderCount += 1
+        await serviceCategoryById.save()
+        res.status(201).json("User and Service Provider Created Successfully")
+    } else {
+        res.status(400)
+        throw new Error('Invalid user data')
+    }
+    // create service provider
+
 
 })
 

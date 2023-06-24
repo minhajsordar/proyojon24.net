@@ -396,36 +396,6 @@
               </div>
             </div>
             <!-- social end -->
-            <!-- degree start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("degreeinen") }}</div>
-                <div class="col-12">
-                  <q-input
-                    ref="degreeEnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.degree.en"
-                    outlined
-                    dense
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("degreeinbn") }}</div>
-                <div class="col-12">
-                  <q-input
-                    ref="degreeBnEl"
-                    v-model="serviceProviderStore.serviceProviderInfo.degree.bn"
-                    outlined
-                    dense
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- degree end -->
             <!-- serviceTitle start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
@@ -679,7 +649,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addicon") }}*
+                  {{ $t("addProfileImage") }}*
                   <span class="fs-10">Max 200kb</span>
                 </div>
                 <div class="col-12">
@@ -731,7 +701,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("serial") }}
+                  {{ $t("rank") }}
                 </div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.rankCount }}
@@ -769,7 +739,7 @@
                   :label="$t('update')"
                   color="light-green-8"
                   glossy
-                  @click="createServiceManager"
+                  @click="updateServiceManager"
                 />
               </div>
             </div>
@@ -824,20 +794,18 @@ const nameBnEl = ref(null);
 const iconEl = ref(null);
 const coverImageEl = ref(null);
 const phoneNumberEnEl = ref(null);
-const phoneNumberBnEl = ref(null);
 const serviceTitleEnEl = ref(null);
 const serviceTitleBnEl = ref(null);
 const serviceListEnEl = ref(null);
 const serviceListinBn = ref(null);
 
-const createServiceManager = () => {
+const updateServiceManager = () => {
   grandParentEl.value.validate();
   parentEl.value.validate();
   divisionEl.value.validate();
   districtEl.value.validate();
   subDistrictEl.value.validate();
   unionEl.value.validate();
-  pinlocationEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   phoneNumberEnEl.value.validate();
@@ -850,7 +818,6 @@ const createServiceManager = () => {
     districtEl.value.hasError ||
     subDistrictEl.value.hasError ||
     unionEl.value.hasError ||
-    pinlocationEl.value.hasError ||
     nameEnEl.value.hasError ||
     nameBnEl.value.hasError ||
     phoneNumberEnEl.value.hasError ||

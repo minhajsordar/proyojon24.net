@@ -10,6 +10,7 @@ export default {
   wait_for_confirmation: 'Please Wait for Confirmation. Once We Confirm Your Profile Your Profile Will Be Visible To Public View.',
   language: 'En',
   serial: 'Sl No',
+  rank: 'Rank No',
   username: 'User Name',
   name: 'Name',
   nameinen: 'Service Provider Name In English',
@@ -65,6 +66,8 @@ export default {
   selectCategory: 'Select a category from options below',
   addToSuggestion: 'Add To Suggestion List',
   removeFromSuggestion: 'Remove From Suggestion List',
+  addToTopSuggestion: 'Add To Top Suggestion List',
+  removeFromTopSuggestion: 'Remove From Top Suggestion List',
   permission: 'Permission',
   noInfo: 'Information Not Added Yet.',
   contact: 'Contact',
@@ -83,6 +86,7 @@ export default {
   confirm_password: 'Confirm Password',
   signin: 'Sign In',
   login: 'Log In',
+  keywords: 'Keywords',
   notification:{
     add: 'Add new notification',
     edit: 'Edit notification',
@@ -161,5 +165,6 @@ export default {
     addnew_service_provider:'Add new service provider',
     edit_service_provider:'Eidt service provider',
     ourAllServices: 'Our All Services'
-  }
+  },
+  proyojon24descriptions:"Welcome to proyojon24! proyojon24 is a service provider profile app where you can find your desired service provider very easily. You are more valuable to us than anything and your satisfaction is our goal. Stay with us to find any service provider at home. Thank you for using proyojon24!"
 }

@@ -128,57 +128,21 @@
             <!-- phoneNumber start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinen") }}</div>
+                <div class="col-12 text-bold">{{ $t("phone") }}</div>
                 <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.phoneNumber.en }}
+                  {{ serviceProviderStore.serviceProviderInfo.phoneNumber1 }}
                 </div>
               </div>
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("phoneinbn") }}</div>
+                <div class="col-12 text-bold">{{ $t("phone") }}</div>
                 <div class="col-12">
-                  {{  serviceProviderStore.serviceProviderInfo.phoneNumber.bn }}
+                  {{  serviceProviderStore.serviceProviderInfo.phoneNumber2 }}
                 </div>
               </div>
             </div>
             <!-- phoneNumber end -->
-            <!-- degree start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("degreeinen") }}</div>
-                <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.degree.en }}
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("degreeinbn") }}</div>
-                <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.degree.bn }}
-                </div>
-              </div>
-            </div>
-            <!-- degree end -->
-            <!-- extraCources start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("extraCourcesinen") }}</div>
-                <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.extraCources.en }}
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("extraCourcesinbn") }}</div>
-                <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.extraCources.bn }}
-                </div>
-              </div>
-            </div>
-            <!-- extraCources end -->
             <!-- serviceTitle start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
@@ -197,47 +161,6 @@
               </div>
             </div>
             <!-- serviceTitle end -->
-            <!-- serviceList start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("serviceListinen") }}
-                </div>
-                <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.serviceList.en }}
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("serviceListinbn") }}
-
-                </div>
-                <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.serviceList.bn }}
-                </div>
-              </div>
-            </div>
-            <!-- serviceList end -->
-            <!-- specialties start -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("specialtiesinEn") }}</div>
-                <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.specialties.en }}
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">{{ $t("specialtiesinBn") }}</div>
-                <div class="col-12">
-                 {{ serviceProviderStore.serviceProviderInfo.specialties.bn }}
-                </div>
-              </div>
-            </div>
-            <!-- specialties end -->
             <!-- description start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
@@ -260,7 +183,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("serial") }}
+                  {{ $t("rank") }}
                 </div>
                 <div class="col-12">
                   {{ serviceProviderStore.serviceProviderInfo.rankCount }}
@@ -289,7 +212,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("icon") }}
+                  {{ $t("addProfileImage") }}
                 </div>
                 <div class="col-12">
                   <q-img :src="web_root_url+serviceProviderStore.serviceProviderInfo.image"/>
@@ -299,7 +222,7 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("coverImage") }}
+                  {{ $t("coverimage") }}
                 </div>
                 <div class="col-12">
                   <q-img :src="web_root_url+serviceProviderStore.serviceProviderInfo.serviceImage" style="width:200px;"/>

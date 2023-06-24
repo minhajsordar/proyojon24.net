@@ -6,27 +6,32 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { Notify, date } from 'quasar';
 import { socket } from 'src/socket/socket';
+import { useAuthStore } from '../auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 export const myRooms = useLocalStorage('myrooms', {})
 loader.title = 'Requesting To Server...'
 export const useRoomsStore = defineStore('rooms store', () => {
   const router = useRouter()
+  const authStore = useAuthStore()
   const myRoomList = ref()
   const getMyRooms = async () => {
+    if (!authStore.loginUserInfo) {
+      return
+    }
     const config = {
       method: "get",
       url: "api/room",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${loginUser.value.token}`
+        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }
-    };
+    }
     try {
       const responseData = await api.request(config);
       myRooms.value = responseData.data;
       myRoomList.value = responseData.data;
-      responseData.data.rooms.forEach(room=>{
+      responseData.data.rooms.forEach(room => {
         socket.emit("joinRoom", room)
       })
 

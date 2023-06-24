@@ -214,7 +214,7 @@
                         _id: '647436a153654e270485a5b7',
                         service: '646ddf32944253664c042aa9',
                         serviceCategory: '646de0ea944253664c042afa',
-                        image: '/uploads/image-1685337335436.jpg',
+                        image: '/uploads/service-provider-common.jpeg',
                         serviceImage: '/uploads/image-1685337338620.jpg',
                         rankCount: 1.5,
                         keywords: null,
@@ -268,6 +268,7 @@ import { useSearchLocationStore } from "src/stores/service/searchLocation";
 import serviceCategoryFilterDialog from "src/components/dialogs/serviceCategorys/serviceCategoryFilterDialog.vue";
 import locationFilterDialog from "src/components/dialogs/location/locationFilterDialog.vue";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
+import { web_root_url } from "src/global_constant/root_url";
 
 const pinlocationStore = usePinlocationStore();
 pinlocationStore.getGlobalPinlocations();
