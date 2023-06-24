@@ -4,7 +4,7 @@
     <div class="inner-section">
       <div class="full-width">
         <div class="marque-animation">
-          <div class="marque-text">
+          <div class="marque-text text-primary">
             Proyojon24 এ আপনাকে স্বাগতম! Proyojon24 হলো একটি সার্ভিস প্রোভাইডার প্রোফাইল এপ যেখানে আপনি আপনার কাংক্ষিত সার্ভিস প্রোভাইডারকে খুব সহজেই খুজে পেতে পারেন। আপনারা আমাদের কাছে যে কোন কিছুর চেয়ে বেশি মূল্যবান এবং আপনাদের সন্তুষ্টিই আমাদের লক্ষ্য। ঘরে বসেই যে কোন সার্ভিস প্রোভাইডার খুজে নিতে আমাদের সাথে থাকুন পাশে রাখুন। Proyojon24 ব্যবহার করার জন্য আপনাকে ধন্যবাদ!
             Welcome to proyojon24! proyojon24 is a service provider profile app where you can find your desired service provider very easily. You are more valuable to us than anything and your satisfaction is our goal. Stay with us to find any service provider at home. Thank you for using proyojon24!
           </div>
