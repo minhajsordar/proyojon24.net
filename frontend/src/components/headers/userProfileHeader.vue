@@ -351,5 +351,5 @@ const profileClickManager = () => {
     .q-field__append
       display: none
 .dashboard-data
-  width: 20px
+  width: 14px
 </style>
