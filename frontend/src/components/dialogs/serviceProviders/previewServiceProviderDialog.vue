@@ -45,7 +45,7 @@
               <div class="row">
                 <div class="col-12 text-bold">{{ $t("services.services") }}</div>
                 <div class="col-12">
-                  {{serviceProviderStore.serviceProviderInfo.service.name[languageStore.language]}}
+                  {{serviceProviderStore.serviceProviderInfo.service?.name[languageStore.language]}}
                 </div>
               </div>
             </div>
@@ -53,7 +53,7 @@
               <div class="row">
                 <div class="col-12 text-bold">{{ $t("services.service_category") }}</div>
                 <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderInfo.serviceCategory.name[languageStore.language] }}
+                  {{ serviceProviderStore.serviceProviderInfo.serviceCategory?.name[languageStore.language] }}
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@
               <div class="row">
                 <div class="col-12 text-bold"> {{ $t("location.division") }}</div>
                 <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderLocationR.division.name[languageStore.language] }}
+                  {{ serviceProviderStore.serviceProviderLocationR.division?.name[languageStore.language] }}
                 </div>
               </div>
             </div>
@@ -70,7 +70,7 @@
               <div class="row">
                 <div class="col-12 text-bold">{{ $t("location.district") }}</div>
                 <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderLocationR.district.name[languageStore.language] }}
+                  {{ serviceProviderStore.serviceProviderLocationR.district?.name[languageStore.language] }}
                 </div>
               </div>
             </div>
@@ -78,7 +78,7 @@
               <div class="row">
                 <div class="col-12 text-bold">{{ $t("location.subdistrict") }}</div>
                 <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderLocationR.subDistrict.name[languageStore.language] }}
+                  {{ serviceProviderStore.serviceProviderLocationR.subDistrict?.name[languageStore.language] }}
                 </div>
               </div>
             </div>
@@ -86,7 +86,7 @@
               <div class="row">
                 <div class="col-12 text-bold">{{ $t("location.union") }}</div>
                 <div class="col-12">
-                  {{ serviceProviderStore.serviceProviderLocationR.union.name[languageStore.language] }}
+                  {{ serviceProviderStore.serviceProviderLocationR.union?.name[languageStore.language] }}
                 </div>
               </div>
             </div>

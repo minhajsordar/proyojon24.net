@@ -44,7 +44,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  Name In English
+                  {{ $t('inenglish') }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                  {{ serviceStore.serviceInfo.name.en }}
@@ -54,7 +54,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  নাম বাংলায়
+                  {{ $t('inbangla') }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                  {{ serviceStore.serviceInfo.name.bn }}
@@ -71,7 +71,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-12">
+            <!-- <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
                   {{ $t("coverimage") }}
@@ -80,7 +80,7 @@
                   <q-img :src="web_root_url + serviceStore.serviceInfo.coverImage"/>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">

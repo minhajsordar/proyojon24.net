@@ -414,24 +414,27 @@
     </div>
     <div class="container-section-py-xs">
       <div class="inner-section">
-        <div class="full-width">
+        <div class="full-width px-sm">
             <div class="row q-col-gutter-md">
               <div
                 class="col-3 cursor-pointer"
+                style="flex: 1"
                 v-for="(topProvider, index) in topSuggestedStore?.topSuggested"
                 :key="index"
                 @click="
                   $router.push('/service_provider/'+topProvider._id)
                 "
               >
-                <q-card class="q-pa-sm fs-12 text-center border-primary">
+                <q-card class="q-pa-sm fs-12 text-center border-primary" style="height: 100%">
                   <q-img
                     v-if="topProvider.image"
                     width="55px"
+                    height="55px"
                     :src="topProvider.image"
-                  />
-                  <q-img
+                    />
+                    <q-img
                     v-else
+                    height="55px"
                     width="55px"
                     src="/images/user-placeholder.jpg"
                   />

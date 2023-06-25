@@ -207,34 +207,6 @@ export const useServiceStore = defineStore('service store', () => {
       });
     }
   }
-  const uploadCoverImage = async () => {
-    if (!imageCover.value || typeof imageIcon.value == 'string') {
-      return
-    }
-    const data = {}
-    const config = {
-      method: "post",
-      url: "api/upload",
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${loginUser.value.token}`
-
-      }, data: {
-        image: imageCover.value
-      }
-    };
-    try {
-      const responseData = await api.request(config);
-      serviceInfo.coverImage = responseData.data
-    } catch (error) {
-      console.log(error);
-      Notify.create({
-        position: "center",
-        type: "negative",
-        message: error.response.data.message,
-      });
-    }
-  }
   const updateService = async () => {
     const serviceInfoKeys = [
       "name",
@@ -322,7 +294,6 @@ export const useServiceStore = defineStore('service store', () => {
     deleteService,
     imageIcon,
     imageCover,
-    uploadIcon,
-    uploadCoverImage
+    uploadIcon
   }
 });

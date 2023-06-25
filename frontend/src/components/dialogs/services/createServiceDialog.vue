@@ -44,7 +44,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  In English
+                  {{ $t('inenglish') }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
@@ -60,7 +60,7 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  বাংলায়
+                  {{ $t('inbangla') }}
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
@@ -89,25 +89,25 @@
                     max-total-size="20480"
                     use-chips
                     @update:model-value="serviceStore.uploadIcon"
+                    ref="iconEl"
                     @rejected="onRejected"
                   >
                     <template v-slot:prepend>
                       <q-icon name="cloud_upload" /> </template
                   ></q-file>
-                  <span >{{ $t("or") }}</span>
+                  <!-- <span >{{ $t("or") }}</span>
                   <q-input
                   class="q-mt-sm"
-                    ref="iconEl"
                     outlined
                     dense
                     v-model="serviceStore.serviceInfo.icon"
                     :rules="[required]"
                     label="Add image Url"
-                  />
+                  /> -->
                 </div>
               </div>
             </div>
-            <div class="col-12">
+            <!-- <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
                   {{ $t("addcoverimage") }}
@@ -123,6 +123,7 @@
                     max-total-size="8000000"
                     use-chips
                     @update:model-value="serviceStore.uploadCoverImage"
+                    ref="coverImageEl"
                     @rejected="onRejected"
                   >
                     <template v-slot:prepend>
@@ -131,7 +132,6 @@
                   <span >{{ $t("or") }}</span>
                   <q-input
                   class="q-mt-sm"
-                    ref="coverImageEl"
                     outlined
                     dense
                     v-model="serviceStore.serviceInfo.coverImage"
@@ -140,7 +140,7 @@
                   />
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col-12">
               <div class="row">
                 <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">

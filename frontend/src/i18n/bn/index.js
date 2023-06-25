@@ -87,6 +87,8 @@ export default {
   signin: 'সাইন ইন',
   login: 'লগইন',
   keywords: 'কীওয়া‍র্ড',
+  inenglish: 'ইংরেজীতে',
+  inbangla: 'বাংলায়',
   notification: {
     add: 'নতুন নটিফিকেশন যুক্ত করুন',
     edit: 'নটিফিকেশন পরিবর্তন করুন',
@@ -105,7 +107,7 @@ export default {
     live_chat: "লাইভ চ্যাট",
     add_provider: "সাভিস প্রফাইল যুক্ত করুন",
     service_profile: "সাভিস প্রফাইল ",
-    profile: "প্রফাইল",
+    profile: "প্রোফাইল",
     menu: "মেনু",
   },
   headermenus: {

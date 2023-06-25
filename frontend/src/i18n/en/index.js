@@ -87,6 +87,8 @@ export default {
   signin: 'Sign In',
   login: 'Log In',
   keywords: 'Keywords',
+  inenglish: 'In English',
+  inbangla: 'In Bangla',
   notification:{
     add: 'Add new notification',
     edit: 'Edit notification',

@@ -249,34 +249,6 @@ imageCover.value = null
       });
     }
   }
-  const uploadCoverImage = async () => {
-    if(!imageCover.value || typeof imageIcon.value == 'string'){
-      return
-    }
-    const data = {}
-    const config = {
-      method: "post",
-      url: "api/upload",
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${loginUser.value.token}`
-
-      }, data:{
-        image:imageCover.value
-      }
-    };
-    try {
-      const responseData = await api.request(config);
-      serviceCategoryInfo.coverImage = responseData.data
-    } catch (error) {
-      console.log(error);
-      Notify.create({
-        position: "center",
-        type: "negative",
-        message: error.response.data.message,
-      });
-    }
-  }
   const updateServiceCategory = async () => {
     const serviceCategoryInfoKeys = [
       "name",
@@ -370,7 +342,6 @@ imageCover.value = null
     imageCover,
     uploadIcon,
     selectedService,
-    uploadCoverImage,
     filteredByServiseId,
     getFilteredServiceCategoryByService
   }

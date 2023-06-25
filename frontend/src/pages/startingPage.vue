@@ -11,7 +11,7 @@
         from
       </div>
       <div class="fs-14">
-        Service Zone Ltd.
+        service zone.
       </div>
       <div class="bottom-fx"></div>
     </div>
