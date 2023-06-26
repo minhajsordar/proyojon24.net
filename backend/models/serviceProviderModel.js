@@ -1,9 +1,21 @@
 import mongoose from "mongoose";
-var CounterSchema = new mongoose.Schema({
-    _id: {type: String, required: true},
-    seq: { type: Number, default: 0 }
+
+const counterSchema = new mongoose.Schema({
+    _id: { type: String, required: true },
+    sequenceValue: { type: Number, default: 0 },
 });
-var counter = mongoose.model('counter', CounterSchema);
+
+const Counter = mongoose.model('Counter', counterSchema);
+async function getNextId(counterName) {
+    const counter = await Counter.findByIdAndUpdate(
+      counterName,
+      { $inc: { sequenceValue: 1 } },
+      { new: true, upsert: true }
+    );
+  
+    return counter.sequenceValue;
+  }
+  
 const reviewsSchema = new mongoose.Schema({
     name: { type: String, required: true },
     rating: { type: Number, required: true },
@@ -100,14 +112,14 @@ const serviceProviderSchema = new mongoose.Schema({
                 bn: { type: String, default: null },
                 en: { type: String, default: null }
             },
-            _id: { type: String, default:null }
+            _id: { type: String, default: null }
         },
         pinlocation: {
             name: {
                 bn: { type: String, default: null },
                 en: { type: String, default: null }
             },
-            _id: { type: String, default:null }
+            _id: { type: String, default: null }
         }
     },
     serviceTitle:
@@ -115,13 +127,13 @@ const serviceProviderSchema = new mongoose.Schema({
         bn: { type: String },
         en: { type: String }
     },
-    phoneNumber1:{ type: String },
-    phoneNumber2:{ type: String },
-    facebook:{ type: String },
-    whatsapp:{ type: String },
-    imo:{ type: String },
-    twitter:{ type: String },
-    email:{ type: String },
+    phoneNumber1: { type: String },
+    phoneNumber2: { type: String },
+    facebook: { type: String },
+    whatsapp: { type: String },
+    imo: { type: String },
+    twitter: { type: String },
+    email: { type: String },
     rankCount: {
         type: Number,
         required: false,
@@ -177,19 +189,17 @@ const serviceProviderSchema = new mongoose.Schema({
         default: true
     },
     registrationNo: {
-        type: String,
+        type: Number,
     }
 }, {
     timestamps: true
 });
-serviceProviderSchema.pre('save', function(next) {
-    var doc = this;
-    counter.findByIdAndUpdate({_id: 'serviceProviderId'}, {$inc: { seq: 1} }, function(error, counter)   {
-        if(error)
-            return next(error);
-        doc.registrationNo = counter.seq;
+serviceProviderSchema.pre('save', async function (next) {
+        if (!this.registrationNo) {
+          this.registrationNo = await getNextId('serviceProviderProfileRegistrationCounter');
+        }
         next();
-    });
-});
+      });
+      
 const ServiceProvider = mongoose.model('ServiceProvider', serviceProviderSchema);
 export default ServiceProvider
