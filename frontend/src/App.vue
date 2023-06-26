@@ -1,7 +1,7 @@
 <template>
-  <div >
+  <q-pull-to-refresh @refresh="refresh">
     <router-view />
-  </div>
+  </q-pull-to-refresh>
 </template>
 
 <script setup>
@@ -42,16 +42,17 @@ import { usePublicUserStore } from "./stores/user/publicStore";
 // if (isEmptyArray(locationListGlobal.value.wards)) {
 //   wardStore.getGlobalWards();
 // }
-// const refresh = (done) => {
-//   divisionStore.getGlobalDivisions();
-//   districtStore.getGlobalDistricts();
-//   subDistrictStore.getGlobalSubDistricts();
-//   unionStore.getGlobalUnions();
-//   wardStore.getGlobalWards();
-//   setTimeout(() => {
-//     done();
-//   }, 2000);
-// };
+const refresh = (done) => {
+window.location.reload();
+  // divisionStore.getGlobalDivisions();
+  // districtStore.getGlobalDistricts();
+  // subDistrictStore.getGlobalSubDistricts();
+  // unionStore.getGlobalUnions();
+  // wardStore.getGlobalWards();
+  setTimeout(() => {
+    done();
+  }, 2000);
+};
 // onMounted(() => {
 //   divisionStore.getGlobalDivisions();
 //   districtStore.getGlobalDistricts();

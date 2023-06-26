@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
-
+var CounterSchema = Schema({
+    _id: {type: String, required: true},
+    seq: { type: Number, default: 0 }
+});
+var counter = mongoose.model('counter', CounterSchema);
 const reviewsSchema = new mongoose.Schema({
     name: { type: String, required: true },
     rating: { type: Number, required: true },
@@ -171,10 +175,21 @@ const serviceProviderSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: true
+    },
+    registrationNo: {
+        type: String,
     }
 }, {
     timestamps: true
 });
-
+serviceProviderSchema.pre('save', function(next) {
+    var doc = this;
+    counter.findByIdAndUpdate({_id: 'entityId'}, {$inc: { seq: 1} }, function(error, counter)   {
+        if(error)
+            return next(error);
+        doc.registrationNo = counter.seq;
+        next();
+    });
+});
 const ServiceProvider = mongoose.model('ServiceProvider', serviceProviderSchema);
 export default ServiceProvider

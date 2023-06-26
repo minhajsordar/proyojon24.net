@@ -719,7 +719,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: JSON.stringify(error),
       });
       loader.hideLoader()
     }
@@ -764,7 +764,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: JSON.stringify(error),
       });
       loader.hideLoader()
     }

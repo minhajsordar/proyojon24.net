@@ -6,48 +6,38 @@
           <q-card-section
             class="q-pa-none profile-image-section relative-position"
           >
-            <q-img
-              height="280px"
-              width="100%"
-              fit="contain"
-              :src="
-                web_root_url +
-                serviceProviderStore.serviceProvider?.serviceImage1
-              "
+            <swiper
+              :spaceBetween="30"
+              :centeredSlides="true"
+              :autoplay="{
+                delay: 2500,
+                disableOnInteraction: false,
+              }"
+              :pagination="{
+                clickable: true,
+              }"
+              :navigation="true"
+              :modules="modules"
+              class="mySwiper"
             >
-            </q-img>
-          </q-card-section>
-        </q-card>
-        <q-card class="q-pa-sm bg-primary text-white">
-          <q-card-section
-            class="q-pa-none profile-image-section relative-position"
-          >
-            <q-img
-              height="280px"
-              width="100%"
-              fit="contain"
-              :src="
-                web_root_url +
-                serviceProviderStore.serviceProvider?.serviceImage2
-              "
-            >
-            </q-img>
-          </q-card-section>
-        </q-card>
-        <q-card class="q-pa-sm bg-primary text-white">
-          <q-card-section
-            class="q-pa-none profile-image-section relative-position"
-          >
-            <q-img
-              height="280px"
-              width="100%"
-              fit="contain"
-              :src="
-                web_root_url +
-                serviceProviderStore.serviceProvider?.serviceImage3
-              "
-            >
-            </q-img>
+              <swiper-slide :name="serviceProviderStore.serviceProvider?.serviceImage1" v-if="serviceProviderStore.serviceProvider?.serviceImage1">
+                <img
+                  :src="
+                    web_root_url +
+                    serviceProviderStore.serviceProvider?.serviceImage1
+                  "
+                />
+              </swiper-slide>
+              <swiper-slide :name="serviceProviderStore.serviceProvider?.serviceImage1" v-if="serviceProviderStore.serviceProvider?.serviceImage2">
+                <img
+                  :src="
+                    web_root_url +
+                    serviceProviderStore.serviceProvider?.serviceImage2
+                  "
+                />
+              </swiper-slide>
+            </swiper>
+
           </q-card-section>
         </q-card>
         <q-card class="full-width hover-serviceprovider-card cursor-pointer">
@@ -156,7 +146,7 @@
               </div>
               <q-separator />
               <div v-if="serviceProviderStore.serviceProvider?.createdAt">
-                {{ $t("joined_date_s") }}
+                {{ $t("joined_date") }}
                 {{
                   enToBnToEn(
                     date.formatDate(
@@ -166,7 +156,16 @@
                     languageStore.language
                   )
                 }}
-                {{ $t("joined_date_e") }}
+                {{ $t("registration_no") }}
+                {{
+                  enToBnToEn(
+                    date.formatDate(
+                      serviceProviderStore.serviceProvider?.registrationNo,
+                      "YYYY-MM-DD HH:mm:ss"
+                    ),
+                    languageStore.language
+                  )
+                }}
               </div>
 
               <q-separator />
@@ -381,6 +380,13 @@ import { useServiceProviderStore } from "src/stores/service/serviceProviderStore
 import { web_root_url } from "src/global_constant/root_url";
 import { enToBnToEn } from "src/global_js/utils";
 
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Autoplay, Pagination, Navigation } from "swiper";
+import "swiper/css";
+
+import "swiper/css/pagination";
+import "./style.css";
+const modules= [Autoplay, Pagination, Navigation]
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const router = useRouter();
@@ -438,5 +444,9 @@ useMeta(metaData);
 }
 .word-wrap {
   word-wrap: break-word;
+}
+.q-carousel__navigation-inner .q-btn {
+  font-size: 6px !important;
+  padding: 1px;
 }
 </style>
