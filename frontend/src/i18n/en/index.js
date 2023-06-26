@@ -89,6 +89,7 @@ export default {
   keywords: 'Keywords',
   inenglish: 'In English',
   inbangla: 'In Bangla',
+  mobile: 'Mobile',
   notification:{
     add: 'Add new notification',
     edit: 'Edit notification',

@@ -10,10 +10,6 @@ const serviceSchema = new mongoose.Schema({
         bn: { type: String, required: true },
         en: { type: String, required: true },
     },
-    coverImage: {
-        type: String,
-        required: true
-    },
     icon: {
         type: String,
         required: true

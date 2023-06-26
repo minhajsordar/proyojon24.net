@@ -26,7 +26,7 @@
           </div>
           <q-separator/>
           <div class="text-blue-grey-10">
-            <span>মোবাইল: <q-icon class="bg-primary text-white" name="call"/> ০১xxxxxxxxx</span>
+            <span>{{$t('mobile')}}: <q-icon class="bg-primary text-white" name="call"/> {{enToBnToEn('০১', languageStore.language)}}xxxxxxxxx</span>
           </div>
           <q-separator/>
           <div class="fs-12 text-bold">
@@ -46,6 +46,7 @@
 <script setup>
 import { useLanguageStore } from 'src/stores/lang/languageSettingsStore';
 import { web_root_url } from 'src/global_constant/root_url';
+import { enToBnToEn } from'src/global_js/utils.js';
 defineProps({
   serviceProvider:{
     type:Object,

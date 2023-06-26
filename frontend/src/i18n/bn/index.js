@@ -52,7 +52,7 @@ export default {
   addnew: 'নতুন যুক্ত করুন',
   addicon: 'আইকন যুক্ত করুন',
   icon: 'আইকন',
-  addProfileImage: 'প্রফাইল ছবি',
+  addProfileImage: 'প্রোফাইল ছবি',
   coverimage: 'কভার ছবি',
   addcoverimage: 'কভার ছবি যুক্ত করুন',
   serial: 'ক্রমিক নং',
@@ -89,6 +89,7 @@ export default {
   keywords: 'কীওয়া‍র্ড',
   inenglish: 'ইংরেজীতে',
   inbangla: 'বাংলায়',
+  mobile: 'মোবাইল',
   notification: {
     add: 'নতুন নটিফিকেশন যুক্ত করুন',
     edit: 'নটিফিকেশন পরিবর্তন করুন',
@@ -105,8 +106,8 @@ export default {
   bottom_menus: {
     home: "হোম",
     live_chat: "লাইভ চ্যাট",
-    add_provider: "সাভিস প্রফাইল যুক্ত করুন",
-    service_profile: "সাভিস প্রফাইল ",
+    add_provider: "সাভিস প্রোফাইল যুক্ত করুন",
+    service_profile: "সাভিস প্রোফাইল ",
     profile: "প্রোফাইল",
     menu: "মেনু",
   },
@@ -120,7 +121,7 @@ export default {
     services: 'সেবা সমূহ',
     addnew_services: 'নতুন সেবা যুক্ত করুন',
     edit_services: 'সেবা পরির্তন করুন',
-    service_profile: 'সেবা প্রফাইল',
+    service_profile: 'সেবা প্রোফাইল',
     banners: 'ব্যানার',
   },
   location: {

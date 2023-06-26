@@ -1,10 +1,10 @@
 <template>
   <profileMobileMenus />
   <q-toolbar class="q-py-none q-px-md">
-    <q-item clickable v-ripple @click="profileClickManager">
+    <q-item >
       <q-item-section side>
         <div class="flex">
-          <q-avatar rounded size="40px">
+          <q-avatar round size="40px">
             <img
               v-if="authStore?.loginUserInfo?.profileImage"
               :src="web_root_url + authStore?.loginUserInfo?.profileImage"
@@ -29,13 +29,16 @@
           </div>
         </div>
         <q-item-label
+
           class="text-white"
           v-if="authStore?.loginUserInfo?.name"
           >{{
             authStore?.loginUserInfo?.name[languageStore.language]
           }}</q-item-label
         >
-        <q-item-label v-else class="text-white fs-12 q-mt-xs">
+        <q-item-label v-else class="text-white fs-12 q-mt-xs"
+        clickable v-ripple @click="profileClickManager"
+        >
           <div>Guest User</div>
           <div class="fs-10">Login/Register</div>
         </q-item-label>

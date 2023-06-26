@@ -99,13 +99,15 @@ const roomClickManager = (id) => {
 
 var audio = new Audio("/sounds/new_messenge_ton.mp3"); // path to file
 
-socket.on("new_message", () => {
+socket.on("new_message", (args) => {
   roomStore.getMyRooms();
-  messageStore.getMessages();
+  if(args._doc.sender._id !== authStore.loginUserInfo._id){
+    console.log('ping new message')
+    audio.play();
+  }
 });
 
-socket.on("receiving_new_message", (argument) => {
-  console.log("receiving new message",argument)
-  audio.play();
-});
+// socket.on("receiving_new_message", (argument) => {
+//   console.log("receiving new message",argument)
+// });
 </script>

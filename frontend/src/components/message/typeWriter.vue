@@ -9,6 +9,7 @@
         :type="inputTypeTextarea ? 'textarea' : 'text'"
         outlined
         dense
+        rounded
         counter
         maxlength="1000"
       />
@@ -27,10 +28,10 @@
         "
       >
         <q-icon
-          class="fs-32 "
-          :class="[$q.screen.gt.sm?'text-primary':'text-green']"
+          class="fs-25 text-white sendbutton"
+          :class="[$q.screen.gt.sm?'bg-primary':'bg-green']"
           name="send"
-          style="margin-top: -19px"
+          style="margin-top: -19px; border-radius: 50%;"
         />
       </div>
     </div>
@@ -63,3 +64,12 @@ const sendMessageManager =()=>{
   inputTypeTextarea.value = false
 }
 </script>
+<style>
+.sendbutton{
+  border-radius: 50%;
+  padding: 8px;
+}
+.sendbutton:hover{
+  box-shadow: 0px 0px 5px 0px #7e7e7e;
+}
+</style>

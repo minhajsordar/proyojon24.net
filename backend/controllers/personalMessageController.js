@@ -51,7 +51,11 @@ const createPersonalMessage = expressAsyncHandler(async (req, res) => {
         const createdPersonalMessage = await personalMessages.save()
         personalRoom.messages = createdPersonalMessage._id              // assign last message id to personal room.
         await personalRoom.save()                                       // finally save last message id to personal room.
-        req.io.to(req.body.room).emit('new_message', {...createdPersonalMessage })
+        const resMessages = await PersonalMessage.findById(createdPersonalMessage._id).populate('sender', 'name profileImage')
+        .populate('recipient', 'name profileImage')
+        req.io.to(req.body.room).emit('new_message', {
+            ...resMessages
+        })
         res.status(201).json(createdPersonalMessage)
     } else {
         res.status(404)

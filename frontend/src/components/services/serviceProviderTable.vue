@@ -96,11 +96,11 @@
           <td>
             <p>
               Created At:
-              {{ date.formatDate(serviceProvider.createdAt, "YYYY-MM-DD") }}
+              {{ date.formatDate(serviceProvider.createdAt, "YYYY-MM-DD  HH:mm:ss") }}
             </p>
             <p>
               Updated At:
-              {{ date.formatDate(serviceProvider.updatedAt, "YYYY-MM-DD") }}
+              {{ date.formatDate(serviceProvider.updatedAt, "YYYY-MM-DD  HH:mm:ss") }}
             </p>
           </td>
           <td>

@@ -4,6 +4,10 @@
     class="full-width q-px-sm"
     style="height: calc(100vh - 130px)"
   >
+  <div class="flex justify-center q-mt-sm" v-if="messageList?.pages >= messageStore.nextPageNumber">
+    <q-btn rounded outline label="load more" size="sm" :loading="messageStore.messageListLoading" @click="getPreviousMessagesList"/>
+  </div>
+  <div v-else  class="text-center text-grey-6 q-mt-sm">no more content to load</div>
     <div
       v-for="(message, index) in messageStore.messageList?.messages"
       :key="index"
@@ -24,7 +28,7 @@
         >
           <img
             class="q-message-avatar q-message-avatar--received"
-            :src="web_root_url+ message.sender?.profileImage"
+            :src="web_root_url + message.sender?.profileImage"
             aria-hidden="true"
           />
           <div class="">
@@ -133,19 +137,31 @@ import { useMessageStore } from "src/stores/message/messageStore";
 import { useRoomsStore } from "src/stores/message/roomStore";
 import { storeToRefs } from "pinia";
 import { web_root_url } from "src/global_constant/root_url";
+import { socket } from "src/socket/socket";
 
 const messageStore = useMessageStore();
 const { messageList } = storeToRefs(messageStore);
 const authStore = useAuthStore();
 const languageStore = useLanguageStore();
 const scrollAreaRef = ref(null);
+const getPreviousMessagesList = () => {
+  messageStore.getPreviousMessages();
+  // if (scrollAreaRef.value.getScrollPercentage().top == 0) {
+  //   console.log("trigurring previous messages");
+  //   setTimeout(() => {
+  //   }, 3000);
+  // }
+};
 const scrollToBottom = () => {
   scrollAreaRef.value.setScrollPercentage("vertical", 1.0, 100);
 };
-watch(messageList, () => {
-  setTimeout(() => {
-    scrollToBottom();
-    console.log("watch effect");
-  }, 500);
-});
+// watch(messageList, () => {
+//   setTimeout(() => {
+//     scrollToBottom();
+//     console.log("watch effect");
+//   }, 50);
+// });
+socket.on("new_message",(args)=>{
+  scrollToBottom();
+})
 </script>

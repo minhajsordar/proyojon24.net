@@ -15,10 +15,6 @@ const serviceCategorySchema = new mongoose.Schema({
         bn: { type: String, required: true },
         en: { type: String, required: true },
     },
-    coverImage: {
-        type: String,
-        required: false
-    },
     icon: {
         type: String,
         required: false

@@ -124,13 +124,17 @@
               </div>
               <q-separator />
               <div v-if="serviceProviderStore.serviceProvider?.createdAt">
-                {{$t('joined_date_s')}}
-                {{ enToBnToEn(
-                          date.formatDate(serviceProviderStore.serviceProvider?.createdAt, "YYYY-MM-DD") ,
-                          languageStore.language
-                        )}}
-                {{$t('joined_date_e')}}
-
+                {{ $t("joined_date_s") }}
+                {{
+                  enToBnToEn(
+                    date.formatDate(
+                      serviceProviderStore.serviceProvider?.createdAt,
+                      "YYYY-MM-DD HH:mm:ss"
+                    ),
+                    languageStore.language
+                  )
+                }}
+                {{ $t("joined_date_e") }}
               </div>
 
               <q-separator />
@@ -150,7 +154,7 @@
             <q-card class="q-pa-md">
               <div class="fs-16">
                 <div class="q-mt-sm q-pa-sm bg-accent text-yellow text-center">
-                  <span class="fs-18"> {{$t('details')}} </span>
+                  <span class="fs-18"> {{ $t("details") }} </span>
                 </div>
                 <div
                   class="q-mt-md"
@@ -287,9 +291,13 @@
                     width="25px"
                     src="/images/facebook.svg"
                   />
-                  <span class="fs-16 q-mt-sm word-wrap">
+                  <a
+                    :href="serviceProviderStore.serviceProvider?.facebook"
+                    class="fs-16 q-mt-sm word-wrap"
+                    target="_blank"
+                  >
                     {{ serviceProviderStore.serviceProvider?.facebook }}
-                  </span>
+                  </a>
                 </div>
               </div>
               <div
@@ -396,7 +404,7 @@ useMeta(metaData);
   border: 4px solid white !important;
   border-radius: 100px;
 }
-.word-wrap{
+.word-wrap {
   word-wrap: break-word;
 }
 </style>
