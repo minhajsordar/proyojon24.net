@@ -81,7 +81,6 @@ onBeforeMount(() => {
 socket.on("new_message",(args)=>{
   // messageStore.getMessages()
   // console.log("new message",args._doc)
-  messageStore.messageList?.messages?.unshift(args._doc)
 })
 </script>
 <style lang="scss" scoped>

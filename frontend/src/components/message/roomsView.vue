@@ -6,7 +6,10 @@
           v-if="room.participants[0].user._id !== authStore.loginUserInfo._id"
           :src="web_root_url + room.participants[0].user.profileImage"
         />
-        <img v-else :src="web_root_url + room.participants[1].user.profileImage" />
+        <img
+          v-else
+          :src="web_root_url + room.participants[1].user.profileImage"
+        />
       </q-avatar>
     </q-item-section>
 
@@ -27,23 +30,19 @@
 
     <q-item-section side top class="fs-10">
       <span
-        v-if="date.isSameDate( new Date(), room?.updatedAt, /* optional */ unit)"
+        v-if="date.isSameDate(new Date(), room?.updatedAt, /* optional */ unit)"
       >
-        <span
-          v-if="
-            date.getDateDiff(new Date(), room?.updatedAt, 'hour') == 0
-          "
-        >
-          {{ date.getDateDiff( new Date(), room?.updatedAt, "minute") }}
+        <span v-if="date.getDateDiff(new Date(), room?.updatedAt, 'hour') == 0">
+          {{ date.getDateDiff(new Date(), room?.updatedAt, "minute") }}
           minute ago
         </span>
         <span v-else>
-          {{ date.getDateDiff( new Date(), room?.updatedAt, "hour") }}
+          {{ date.getDateDiff(new Date(), room?.updatedAt, "hour") }}
           hour ago
         </span>
       </span>
       <span v-else>
-        {{ date.getDateDiff( new Date(), room?.updatedAt, unit) }}
+        {{ date.getDateDiff(new Date(), room?.updatedAt, unit) }}
         days ago</span
       >
     </q-item-section>
@@ -100,16 +99,16 @@ const roomClickManager = (id) => {
 var audio = new Audio("/sounds/new_messenge_ton.mp3"); // path to file
 
 socket.on("new_message", (args) => {
-  console.log('received new message')
   roomStore.getMyRooms();
-  if(args._doc.sender._id !== authStore.loginUserInfo._id){
-    console.log('ping new message', args._doc)
-    messageStore.messageList.messages.push(args._doc)
+  if (args._doc.sender._id !== authStore.loginUserInfo._id) {
+    if(roomStore.myRoomList?.rooms[0]._id === route.params.id && messageStore.messageList.messages[messageStore.messageList.messages.length - 1]._id !== args._doc._id) {
+      messageStore.messageList.messages.push(args._doc);
+    }
     audio.play();
   }
 });
 
 socket.on("receiving_new_message", (argument) => {
-  console.log("receiving new message",argument)
+  console.log("receiving new message", argument);
 });
 </script>
