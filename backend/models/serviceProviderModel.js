@@ -5,7 +5,7 @@ const counterSchema = new mongoose.Schema({
     sequenceValue: { type: Number, default: 0 },
 });
 
-const Counter = mongoose.model('Counter', counterSchema);
+export const Counter = mongoose.model('Counter', counterSchema);
 async function getNextId(counterName) {
     const counter = await Counter.findByIdAndUpdate(
       counterName,

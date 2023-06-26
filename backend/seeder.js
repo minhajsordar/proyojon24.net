@@ -10,6 +10,7 @@ import Service from './models/serviceModel.js'
 import ServiceCategoryModel from './models/serviceCategoryModel.js'
 import PersonalRoomModel from './models/personalRoomModel.js'
 import PersonalMessageModel from './models/personalMessageModel.js'
+import { Counter } from './models/serviceProviderModel.js'
 import connectDB from './config/db.js'
 
 dotenv.config()
@@ -22,6 +23,7 @@ export const importData = async () => {
         await ServiceProvider.deleteMany()
         await PersonalRoomModel.deleteMany()
         await PersonalMessageModel.deleteMany()
+        await Counter.deleteMany()
         // await Notification.deleteMany()
         // await PersonalMessage.deleteMany()
 
