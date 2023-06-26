@@ -13,7 +13,7 @@ async function getNextId(counterName) {
       { new: true, upsert: true }
     );
   
-    return counter.sequenceValue - 1;
+    return counter.sequenceValue;
   }
   
 const reviewsSchema = new mongoose.Schema({

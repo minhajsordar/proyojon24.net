@@ -20,7 +20,10 @@
               :modules="modules"
               class="mySwiper"
             >
-              <swiper-slide :name="serviceProviderStore.serviceProvider?.serviceImage1" v-if="serviceProviderStore.serviceProvider?.serviceImage1">
+              <swiper-slide
+                :name="serviceProviderStore.serviceProvider?.serviceImage1"
+                v-if="serviceProviderStore.serviceProvider?.serviceImage1"
+              >
                 <img
                   :src="
                     web_root_url +
@@ -28,7 +31,10 @@
                   "
                 />
               </swiper-slide>
-              <swiper-slide :name="serviceProviderStore.serviceProvider?.serviceImage2" v-if="serviceProviderStore.serviceProvider?.serviceImage2">
+              <swiper-slide
+                :name="serviceProviderStore.serviceProvider?.serviceImage2"
+                v-if="serviceProviderStore.serviceProvider?.serviceImage2"
+              >
                 <img
                   :src="
                     web_root_url +
@@ -36,7 +42,10 @@
                   "
                 />
               </swiper-slide>
-              <swiper-slide :name="serviceProviderStore.serviceProvider?.serviceImage3" v-if="serviceProviderStore.serviceProvider?.serviceImage3">
+              <swiper-slide
+                :name="serviceProviderStore.serviceProvider?.serviceImage3"
+                v-if="serviceProviderStore.serviceProvider?.serviceImage3"
+              >
                 <img
                   :src="
                     web_root_url +
@@ -45,7 +54,6 @@
                 />
               </swiper-slide>
             </swiper>
-
           </q-card-section>
         </q-card>
         <q-card class="full-width hover-serviceprovider-card cursor-pointer">
@@ -154,7 +162,7 @@
               </div>
               <q-separator />
               <div v-if="serviceProviderStore.serviceProvider?.createdAt">
-                {{ $t("joined_date") }}
+                {{ $t("joined_date") }}:
                 {{
                   enToBnToEn(
                     date.formatDate(
@@ -163,17 +171,21 @@
                     ),
                     languageStore.language
                   )
-                }}
-                {{ $t("registration_no") }}
-                {{
-                  enToBnToEn(
-                    date.formatDate(
-                      serviceProviderStore.serviceProvider?.registrationNo,
-                      "YYYY-MM-DD HH:mm:ss"
-                    ),
-                    languageStore.language
-                  )
-                }}
+                }}, {{ $t("registration_no") }}:
+                <span v-if="serviceProviderStore.serviceProvider"
+                  >{{
+                    enToBnToEn(
+                      "000000000".slice(
+                        0,
+                        9 -
+                          serviceProviderStore.serviceProvider?.registrationNo.toString()
+                            .length
+                      ) +
+                        serviceProviderStore.serviceProvider?.registrationNo.toString(),
+                      languageStore.language
+                    )
+                  }}
+                </span>
               </div>
 
               <q-separator />
@@ -394,7 +406,7 @@ import "swiper/css";
 
 import "swiper/css/pagination";
 import "./style.css";
-const modules= [Autoplay, Pagination, Navigation]
+const modules = [Autoplay, Pagination, Navigation];
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const router = useRouter();

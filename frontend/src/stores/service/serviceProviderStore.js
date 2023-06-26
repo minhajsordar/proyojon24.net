@@ -145,6 +145,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       twitter: null,
       email: null,
       keywords: null,
+      registrationNo: null,
     })
   const emptyServiceProviderInfo = () => {
     imageIcon.value = null
