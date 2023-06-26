@@ -8,6 +8,8 @@ import PersonalMessage from './models/personalMessageModel.js'
 import ServiceCategory from './models/serviceCategoryModel.js'
 import Service from './models/serviceModel.js'
 import ServiceCategoryModel from './models/serviceCategoryModel.js'
+import PersonalRoomModel from './models/personalRoomModel.js'
+import PersonalMessageModel from './models/personalMessageModel.js'
 import connectDB from './config/db.js'
 
 dotenv.config()
@@ -18,6 +20,8 @@ export const importData = async () => {
     try {
         await User.deleteMany()
         await ServiceProvider.deleteMany()
+        await PersonalRoomModel.deleteMany()
+        await PersonalMessageModel.deleteMany()
         // await Notification.deleteMany()
         // await PersonalMessage.deleteMany()
 
