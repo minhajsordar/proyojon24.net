@@ -28,11 +28,19 @@
                   "
                 />
               </swiper-slide>
-              <swiper-slide :name="serviceProviderStore.serviceProvider?.serviceImage1" v-if="serviceProviderStore.serviceProvider?.serviceImage2">
+              <swiper-slide :name="serviceProviderStore.serviceProvider?.serviceImage2" v-if="serviceProviderStore.serviceProvider?.serviceImage2">
                 <img
                   :src="
                     web_root_url +
                     serviceProviderStore.serviceProvider?.serviceImage2
+                  "
+                />
+              </swiper-slide>
+              <swiper-slide :name="serviceProviderStore.serviceProvider?.serviceImage3" v-if="serviceProviderStore.serviceProvider?.serviceImage3">
+                <img
+                  :src="
+                    web_root_url +
+                    serviceProviderStore.serviceProvider?.serviceImage3
                   "
                 />
               </swiper-slide>

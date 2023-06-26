@@ -8,14 +8,14 @@ const counterSchema = new mongoose.Schema({
 const Counter = mongoose.model('Counter', counterSchema);
 async function getNextId(counterName) {
     const counter = await Counter.findByIdAndUpdate(
-      counterName,
-      { $inc: { sequenceValue: 1 } },
-      { new: true, upsert: true }
+        { _id: counterName },
+        { $inc: { sequenceValue: 1 } },
+        { new: true, upsert: true }
     );
-  
+
     return counter.sequenceValue;
-  }
-  
+}
+
 const reviewsSchema = new mongoose.Schema({
     name: { type: String, required: true },
     rating: { type: Number, required: true },
@@ -195,11 +195,11 @@ const serviceProviderSchema = new mongoose.Schema({
     timestamps: true
 });
 serviceProviderSchema.pre('save', async function (next) {
-        if (!this.registrationNo) {
-          this.registrationNo = await getNextId('serviceProviderProfileRegistrationCounter');
-        }
-        next();
-      });
-      
+    if (!this.registrationNo) {
+        this.registrationNo = await getNextId('serviceProviderProfileRegistrationCounter');
+    }
+    next();
+});
+
 const ServiceProvider = mongoose.model('ServiceProvider', serviceProviderSchema);
 export default ServiceProvider
