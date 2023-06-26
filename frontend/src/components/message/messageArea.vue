@@ -162,6 +162,9 @@ const scrollToBottom = () => {
 //   }, 50);
 // });
 socket.on("new_message",(args)=>{
-  scrollToBottom();
+  setTimeout(() => {
+    scrollToBottom();
+    // console.log("watch effect");
+  }, 50);
 })
 </script>

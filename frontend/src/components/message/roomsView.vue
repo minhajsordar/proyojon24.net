@@ -100,14 +100,16 @@ const roomClickManager = (id) => {
 var audio = new Audio("/sounds/new_messenge_ton.mp3"); // path to file
 
 socket.on("new_message", (args) => {
+  console.log('received new message')
   roomStore.getMyRooms();
   if(args._doc.sender._id !== authStore.loginUserInfo._id){
-    console.log('ping new message')
+    console.log('ping new message', args._doc)
+    messageStore.messageList.messages.push(args._doc)
     audio.play();
   }
 });
 
-// socket.on("receiving_new_message", (argument) => {
-//   console.log("receiving new message",argument)
-// });
+socket.on("receiving_new_message", (argument) => {
+  console.log("receiving new message",argument)
+});
 </script>
