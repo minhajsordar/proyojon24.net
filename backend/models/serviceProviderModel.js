@@ -184,7 +184,7 @@ const serviceProviderSchema = new mongoose.Schema({
 });
 serviceProviderSchema.pre('save', function(next) {
     var doc = this;
-    counter.findByIdAndUpdate({_id: 'entityId'}, {$inc: { seq: 1} }, function(error, counter)   {
+    counter.findByIdAndUpdate({_id: 'serviceProviderId'}, {$inc: { seq: 1} }, function(error, counter)   {
         if(error)
             return next(error);
         doc.registrationNo = counter.seq;
