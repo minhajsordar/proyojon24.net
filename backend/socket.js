@@ -1,20 +1,14 @@
-import { Server } from "socket.io";
+import socket from "socket.io";
 import { createPersonalMessageOnReceive } from './controllers/personalMessageCreateController.js'
 
 let io;
 
 export default  {
   init: (httpServer) => {
-    io = new Server(httpServer, {
-        cors: {
-            origin: [
-                "*", 
-                "https://proyojon24.net", 
-                "https://156.67.217.198", 
-                "https://156.67.217.198:5002", 
-                "http://localhost:9000"
-            ],
-        },
+    io = socket(httpServer, {
+      cors: {
+        origin: '*',
+      }
     });
     io.on("creating_new_message", (arg) => {
         console.log("creating new message", arg);

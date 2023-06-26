@@ -27,7 +27,7 @@ import { importData } from './seeder.js'
 // import { importData } from './seederSubDistricts.js'
 // import { importData } from './seederUnions.js'
 import { createServer } from "http";
-import { Server } from "socket.io";
+// import { Server } from "socket.io";
 import { userJoin } from './utils/chatUser.js'
 import socket from './socket.js'
 connectDB()
