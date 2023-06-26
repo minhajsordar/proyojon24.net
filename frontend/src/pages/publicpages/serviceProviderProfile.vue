@@ -12,7 +12,39 @@
               fit="contain"
               :src="
                 web_root_url +
-                serviceProviderStore.serviceProvider?.serviceImage
+                serviceProviderStore.serviceProvider?.serviceImage1
+              "
+            >
+            </q-img>
+          </q-card-section>
+        </q-card>
+        <q-card class="q-pa-sm bg-primary text-white">
+          <q-card-section
+            class="q-pa-none profile-image-section relative-position"
+          >
+            <q-img
+              height="280px"
+              width="100%"
+              fit="contain"
+              :src="
+                web_root_url +
+                serviceProviderStore.serviceProvider?.serviceImage2
+              "
+            >
+            </q-img>
+          </q-card-section>
+        </q-card>
+        <q-card class="q-pa-sm bg-primary text-white">
+          <q-card-section
+            class="q-pa-none profile-image-section relative-position"
+          >
+            <q-img
+              height="280px"
+              width="100%"
+              fit="contain"
+              :src="
+                web_root_url +
+                serviceProviderStore.serviceProvider?.serviceImage3
               "
             >
             </q-img>

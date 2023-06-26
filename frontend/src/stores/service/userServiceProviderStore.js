@@ -69,7 +69,9 @@ export const useUserServiceProviderStore = defineStore('user service provider st
       "user",
       "name",
       "description",
-      "serviceImage",
+      "serviceImage1",
+      "serviceImage2",
+      "serviceImage3",
       "serviceCategory",
       "service",
       "image",
@@ -89,11 +91,15 @@ export const useUserServiceProviderStore = defineStore('user service provider st
       serviceProviderStore.serviceProviderInfo[keys] = data[keys]
     })
     serviceProviderStore.imageIcon = { src: data["image"] }
-    serviceProviderStore.imageCover = { src: data["serviceImage"] }
+    serviceProviderStore.imageCover.imageCover1 = { src: data["serviceImage1"] }
+    serviceProviderStore.imageCover.imageCover2 = { src: data["serviceImage2"] }
+    serviceProviderStore.imageCover.imageCover3 = { src: data["serviceImage3"] }
 
 
     serviceProviderStore.serviceProviderInfo.id = data?._id
-    serviceProviderStore.imageCover.value = { name: serviceProviderStore.serviceProviderInfo.serviceImage }
+    serviceProviderStore.imageCover.imageCover1 = { name: serviceProviderStore.serviceProviderInfo.serviceImage1 }
+    serviceProviderStore.imageCover.imageCover2 = { name: serviceProviderStore.serviceProviderInfo.serviceImage2 }
+    serviceProviderStore.imageCover.imageCover3 = { name: serviceProviderStore.serviceProviderInfo.serviceImage3 }
     serviceProviderStore.imageIcon.value = { name: serviceProviderStore.serviceProviderInfo.image }
     serviceProviderStore.serviceProviderLocationR.division = data.serviceProviderLocation.division
     serviceProviderStore.serviceProviderLocationR.district = data.serviceProviderLocation.district

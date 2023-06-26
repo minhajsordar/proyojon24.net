@@ -103,9 +103,9 @@
                     dense
                     v-model="serviceCategoryStore.imageIcon"
                     :rules="[fileValidate]"
-                    label="Add png image"
+                    label="Add png image* max 100kb"
                     accept=".png,"
-                    max-total-size="20480"
+                    max-total-size="100000"
                     use-chips
                     @update:model-value="serviceCategoryStore.uploadIcon"
                     @rejected="onRejected"
@@ -208,21 +208,18 @@ const nameEnEl = ref(null);
 const nameBnEl = ref(null);
 const iconEl = ref(null);
 const serialEl = ref(null);
-const coverImageEl = ref(null);
 
 const createServiceManager = () => {
   parentEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   iconEl.value.validate();
-  coverImageEl.value.validate();
   serialEl.value.validate();
   if (
     parentEl.value.hasError ||
     nameEnEl.value.hasError ||
     nameBnEl.value.hasError ||
     iconEl.value.hasError ||
-    coverImageEl.value.hasError ||
     serialEl.value.hasError
   ) {
     return;

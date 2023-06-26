@@ -225,7 +225,27 @@
                   {{ $t("coverimage") }}
                 </div>
                 <div class="col-12">
-                  <q-img :src="web_root_url+serviceProviderStore.serviceProviderInfo.serviceImage" style="width:200px;"/>
+                  <q-img :src="web_root_url+serviceProviderStore.serviceProviderInfo.serviceImage1" style="width:200px;"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("coverimage") }}
+                </div>
+                <div class="col-12">
+                  <q-img :src="web_root_url+serviceProviderStore.serviceProviderInfo.serviceImage2" style="width:200px;"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("coverimage") }}
+                </div>
+                <div class="col-12">
+                  <q-img :src="web_root_url+serviceProviderStore.serviceProviderInfo.serviceImage3" style="width:200px;"/>
                 </div>
               </div>
             </div>

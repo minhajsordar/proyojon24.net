@@ -28,7 +28,7 @@
             </div>
           </div>
         </div>
-        <q-item-label
+        <!-- <q-item-label
 
           class="text-white"
           v-if="authStore?.loginUserInfo?.name"
@@ -58,7 +58,7 @@
               ? "Admin " + authStore?.loginUserInfo.permission
               : "Guest"
           }}
-        </q-item-label>
+        </q-item-label> -->
         <!-- <q-item-label
           v-if="!authStore?.loginUserInfo"
           caption
@@ -354,5 +354,5 @@ const profileClickManager = () => {
     .q-field__append
       display: none
 .dashboard-data
-  width: 14px
+  width: 12px
 </style>

@@ -7,7 +7,7 @@
           <img v-else src="/images/user-placeholder.jpg" />
         </q-avatar>
       </q-item-section>
-      <q-item-section>
+      <!-- <q-item-section>
         <q-item-label v-if="loginUser?.name">{{
           loginUser?.name[languageStore.language]
         }}</q-item-label>
@@ -25,7 +25,7 @@
               : "Guest"
           }}
         </q-item-label>
-      </q-item-section>
+      </q-item-section> -->
     </q-item>
 
     <q-space />

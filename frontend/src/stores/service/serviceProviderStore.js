@@ -39,7 +39,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     openServiceProviderPreviewDialog = ref(false),
     paginationCurrent = ref(1),
     imageIcon = ref(null),
-    imageCover = ref(null),
+    imageCover = reactive({
+      imageCover1 : null,
+      imageCover2 : null,
+      imageCover3 : null,
+    }),
     selectedServiceCategory = ref(null),
     filteredByServiseCategoryId = ref(null),
     serviceProviderPage = ref(1),
@@ -77,7 +81,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         bn: null,
         en: null
       },
-      serviceImage: null,
+      serviceImage1: null,
+      serviceImage2: null,
+      serviceImage3: null,
       serviceCategory: null,
       service: null,
       image: null,
@@ -142,7 +148,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     })
   const emptyServiceProviderInfo = () => {
     imageIcon.value = null
-    imageCover.value = null
+    imageCover.imageCover1 = null
+    imageCover.imageCover2 = null
+    imageCover.imageCover3 = null
     serviceProviderInfo.user = null
     serviceProviderInfo.name = {
       bn: null,
@@ -152,7 +160,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       bn: null,
       en: null,
     }
-    serviceProviderInfo.serviceImage = null
+    serviceProviderInfo.serviceImage1 = null
+    serviceProviderInfo.serviceImage2 = null
+    serviceProviderInfo.serviceImage3 = null
     serviceProviderInfo.image = null
     serviceProviderInfo.service = null
     serviceProviderInfo.serviceCategory = null
@@ -246,7 +256,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "user",
       "name",
       "description",
-      "serviceImage",
+      "serviceImage1",
+      "serviceImage2",
+      "serviceImage3",
       "serviceCategory",
       "service",
       "image",
@@ -268,7 +280,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.id = data?._id
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
     serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
-    imageCover.value = { name: serviceProviderInfo.coverImage }
+    imageCover.imageCover1 = { name: serviceProviderInfo.serviceImage1 }
+    imageCover.imageCover2 = { name: serviceProviderInfo.serviceImage2 }
+    imageCover.imageCover2 = { name: serviceProviderInfo.serviceImage3 }
     imageIcon.value = { name: serviceProviderInfo.icon }
     serviceProviderLocationR.division = data.serviceProviderLocation.division
     serviceProviderLocationR.district = data.serviceProviderLocation.district
@@ -296,7 +310,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "user",
       "name",
       "description",
-      "serviceImage",
+      "serviceImage1",
+      "serviceImage2",
+      "serviceImage3",
       "serviceCategory",
       "service",
       "image",
@@ -323,7 +339,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.id = data?._id
     serviceProviderInfo.service = serviceStore.serviceList.services.filter(e => e._id == serviceProviderInfo.service)[0]
     serviceProviderInfo.serviceCategory = serviceCategoryStore.serviceCategoryList.serviceCategorys.filter(e => e._id == serviceProviderInfo.serviceCategory)[0]
-    imageCover.value = { name: serviceProviderInfo.coverImage }
+    imageCover.imageCover1 = { name: serviceProviderInfo.serviceImage1 }
+    imageCover.imageCover2 = { name: serviceProviderInfo.serviceImage2 }
+    imageCover.imageCover2 = { name: serviceProviderInfo.serviceImage3 }
     imageIcon.value = { name: serviceProviderInfo.icon }
     serviceProviderLocationR.division = data.serviceProviderLocation.division
     serviceProviderLocationR.district = data.serviceProviderLocation.district
@@ -601,8 +619,8 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       });
     }
   }
-  const uploadCoverImage = async () => {
-    if (!imageCover.value || typeof imageCover.value == 'string') {
+  const uploadCoverImage = async (imagekey, serviceImageKey) => {
+    if (!imageCover[imagekey] || typeof imageCover[imagekey] == 'string') {
       return
     }
     const config = {
@@ -613,12 +631,12 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         "Authorization": `Bearer ${loginUser.value.token}`
 
       }, data: {
-        image: imageCover.value
+        image: imageCover[imagekey]
       }
     };
     try {
       const responseData = await api.request(config);
-      serviceProviderInfo.serviceImage = responseData.data
+      serviceProviderInfo[serviceImageKey] = responseData.data
     } catch (error) {
       console.log(error);
       Notify.create({

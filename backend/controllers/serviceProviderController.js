@@ -190,7 +190,9 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceCategory,
         name,
         image,
-        serviceImage,
+        serviceImage1,
+        serviceImage2,
+        serviceImage3,
         serviceProviderLocation,
         degree,
         service,
@@ -214,7 +216,9 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceProvider.description = description
         serviceProvider.degree = degree
         serviceProvider.image = image
-        serviceProvider.serviceImage = serviceImage
+        serviceProvider.serviceImage1 = serviceImage1
+        serviceProvider.serviceImage2 = serviceImage2
+        serviceProvider.serviceImage3 = serviceImage3
         serviceProvider.serviceProviderLocation = serviceProviderLocation
         serviceProvider.service = service
         serviceProvider.serviceTitle = serviceTitle
@@ -379,7 +383,9 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceCategory,
         name,
         image,
-        serviceImage,
+        serviceImage1,
+        serviceImage2,
+        serviceImage3,
         serviceProviderLocation,
         service,
         degree,
@@ -403,7 +409,9 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceCategory,
         name,
         image,
-        serviceImage,
+        serviceImage1,
+        serviceImage2,
+        serviceImage3,
         serviceProviderLocation,
         service,
         serviceTitle,
@@ -446,7 +454,9 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
         password,
         serviceCategory,
         image,
-        serviceImage,
+        serviceImage1,
+        serviceImage2,
+        serviceImage3,
         serviceProviderLocation,
         service,
         degree,
@@ -500,7 +510,9 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
             serviceCategory,
             name,
             image,
-            serviceImage,
+            serviceImage1,
+            serviceImage2,
+            serviceImage3,
             serviceProviderLocation,
             service,
             serviceTitle,

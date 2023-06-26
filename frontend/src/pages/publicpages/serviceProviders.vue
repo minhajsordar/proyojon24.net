@@ -215,7 +215,6 @@
                         service: '646ddf32944253664c042aa9',
                         serviceCategory: '646de0ea944253664c042afa',
                         image: '/uploads/service-provider-common.jpeg',
-                        serviceImage: '/uploads/image-1685337338620.jpg',
                         rankCount: 1.5,
                         keywords: null,
                         rating: 0,

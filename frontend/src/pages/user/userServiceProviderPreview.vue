@@ -22,8 +22,14 @@
       <div v-if="serviceProviderPreview.image">
         <q-img  :src="web_root_url+serviceProviderPreview.image"/>
       </div>
-      <div v-if="serviceProviderPreview.serviceImage">
-        <q-img :src="web_root_url+serviceProviderPreview.serviceImage"/>
+      <div v-if="serviceProviderPreview.serviceImage1">
+        <q-img :src="web_root_url+serviceProviderPreview.serviceImage1"/>
+      </div>
+      <div v-if="serviceProviderPreview.serviceImage2">
+        <q-img :src="web_root_url+serviceProviderPreview.serviceImage2"/>
+      </div>
+      <div v-if="serviceProviderPreview.serviceImage3">
+        <q-img :src="web_root_url+serviceProviderPreview.serviceImage3"/>
       </div>
     </div>
   </q-card>

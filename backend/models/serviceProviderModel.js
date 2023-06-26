@@ -56,7 +56,15 @@ const serviceProviderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    serviceImage: {
+    serviceImage1: {
+        type: String,
+        required: true
+    },
+    serviceImage2: {
+        type: String,
+        required: true
+    },
+    serviceImage3: {
         type: String,
         required: true
     },
