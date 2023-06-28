@@ -90,6 +90,7 @@ const confirm = (union) => {
 const current = ref(1);
 const paginationFunc = () => {
   unionStore.unionPage = current.value;
-  unionStore.getUnionList();
+  // unionStore.getUnionList();
+  unionStore.getUnionListFromServer();
 };
 </script>

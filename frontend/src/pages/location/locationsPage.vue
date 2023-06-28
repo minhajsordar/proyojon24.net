@@ -110,7 +110,8 @@ const pinlocationStore = usePinlocationStore();
 divisionStore.getDivisionList();
 districtStore.getDistrictList();
 subDistrictStore.getSubDistrictListByBrowsingDistrictId();
-unionStore.getUnionListByBrowsingSubDistrictId();
+// unionStore.getUnionListByBrowsingSubDistrictId();
+unionStore.getUnionListFromServer();
 pinlocationStore.getPinlocationListByBrowsingUnionId();
 const publicUserStore = usePublicUserStore();
 const applyFilter = () => {

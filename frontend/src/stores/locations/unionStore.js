@@ -8,7 +8,7 @@ import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { useWardStore } from './wardStore';
 import { usePublicUserStore } from '../user/publicStore';
-import  { unions } from "src/global_js/staticLocation"
+import { unions } from "src/global_js/staticLocation"
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 const locationListGlobal = useLocalStorage('global-location-list', {})
@@ -51,6 +51,32 @@ export const useUnionStore = defineStore('union store', () => {
     }
     unionList.value.unions = unions
 
+  }
+  const getUnionListFromServer = async () => {
+    unionListLoading.value = true
+    const params = {
+      pageNumber: unionPage.value
+    }
+    unionList.value.unions = unions
+    const config = {
+      method: "get",
+      url: "api/unions/all",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      unionList.value.unions = responseData.data;
+      loader.hideLoader()
+      unionListLoading.value = false
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+      unionListLoading.value = false
+
+    }
   }
   const getUnionListByBrowsingSubDistrictId = async () => {
     unionListLoading.value = true
@@ -192,6 +218,7 @@ export const useUnionStore = defineStore('union store', () => {
     unionList,
     unionInfo,
     getUnionList,
+    getUnionListFromServer,
     // union create, update, delete functions
     createNewUnion,
     updateUnion,

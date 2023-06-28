@@ -4,7 +4,7 @@
     <q-item >
       <q-item-section side>
         <div class="flex">
-          <q-avatar round size="40px">
+          <q-avatar round size="40px" clickable v-ripple @click="profileClickManager">
             <img
               v-if="authStore?.loginUserInfo?.profileImage"
               :src="web_root_url + authStore?.loginUserInfo?.profileImage"
