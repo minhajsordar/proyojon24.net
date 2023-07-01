@@ -146,13 +146,17 @@ const updateUserProfile = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc Get all users
-// @route PUT api/users
-// @acess Privet/Admin
+// @route GET api/users
+// @acess Privet
 const getUsers = expressAsyncHandler(async (req, res) => {
+  const keywords = {}
+  if(req.user.permission === 'self'){
+    keywords.permission = {$nin:['superAdmin','admin']}
+  }
   const pageSize = Number(req.query.pageSize) || 100;
   const page = Number(req.query.pageNumber) || 1;
   const count = await User.countDocuments({})
-  const users = await User.find({}).select(["-password"]).limit(pageSize).skip(pageSize * (page - 1))
+  const users = await User.find({...keywords}).select(["-password"]).limit(pageSize).skip(pageSize * (page - 1))
   res.json({ users, page, pages: Math.ceil(count / pageSize) })
 })
 

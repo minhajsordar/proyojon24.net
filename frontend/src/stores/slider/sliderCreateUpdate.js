@@ -36,6 +36,9 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
     } catch (error) {
       console.log(error);
       loader.hideLoader()
+      Notify.create({
+        message: "Failed to Create Banner Image"
+      })
     }
   }
   const updateSlider = async () => {

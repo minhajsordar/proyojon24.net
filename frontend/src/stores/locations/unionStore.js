@@ -9,6 +9,7 @@ import { useAuthStore } from '../auth/authStore';
 import { useWardStore } from './wardStore';
 import { usePublicUserStore } from '../user/publicStore';
 import { unions } from "src/global_js/staticLocation"
+import { Notify } from 'quasar';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 const locationListGlobal = useLocalStorage('global-location-list', {})
@@ -142,9 +143,19 @@ export const useUnionStore = defineStore('union store', () => {
       getUnionList()
       wardStore.getGlobalWards()
       loader.hideLoader()
+      Notify.create({
+        message: "Successfully Created a union/powroshova",
+        type: "positive",
+        position:"center"
+      })
     } catch (error) {
       console.log(error);
       loader.hideLoader()
+      Notify.create({
+        message: "Failed Created a union/powroshova",
+        type: "negative",
+        position:"center"
+      })
     }
   }
   const updateUnion = async () => {

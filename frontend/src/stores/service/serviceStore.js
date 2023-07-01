@@ -169,14 +169,19 @@ export const useServiceStore = defineStore('service store', () => {
       openServiceCreateDialog.value = false
       getServiceList()
       loader.hideLoader()
+      Notify.create({
+        position: "center",
+        type: "positive",
+        message: "Service Created Successfully",
+      });
     } catch (error) {
       console.log(error);
+      loader.hideLoader()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   const uploadIcon = async () => {

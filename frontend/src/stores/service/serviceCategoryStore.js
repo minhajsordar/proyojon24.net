@@ -211,14 +211,19 @@ imageCover.value = null
       openServiceCategoryCreateDialog.value = false
       getServiceCategoryList()
       loader.hideLoader()
+      Notify.create({
+        position: "center",
+        type: "positive",
+        message: "Service Category Created Successfully",
+      });
     } catch (error) {
       console.log(error);
+      loader.hideLoader()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   const uploadIcon = async () => {

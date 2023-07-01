@@ -132,14 +132,19 @@ export const useUserStore = defineStore('user store', () => {
       const responseData = await api.request(config);
       getUserList()
       loader.hideLoader()
-    } catch (error) {
-      console.log(error);
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: "Successfully To Create User",
       });
+    } catch (error) {
+      console.log(error);
       loader.hideLoader()
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: "Failed To Create User",
+      });
     }
   }
   const updateUser = async () => {
@@ -181,14 +186,19 @@ export const useUserStore = defineStore('user store', () => {
       const responseData = await api.request(config);
       getUserList()
       loader.hideLoader()
+      Notify.create({
+        position: "center",
+        type: "positive",
+        message: "Successfully Updated User",
+      });
     } catch (error) {
       console.log(error);
+      loader.hideLoader()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   const deleteUser = async () => {

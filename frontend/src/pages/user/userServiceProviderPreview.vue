@@ -2,7 +2,9 @@
   <q-card class="q-pa-md q-ma-sm ">
     <div v-if="serviceProviderPreview"  class="fs-16">
       <div class="fs-24 q-mb-md">Name: {{ serviceProviderPreview.name[languageStore.language] }}</div>
-      <p>Description: {{ serviceProviderPreview.description[languageStore.language] }}</p>
+      <div>Description:
+        <div v-html="serviceProviderPreview.description[languageStore.language]"></div>
+      </div>
       <p>
         Location: {{ serviceProviderPreview.serviceProviderLocation.division.name[languageStore.language] }},
         {{ serviceProviderPreview.serviceProviderLocation.district.name[languageStore.language] }},
