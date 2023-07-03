@@ -1,5 +1,4 @@
 <template>
-  <profileMobileMenus />
   <q-toolbar class="q-py-none q-px-md">
     <q-item >
       <q-item-section side>
@@ -27,6 +26,7 @@
               {{ dashboardStore.dashboardData?.totalView }}
             </div>
           </div>
+
         </div>
         <!-- <q-item-label
 
@@ -94,19 +94,19 @@
       <router-link to="/home" exact-active-class="text-white">{{
         $t("headermenus.home")
       }}</router-link>
-      <router-link
+      <!-- <router-link
         v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
         to="/locations"
         active-class="text-white"
         >{{ $t("headermenus.locations") }}</router-link
-      >
+      > -->
       <router-link
         v-if="authStore?.loginUserInfo && authStore?.loginUserInfo?.permission"
         to="/users"
         active-class="text-white"
         >{{ $t("headermenus.users") }}</router-link
       >
-      <router-link
+      <!-- <router-link
         v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
         to="/services"
         active-class="text-white"
@@ -117,6 +117,18 @@
         to="/banners_create_update"
         active-class="text-white"
         >{{ $t("headermenus.banners") }}</router-link
+      > -->
+      <router-link
+        v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+        to="/dashboard"
+        active-class="text-white"
+        >{{ $t("dashboard") }}</router-link
+      >
+      <!-- <router-link
+        v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+        to="/moving_text"
+        active-class="text-white"
+        >{{ $t("movingtext") }}</router-link
       >
       <router-link
         v-if="
@@ -139,11 +151,20 @@
         to="/notification_list"
         active-class="text-white"
         >{{ $t("notification.list") }}</router-link
-      >
+      > -->
     </div>
     <q-space />
 
     <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
+      <q-btn
+        v-if="authStore?.loginUserInfo?.permission == 'superAdmin' && $q.screen.gt.sm"
+        dense
+        flat
+        @click="menuControllerStore.toggleDashboardDrawer"
+      >
+        <q-icon name="dashboard" size="25px" />
+        <!-- <q-badge class="absolute-top-right fs-10" color="red" style="padding: 1px 4px"/> -->
+      </q-btn>
       <q-btn
         v-if="authStore.loginUserInfo && $q.screen.gt.sm"
         dense
@@ -255,6 +276,13 @@
             <q-item
               clickable
               class="GL__menu-link"
+              @click="router.push('/premium_account_and_transactions')"
+            >
+              <q-item-section>{{ $t("usermenus.premium") }}</q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              class="GL__menu-link"
               @click="router.push('/settings')"
             >
               <q-item-section>{{ $t("usermenus.settings") }}</q-item-section>
@@ -282,7 +310,6 @@ import { isObjEmpty } from "src/global_js/utils";
 // seperator
 
 import { useAuthStore } from "src/stores/auth/authStore";
-import profileMobileMenus from "./mobileView/profileMobileMenus.vue";
 
 import { useNotificationStore } from "src/stores/notifications/notificationStore.js";
 import { socket, state } from "src/socket/socket";

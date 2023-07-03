@@ -16,6 +16,9 @@
                 <tr>
                   <th>{{ $t("serial") }}</th>
                   <th>{{ $t("name") }}</th>
+                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("email") }}</th>
+                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("phone") }}</th>
+                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("joined_date") }}</th>
                   <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("permission") }}</th>
                   <th>{{ $t("action") }}</th>
                 </tr>
@@ -34,6 +37,15 @@
                   <!-- <span v-if="user.permission == 'superAdmin'">(Super Admin)</span>
                   <span v-else-if="user.permission == 'admin'">(Admin)</span>
                   <span v-else>({{ user.permission }})</span> -->
+                  </td>
+                  <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
+                    {{ user.email }}
+                  </td>
+                  <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
+                    {{ user.phone }}
+                  </td>
+                  <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
+                    {{ date.formatDate(user?.createdAt,'YYYY-MM-DD HH:mm:ss') }}
                   </td>
                   <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
                     <userPermission :user="user"/>
@@ -68,7 +80,7 @@
 </template>
 <script setup>
 import { storeToRefs } from "pinia";
-import { useQuasar, useMeta } from "quasar";
+import { useQuasar, useMeta, date } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useRoomsStore } from "src/stores/message/roomStore";
 import { useUserStore } from "src/stores/user/userStore";

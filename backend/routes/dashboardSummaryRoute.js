@@ -1,7 +1,8 @@
 import express from "express";
-import { userDashboardData } from '../controllers/dashboardSummary.js'
+import { getDataAnalysis, userDashboardData } from '../controllers/dashboardSummary.js'
 const router = express.Router()
 
 router.route('/public_dashboard').get(userDashboardData)
+router.route('/data_analysis').get(getDataAnalysis)
 
 export default router

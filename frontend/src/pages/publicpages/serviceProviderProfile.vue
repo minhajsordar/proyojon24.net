@@ -8,6 +8,7 @@
           >
             <swiper
               :spaceBetween="30"
+              :effect="'fade'"
               :centeredSlides="true"
               :autoplay="{
                 delay: 2500,
@@ -401,12 +402,12 @@ import { web_root_url } from "src/global_constant/root_url";
 import { enToBnToEn } from "src/global_js/utils";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Autoplay, Pagination, Navigation } from "swiper";
+import { Autoplay, Pagination, Navigation, EffectFade } from "swiper";
 import "swiper/css";
 
 import "swiper/css/pagination";
 import "./style.css";
-const modules = [Autoplay, Pagination, Navigation];
+const modules = [Autoplay, Pagination, Navigation, EffectFade];
 const { t } = useI18n();
 const languageStore = useLanguageStore();
 const router = useRouter();

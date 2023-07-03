@@ -1,12 +1,18 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-export const useMenuControllerStore = defineStore('menu controller store', ()=>{
+export const useMenuControllerStore = defineStore('menu controller store', () => {
   const headerMenuMobileScreen = ref(false)
-  const headerMenuMobileScreenClose = ()=>{
+  const leftDashboardOpen = ref(false);
+  const toggleDashboardDrawer = () => {
+    leftDashboardOpen.value = !leftDashboardOpen.value;
+  };
+  const headerMenuMobileScreenClose = () => {
     headerMenuMobileScreen.value = false
   }
-     return{
-      headerMenuMobileScreen,
-      headerMenuMobileScreenClose
-     }
+  return {
+    headerMenuMobileScreen,
+    headerMenuMobileScreenClose,
+    leftDashboardOpen,
+    toggleDashboardDrawer
+  }
 });

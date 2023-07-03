@@ -86,11 +86,6 @@ export const useNotificationStore = defineStore('notification store', () => {
       })
     } catch (error) {
       console.log(error);
-      Notify.create({
-        position: "center",
-        type: "negative",
-        message: "notification not found",
-      });
     }
   }
   const createNotification = async () => {

@@ -20,6 +20,10 @@ import pinLocationRoutes from './routes/pinLocationRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
 import dashboardSummaryRouter from './routes/dashboardSummaryRoute.js'
 import sliderRouter from './routes/sliderRoutes.js'
+import paymentRoutes from './routes/paymentRoutes.js'
+import registrationFeeRoutes from './routes/registrationFeeRoutes.js'
+import monthlyFeeRoutes from './routes/monthlyFeeRoutes.js'
+import movingTextRouter from './routes/movingTextRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import { importData } from './seeder.js'
 // import { importData } from './seederDivisions.js'
@@ -108,6 +112,10 @@ app.use('/api/message', personalMessageRoutes)
 app.use('/api/pinlocations', pinLocationRoutes)
 app.use('/api/dashboard', dashboardSummaryRouter)
 app.use('/api/sliders', sliderRouter)
+app.use('/api/payments', paymentRoutes)
+app.use('/api/movingtext', movingTextRouter)
+app.use('/api/registrationfee', registrationFeeRoutes)
+app.use('/api/monthlyfee', monthlyFeeRoutes)
 app.get('/api/seeder', (req, res) => {
     importData()
     res.send("data Imported")

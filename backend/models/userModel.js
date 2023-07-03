@@ -48,6 +48,11 @@ const userSchema = mongoose.Schema({
         default: true,
         required: true,
     },
+    isAvailable: {
+        type: Boolean,
+        default: true,
+        required: true,
+    },
     permission: {
         type: String,
         required: true,
@@ -60,6 +65,14 @@ const userSchema = mongoose.Schema({
     },
     hasServiceProviderProfile: {
         type: Boolean,
+        default: false,
+    },
+    premiumUser: {
+        type: Boolean,
+        default: false,
+    },
+    premiumUserEndDate: {
+        type: Date,
         default: false,
     },
     deleteRequest: {

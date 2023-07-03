@@ -1,58 +1,15 @@
 <template>
-  <q-dialog
-    v-model="menuControllerStore.headerMenuMobileScreen"
-    maximized
-    position="left"
-    full-height
-  >
-    <q-card class="border-primary" style="width: 350px">
-      <q-card-section class="row items-center bg-accent-public text-white">
-        <div class="text-subtitle1 text-bold">
-          <!-- <q-img style="width: 5.9375rem" src="~assets/logo.svg" /> -->
-        </div>
-        <q-space />
-        <q-btn
-          v-close-popup
-          icon="close"
-          round
-          dense
-          size="sm"
-          class="text-primary-public bg-white"
-        />
-      </q-card-section>
+  <q-list bordered separator>
+    <q-item clickable v-ripple to="/dashboard">
+      <q-item-section>Data Analysis</q-item-section>
+    </q-item>
 
-      <q-card-section
-        v-if="!authStore?.loginUserInfo"
-        class="q-px-none"
-        style="height: calc(100vh - 88px); overflow-y: auto"
-      >
-        <div class="bg-primary">
-          <q-list class="rounded-borders">
-            <router-link to="/login" active-class="text-white link-bg-color">
-              <q-item class="flex items-center">
-                <div><q-icon name="login" /></div>
-                <div class="q-ml-md">Login</div>
-              </q-item>
-            </router-link>
-            <q-separator />
-            <router-link to="/register" active-class="text-white link-bg-color">
-              <q-item class="flex items-center">
-                <div><q-icon name="app_registration" /></div>
-                <div class="q-ml-md">Create Account</div>
-              </q-item>
-            </router-link>
-            <q-separator />
-          </q-list>
-        </div>
-      </q-card-section>
-      <q-card-section
-        class="q-px-none"
-        v-else
-        style="height: calc(100vh - 88px); overflow-y: auto"
-      >
-        <div class="bg-white">
-          <q-list class="rounded-borders">
-            <!-- <q-separator/>
+    <q-item clickable v-ripple  to="/payment_and_service_configuration">
+      <q-item-section>
+        <q-item-label>Configure Service & Payment</q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-separator/>
             <router-link
               v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
               to="/locations"
@@ -63,7 +20,7 @@
                 <div><q-icon name="location_on" /></div>
                 <div class="q-ml-md">{{ $t("headermenus.locations") }}</div>
               </q-item>
-            </router-link> -->
+            </router-link>
             <q-separator/>
             <router-link
               v-if="authStore?.loginUserInfo && authStore?.loginUserInfo?.permission"
@@ -76,7 +33,7 @@
                 <div class="q-ml-md">{{ $t("headermenus.users") }}</div>
               </q-item>
             </router-link>
-            <!-- <q-separator/>
+            <q-separator/>
             <router-link
               v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
               to="/services"
@@ -148,12 +105,8 @@
                 <div class="q-ml-md">{{ $t("notification.list") }}</div>
               </q-item>
             </router-link>
-            <q-separator/> -->
-          </q-list>
-        </div>
-      </q-card-section>
-    </q-card>
-  </q-dialog>
+            <q-separator/>
+  </q-list>
 </template>
 <script setup>
 import { useLocalStorage } from "@vueuse/core";
@@ -162,8 +115,4 @@ import { useMenuControllerStore } from "src/stores/menucontroller/menuController
 const menuControllerStore = useMenuControllerStore();
 const authStore = useAuthStore();
 </script>
-<style lang="scss">
-.link-bg-color .q-item {
-  background: $primary-public !important;
-}
-</style>
+<style></style>

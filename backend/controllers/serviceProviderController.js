@@ -3,6 +3,8 @@ import ServiceProvider from '../models/serviceProviderModel.js'
 import ServiceCategory from '../models/serviceCategoryModel.js'
 import Service from '../models/serviceModel.js'
 import User from '../models/userModel.js'
+import DailyProfileView from '../models/dailyProfileViewModel.js'
+import DailyServiceProviderView from '../models/dailyServiceProviderViewModel.js'
 
 // @desc get ServiceProvider
 // @route Put api/ServiceProvider
@@ -339,6 +341,30 @@ const createServiceProviderViewCount = expressAsyncHandler(async (req, res) => {
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
         serviceProvider.viewCount += 1
+
+        // Update daily user count
+        const today = new Date().setHours(0, 0, 0, 0); // Get current date
+        const dailyProfileView = await DailyProfileView.findOne({ date: today });
+
+        if (dailyProfileView) {
+            dailyProfileView.viewCount += 1;
+            await dailyProfileView.save();
+        } else {
+            const newDailyProfileView = new DailyProfileView({ date: today, viewCount: 1 });
+            await newDailyProfileView.save();
+        }
+
+        // Update daily service provider view count
+        const dailyServiceProviderView = await DailyServiceProviderView.findOne({ date: today, serviceProvider: serviceProvider._id });
+
+        if (dailyServiceProviderView) {
+            dailyServiceProviderView.viewCount += 1;
+            await dailyServiceProviderView.save();
+        } else {
+            const newDailyServiceProviderView = new DailyServiceProviderView({ date: today,serviceProvider: serviceProvider._id, viewCount: 1 });
+            await newDailyServiceProviderView.save();
+        }
+
         await serviceProvider.save()
         res.status(201).json(serviceProvider)
     } else {

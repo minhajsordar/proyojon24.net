@@ -97,6 +97,22 @@ const routes = [
       {
         path: '/banners_create_update', component: () => import('pages/slider/sliderController.vue'),
         beforeEnter: checkLogin,
+      },
+      {
+        path: '/moving_text', component: () => import('pages/controller/movingTextControl.vue'),
+        beforeEnter: checkLogin,
+      },
+      {
+        path: '/dashboard', component: () => import('pages/dashboard/dashboardPage.vue'),
+        beforeEnter: checkLogin,
+      },
+      {
+        path: '/premium_account_and_transactions', component: () => import('pages/user/premiumAccountAndTransactions.vue'),
+        beforeEnter: checkLogin,
+      },
+      {
+        path: '/payment_and_service_configuration', component: () => import('pages/dashboard/paymentAndServiceConfigurationPage.vue'),
+        beforeEnter: checkLogin,
       }
     ]
   },

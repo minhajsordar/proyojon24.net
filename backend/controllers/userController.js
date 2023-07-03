@@ -1,18 +1,20 @@
 import expressAsyncHandler from "express-async-handler";
 import User from '../models/userModel.js'
 import ServiceProvider from '../models/serviceProviderModel.js'
+import DailyUser from '../models/dailyUserModel.js'
+import MonthlyUser from '../models/monthlyUserModel.js'
 import generateToken from "../utils/generateToken.js";
 
 const authUser = expressAsyncHandler(async (req, res) => {
   const { phoneOremail, password } = req.body
-  let user = await User.findOne({ phone:phoneOremail })
+  let user = await User.findOne({ phone: phoneOremail })
   if (!user) {
     user = await User.findOne({ email: phoneOremail })
   }
   if (user && await user.matchPassword(password)) {
-    const serviceProviderExist = await ServiceProvider.findOne({user: user._id})
+    const serviceProviderExist = await ServiceProvider.findOne({ user: user._id })
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    user.hasServiceProviderProfile = serviceProviderExist?true:false
+    user.hasServiceProviderProfile = serviceProviderExist ? true : false
     res.json({
       _id: user._id,
       name: user.name,
@@ -74,6 +76,30 @@ const registerUser = expressAsyncHandler(async (req, res) => {
 
   if (user) {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    // Update daily user count
+    const today = new Date().setHours(0, 0, 0, 0); // Get current date
+    const dailyUser = await DailyUser.findOne({ date: today });
+
+    if (dailyUser) {
+      dailyUser.userCount += 1;
+      await dailyUser.save();
+    } else {
+      const newDailyUser = new DailyUser({ date: today, userCount: 1 });
+      await newDailyUser.save();
+    }
+    // Update monthly user count
+    const year = today.getFullYear();
+    const month = today.getMonth();
+
+    const monthlyUser = await MonthlyUser.findOne({ year, month });
+
+    if (monthlyUser) {
+      monthlyUser.userCount += 1;
+      await monthlyUser.save();
+    } else {
+      const newMonthlyUser = new MonthlyUser({ year, month, userCount: 1 });
+      await newMonthlyUser.save();
+    }
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -150,13 +176,13 @@ const updateUserProfile = expressAsyncHandler(async (req, res) => {
 // @acess Privet
 const getUsers = expressAsyncHandler(async (req, res) => {
   const keywords = {}
-  if(req.user.permission === 'self'){
-    keywords.permission = {$nin:['superAdmin','admin']}
+  if (req.user.permission === 'self') {
+    keywords.permission = { $nin: ['superAdmin', 'admin'] }
   }
   const pageSize = Number(req.query.pageSize) || 100;
   const page = Number(req.query.pageNumber) || 1;
   const count = await User.countDocuments({})
-  const users = await User.find({...keywords}).select(["-password"]).limit(pageSize).skip(pageSize * (page - 1))
+  const users = await User.find({ ...keywords }).select(["-password"]).limit(pageSize).skip(pageSize * (page - 1))
   res.json({ users, page, pages: Math.ceil(count / pageSize) })
 })
 
@@ -178,7 +204,7 @@ const deleteUser = expressAsyncHandler(async (req, res) => {
 // @route PUT api/users/:id
 // @acess Privet/Admin
 const deleteRequest = expressAsyncHandler(async (req, res) => {
-  if(req.user._id == req.params.id){
+  if (req.user._id == req.params.id) {
     const user = await User.findById(req.params.id)
     if (user) {
       user.deleteRequest.requested = true
@@ -189,7 +215,7 @@ const deleteRequest = expressAsyncHandler(async (req, res) => {
       res.status(404)
       throw new Error('User not found')
     }
-  }else{
+  } else {
     res.status(404)
     throw new Error('You can\'t make delete request')
   }

@@ -1,31 +1,33 @@
 <template>
-  <q-layout class="background-pattern" view="hHh lpR fFf">
+  <q-layout class="background-pattern" view="hHh LpR fff">
     <!-- !$q.screen.gt.sm -->
     <q-header
       class="text-white"
       :class="[$q.screen.gt.sm ? 'bg-accent-public' : 'bg-red-8']"
       height-hint="61.59"
     >
-      <!-- <publicUserHeader v-if="Object.keys(loginUser).length == 0" /> -->
       <userProfileHeader />
     </q-header>
-
+    <q-drawer show-if-above v-model="menuControllerStore.leftDashboardOpen" side="left" bordered>
+      <dashboardSidebar />
+    </q-drawer>
     <q-page-container class="q-page-cont">
       <router-view />
-      <div
-        v-if="$q.screen.gt.sm"
-        class="q-py-sm text-center bg-primary-public text-white full-width footer-area"
-      >
-        <div class="fs-12">
-          <span class="text-secondary-public">Proyojon24.net</span> © 2023 All
-          Rights Reserved
+        <div
+          v-if="$q.screen.gt.sm"
+          class="q-py-sm text-center bg-primary-public text-white footer-area"
+          style="width: calc(100% - 300px);"
+        >
+          <div class="fs-12">
+            <span class="text-secondary-public">Proyojon24.net</span> © 2023 All
+            Rights Reserved
+          </div>
+          <div class="fs-10">
+            Developed & Powered By:
+            <span class="text-secondary-public">Service Zone Ltd</span>
+          </div>
+          <div class="bottom-fx"></div>
         </div>
-        <div class="fs-10">
-          Developed & Powered By:
-          <span class="text-secondary-public">Service Zone Ltd</span>
-        </div>
-        <div class="bottom-fx"></div>
-      </div>
     </q-page-container>
     <publicLayoutAllDialogs />
     <profileLayoutAllDialogs />
@@ -135,7 +137,13 @@
           color="white"
           class="q-mr-sm"
           no-caps
-          @click="menuControllerStore.headerMenuMobileScreen = true"
+          @click="()=>{
+            if(authStore.loginUserInfo.permission == 'superAdmin'){
+              menuControllerStore.toggleDashboardDrawer()
+            }else{
+              menuControllerStore.headerMenuMobileScreen = true
+            }
+          }"
         />
         <div
           class="fs-10 footer-button-text"
@@ -161,12 +169,12 @@
 </template>
 
 <script setup>
-import publicUserHeader from "src/components/headers/publicUserHeader.vue";
 import userProfileHeader from "src/components/headers/userProfileHeader.vue";
+import dashboardSidebar from "src/components/dashboard/dashboardSidebar.vue";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import publicLayoutAllDialogs from "src/components/dialogs/publicLayoutAllDialogs.vue";
 import profileLayoutAllDialogs from "src/components/dialogs/profileLayoutAllDialogs.vue";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 import { useSearchLocationStore } from "src/stores/service/searchLocation";
@@ -175,6 +183,8 @@ import { useAuthStore, loginUser } from "src/stores/auth/authStore";
 import { isObjEmpty } from "src/global_js/utils";
 import { useIntervalFn, useLocalStorage } from "@vueuse/core";
 import { Dialog, Notify, date } from "quasar";
+
+
 const sessionEndTimeStorage = useLocalStorage("session-timeout-end", {});
 
 const languageStore = useLanguageStore();
@@ -203,6 +213,7 @@ onMounted(() => {
             position: "center",
           });
           authStore.logoutFunc();
+          menuControllerStore.leftDashboardOpen = false
         }
         sessionEndTimeStorage.value = date.addToDate(new Date(), { minute: 5 });
       }

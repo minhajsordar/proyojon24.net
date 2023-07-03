@@ -134,8 +134,8 @@ export const useUserStore = defineStore('user store', () => {
       loader.hideLoader()
       Notify.create({
         position: "center",
-        type: "negative",
-        message: "Successfully To Create User",
+        type: "positive",
+        message: "Successfully Created User",
       });
     } catch (error) {
       console.log(error);
