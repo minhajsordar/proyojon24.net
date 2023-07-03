@@ -200,9 +200,9 @@ const eventsList = [
 ];
 const menuManager = () => {
   if (authStore?.loginUserInfo) {
-    $router.push("/service_provider_profile");
+    router.push("/service_provider_profile");
   } else {
-    $router.push("/login");
+    router.push("/login");
   }
 };
 onMounted(() => {
