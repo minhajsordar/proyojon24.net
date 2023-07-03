@@ -8,26 +8,31 @@
     >
       <userProfileHeader />
     </q-header>
-    <q-drawer show-if-above v-model="menuControllerStore.leftDashboardOpen" side="left" bordered>
+    <q-drawer
+      show-if-above
+      v-model="menuControllerStore.leftDashboardOpen"
+      side="left"
+      bordered
+    >
       <dashboardSidebar />
     </q-drawer>
     <q-page-container class="q-page-cont">
       <router-view />
-        <div
-          v-if="$q.screen.gt.sm"
-          class="q-py-sm text-center bg-primary-public text-white footer-area"
-          style="width: calc(100% - 300px);"
-        >
-          <div class="fs-12">
-            <span class="text-secondary-public">Proyojon24.net</span> © 2023 All
-            Rights Reserved
-          </div>
-          <div class="fs-10">
-            Developed & Powered By:
-            <span class="text-secondary-public">Service Zone Ltd</span>
-          </div>
-          <div class="bottom-fx"></div>
+      <div
+        v-if="$q.screen.gt.sm"
+        class="q-py-sm text-center bg-primary-public text-white footer-area"
+        style="width: calc(100% - 300px)"
+      >
+        <div class="fs-12">
+          <span class="text-secondary-public">Proyojon24.net</span> © 2023 All
+          Rights Reserved
         </div>
+        <div class="fs-10">
+          Developed & Powered By:
+          <span class="text-secondary-public">Service Zone Ltd</span>
+        </div>
+        <div class="bottom-fx"></div>
+      </div>
     </q-page-container>
     <publicLayoutAllDialogs />
     <profileLayoutAllDialogs />
@@ -70,15 +75,7 @@
           style="padding: 3px"
           class="bg-accent text-white absolute-add-serviceporvider"
           :class="[$q.screen.gt.sm ? 'bg-accent' : 'bg-green']"
-          @click="
-            () => {
-              if (authStore?.loginUserInfo) {
-                $router.push('/service_provider_profile');
-              } else {
-                $router.push('/login');
-              }
-            }
-          "
+          @click="menuManager"
         >
           <div
             class="q-pa-sm"
@@ -137,13 +134,15 @@
           color="white"
           class="q-mr-sm"
           no-caps
-          @click="()=>{
-            if(authStore.loginUserInfo.permission == 'superAdmin'){
-              menuControllerStore.toggleDashboardDrawer()
-            }else{
-              menuControllerStore.headerMenuMobileScreen = true
+          @click="
+            () => {
+              if (authStore.loginUserInfo.permission == 'superAdmin') {
+                menuControllerStore.toggleDashboardDrawer();
+              } else {
+                menuControllerStore.headerMenuMobileScreen = true;
+              }
             }
-          }"
+          "
         />
         <div
           class="fs-10 footer-button-text"
@@ -184,7 +183,6 @@ import { isObjEmpty } from "src/global_js/utils";
 import { useIntervalFn, useLocalStorage } from "@vueuse/core";
 import { Dialog, Notify, date } from "quasar";
 
-
 const sessionEndTimeStorage = useLocalStorage("session-timeout-end", {});
 
 const languageStore = useLanguageStore();
@@ -200,6 +198,13 @@ const eventsList = [
   "keypress",
   "load",
 ];
+const menuManager = () => {
+  if (authStore?.loginUserInfo) {
+    $router.push("/service_provider_profile");
+  } else {
+    $router.push("/login");
+  }
+};
 onMounted(() => {
   if (!isObjEmpty(loginUser.value)) {
     authStore.loginUserInfo = loginUser.value;
@@ -213,7 +218,7 @@ onMounted(() => {
             position: "center",
           });
           authStore.logoutFunc();
-          menuControllerStore.leftDashboardOpen = false
+          menuControllerStore.leftDashboardOpen = false;
         }
         sessionEndTimeStorage.value = date.addToDate(new Date(), { minute: 5 });
       }
