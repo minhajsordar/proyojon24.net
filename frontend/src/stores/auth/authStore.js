@@ -10,12 +10,17 @@ import { Notify, date } from "quasar";
 import { useUserStore } from '../user/userStore';
 // room
 import { useRoomsStore } from "src/stores/message/roomStore";
+import { confetti } from "tsparticles-confetti";
 const sessionEndTimeStorage = useLocalStorage("session-timeout-end", {});
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
+
+import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
 const myRooms = useLocalStorage('myrooms', {})
 loader.title = 'Requesting To Server...'
 export const useAuthStore = defineStore('auth store', () => {
+
+  const menuControllerStore = useMenuControllerStore();
   const roomStore = useRoomsStore()
   const userStore = useUserStore();
   const router = useRouter(),
@@ -74,6 +79,11 @@ export const useAuthStore = defineStore('auth store', () => {
       myRooms.value = null
       roomStore.getMyRooms()
       sessionEndTimeStorage.value = date.addToDate(new Date(), { minute: 5 })
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
     } catch (error) {
       console.log(error);
       loader.hideLoader()
@@ -99,6 +109,7 @@ export const useAuthStore = defineStore('auth store', () => {
     if ((loginUser.value instanceof Object) && isObjEmpty(loginUser.value)) {
       isAuthorized.value = false;
       router.push('/')
+      menuControllerStore.leftDashboardOpen = false;
       return false;
     } else {
       loginUserInfo.value = loginUser.value

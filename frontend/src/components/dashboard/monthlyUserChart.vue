@@ -2,19 +2,27 @@
   <q-card class="q-pa-md"><canvas id="monthlyuser"></canvas></q-card>
 </template>
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import Chart from "chart.js/auto";
+import { useDataAnalysisStore } from "src/stores/dashboard/dataAnalysisStore.js";
+import { storeToRefs } from "pinia";
+const dataAnalysisStore = useDataAnalysisStore();
+const { dataAnalysisGraph } = storeToRefs(dataAnalysisStore);
 
-onMounted(() => {
-  const ctx = document.getElementById("monthlyuser");
-  // const labels = Utils.months({ count: 7 });
-  const data = {
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+watch(dataAnalysisGraph, () => {
+  let ctx = document.getElementById("monthlyuser");
+  console.log("Graph loaded", dataAnalysisGraph.value);
+  let labels = dataAnalysisGraph.value.monthlyUsers.map(
+    (e) => e.createdAt.split("T")[0]
+  );
+  let usercount = dataAnalysisGraph.value.monthlyUsers.map((e) => e.userCount);
+  let data = {
+    labels: labels,
     datasets: [
       {
         axis: "y",
         label: "New user last 12 months",
-        data: [65, 59, 80, 81, 56, 55, 40, 80, 81, 56, 55, 40],
+        data: usercount,
         fill: false,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",

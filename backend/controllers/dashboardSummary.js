@@ -12,15 +12,36 @@ const userDashboardData = expressAsyncHandler(async (req, res) => {
   res.status(200)
   res.json({ totalUser, totalView })
 })
+
+const totalPremiumUsers = expressAsyncHandler(async (req, res) => {
+  let premiumUser = await User.find({
+    premiumUserEndDate: {
+      $lte: new Date()
+    }
+  }).countDocuments({})
+  res.status(200)
+  res.json({ premiumUser })
+})
+
 const getDataAnalysis = expressAsyncHandler(async (req, res) => {
-  const dailyUsers = await DailyUser.find().sort({ createdAt: 'desc' });
-  const monthlyUsers = await MonthlyUser.find().sort({ createdAt: 'desc' });
-  const dailyProfileView = await DailyProfileView.find().sort({ createdAt: 'desc' });
-  if (dailyUsers) {
-    res.json({ dailyUsers, monthlyUsers, dailyProfileView });
+  let premiumUser = await User.find({
+    premiumUserEndDate: {
+      $gte: new Date()
+    }
+  }).countDocuments({})
+
+  const dailyProfileView = await DailyProfileView.find().sort({ createdAt: 'desc' }).limit(30);
+  const dailyUsers = await DailyUser.find().sort({ createdAt: 'desc' }).limit(30);
+  const monthlyUsers = await MonthlyUser.find().sort({ createdAt: 'desc' }).limit(12);
+  if (dailyProfileView &&
+    dailyUsers && monthlyUsers) {
+    res.json({
+      dailyProfileView,
+      dailyUsers, monthlyUsers, premiumUser
+    });
   }
   else {
-    res.status(500).json({ error: 'Failed to fetch daily user data' });
+    res.status(500).json({ error: 'Failed to fetch monthly user data' });
   }
 })
 const getDailyUser = expressAsyncHandler(async (req, res) => {
@@ -60,4 +81,5 @@ export {
   getDailyUser,
   getMonthlyUser,
   getMonthlyUserProfileView,
+  totalPremiumUsers,
 }

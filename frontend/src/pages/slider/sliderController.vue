@@ -1,5 +1,5 @@
 <template>
-  <div class="container-section-py-sm">
+  <div class="container-section-py-xs">
     <div class="inner-section">
       <div class="full-width">
         <div v-for="sliderindex in 4" :key="sliderindex">

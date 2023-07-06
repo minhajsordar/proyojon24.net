@@ -9,7 +9,9 @@
       <userProfileHeader />
     </q-header>
     <q-drawer
-      show-if-above
+      v-if="
+        ['superAdmin', 'admin'].includes(authStore?.loginUserInfo?.permission)
+      "
       v-model="menuControllerStore.leftDashboardOpen"
       side="left"
       bordered
@@ -17,11 +19,43 @@
       <dashboardSidebar />
     </q-drawer>
     <q-page-container class="q-page-cont">
+      <div
+        class="relative-position"
+        v-if="
+          authStore?.loginUserInfo?.permission == 'superAdmin' &&
+          $q.screen.gt.sm
+        "
+      >
+        <div
+          class="absolute-top-left text-white fs-18 sidebar-toggler-gradient"
+          :class="[menuControllerStore.leftDashboardOpen?'pause-animation':'play-animation']"
+          style="
+            padding: 4px 0px;
+            z-index: 1;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+          "
+          @click="menuControllerStore.toggleDashboardDrawer"
+        >
+          <q-tooltip> Toggle Dashboard Menus </q-tooltip>
+          <q-icon
+            :name="
+              menuControllerStore.leftDashboardOpen
+                ? 'arrow_left'
+                : 'arrow_right'
+            "
+          />
+        </div>
+      </div>
       <router-view />
       <div
         v-if="$q.screen.gt.sm"
         class="q-py-sm text-center bg-primary-public text-white footer-area"
-        style="width: calc(100% - 300px)"
+        :class="[
+          menuControllerStore.leftDashboardOpen && authStore?.loginUserInfo
+            ? 'footer-left-bare-open'
+            : 'footer-left-bare-close',
+        ]"
       >
         <div class="fs-12">
           <span class="text-secondary-public">Proyojon24.net</span> © 2023 All
@@ -182,7 +216,6 @@ import { useAuthStore, loginUser } from "src/stores/auth/authStore";
 import { isObjEmpty } from "src/global_js/utils";
 import { useIntervalFn, useLocalStorage } from "@vueuse/core";
 import { Dialog, Notify, date } from "quasar";
-
 const sessionEndTimeStorage = useLocalStorage("session-timeout-end", {});
 
 const languageStore = useLanguageStore();
@@ -228,6 +261,13 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.footer-left-bare-open {
+  width: calc(100% - 300px);
+}
+.footer-left-bare-close {
+  width: 100%;
+}
+
 .footer-c {
   height: 50px;
 }
@@ -311,6 +351,40 @@ onMounted(() => {
   60%,
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.sidebar-toggler-gradient {
+  color: #fff;
+  border: none;
+  background-size: 200% 100%;
+  background-image: linear-gradient(
+    to right,
+    #62f5eb,
+    #106cb7,
+    #62f5eb,
+  );
+  animation: sidebarTogglerKeyframe 0.5s linear 0s infinite forwards;
+  background-position: 100% 100%;
+  // animation-play-state: paused;
+}
+.play-animation{
+  animation-play-state: running;
+
+}
+.pause-animation{
+  animation-play-state: paused;
+
+}
+.sidebar-toggler-gradient:hover {
+  animation-play-state: running;
+}
+@keyframes sidebarTogglerKeyframe {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 200% 0;
   }
 }
 </style>

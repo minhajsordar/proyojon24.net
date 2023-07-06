@@ -1,111 +1,151 @@
 <template>
   <q-list bordered separator>
-    <q-item clickable v-ripple to="/dashboard">
+    <q-item
+      clickable
+      v-ripple
+      v-if="
+        ['superAdmin', 'admin'].includes(authStore?.loginUserInfo?.permission)
+      "
+      to="/dashboard"
+    >
+      <q-item-section avatar>
+        <q-icon name="insert_chart" />
+      </q-item-section>
       <q-item-section>Data Analysis</q-item-section>
+      <q-separator />
     </q-item>
-
-    <q-item clickable v-ripple  to="/payment_and_service_configuration">
+    <q-item
+      clickable
+      v-ripple
+      v-if="
+        ['superAdmin', 'admin'].includes(authStore?.loginUserInfo?.permission)
+      "
+      to="/payment_and_service_configuration"
+    >
+      <q-item-section avatar>
+        <q-icon name="payment" />
+      </q-item-section>
       <q-item-section>
         <q-item-label>Configure Service & Payment</q-item-label>
       </q-item-section>
+      <q-separator />
     </q-item>
-    <q-separator/>
-            <router-link
-              v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
-              to="/locations"
-              active-class="text-white  link-bg-color"
-              @click="menuControllerStore.headerMenuMobileScreenClose"
-            >
-            <q-item class="flex items-center">
-                <div><q-icon name="location_on" /></div>
-                <div class="q-ml-md">{{ $t("headermenus.locations") }}</div>
-              </q-item>
-            </router-link>
-            <q-separator/>
-            <router-link
-              v-if="authStore?.loginUserInfo && authStore?.loginUserInfo?.permission"
-              to="/users"
-              active-class="text-white  link-bg-color"
-              @click="menuControllerStore.headerMenuMobileScreenClose"
-            >
-            <q-item class="flex items-center">
-                <div><q-icon name="person" /></div>
-                <div class="q-ml-md">{{ $t("headermenus.users") }}</div>
-              </q-item>
-            </router-link>
-            <q-separator/>
-            <router-link
-              v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
-              to="/services"
-              active-class="text-white  link-bg-color"
-              @click="menuControllerStore.headerMenuMobileScreenClose"
-            >
-            <q-item class="flex items-center">
-                <div><q-icon name="info" /></div>
-                <div class="q-ml-md">{{ $t("headermenus.services") }}</div>
-              </q-item>
-            </router-link>
-            <q-separator/>
-            <router-link
-              v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
-              to="/banners_create_update"
-              active-class="text-white  link-bg-color"
-              @click="menuControllerStore.headerMenuMobileScreenClose"
-            >
-            <q-item class="flex items-center">
-                <div><q-icon name="ad_units" /></div>
-                <div class="q-ml-md">{{ $t("headermenus.banners") }}</div>
-              </q-item>
-            </router-link>
-            <q-separator/>
-            <router-link
-              v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
-              to="/dashboard"
-              active-class="text-white  link-bg-color"
-              @click="menuControllerStore.headerMenuMobileScreenClose"
-            >
-            <q-item class="flex items-center">
-                <div><q-icon name="dashboard" /></div>
-                <div class="q-ml-md">{{ $t("dashboard") }}</div>
-              </q-item>
-            </router-link>
-            <q-separator/>
-            <router-link
-              v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
-              to="/moving_text"
-              active-class="text-white  link-bg-color"
-              @click="menuControllerStore.headerMenuMobileScreenClose"
-            >
-            <q-item class="flex items-center">
-                <div><q-icon name="T" /></div>
-                <div class="q-ml-md">{{ $t("movingtext") }}</div>
-              </q-item>
-            </router-link>
-            <q-separator/>
-            <router-link
-              v-if="['superAdmin','admin'].includes(authStore?.loginUserInfo?.permission) || authStore?.loginUserInfo?.permission !== 'self'"
-              to="/service_provider_pending_list"
-              active-class="text-white  link-bg-color"
-              @click="menuControllerStore.headerMenuMobileScreenClose"
-            >
-            <q-item class="flex items-center">
-                <div><q-icon name="pending_actions" /></div>
-                <div class="q-ml-md">{{ $t("headermenus.pending_list") }}</div>
-              </q-item>
-            </router-link>
-            <q-separator/>
-            <router-link
-              v-if="['superAdmin','admin'].includes(authStore?.loginUserInfo?.permission)"
-              to="/notification_list"
-              active-class="text-white  link-bg-color"
-              @click="menuControllerStore.headerMenuMobileScreenClose"
-            >
-            <q-item class="flex items-center">
-                <div><q-icon name="notifications" /></div>
-                <div class="q-ml-md">{{ $t("notification.list") }}</div>
-              </q-item>
-            </router-link>
-            <q-separator/>
+    <q-item
+      clickable
+      v-ripple
+      v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+      to="/locations"
+    >
+      <q-item-section avatar>
+        <q-icon name="location_on" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("headermenus.locations") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
+      v-if="authStore?.loginUserInfo && authStore?.loginUserInfo?.permission"
+      to="/users"
+    >
+      <q-item-section avatar>
+        <q-icon name="person" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("headermenus.users") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
+      v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+      to="/services"
+    >
+      <q-item-section avatar>
+        <q-icon name="info" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("headermenus.services") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
+      v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+      to="/banners_create_update"
+    >
+      <q-item-section avatar>
+        <q-icon name="ad_units" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("headermenus.banners") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <!-- <q-item
+      clickable
+      v-ripple
+      v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+      to="/dashboard"
+    >
+      <q-item-section avatar>
+        <q-icon name="dashboard" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("dashboard") }}</q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-separator /> -->
+    <q-item
+      clickable
+      v-ripple
+      v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+      to="/moving_text"
+    >
+      <q-item-section avatar>
+        <q-icon name="T" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("movingtext") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
+      v-if="
+        ['superAdmin', 'admin'].includes(authStore?.loginUserInfo?.permission)
+      "
+      to="/service_provider_pending_list"
+    >
+      <q-item-section avatar>
+        <q-icon name="pending_actions" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("headermenus.pending_list") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
+      v-if="
+        ['superAdmin', 'admin'].includes(authStore?.loginUserInfo?.permission)
+      "
+      to="/notification_list"
+    >
+      <q-item-section avatar>
+        <q-icon name="notifications" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("notification.list") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
   </q-list>
 </template>
 <script setup>

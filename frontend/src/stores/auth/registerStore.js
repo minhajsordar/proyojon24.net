@@ -9,17 +9,30 @@ import { useLanguageStore } from '../lang/languageSettingsStore';
 import { Notify, Dialog } from 'quasar';
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from './authStore';
+import { confetti } from "tsparticles-confetti";
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 const myRooms = useLocalStorage('myrooms', {})
 loader.title = 'Requesting To Server...'
+const count = 200,
+  defaults = {
+    origin: { y: 0.7 },
+  };
+
+function fire(particleRatio, opts) {
+  confetti(
+    Object.assign({}, defaults, opts, {
+      particleCount: Math.floor(count * particleRatio),
+    })
+  );
+}
 export const useRegisterStore = defineStore('register store', () => {
 
   const { t } = useI18n();
   const router = useRouter()
   const languageStore = useLanguageStore()
   const authStore = useAuthStore(),
-  nidImage= ref(null),
+    nidImage = ref(null),
     newUserInfo = reactive({
       name: {
         bn: null,
@@ -59,6 +72,33 @@ export const useRegisterStore = defineStore('register store', () => {
       const responseData = await api.request(config);
       // router.push('/login')
       loader.hideLoader()
+
+      fire(0.25, {
+        spread: 26,
+        startVelocity: 55,
+      });
+
+      fire(0.2, {
+        spread: 60,
+      });
+
+      fire(0.35, {
+        spread: 100,
+        decay: 0.91,
+        scalar: 0.8,
+      });
+
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 25,
+        decay: 0.92,
+        scalar: 1.2,
+      });
+
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 45,
+      });
       Dialog.create({
         title: t("register_success"),
         message: t("create_service_provider"),

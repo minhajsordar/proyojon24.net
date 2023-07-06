@@ -122,6 +122,7 @@
         v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
         to="/dashboard"
         active-class="text-white"
+        @click="menuControllerStore.leftDashboardOpen = true"
         >{{ $t("dashboard") }}</router-link
       >
       <!-- <router-link
@@ -156,15 +157,6 @@
     <q-space />
 
     <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-      <q-btn
-        v-if="authStore?.loginUserInfo?.permission == 'superAdmin' && $q.screen.gt.sm"
-        dense
-        flat
-        @click="menuControllerStore.toggleDashboardDrawer"
-      >
-        <q-icon name="dashboard" size="25px" />
-        <!-- <q-badge class="absolute-top-right fs-10" color="red" style="padding: 1px 4px"/> -->
-      </q-btn>
       <q-btn
         v-if="authStore.loginUserInfo && $q.screen.gt.sm"
         dense

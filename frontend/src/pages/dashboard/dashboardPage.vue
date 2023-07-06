@@ -10,7 +10,7 @@
                   <q-icon name="visibility" class="text-h4" />
                   <div class="q-mt-md fs-18">Total View</div>
                   <q-separator class="q-my-md" />
-                  <div class="text-h4">5008</div>
+                  <div class="text-h4">{{ dashboardStore.dashboardData?.totalView }}</div>
                 </div>
               </q-card-section>
             </q-card>
@@ -22,7 +22,7 @@
                   <q-icon name="person" class="text-h4" />
                   <div class="q-mt-md fs-18">Total User</div>
                   <q-separator class="q-my-md" />
-                  <div class="text-h4">5008</div>
+                  <div class="text-h4">{{ dashboardStore.dashboardData?.totalUser }}</div>
                 </div>
               </q-card-section>
             </q-card>
@@ -34,7 +34,7 @@
                   <q-icon name="workspace_premium" class="text-h4" />
                   <div class="q-mt-md fs-18">Total Premium User</div>
                   <q-separator class="q-my-md" />
-                  <div class="text-h4">5008</div>
+                  <div class="text-h4">{{ dataAnalysisGraph?.premiumUser }}</div>
                 </div>
               </q-card-section>
             </q-card>
@@ -58,8 +58,19 @@
   </div>
 </template>
 <script setup>
+import { storeToRefs } from "pinia";
 import dailyUserChart from "src/components/dashboard/dailyUserChart.vue";
 import monthlyUserChart from "src/components/dashboard/monthlyUserChart.vue";
 import monthlyViewChart from "src/components/dashboard/monthlyViewChart.vue";
+import { useDataAnalysisStore } from "src/stores/dashboard/dataAnalysisStore.js"
+
+import { usePublicDashboardStore } from "src/stores/user/dashboardStore";
+
+const dashboardStore = usePublicDashboardStore();
+// get dashboard data
+dashboardStore.getDashboardData();
+const dataAnalysisStore = useDataAnalysisStore()
+dataAnalysisStore.getDataAnalysisGraph()
+const { dataAnalysisGraph } = storeToRefs(dataAnalysisStore);
 </script>
 <style></style>

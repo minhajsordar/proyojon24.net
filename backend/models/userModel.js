@@ -67,13 +67,9 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    premiumUser: {
-        type: Boolean,
-        default: false,
-    },
     premiumUserEndDate: {
         type: Date,
-        default: false,
+        default: new Date(),
     },
     deleteRequest: {
         requested: {

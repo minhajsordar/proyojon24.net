@@ -28,6 +28,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
       permanentAddress: user.permanentAddress,
       isActive: user.isActive,
       permission: user.permission,
+      premiumUserEndDate: user.premiumUserEndDate,
       hasServiceProviderProfile: user.hasServiceProviderProfile,
       token: generateToken(user._id),
     })
@@ -88,8 +89,10 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       await newDailyUser.save();
     }
     // Update monthly user count
-    const year = today.getFullYear();
-    const month = today.getMonth();
+    
+    const today2 = new Date();
+    const year = today2.getFullYear();
+    const month = today2.getMonth();
 
     const monthlyUser = await MonthlyUser.findOne({ year, month });
 
