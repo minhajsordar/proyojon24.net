@@ -1,6 +1,6 @@
 import express from "express"
-import { authUser, deleteUser, getUserById, getUserProfile, getUsers, registerUser, updateUser, updateUserProfile, deleteRequest } from "../controllers/userController.js"
-import { superAdmin, protect } from "../middleware/authMiddleware.js"
+import { authUser, deleteUser, getUserById, getUserProfile, getNidPendingUsers, approveOrRejectNid, getUsers, registerUser, updateUser, updateUserProfile, deleteRequest } from "../controllers/userController.js"
+import { superAdmin, protect, anyAdmin } from "../middleware/authMiddleware.js"
 
 const router = express.Router()
 
@@ -8,6 +8,8 @@ router.route('/').get(protect, getUsers)
 router.route('/register').post(registerUser)
 router.route('/login').post(authUser)
 router.route('/profile').get(protect, getUserProfile)
+router.route('/pending_verification').get(protect, anyAdmin, getNidPendingUsers)
+router.route('/pending_verification/:id').put(protect, anyAdmin, approveOrRejectNid)
 router.route('/:id')
     .delete(protect, superAdmin, deleteUser)
     .get(protect, superAdmin, getUserById)

@@ -5,6 +5,7 @@ import loader from 'loader-animation'
 import { ref, reactive } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 loader.title = 'Requesting To Server...'
 export const useRegistrationFeeStore = defineStore('registration fee store', () => {
   const authStore = useAuthStore()
@@ -21,11 +22,14 @@ export const useRegistrationFeeStore = defineStore('registration fee store', () 
         "Content-Type": "application/json",
       }
     };
+    CustomLoading('registration-fee-list').showLoading()
     try {
       const responseData = await api.request(config);
       registrationFeeData.value = responseData.data
+      CustomLoading('registration-fee-list').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('registration-fee-list').hideLoading()
     }
   }
   const createRegistrationFee = async () => {
@@ -39,11 +43,11 @@ export const useRegistrationFeeStore = defineStore('registration fee store', () 
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }, data
     };
-    loader.showLoader()
+    CustomLoading('registration-fee-create').showLoading()
     try {
       const responseData = await api.request(config);
       getRegistrationFeeList()
-      loader.hideLoader()
+      CustomLoading('registration-fee-create').hideLoading()
       Notify.create({
         message: "Successfully Created Registration Fee",
         type: "positive",
@@ -51,7 +55,7 @@ export const useRegistrationFeeStore = defineStore('registration fee store', () 
       })
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('registration-fee-create').hideLoading()
       Notify.create({
         message: "Failed to Create Registration Fee",
         type: "negative",
@@ -70,11 +74,11 @@ export const useRegistrationFeeStore = defineStore('registration fee store', () 
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }, data
     };
-    loader.showLoader()
+    CustomLoading('registration-fee-update').showLoading()
     try {
       const responseData = await api.request(config);
       getRegistrationFeeList()
-      loader.hideLoader()
+      CustomLoading('registration-fee-update').hideLoading()
       Notify.create({
         message: "Successfully Updated Registration Fee",
         type: "positive",
@@ -82,7 +86,7 @@ export const useRegistrationFeeStore = defineStore('registration fee store', () 
       })
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('registration-fee-update').hideLoading()
       Notify.create({
         message: "Failed to Update Registration Fee",
         type: "negative",
@@ -99,11 +103,11 @@ export const useRegistrationFeeStore = defineStore('registration fee store', () 
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       },
     };
-    loader.showLoader()
+    CustomLoading('registration-fee-delete').showLoading()
     try {
       const responseData = await api.request(config);
       getRegistrationFeeList()
-      loader.hideLoader()
+    CustomLoading('registration-fee-delete').hideLoading()
       Notify.create({
         message: "Successfully Updated Registration Fee",
         type: "positive",
@@ -111,7 +115,7 @@ export const useRegistrationFeeStore = defineStore('registration fee store', () 
       })
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+    CustomLoading('registration-fee-delete').hideLoading()
       Notify.create({
         message: "Failed to Update Registration Fee",
         type: "negative",

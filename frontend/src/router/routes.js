@@ -113,6 +113,14 @@ const routes = [
       {
         path: '/payment_and_service_configuration', component: () => import('pages/dashboard/paymentAndServiceConfigurationPage.vue'),
         beforeEnter: checkLogin,
+      },
+      {
+        path: '/pending_payments', component: () => import('pages/dashboard/pendingPaymentList.vue'),
+        beforeEnter: checkLogin,
+      },
+      {
+        path: '/pending_nid_verification', component: () => import('pages/dashboard/nidVerificationPendingList.vue'),
+        beforeEnter: checkLogin,
       }
     ]
   },

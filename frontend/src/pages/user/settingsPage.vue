@@ -13,6 +13,7 @@ import profileEdit from "src/components/profile/profileEdit.vue"
 const authStore = useAuthStore()
 onMounted(()=>{
   authStore.checkLogin()
+  authStore.userAuthInfo.password = null
 })
 const metaData = {
   // sets document title

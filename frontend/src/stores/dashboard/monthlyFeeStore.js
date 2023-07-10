@@ -5,6 +5,7 @@ import loader from 'loader-animation'
 import { ref, reactive } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 loader.title = 'Requesting To Server...'
 export const useMonthlyFeeStore = defineStore('monthly fee store', () => {
   const authStore = useAuthStore()
@@ -21,10 +22,13 @@ export const useMonthlyFeeStore = defineStore('monthly fee store', () => {
         "Content-Type": "application/json",
       }
     };
+    CustomLoading('monthly-fee-list').showLoading()
     try {
       const responseData = await api.request(config);
       monthlyFeeData.value = responseData.data
+      CustomLoading('monthly-fee-list').hideLoading()
     } catch (error) {
+      CustomLoading('monthly-fee-list').hideLoading()
       console.log(error);
     }
   }
@@ -39,11 +43,11 @@ export const useMonthlyFeeStore = defineStore('monthly fee store', () => {
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }, data
     };
-    loader.showLoader()
+    CustomLoading('monthly-fee-create').showLoading()
     try {
       const responseData = await api.request(config);
       getMonthlyFeeList()
-      loader.hideLoader()
+      CustomLoading('monthly-fee-create').hideLoading()
       Notify.create({
         message: "Successfully Created Monthly Fee",
         type: "positive",
@@ -51,7 +55,7 @@ export const useMonthlyFeeStore = defineStore('monthly fee store', () => {
       })
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('monthly-fee-create').hideLoading()
       Notify.create({
         message: "Failed to Create Monthly Fee",
         type: "negative",

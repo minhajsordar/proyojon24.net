@@ -394,11 +394,22 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-xs-12 col-12">
-
-          </div>
           <!-- social end -->
           <!-- serviceTitle start -->
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="row">
+              <div class="col-12 text-bold">
+                {{ $t("experience") }}
+              </div>
+              <div class="col-12">
+                <q-input
+                  v-model="serviceProviderStore.serviceProviderInfo.experience"
+                  outlined
+                  dense
+                />
+              </div>
+            </div>
+          </div>
           <div class="col-sm-6 col-xs-12 col-12">
             <div class="row">
               <div class="col-12 text-bold">{{ $t("serviceTitleinen") }}</div>
@@ -675,90 +686,103 @@
               </div>
             </div>
           </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}*
-                  <span class="fs-10">Max 150KB</span>
-                </div>
-                <div class="col-12">
-                  <q-file
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="row">
+              <div class="col-12 text-bold">
+                {{ $t("addcoverimage") }}*
+                <span class="fs-10">Max 150KB</span>
+              </div>
+              <div class="col-12">
+                <q-file
                   ref="coverImageEl"
                   outlined
-                    dense
-                    v-model="serviceProviderStore.imageCover.imageCover1"
-                    :rules="[fileValidate]"
-                    label="Add image"
-                    accept=".jpg, .png, .jpeg"
-                    max-total-size="1500000"
-                    use-chips
-                    @update:model-value="()=>{
-                      serviceProviderStore.uploadCoverImage('imageCover1','serviceImage1')
-                    }"
-                    @rejected="onRejected"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="cloud_upload" /> </template
-                  ></q-file>
-                </div>
+                  dense
+                  v-model="serviceProviderStore.imageCover.imageCover1"
+                  :rules="[fileValidate]"
+                  label="Add image"
+                  accept=".jpg, .png, .jpeg"
+                  max-total-size="1500000"
+                  use-chips
+                  @update:model-value="
+                    () => {
+                      serviceProviderStore.uploadCoverImage(
+                        'imageCover1',
+                        'serviceImage1'
+                      );
+                    }
+                  "
+                  @rejected="onRejected"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="cloud_upload" /> </template
+                ></q-file>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}*
-                  <span class="fs-10">Max 150KB</span>
-                </div>
-                <div class="col-12">
-                  <q-file
+          </div>
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="row">
+              <div class="col-12 text-bold">
+                {{ $t("addcoverimage") }}*
+                <span class="fs-10">Max 150KB</span>
+              </div>
+              <div class="col-12">
+                <q-file
                   ref="coverImageEl"
                   outlined
-                    dense
-                    v-model="serviceProviderStore.imageCover.imageCover2"
-                    :rules="[fileValidate]"
-                    label="Add image"
-                    accept=".jpg, .png, .jpeg"
-                    max-total-size="1500000"
-                    use-chips
-                    @update:model-value="()=>{
-                      serviceProviderStore.uploadCoverImage('imageCover2','serviceImage2')
-                    }"
-                    @rejected="onRejected"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="cloud_upload" /> </template
-                  ></q-file>
-                </div>
+                  dense
+                  v-model="serviceProviderStore.imageCover.imageCover2"
+                  :rules="[fileValidate]"
+                  label="Add image"
+                  accept=".jpg, .png, .jpeg"
+                  max-total-size="1500000"
+                  use-chips
+                  @update:model-value="
+                    () => {
+                      serviceProviderStore.uploadCoverImage(
+                        'imageCover2',
+                        'serviceImage2'
+                      );
+                    }
+                  "
+                  @rejected="onRejected"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="cloud_upload" /> </template
+                ></q-file>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}*
-                  <span class="fs-10">Max 150KB</span>
-                </div>
-                <div class="col-12">
-                  <q-file
+          </div>
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="row">
+              <div class="col-12 text-bold">
+                {{ $t("addcoverimage") }}*
+                <span class="fs-10">Max 150KB</span>
+              </div>
+              <div class="col-12">
+                <q-file
                   ref="coverImageEl"
                   outlined
-                    dense
-                    v-model="serviceProviderStore.imageCover.imageCover3"
-                    :rules="[fileValidate]"
-                    label="Add image"
-                    accept=".jpg, .png, .jpeg"
-                    max-total-size="1500000"
-                    use-chips
-                    @update:model-value="
-                      serviceProviderStore.uploadCoverImage('imageCover3','serviceImage3')
-                    "
-                    @rejected="onRejected"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="cloud_upload" /> </template
-                  ></q-file>
-                </div>
+                  dense
+                  v-model="serviceProviderStore.imageCover.imageCover3"
+                  :rules="[fileValidate]"
+                  label="Add image"
+                  accept=".jpg, .png, .jpeg"
+                  max-total-size="1500000"
+                  use-chips
+                  @update:model-value="
+                    serviceProviderStore.uploadCoverImage(
+                      'imageCover3',
+                      'serviceImage3'
+                    )
+                  "
+                  @rejected="onRejected"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="cloud_upload" /> </template
+                ></q-file>
               </div>
             </div>
+          </div>
           <div class="col-sm-6 col-xs-12 col-12">
             <div class="row">
               <div class="col-12 text-bold">{{ $t("keywords") }}*</div>
@@ -817,6 +841,7 @@ import { useSearchServiceStore } from "src/stores/service/searchService";
 import { useAuthStore } from "src/stores/auth/authStore";
 import { useLocalStorage } from "@vueuse/core";
 import { useUserServiceProviderStore } from "src/stores/service/userServiceProviderStore";
+
 const userServiceProviderStore = useUserServiceProviderStore();
 userServiceProviderStore.getUserServiceProvider();
 const loginUserinfo = useLocalStorage("proyojonloginuser", {});
@@ -856,6 +881,7 @@ const serviceTitleEnEl = ref(null);
 const serviceTitleBnEl = ref(null);
 const keywordsEl = ref(null);
 const validationEnabled = ref(false);
+
 const createServiceManager = () => {
   if (!isObjEmpty(userServiceProviderStore.userServiceProvider)) {
     validationEnabled.value = false;
@@ -1010,7 +1036,12 @@ const pinlocationFilterFn = (val, update) => {
 };
 
 onMounted(() => {
-  if (!(loginUserinfo.value.permission == 'admin' || loginUserinfo.value.permission == 'superAdmin')) {
+  if (
+    !(
+      loginUserinfo.value.permission == "admin" ||
+      loginUserinfo.value.permission == "superAdmin"
+    )
+  ) {
     if (loginUserinfo.value.name.bn && loginUserinfo.value.name.en) {
       serviceProviderStore.serviceProviderInfo.name = loginUserinfo.value.name;
     }
@@ -1020,7 +1051,9 @@ onMounted(() => {
     }
   }
 });
-const max10Words = (val)=>{
-  return val && val.split(" ").length <= 16 ? true : "Please Use Maximum 16 Words"
-}
+const max10Words = (val) => {
+  return val && val.split(" ").length <= 16
+    ? true
+    : "Please Use Maximum 16 Words";
+};
 </script>

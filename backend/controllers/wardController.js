@@ -8,14 +8,14 @@ import Union from '../models/unionModel.js'
 const getWards =  expressAsyncHandler(async (req, res) => {
     const pageSize =  Number(req.query.pageSize) || 100;
     const page = Number(req.query.pageNumber) || 1;
-    const keyword = req.query.keyword ? {
+    const keywords = req.query.keywords ? {
         name: {
-            $regex: req.query.keyword,
+            $regex: req.query.keywords,
             $options: 'i'
         }
     }:{}
-    const count = await Ward.countDocuments({...keyword})
-    const wards = await Ward.find({...keyword}).limit(pageSize).skip(pageSize * (page-1))
+    const count = await Ward.countDocuments({...keywords})
+    const wards = await Ward.find({...keywords}).limit(pageSize).skip(pageSize * (page-1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({wards, page, pages: Math.ceil(count / pageSize)})
 })

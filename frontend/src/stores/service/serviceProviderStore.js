@@ -144,6 +144,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       imo: null,
       twitter: null,
       email: null,
+      experience: null,
       keywords: null,
       registrationNo: null,
     })
@@ -244,6 +245,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.whatsapp =null
     serviceProviderInfo.imo =null
     serviceProviderInfo.email =null
+    serviceProviderInfo.experience =null
     serviceProviderInfo.twitter =null
     serviceProviderInfo.keywords = []
   }
@@ -272,6 +274,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "whatsapp",
       "imo",
       "email",
+      "experience",
       "twitter",
       "keywords"
     ]
@@ -330,6 +333,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "whatsapp",
       "imo",
       "email",
+      "experience",
       "twitter",
       "keywords"
     ]

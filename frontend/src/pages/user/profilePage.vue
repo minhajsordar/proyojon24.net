@@ -1,40 +1,70 @@
-<template >
+<template>
   <div class="container-section-py-sm">
     <div class="inner-section">
-      <div class="full-width  text-blue-grey-8">
+      <div class="full-width text-blue-grey-8">
         <q-card class="q-pa-md q-mb-lg border-primary">
-          <div class="flex ">
-            <div >
+          <div class="flex">
+            <div>
               <q-avatar rounded size="130px">
-              <img v-if="authStore.loginUserInfo?.profileImage" :src="web_root_url+authStore.loginUserInfo.profileImage" />
-              <!-- <img v-else src="images/user-placeholder.jpeg" /> -->
-            </q-avatar>
+                <img
+                  v-if="authStore.loginUserInfo?.profileImage"
+                  :src="web_root_url + authStore.loginUserInfo.profileImage"
+                />
+                <!-- <img v-else src="images/user-placeholder.jpeg" /> -->
+              </q-avatar>
             </div>
             <div class="q-ml-md">
-               <div class="fs-20 text-bold">{{ authStore?.loginUserInfo?.name[languageStore.language] }}</div>
-               <div class="fs-13 text-bold text-blue-grey-6 q-mt-sm">
-                <q-icon name="person"/>
+              <div class="fs-20 text-bold">
+                {{ authStore?.loginUserInfo?.name[languageStore.language] }}
+              </div>
+              <div class="fs-13 text-bold text-blue-grey-6 q-mt-sm">
+                <q-icon name="person" />
                 <span>
                   {{
-                    authStore.loginUserInfo?.permission == 'superAdmin'
+                    authStore.loginUserInfo?.permission == "superAdmin"
                       ? "Super Admin"
-                      : authStore.loginUserInfo?.permission == 'admin'
+                      : authStore.loginUserInfo?.permission == "admin"
                       ? "Admin"
-                      : authStore.loginUserInfo?.permission == 'self'?
-                      'Service Provider'
-                      :authStore.loginUserInfo?.permission?
-                      "Admin "+authStore.loginUserInfo.permission:""
+                      : authStore.loginUserInfo?.permission == "self"
+                      ? "Service Provider"
+                      : authStore.loginUserInfo?.permission
+                      ? "Admin " + authStore.loginUserInfo.permission
+                      : ""
                   }}
                 </span>
-                <q-icon v-if="authStore?.loginUserInfo?.presentAddress[languageStore.language]" class="q-ml-sm" name="location_on"/>
+                <q-icon
+                  v-if="
+                    authStore?.loginUserInfo?.presentAddress[
+                      languageStore.language
+                    ]
+                  "
+                  class="q-ml-sm"
+                  name="location_on"
+                />
                 <span>
-                  {{ authStore?.loginUserInfo?.presentAddress[languageStore.language] }}
+                  {{
+                    authStore?.loginUserInfo?.presentAddress[
+                      languageStore.language
+                    ]
+                  }}
                 </span>
-                <q-icon class="q-ml-sm" name="alternate_email"/>
+                <q-icon class="q-ml-sm" name="alternate_email" />
                 <span>
-                  {{ authStore?.loginUserInfo?.email}}
+                  {{ authStore?.loginUserInfo?.email }}
                 </span>
-               </div>
+              </div>
+              <div>
+                {{
+                  authStore.loginUserInfo?.isAvailable
+                    ? "Available"
+                    : "Not Available"
+                }}<q-toggle
+                  v-model="authStore.isAvailable"
+                  color="green"
+                  size="sm"
+                  @update:model-value="authStore.updateUserAvailablity"
+                />
+              </div>
             </div>
           </div>
         </q-card>
@@ -46,7 +76,6 @@
       </div> -->
     </div>
   </div>
-
 </template>
 <script setup>
 import { useMeta } from "quasar";
@@ -57,39 +86,43 @@ import { useRouter } from "vue-router";
 import profileInformations from "src/components/profile/profileInformations.vue";
 import { web_root_url } from "src/global_constant/root_url";
 
-const languageStore = useLanguageStore()
-const authStore = useAuthStore()
-const router = useRouter()
-onMounted(()=>{
-  if(!authStore.checkLogin()){
-    router.push('/login')
+const languageStore = useLanguageStore();
+const authStore = useAuthStore();
+const router = useRouter();
+onMounted(() => {
+  if (!authStore.checkLogin()) {
+    router.push("/login");
   }
-})
+});
 
 const metaData = {
   // sets document title
-  title: 'User Profile',
+  title: "User Profile",
   // optional; sets final title as "Index Page - My Website", useful for multiple level meta
-  titleTemplate: title => `${title} - Proyojon24.net`,
+  titleTemplate: (title) => `${title} - Proyojon24.net`,
 
   // meta tags
   meta: {
-    description: { name: 'description', content: 'Page 1' },
-    keywords: { name: 'keywords', content: 'proyojon24 services service-provider' },
-    equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+    description: { name: "description", content: "Page 1" },
+    keywords: {
+      name: "keywords",
+      content: "proyojon24 services service-provider",
+    },
+    equiv: {
+      "http-equiv": "Content-Type",
+      content: "text/html; charset=UTF-8",
+    },
     // note: for Open Graph type metadata you will need to use SSR, to ensure page is rendered by the server
-    ogTitle:  {
-      property: 'og:title',
+    ogTitle: {
+      property: "og:title",
       // optional; similar to titleTemplate, but allows templating with other meta properties
-      template (ogTitle) {
-        return `${ogTitle} - Proyojon24.net`
-      }
-    }
-  }
-}
+      template(ogTitle) {
+        return `${ogTitle} - Proyojon24.net`;
+      },
+    },
+  },
+};
 
-useMeta(metaData)
+useMeta(metaData);
 </script>
-<style>
-
-</style>
+<style></style>

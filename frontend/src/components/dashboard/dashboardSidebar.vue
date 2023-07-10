@@ -11,7 +11,7 @@
       <q-item-section avatar>
         <q-icon name="insert_chart" />
       </q-item-section>
-      <q-item-section>Data Analysis</q-item-section>
+      <q-item-section>{{ $t("headermenus.data_analisis") }}</q-item-section>
       <q-separator />
     </q-item>
     <q-item
@@ -26,7 +26,7 @@
         <q-icon name="payment" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>Configure Service & Payment</q-item-label>
+        <q-item-label>{{ $t("headermenus.service_and_payment_configuration") }}</q-item-label>
       </q-item-section>
       <q-separator />
     </q-item>
@@ -127,6 +127,38 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $t("headermenus.pending_list") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
+      v-if="
+        ['superAdmin', 'admin'].includes(authStore?.loginUserInfo?.permission)
+      "
+      to="/pending_payments"
+    >
+      <q-item-section avatar>
+        <q-icon name="payments" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("headermenus.pending_payments") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
+      v-if="
+        ['superAdmin', 'admin'].includes(authStore?.loginUserInfo?.permission)
+      "
+      to="/pending_nid_verification"
+    >
+      <q-item-section avatar>
+        <q-icon name="payments" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("headermenus.pending_nid_verification") }}</q-item-label>
       </q-item-section>
       <q-separator />
     </q-item>

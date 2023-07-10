@@ -38,7 +38,7 @@
         </div>
         <div class="col-sm-6 col-xs-12 col-12">
           <q-input
-            v-model="authStore.updateUserInfo.password"
+            v-model="authStore.updateUserInfo.password3"
             label="Password"
             type="password"
             stack-label
@@ -49,7 +49,7 @@
         <div class="col-sm-6 col-xs-12 col-12">
           <q-input
           ref="confirmPassEl"
-            v-model="authStore.updateUserInfo.password2"
+            v-model="authStore.updateUserInfo.password4"
             label="Confirm Password"
             type="password"
             stack-label
@@ -217,7 +217,7 @@ const registerManager = () => {
 };
 
 const checkMatchPassword =(val)=>{
-  if(authStore.updateUserInfo.password == val){
+  if(authStore.updateUserInfo.password3 == val){
     return true
   }else{
     "Password Not Matched"

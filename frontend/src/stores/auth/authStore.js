@@ -26,6 +26,7 @@ export const useAuthStore = defineStore('auth store', () => {
   const router = useRouter(),
     languageStore = useLanguageStore(),
 
+    isAvailable = ref(false),
     rememberMe = ref(false),
     loginUserInfo = ref(null),
     profileEdit = ref(false),
@@ -35,6 +36,8 @@ export const useAuthStore = defineStore('auth store', () => {
       email: null,
       password: null,
       password2: null,
+      password3: null,
+      password4: null,
       oldPassword: null,
     })
 
@@ -66,6 +69,7 @@ export const useAuthStore = defineStore('auth store', () => {
       const responseData = await api.request(config);
       loginUser.value = responseData.data
       loginUserInfo.value = responseData.data;
+      isAvailable.value = responseData.data.isAvailable
       loader.hideLoader()
       Notify.create({
         position: "top",
@@ -114,6 +118,7 @@ export const useAuthStore = defineStore('auth store', () => {
     } else {
       loginUserInfo.value = loginUser.value
       isAuthorized.value = true;
+      isAvailable.value = loginUser.value.isAvailable
       // roomStore.getMyRooms()
       return true;
     }
@@ -124,6 +129,8 @@ export const useAuthStore = defineStore('auth store', () => {
     email: "",
     password: "",
     password2: "",
+    password3: "",
+    password4: "",
     nidNo: "",
     nidImage: null,
     nidImageUrl: "",
@@ -260,6 +267,31 @@ export const useAuthStore = defineStore('auth store', () => {
     }
 
   }
+  const updateUserAvailablity = async () => {
+    const config = {
+      method: "put",
+      url: "api/users/" + loginUserInfo.value?._id,
+      headers: {
+        "Authorization": `Bearer ${loginUser.value.token}`,
+        "Content-Type": "application/json"
+      },
+      data:{
+        isAvailable: isAvailable.value
+      }
+    };
+    try {
+      const responseData = await api.request(config);
+      loginUserInfo.value.isAvailable = responseData.data.isAvailable
+    } catch (error) {
+      console.log(error);
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: error.response.data.message,
+      });
+    }
+
+  }
   const uploadImage = async (field, replace) => {
     if (!updateUserInfo[field] || typeof updateUserInfo[field] == 'string') {
       return
@@ -300,6 +332,9 @@ export const useAuthStore = defineStore('auth store', () => {
     rememberUserData,
     loginFunc2,
     logoutFunc,
-    checkLogin
+    checkLogin,
+
+    isAvailable,
+    updateUserAvailablity
   }
 });

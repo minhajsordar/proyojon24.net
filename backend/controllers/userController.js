@@ -27,6 +27,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
       presentAddress: user.presentAddress,
       permanentAddress: user.permanentAddress,
       isActive: user.isActive,
+      isAvailable: user.isAvailable,
       permission: user.permission,
       premiumUserEndDate: user.premiumUserEndDate,
       hasServiceProviderProfile: user.hasServiceProviderProfile,
@@ -89,7 +90,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       await newDailyUser.save();
     }
     // Update monthly user count
-    
+
     const today2 = new Date();
     const year = today2.getFullYear();
     const month = today2.getMonth();
@@ -115,6 +116,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       presentAddress: user.presentAddress,
       permanentAddress: user.permanentAddress,
       isActive: user.isActive,
+      isAvailable: user.isAvailable,
       permission: user.permission,
       token: generateToken(user._id),
     })
@@ -143,6 +145,7 @@ const getUserProfile = expressAsyncHandler(async (req, res) => {
       permanentAddress: user.permanentAddress,
       permission: user.permission,
       isActive: user.isActive,
+      isAvailable: user.isAvailable,
     })
   } else {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
@@ -184,9 +187,47 @@ const getUsers = expressAsyncHandler(async (req, res) => {
   }
   const pageSize = Number(req.query.pageSize) || 100;
   const page = Number(req.query.pageNumber) || 1;
-  const count = await User.countDocuments({})
+  const count = await User.countDocuments({ ...keywords })
   const users = await User.find({ ...keywords }).select(["-password"]).limit(pageSize).skip(pageSize * (page - 1))
   res.json({ users, page, pages: Math.ceil(count / pageSize) })
+})
+
+// @desc Get all users
+// @route GET api/users
+// @acess Privet
+const getNidPendingUsers = expressAsyncHandler(async (req, res) => {
+  const keywords = {
+    nidStatus: 'pending'
+  }
+  const pageSize = Number(req.query.pageSize) || 100;
+  const page = Number(req.query.pageNumber) || 1;
+  const count = await User.countDocuments({ ...keywords })
+  const users = await User.find({ ...keywords }).select(["-password"]).limit(pageSize).skip(pageSize * (page - 1))
+  res.json({ users, page, pages: Math.ceil(count / pageSize) })
+})
+
+// @desc Get all users
+// @route GET api/users
+// @acess Privet
+const approveOrRejectNid = expressAsyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+  if (user) {
+    user.nidStatus = req.body.nidStatus
+    user.nidVerified = req.body.nidVerified
+    user.note = req.body.note
+    const updatedUser = await user.save()
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.json({
+      _id: updatedUser._id,
+      nidStatus: updatedUser.nidStatus,
+      nidVerified: updatedUser.nidVerified,
+      note: updatedUser.note,
+    })
+  } else {
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(404)
+    throw new Error('User not found')
+  }
 })
 
 // @desc Delete user
@@ -266,9 +307,12 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     }
     if (req.body.nidImage) {
       user.nidImage = req.body.nidImage
+      user.nidStatus = 'pending'
+      user.nidVerified = false
     }
     if (req.body.phone) {
       user.phone = req.body.phone
+      user.phoneVerified = false
     }
     if (req.body.presentAddress?.bn) {
       user.presentAddress.bn = req.body.presentAddress?.bn
@@ -285,7 +329,16 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     if (req.body.password) {
       user.password = req.body.password
     }
+    if (req.body.hasOwnProperty("isAvailable")) {
+      user.isAvailable = req.body.isAvailable
+    }
     const updatedUser = await user.save()
+
+    if (req.body.phone) {
+      const serviceProvider = await ServiceProvider.findOne({ user: req.user._id })
+      serviceProvider.phoneNumber1 = req.body.phone
+      await serviceProvider.save()
+    }
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.json({
       _id: updatedUser._id,
@@ -299,6 +352,7 @@ const updateUser = expressAsyncHandler(async (req, res) => {
       permanentAddress: updatedUser.permanentAddress,
       permission: updatedUser.permission,
       isActive: updatedUser.isActive,
+      isAvailable: updatedUser.isAvailable,
       token: generateToken(updatedUser._id),
     })
   } else {
@@ -314,6 +368,8 @@ export {
   getUserProfile,
   updateUserProfile,
   getUsers,
+  getNidPendingUsers,
+  approveOrRejectNid,
   deleteUser,
   getUserById,
   deleteRequest,

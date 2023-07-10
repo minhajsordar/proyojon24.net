@@ -30,7 +30,7 @@ const createRegistrationFee = expressAsyncHandler(async (req, res) => {
 const getRegistrationFeeList = expressAsyncHandler(async (req, res) => {
   const pageSize = Number(req.query.pageSize) || 30;
   const page = Number(req.query.pageNumber) || 1;
-  const count = await RegistrationFee.countDocuments({})
+  const count = await RegistrationFee.countDocuments({ ...keyword })
   const registrationFees = await RegistrationFee.find({}).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1))
   res.json({ registrationFees, page, pages: Math.ceil(count / pageSize) })
 })

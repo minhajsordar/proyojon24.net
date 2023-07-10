@@ -9,14 +9,14 @@ import commonWardList from '../data/ward.js'
 const getUnions = expressAsyncHandler(async (req, res) => {
     const pageSize =  Number(req.query.pageSize) || 100;
     const page = Number(req.query.pageNumber) || 1;
-    const keyword = req.query.keyword ? {
+    const keywords = req.query.keywords ? {
         name: {
-            $regex: req.query.keyword,
+            $regex: req.query.keywords,
             $options: 'i'
         }
     } : {}
-    const count = await Union.countDocuments({ ...keyword })
-    const unions = await Union.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
+    const count = await Union.countDocuments({ ...keywords })
+    const unions = await Union.find({ ...keywords }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ unions, page, pages: Math.ceil(count / pageSize) })
 })

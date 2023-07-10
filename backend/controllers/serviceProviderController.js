@@ -12,20 +12,20 @@ import DailyServiceProviderView from '../models/dailyServiceProviderViewModel.js
 const getServiceProviders = expressAsyncHandler(async (req, res) => {
     const pageSize = Number(req.query.pageSize) || 50;
     const page = Number(req.query.pageNumber) || 1;
-    const keyword = req.query.keyword ? {
+    const keywords = req.query.keywords ? {
         name: {
-            $regex: req.query.keyword,
+            $regex: req.query.keywords,
             $options: 'i'
         }
     } : {}
     if (req.query.serviceId) {
-        keyword.service = req.query.serviceId
+        keywords.service = req.query.serviceId
     }
     if (req.query.serviceCategoryId) {
-        keyword.serviceCategory = req.query.serviceCategoryId
+        keywords.serviceCategory = req.query.serviceCategoryId
     }
-    const count = await ServiceProvider.countDocuments({ ...keyword })
-    const serviceProviders = await ServiceProvider.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
+    const count = await ServiceProvider.countDocuments({ ...keywords })
+    const serviceProviders = await ServiceProvider.find({ ...keywords }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ serviceProviders, page, pages: Math.ceil(count / pageSize) })
 })
@@ -44,38 +44,38 @@ const getPublicServiceProviders = expressAsyncHandler(async (req, res) => {
     // extraCources
     // serviceTitle
     // serviceList
-    const keyword = req.query.keyword ? {
-        "keyword": {
-            $regex: req.query.keyword,
+    const keywords = req.query.keywords ? {
+        "keywords": {
+            $regex: req.query.keywords,
             $options: 'i'
         }
     } : {}
     if (req.query.serviceId) {
-        keyword.service = req.query.serviceId
+        keywords.service = req.query.serviceId
     }
     if (req.query.serviceCategoryId) {
-        keyword.serviceCategory = req.query.serviceCategoryId
+        keywords.serviceCategory = req.query.serviceCategoryId
     }
     if (req.query.divisionId) {
-        keyword["serviceProviderLocation.division._id"] = req.query.divisionId
+        keywords["serviceProviderLocation.division._id"] = req.query.divisionId
     }
     if (req.query.districtId) {
-        keyword["serviceProviderLocation.district._id"] = req.query.districtId
+        keywords["serviceProviderLocation.district._id"] = req.query.districtId
     }
     if (req.query.subDistrictId) {
-        keyword["serviceProviderLocation.subDistrict._id"] = req.query.subDistrictId
+        keywords["serviceProviderLocation.subDistrict._id"] = req.query.subDistrictId
     }
     if (req.query.unionId) {
-        keyword["serviceProviderLocation.union._id"] = req.query.unionId
+        keywords["serviceProviderLocation.union._id"] = req.query.unionId
     }
     if (req.query.pinlocationId) {
-        keyword["serviceProviderLocation.pinlocation._id"] = req.query.pinlocationId
+        keywords["serviceProviderLocation.pinlocation._id"] = req.query.pinlocationId
     }
     if (req.query.suggested) {
-        keyword.suggested = req.query.suggested
+        keywords.suggested = req.query.suggested
     }
-    keyword.approved = true
-    const serviceProviders = await ServiceProvider.find({ ...keyword }).select('name image serviceProviderLocation serviceTitle viewCount rankCount rating numReviews createdAt suggested')
+    keywords.approved = true
+    const serviceProviders = await ServiceProvider.find({ ...keywords }).populate('user').select('name image serviceProviderLocation serviceTitle viewCount rankCount rating numReviews createdAt suggested')
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(serviceProviders)
 })
@@ -207,6 +207,7 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         imo,
         twitter,
         email,
+        experience,
         keywords
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
@@ -231,6 +232,7 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceProvider.imo = imo
         serviceProvider.twitter = twitter
         serviceProvider.email = email
+        serviceProvider.experience = experience
         serviceProvider.keywords = keywords
         serviceProvider.approved = false
         serviceProvider.waitingForApproval = true
@@ -424,6 +426,7 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         imo,
         twitter,
         email,
+        experience,
         rankCount,
         keywords
     } = req.body
@@ -450,6 +453,7 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         imo,
         twitter,
         email,
+        experience,
         rankCount,
         approved: false,
         waitingForApproval: true,
@@ -494,6 +498,7 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
         whatsapp,
         imo,
         twitter,
+        experience,
         rankCount,
         keywords
     } = req.body
@@ -551,6 +556,7 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
             imo,
             twitter,
             email,
+            experience,
             rankCount,
             approved: false,
             waitingForApproval: true,

@@ -12,23 +12,29 @@
     "
     >
     <div class="listcard-cont ">
-        <q-badge v-if="serviceProvider.viewCount" class="view-badge-top-right" color="pink"> <q-icon name="visibility"/> {{serviceProvider.viewCount}}</q-badge>
+        <!-- <q-badge v-if="serviceProvider.viewCount" class="view-badge-top-right" color="pink"> <q-icon name="visibility"/> {{serviceProvider.viewCount}}</q-badge> -->
         <q-card-section class="image-section q-pa-sm">
           <q-img :src="web_root_url+serviceProvider.image" />
         </q-card-section>
         <q-card-section class="description-section q-pa-sm">
+          <div class="text-bold flex justify-between">
+            <div v-if='serviceProvider.user?.nidVerified'>{{$t('nid_verified')}}</div>
+            <div v-else>{{$t('nid_not_verified')}}</div>
+            <div v-if='serviceProvider.user?.isAvailable'>{{$t('available')}}</div>
+            <div v-else>{{$t('not_available')}}</div>
+          </div>
           <div class="text-bold">
             {{serviceProvider.name[languageStore.language]}}
           </div>
-          <q-separator/>
-          <div>
+          <!-- <q-separator/> -->
+          <div class='text-bold '>
             <span>{{serviceProvider.serviceTitle[languageStore.language]}}</span>
           </div>
-          <q-separator/>
+          <!-- <q-separator/>
           <div class="text-blue-grey-10">
             <span>{{$t('mobile')}}: <q-icon class="bg-primary text-white" name="call"/> {{enToBnToEn('০১', languageStore.language)}}xxxxxxxxx</span>
-          </div>
-          <q-separator/>
+          </div> -->
+          <!-- <q-separator/> -->
           <div class="fs-12 text-bold">
             <q-icon class="bg-primary text-white " name="location_on"/>
             <span v-if="serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]"> {{ " "+serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]}} </span>
@@ -36,6 +42,15 @@
             <span v-if="serviceProvider.serviceProviderLocation?.subDistrict?.name[languageStore.language]">, {{serviceProvider.serviceProviderLocation?.subDistrict?.name[languageStore.language]}} </span>
             <span v-if="serviceProvider.serviceProviderLocation?.union?.name[languageStore.language]">, {{serviceProvider.serviceProviderLocation?.union?.name[languageStore.language]}}</span>
             <span v-if="serviceProvider.serviceProviderLocation?.exact">, {{serviceProvider.serviceProviderLocation?.exact[languageStore.language]}}</span>
+          </div>
+          <q-separator class="q-my-xs"/>
+          <div class="row q-col-gutter-sm">
+            <div class="col-6">
+              <q-btn class="full-width text-bold " :label=" $t('view')+' ' + (serviceProvider?.viewCount ? serviceProvider.viewCount:'0')"  size="sm"/>
+            </div>
+            <div class="col-6">
+              <q-btn class="full-width text-bold " :label="$t('details')"  size="sm"/>
+            </div>
           </div>
         </q-card-section>
       </div>

@@ -39,6 +39,10 @@ const paymentSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  paymentFor: {
+    type: String,
+    default: "premium_account",
+  },
 }, {
   timestamps: true
 });

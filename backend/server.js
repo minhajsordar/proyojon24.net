@@ -34,6 +34,8 @@ import { createServer } from "http";
 // import { Server } from "socket.io";
 import { userJoin } from './utils/chatUser.js'
 import socket from './socket.js'
+
+
 connectDB()
 dotenv.config()
 

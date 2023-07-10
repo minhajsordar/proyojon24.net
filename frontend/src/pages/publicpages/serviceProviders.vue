@@ -128,7 +128,7 @@
                   <q-separator class="q-mb-sm"></q-separator>
                   <div class="row q-col-gutter-sm">
                     <div
-                      class="col-12"
+                      class="col-lg-6 col-md-6 col-sm-12 col-12"
                       v-for="(
                         serviceProvider, index
                       ) in serviceProviderStore.suggestedServiceProvidersList"
@@ -227,7 +227,7 @@
                     />
                   </div>
                   <div
-                    class="col-12"
+                    class="col-lg-6 col-md-6 col-sm-12 col-12"
                     v-for="(
                       serviceProvider, index
                     ) in serviceProviderStore.allServiceProvidersList"

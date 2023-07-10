@@ -134,6 +134,7 @@ const serviceProviderSchema = new mongoose.Schema({
     imo: { type: String },
     twitter: { type: String },
     email: { type: String },
+    experience: { type: String },
     rankCount: {
         type: Number,
         required: false,

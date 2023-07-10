@@ -23,22 +23,36 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    phoneVerified: {
+        type: Boolean,
+        default: false
+    },
     nidNo: {
         type: String
     },
     nidImage: {
         type: String
     },
+    nidStatus: {
+        type: String,
+        default: 'none'
+    },
+    nidVerified: {
+        type: Boolean,
+        default: false
+    },
+    note: {
+        type: String,
+        default: ''
+    },
     presentAddress: {
         bn: { type: String },
         en: { type: String }
-    }
-    ,
+    },
     permanentAddress: {
         bn: { type: String },
         en: { type: String }
-    }
-    ,
+    },
     password: {
         type: String,
         required: true,
@@ -75,7 +89,8 @@ const userSchema = mongoose.Schema({
         requested: {
             type: Boolean,
             default: false,
-        }, note: {
+        }, 
+        note: {
             type: String,
             default: null,
         }

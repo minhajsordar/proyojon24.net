@@ -4,25 +4,6 @@
       <div class="full-width">
         <q-card class="border-primary q-pa-md">
           <div>
-            <div class="flex justify-between">
-              <div class="fs-18">{{ $t("payment_list") }}</div>
-              <div class="q-gutter-sm">
-                <q-btn
-                v-if="!paymentStore.registrationFeePaid"
-                  label="Pay Registration Fee"
-                  color="primary"
-                  size="sm"
-                  @click="paymentStore.registrationFeeDialogManager"
-                  />
-                  <q-btn
-                  label="new payment"
-                  size="sm"
-                  color="primary"
-                  @click="paymentStore.paymentDialogManager"
-                />
-              </div>
-            </div>
-            <q-separator class="q-my-sm" />
             <q-markup-table flat bordered separator="cell" class="text-left">
               <thead class="bg-blue-grey-2">
                 <tr>
@@ -39,7 +20,7 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="(payment, index) in paymentStore.myPaymentList
+                  v-for="(payment, index) in pendingPaymentStore.pendingPaymentList
                     ?.payments"
                   :key="index"
                   :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
@@ -60,10 +41,14 @@
                   <td>{{ payment.note }}</td>
                   <td>
                     <q-btn
-                      :label="$t('delete')"
+                      :label="$t('approved')"
+                      color="positive"
+                      @click="pendingPaymentStore.approvePayment(payment._id)"
+                    />
+                    <q-btn
+                      :label="$t('reject')"
                       color="negative"
-                      :disable="payment.status === 'approved'"
-                      @click="paymentStore.deletePayment(payment._id)"
+                      @click="rejectDialog(payment._id)"
                     />
                   </td>
                 </tr>
@@ -73,8 +58,8 @@
             <q-pagination
               class="q-mt-md"
               color="blue-grey-7"
-              v-model="paymentStore.currentPage"
-              :max="paymentStore.myPaymentList?.pages"
+              v-model="pendingPaymentStore.currentPage"
+              :max="pendingPaymentStore.pendingPaymentList?.pages"
               :max-pages="6"
               boundary-numbers
               @update:model-value="paginationFunc"
@@ -90,15 +75,34 @@
 <script setup>
 import addPaymentDialog from "src/components/dialogs/user/addPaymentDialog.vue";
 import addRegistrationFeeDialog from "src/components/dialogs/user/addRegistrationFeeDialog.vue";
-import { date } from "quasar";
-import { usePaymentStore } from "src/stores/user/paymentStore";
-const paymentStore = usePaymentStore();
-paymentStore.getMyPaymentList();
-paymentStore.getMyRegistrationPayment();
+import { date, useQuasar } from "quasar";
+import { usePendingPaymentStore } from "src/stores/dashboard/pendingPaymentStore";
+import { useI18n } from "vue-i18n";
+const pendingPaymentStore = usePendingPaymentStore()
+pendingPaymentStore.getPendingPaymentList();
 
 // pagination
 const paginationFunc = () => {
-  paymentStore.getMyPaymentList();
+pendingPaymentStore.getPendingPaymentList();
+};
+const $q = useQuasar()
+const {t} = useI18n()
+const rejectDialog = (id) => {
+  $q.dialog({
+    title: t("reject"),
+    message: "Are you sure to reject this?",
+    prompt: {
+      model: "",
+      type: "text", // optional
+    },
+    cancel: true,
+    persistent: true,
+  }).onOk((data) => {
+    pendingPaymentStore.rejectNote = data
+    pendingPaymentStore.rejectPayment(
+      id
+    );
+  });
 };
 </script>
 <style></style>
