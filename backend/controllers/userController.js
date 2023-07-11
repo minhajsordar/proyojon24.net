@@ -22,6 +22,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
       username: user.username,
       profileImage: user.profileImage,
       phone: user.phone,
+      phoneVerified: user.phoneVerified,
       nidNo: user.nidNo,
       nidImage: user.nidImage,
       presentAddress: user.presentAddress,
@@ -336,8 +337,10 @@ const updateUser = expressAsyncHandler(async (req, res) => {
 
     if (req.body.phone) {
       const serviceProvider = await ServiceProvider.findOne({ user: req.user._id })
-      serviceProvider.phoneNumber1 = req.body.phone
-      await serviceProvider.save()
+      if(serviceProvider){
+        serviceProvider.phoneNumber1 = req.body.phone
+        await serviceProvider.save()
+      }
     }
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.json({

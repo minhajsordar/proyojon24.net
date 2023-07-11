@@ -16,7 +16,8 @@ export const generateOTP = () => {
 };
 export const isPhoneOtpValid = (phoneOtpExpiresAt) => {
     const currentDateTime = new Date();
-    const otpExpiresAt = phoneOtpExpiresAt;
+    const otpExpiresAt = new Date(phoneOtpExpiresAt);
+    console.log(otpExpiresAt , "," , currentDateTime);
     return otpExpiresAt > currentDateTime;
 }
 export const chechResendOtpIfBelow2minutes = (phoneOtpExpiresAt) => {
@@ -29,6 +30,17 @@ export const createOtpExpirationTime = () => {
     const otpExpiresAt = new Date();
     otpExpiresAt.setMinutes(otpExpiresAt.getMinutes() + otpExpirationMinutes);
     return otpExpiresAt
+}
+export const phoneNumberPrefix = (str) => {
+    if(str.startsWith('0')){
+        return '88'+ str ;
+    }
+    else if(str.startsWith('880')){
+        return str
+    }
+    else{
+        return '880'+ str 
+    }
 }
 
 export const sendOtp = () => {

@@ -24,6 +24,7 @@ import paymentRoutes from './routes/paymentRoutes.js'
 import registrationFeeRoutes from './routes/registrationFeeRoutes.js'
 import monthlyFeeRoutes from './routes/monthlyFeeRoutes.js'
 import movingTextRouter from './routes/movingTextRoutes.js'
+import phoneNumberOTPRouter from './routes/phoneNumberOTPRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import { importData } from './seeder.js'
 // import { importData } from './seederDivisions.js'
@@ -118,6 +119,7 @@ app.use('/api/payments', paymentRoutes)
 app.use('/api/movingtext', movingTextRouter)
 app.use('/api/registrationfee', registrationFeeRoutes)
 app.use('/api/monthlyfee', monthlyFeeRoutes)
+app.use('/api/otp', phoneNumberOTPRouter)
 app.get('/api/seeder', (req, res) => {
     importData()
     res.send("data Imported")

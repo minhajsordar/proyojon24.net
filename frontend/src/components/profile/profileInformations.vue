@@ -41,6 +41,26 @@
       </div>
       <div class="col-lg-4 col-sm-12 col-12">
         {{ authStore?.loginUserInfo?.phone }}
+        <span v-if="authStore?.loginUserInfo?.phoneVerified">
+          <q-icon name="check_circle" color="green" /> phone verified
+        </span>
+        <span v-else>
+          <q-btn
+            label="send otp"
+            size="xs"
+            dense
+            color="orange"
+            @click="sendOtpManager"
+          />
+          <q-btn
+            class="q-ml-xs"
+            label="verify otp"
+            size="xs"
+            dense
+            color="primary"
+            @click="verifyOtp"
+          />
+        </span>
       </div>
     </div>
     <div class="row q-mb-md">
@@ -70,10 +90,52 @@
   </q-card>
 </template>
 <script setup>
+import { useLocalStorage } from "@vueuse/core";
+import { useQuasar, Notify } from "quasar";
+import { isObjEmpty } from "src/global_js/utils";
 import { useAuthStore, loginUser } from "src/stores/auth/authStore";
+import { useOtpVerificationStore } from "src/stores/auth/verifyPhone";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useUserStore } from "src/stores/user/userStore.js";
+const $q = useQuasar();
+const otpVerificationStore = useOtpVerificationStore();
 const userStore = useUserStore();
 const languageStore = useLanguageStore();
 const authStore = useAuthStore();
+const otpCodeResend = useLocalStorage("opt-resend", {});
+
+const sendOtpManager = () => {
+  if (!isObjEmpty(otpCodeResend)) {
+    console.log("not empty otp code resend")
+    if (new Date(otpCodeResend.value.timer) > new Date()) {
+      let timeDif = new Date(new Date(otpCodeResend.value.timer) - new Date());
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: `Try again ${timeDif.getMinutes()} minutes later.`,
+      });
+      return;
+    }
+  }
+  return;
+  let d = new Date();
+  d.setMinutes(d.getMinutes() + 10);
+  otpCodeResend.value.timer = d;
+  otpVerificationStore.getOtpVerificationCode();
+};
+
+const verifyOtp = () => {
+  $q.dialog({
+    // title: t("confirm"),
+    message: "Enter OTP code",
+    cancel: true,
+    persistent: true,
+    prompt: {
+      model: "",
+      type: "text", // optional
+    },
+  }).onOk((data) => {
+    otpVerificationStore.verifyOtpCode(data);
+  });
+};
 </script>

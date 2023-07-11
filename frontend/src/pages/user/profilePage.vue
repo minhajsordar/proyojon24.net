@@ -54,11 +54,11 @@
                 </span>
               </div>
               <div>
-                {{
-                  authStore.loginUserInfo?.isAvailable
-                    ? "Available"
-                    : "Not Available"
-                }}<q-toggle
+                <span v-if="authStore.loginUserInfo?.isAvailable">
+                  {{ $t("available") }}
+                </span>
+                <span v-else>{{ $t("not_available") }}</span>
+                <q-toggle
                   v-model="authStore.isAvailable"
                   color="green"
                   size="sm"

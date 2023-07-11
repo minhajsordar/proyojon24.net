@@ -27,4 +27,4 @@ otpSchema.methods.matchOTP = function (enteredOTP) {
 }
 const PHoneNumberOTP = mongoose.model('PHoneNumberOTP', otpSchema);
 
-module.exports = PHoneNumberOTP;
+export default  PHoneNumberOTP

@@ -10,6 +10,7 @@ import { Notify, Dialog } from 'quasar';
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from './authStore';
 import { confetti } from "tsparticles-confetti";
+import { useOtpVerificationStore } from "src/stores/auth/verifyPhone";
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 const myRooms = useLocalStorage('myrooms', {})
@@ -27,6 +28,7 @@ function fire(particleRatio, opts) {
   );
 }
 export const useRegisterStore = defineStore('register store', () => {
+  const otpVerificationStore = useOtpVerificationStore();
 
   const { t } = useI18n();
   const router = useRouter()
@@ -117,8 +119,9 @@ export const useRegisterStore = defineStore('register store', () => {
         authStore.isAuthorized = true
         authStore.rememberUserData()
         languageStore.switchToBn()
-        router.push('/service_provider_profile')
         myRooms.value = null
+        otpVerificationStore.getOtpVerificationCodeWhileRegistration()
+        // router.push('/service_provider_profile')
       }).onCancel(() => {
         router.push('/login')
       });

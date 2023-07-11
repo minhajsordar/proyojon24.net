@@ -722,12 +722,11 @@
           <div class="col-sm-6 col-xs-12 col-12">
             <div class="row">
               <div class="col-12 text-bold">
-                {{ $t("addcoverimage") }}*
+                {{ $t("addcoverimage") }}
                 <span class="fs-10">Max 150KB</span>
               </div>
               <div class="col-12">
                 <q-file
-                  ref="coverImageEl"
                   outlined
                   dense
                   v-model="serviceProviderStore.imageCover.imageCover2"
@@ -755,12 +754,11 @@
           <div class="col-sm-6 col-xs-12 col-12">
             <div class="row">
               <div class="col-12 text-bold">
-                {{ $t("addcoverimage") }}*
+                {{ $t("addcoverimage") }}
                 <span class="fs-10">Max 150KB</span>
               </div>
               <div class="col-12">
                 <q-file
-                  ref="coverImageEl"
                   outlined
                   dense
                   v-model="serviceProviderStore.imageCover.imageCover3"
