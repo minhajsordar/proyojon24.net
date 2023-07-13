@@ -1,5 +1,5 @@
 <template>
-  <q-layout class="background-pattern" view="hHh LpR fff">
+  <q-layout class="background-pattern" view="hHh LpR fFf">
     <!-- !$q.screen.gt.sm -->
     <q-header
       class="text-white"
@@ -28,7 +28,11 @@
       >
         <div
           class="absolute-top-left text-white fs-18 sidebar-toggler-gradient"
-          :class="[menuControllerStore.leftDashboardOpen?'pause-animation':'play-animation']"
+          :class="[
+            menuControllerStore.leftDashboardOpen
+              ? 'pause-animation'
+              : 'play-animation',
+          ]"
           style="
             padding: 4px 0px;
             z-index: 1;
@@ -50,26 +54,20 @@
       <router-view />
       <div
         v-if="$q.screen.gt.sm"
-        class="q-py-sm text-center bg-primary-public text-white footer-area"
+        class="q-pt-sm text-center bg-primary-public text-white footer-area"
         :class="[
           menuControllerStore.leftDashboardOpen && authStore?.loginUserInfo
             ? 'footer-left-bare-open'
             : 'footer-left-bare-close',
         ]"
       >
-        <div class="fs-12">
-          <span class="text-secondary-public">Proyojon24.net</span> © 2023 All
-          Rights Reserved
-        </div>
-        <div class="fs-10">
-          Developed & Powered By:
-          <span class="text-secondary-public">Service Zone Ltd</span>
-        </div>
+        <footerSection/>
         <div class="bottom-fx"></div>
       </div>
     </q-page-container>
     <publicLayoutAllDialogs />
     <profileLayoutAllDialogs />
+    <otpInputDialog />
     <q-footer
       class="bg-transparent q-py-sm flex justify-around footer-c"
       v-if="!$q.screen.gt.sm"
@@ -204,9 +202,11 @@
 <script setup>
 import userProfileHeader from "src/components/headers/userProfileHeader.vue";
 import dashboardSidebar from "src/components/dashboard/dashboardSidebar.vue";
+import footerSection from "src/components/footer/footerSection.vue";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import publicLayoutAllDialogs from "src/components/dialogs/publicLayoutAllDialogs.vue";
 import profileLayoutAllDialogs from "src/components/dialogs/profileLayoutAllDialogs.vue";
+import otpInputDialog from "src/components/dialogs/otpInput/otpInputDialog.vue";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
@@ -315,30 +315,30 @@ onMounted(() => {
 .q-page-cont {
   min-height: 100vh;
   position: relative;
-  padding-bottom: 48px !important;
+  padding-bottom: 0px !important;
 }
 @media screen and (max-width: 1024px) {
   .q-page-cont {
     padding-bottom: 100px !important;
   }
 }
-.footer-area {
-  position: absolute;
-  bottom: 0px;
-}
-@media screen and (max-width: 1024px) {
-  .footer-area {
-    position: absolute;
-    bottom: 48px;
-    .bottom-fx {
-      height: 48px;
-      width: 100%;
-      position: absolute;
-      top: 100%;
-      background-color: $primary;
-    }
-  }
-}
+// .footer-area {
+//   position: absolute;
+//   bottom: 0px;
+// }
+// @media screen and (max-width: 1024px) {
+//   .footer-area {
+//     position: absolute;
+//     bottom: 48px;
+//     .bottom-fx {
+//       height: 48px;
+//       width: 100%;
+//       position: absolute;
+//       top: 100%;
+//       background-color: $primary;
+//     }
+//   }
+// }
 .rotate-icon {
   transform: rotate(0deg);
   animation: rotateicon 5s ease-in-out 0s infinite forwards;
@@ -358,23 +358,16 @@ onMounted(() => {
   color: #fff;
   border: none;
   background-size: 200% 100%;
-  background-image: linear-gradient(
-    to right,
-    #62f5eb,
-    #106cb7,
-    #62f5eb,
-  );
+  background-image: linear-gradient(to right, #62f5eb, #106cb7, #62f5eb);
   animation: sidebarTogglerKeyframe 0.5s linear 0s infinite forwards;
   background-position: 100% 100%;
   // animation-play-state: paused;
 }
-.play-animation{
+.play-animation {
   animation-play-state: running;
-
 }
-.pause-animation{
+.pause-animation {
   animation-play-state: paused;
-
 }
 .sidebar-toggler-gradient:hover {
   animation-play-state: running;

@@ -11,7 +11,13 @@ loader.title = 'Requesting To Server...'
 export const useOtpVerificationStore = defineStore('otp verification store', () => {
   const authStore = useAuthStore()
   const router = useRouter()
-  const getOtpVerificationCode = async () => {
+  const openOtpVerificationDialog = ref(false)
+  const otpInput = ref('')
+  const openOtpVerificationDialogManager=()=>{
+    openOtpVerificationDialog.value = true
+    otpInput.value = ''
+  }
+  const getOtpVerificationCode = async (callback) => {
     const config = {
       method: "post",
       url: "api/otp/request_phone_verification_otp",
@@ -29,6 +35,7 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
         type: "positive",
         message: `Otp Sent successfully`,
       });
+      callback()
     } catch (error) {
       console.log(error);
       Notify.create({
@@ -76,7 +83,10 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
       });
     }
   }
-  const verifyOtpCode = async (otp) => {
+  const verifyOtpCode = async () => {
+    if(otpInput.value == ''){
+      return
+    }
     const config = {
       method: "post",
       url: "api/otp/verify_phone",
@@ -84,14 +94,22 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }, data: {
-        otp
+        otp: otpInput.value
       }
     };
     try {
       const responseData = await api.request(config);
       authStore.loginUserInfo.phoneVerified = true
+      openOtpVerificationDialog.value = false
     } catch (error) {
       console.log(error);
+      openOtpVerificationDialog.value = false
+
+      Notify.create({
+        position: "center",
+        type: "negative",
+        message: `Could not verify otp. Try again later.`,
+      });
     }
   }
   const verifyOtpCodeWhileRegistration = async (otp) => {
@@ -117,6 +135,9 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
     getOtpVerificationCode,
     verifyOtpCode,
     getOtpVerificationCodeWhileRegistration,
-    verifyOtpCodeWhileRegistration
+    verifyOtpCodeWhileRegistration,
+    openOtpVerificationDialog,
+    otpInput,
+    openOtpVerificationDialogManager
   }
 });

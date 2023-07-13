@@ -3,14 +3,13 @@
   <div class="container-section-py-xs">
     <div class="inner-section">
       <div class="full-width">
-        <marquee-text :duration="60"
+        <marquee-text :duration="movingTextStore?.movingTextData?.speed || 60"
         class="text-primary"
         :paused="isPaused"
           @mouseenter="isPaused = !isPaused"
           @mouseleave="isPaused = false">
-          Proyojon24 এ আপনাকে স্বাগতম! Proyojon24 হলো একটি সার্ভিস প্রোভাইডার প্রোফাইল অ্যাপ যেখানে আপনি আপনার কাংক্ষিত সার্ভিস প্রোভাইডারকে খুব সহজেই খুজে পেতে পারেন। আপনারা আমাদের কাছে যে কোন কিছুর চেয়ে বেশি মূল্যবান এবং আপনাদের সন্তুষ্টিই আমাদের লক্ষ্য। ঘরে বসেই যে কোন সার্ভিস প্রোভাইডার খুজে নিতে আমাদের সাথে থাকুন পাশে রাখুন। Proyojon24 ব্যবহার করার জন্য আপনাকে ধন্যবাদ!
-            Welcome to proyojon24! proyojon24 is a service provider profile app where you can find your desired service provider very easily. You are more valuable to us than anything and your satisfaction is our goal. Stay with us to find any service provider at home. Thank you for using proyojon24!
-</marquee-text>
+          {{ movingTextStore?.movingTextData?.announcement }}
+          </marquee-text>
       </div>
     </div>
   </div>
@@ -477,6 +476,7 @@ import { usePublicDashboardStore } from "src/stores/user/dashboardStore";
 import { web_root_url } from "src/global_constant/root_url";
 import { useTopSuggestedStore } from "src/stores/service/topSuggestedStore";
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
+import { useMovingTextStore } from "src/stores/movingtext/movingtextGet.js";
 
 const isPaused = ref(false);
 const publicSliderStore = usePublicSliderStore();
@@ -510,7 +510,10 @@ districtStore.getAllDistricts();
 //   userBrowsingLocationLocalStore.value.district =
 //     publicUserStore.browsingLocation.district;
 // };
+// moving text useMovingTextStore
 
+const movingTextStore = useMovingTextStore();
+movingTextStore.getMovingTextData()
 onMounted(() => {
   // if (
   //   userBrowsingLocationLocalStore.value.district instanceof Object &&

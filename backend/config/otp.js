@@ -3,10 +3,12 @@ import otpGenerator from 'otp-generator'
 import axios from 'axios';
 
 // The OTP_LENGTH is a number, For my app i selected 10.
-const OTP_LENGTH = 6
+const OTP_LENGTH = 4
 // The OTP_CONFIG is an object that looks like 
 const OTP_CONFIG = {
-    upperCaseAlphabets: true,
+    digits: true,
+    lowerCaseAlphabets: false,
+    upperCaseAlphabets: false,
     specialChars: false,
 }
 export const otpExpirationMinutes = 10;
@@ -17,7 +19,7 @@ export const generateOTP = () => {
 export const isPhoneOtpValid = (phoneOtpExpiresAt) => {
     const currentDateTime = new Date();
     const otpExpiresAt = new Date(phoneOtpExpiresAt);
-    console.log(otpExpiresAt , "," , currentDateTime);
+    console.log(otpExpiresAt, ",", currentDateTime);
     return otpExpiresAt > currentDateTime;
 }
 export const chechResendOtpIfBelow2minutes = (phoneOtpExpiresAt) => {
@@ -32,14 +34,14 @@ export const createOtpExpirationTime = () => {
     return otpExpiresAt
 }
 export const phoneNumberPrefix = (str) => {
-    if(str.startsWith('0')){
-        return '88'+ str ;
+    if (str.startsWith('0')) {
+        return '88' + str;
     }
-    else if(str.startsWith('880')){
+    else if (str.startsWith('880')) {
         return str
     }
-    else{
-        return '880'+ str 
+    else {
+        return '880' + str
     }
 }
 

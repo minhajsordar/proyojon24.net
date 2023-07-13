@@ -1,5 +1,18 @@
 import { Notify, Loading, QSpinnerGears } from "quasar";
 
+export const convertNumberIntoDecimal = function (num) {
+  // Nine Zeroes for Billions
+  return Math.abs(Number(num)) >= 1.0e9
+    ? Number((Math.abs(Number(num)) / 1.0e9).toFixed(2)) + "B"
+    : // Six Zeroes for Millions
+    Math.abs(Number(num)) >= 1.0e6
+      ? Number((Math.abs(Number(num)) / 1.0e6).toFixed(2)) + "M"
+      : // Three Zeroes for Thousands
+      Math.abs(Number(num)) >= 1.0e3
+        ? Number((Math.abs(Number(num)) / 1.0e3).toFixed(2)) + "K"
+        : Math.abs(Number(num));
+};
+
 export const usernameRequired = (val) => {
   return (val && val.length > 0) ? true : "Required Feild";
 };

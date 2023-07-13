@@ -1,6 +1,22 @@
 import bcryptjs from "bcryptjs";
 import mongoose from "mongoose";
 
+const counterSchema = new mongoose.Schema({
+    _id: { type: String, required: true },
+    sequenceValue: { type: Number, default: 0 },
+});
+
+export const Counter = mongoose.model('Counter', counterSchema);
+async function getNextId(counterName) {
+    const counter = await Counter.findByIdAndUpdate(
+      counterName,
+      { $inc: { sequenceValue: 1 } },
+      { new: true, upsert: true }
+    );
+  
+    return counter.sequenceValue;
+  }
+  
 const userSchema = mongoose.Schema({
     name: {
         bn: { type: String, required: true },
@@ -103,6 +119,9 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 }
 
 userSchema.pre('save', async function (next) {
+    if (!this.registrationNo) {
+        this.registrationNo = await getNextId('userRegistrationCounter');
+      }
     if (!this.isModified('password')) {
         next()
     }

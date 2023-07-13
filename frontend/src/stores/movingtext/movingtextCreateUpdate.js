@@ -9,6 +9,7 @@ loader.title = 'Requesting To Server...'
 export const useMovingTextCreateUpdateStore = defineStore('moving text create Update store', () => {
   const authStore = useAuthStore()
   const movingText = ref(null)
+  const speed = ref(null)
   const movingTextData = ref(null)
   const getMovingText = async () => {
     const config = {
@@ -23,6 +24,7 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
       movingTextData.value = responseData.data
       if (responseData.data.length > 0) {
         movingText.value = responseData.data[0].announcement
+        speed.value = responseData.data[0].speed
       }
     } catch (error) {
       console.log(error);
@@ -36,7 +38,7 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
     }
   }
   const createMovingText = async () => {
-    const data = { announcement: movingText.value }
+    const data = { announcement: movingText.value, speed: speed.value }
 
     const config = {
       method: "post",
@@ -67,7 +69,7 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
     }
   }
   const updateMovingText = async () => {
-    const data = { announcement: movingText.value }
+    const data = { announcement: movingText.value, speed: speed.value }
 
     const config = {
       method: "put",
@@ -103,5 +105,6 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
     movingText,
     getMovingText,
     updateMovingTextManager,
+    speed
   }
 });

@@ -106,7 +106,7 @@ const otpCodeResend = useLocalStorage("opt-resend", {});
 
 const sendOtpManager = () => {
   if (!isObjEmpty(otpCodeResend)) {
-    console.log("not empty otp code resend")
+    // console.log("not empty otp code resend")
     if (new Date(otpCodeResend.value.timer) > new Date()) {
       let timeDif = new Date(new Date(otpCodeResend.value.timer) - new Date());
       Notify.create({
@@ -117,25 +117,14 @@ const sendOtpManager = () => {
       return;
     }
   }
-  return;
+  // return;
   let d = new Date();
   d.setMinutes(d.getMinutes() + 10);
   otpCodeResend.value.timer = d;
-  otpVerificationStore.getOtpVerificationCode();
+  otpVerificationStore.getOtpVerificationCode(verifyOtp);
 };
 
 const verifyOtp = () => {
-  $q.dialog({
-    // title: t("confirm"),
-    message: "Enter OTP code",
-    cancel: true,
-    persistent: true,
-    prompt: {
-      model: "",
-      type: "text", // optional
-    },
-  }).onOk((data) => {
-    otpVerificationStore.verifyOtpCode(data);
-  });
+  otpVerificationStore.openOtpVerificationDialogManager()
 };
 </script>

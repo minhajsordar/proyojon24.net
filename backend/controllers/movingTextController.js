@@ -30,12 +30,16 @@ const getMovingTextById = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const updateMovingText = expressAsyncHandler(async (req, res) => {
     const {
-        announcement
+        announcement,
+        speed
     } = req.body
     const movingTexts = await MovingText.findById(req.params.id)
     if(movingTexts){
         if(announcement){
             movingTexts.announcement = announcement
+        }
+        if(speed){
+            movingTexts.speed = speed
         }
         const updatedMovingText = await movingTexts.save()
         res.status(201).json(updatedMovingText)

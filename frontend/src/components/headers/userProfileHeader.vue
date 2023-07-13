@@ -1,9 +1,15 @@
 <template>
   <q-toolbar class="q-py-none q-px-md">
-    <q-item >
+    <q-item>
       <q-item-section side>
         <div class="flex">
-          <q-avatar round size="40px" clickable v-ripple @click="profileClickManager">
+          <q-avatar
+            round
+            size="40px"
+            clickable
+            v-ripple
+            @click="profileClickManager"
+          >
             <img
               v-if="authStore?.loginUserInfo?.profileImage"
               :src="web_root_url + authStore?.loginUserInfo?.profileImage"
@@ -16,17 +22,24 @@
                 class="dashboard-data border-radius-sm"
                 src="/images/service_provider_count.jpg"
               />
-              {{ dashboardStore.dashboardData?.totalUser }}
+              {{
+                $convertNumberIntoDecimal(
+                  dashboardStore.dashboardData?.totalUser
+                )
+              }}
             </div>
-            <div >
+            <div>
               <q-img
                 class="dashboard-data border-radius-sm"
                 src="/images/service_provider_view.jpeg"
               />
-              {{ dashboardStore.dashboardData?.totalView }}
+              {{
+                $convertNumberIntoDecimal(
+                  dashboardStore.dashboardData?.totalView
+                )
+              }}
             </div>
           </div>
-
         </div>
         <!-- <q-item-label
 

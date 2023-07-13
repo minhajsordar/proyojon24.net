@@ -7,6 +7,7 @@ const movingTextSchema = new mongoose.Schema({
         ref: 'User'
     },
     announcement: { type: String},
+    speed: { type: Number},
 }, {
     timestamps: true
 });
