@@ -8,7 +8,6 @@ export NODE_OPTIONS="--max-old-space-size=8192"
 
 
 # nid verification 
-# availablity checkboxes ok
 # experience ok
 # see pdf
 # related profile suggestion below profile

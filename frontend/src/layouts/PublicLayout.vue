@@ -262,7 +262,8 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .footer-left-bare-open {
-  width: calc(100% - 300px);
+  width: 100%;
+  // width: calc(100% - 300px);
 }
 .footer-left-bare-close {
   width: 100%;
