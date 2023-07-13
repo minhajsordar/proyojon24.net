@@ -14,9 +14,11 @@ node_modules/
 /frontend/node_modules
 /frontend/src-cordova
 /frontend/src-ssr
+frontend
+/frontend
 
-build
-/build
+# build
+# /build
 http_requests
 /http_requests
 static
