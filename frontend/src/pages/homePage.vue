@@ -3,464 +3,528 @@
   <div class="container-section-py-xs">
     <div class="inner-section">
       <div class="full-width">
-        <marquee-text :duration="movingTextStore?.movingTextData?.speed || 60"
-        class="text-primary"
-        :paused="isPaused"
+        <marquee-text
+          :duration="movingTextStore?.movingTextData?.speed || 60"
+          class="text-primary"
+          :paused="isPaused"
           @mouseenter="isPaused = !isPaused"
-          @mouseleave="isPaused = false">
+          @mouseleave="isPaused = false"
+        >
           {{ movingTextStore?.movingTextData?.announcement }}
-          </marquee-text>
+        </marquee-text>
       </div>
     </div>
   </div>
-  <div
-    v-if="
-      servicePublicStore.allServices &&
-      servicePublicStore.allServices.length >= 0
-    "
-  >
-    <div
-      class="container-section-py-xs"
-      v-if="servicePublicStore?.allServices.length >= 1"
-    >
-      <div class="inner-section">
-        <div class="full-width">
-          <div class="q-py-md">
-            <div class="row q-col-gutter-sm">
-              <div
-                class="col-lg-3 col-md-3 col-sm-2 col-3"
-                v-for="(
-                  service, index
-                ) in servicePublicStore?.allServices?.slice(0, 12)"
-                :key="index"
-              >
-                <div
-                  class="text-center cursor-pointer service-item"
-                  @click="
-                    $router.push('/service_categorys_list/' + service._id);
-                    selectedServiceAndCategory.serviceId = service._id;
-                    selectedServiceAndCategory.serviceName = service.name;
-                  "
-                >
-                  <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
-                  <div class="icon-relative-cont">
-                    <!-- <q-img  src="/images/hexagonalshape.svg"
-                    style="width: 56px; height: 48px;"
-                    /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape">
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      class="absolute-top-center service-icon"
-                      v-if="service.icon"
-                      fit
-                      :src="web_root_url + service.icon"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      v-else
-                      class="absolute-top-center service-icon"
-                      fit
-                      src="/images/placeholder_image.png"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <div
-                      class="absolute-top-center service-icon gradient-bg"
-                    ></div>
-                    <!-- <q-img fit
-                    style="max-width: 50px; max-height: 50px;"
-                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
-                    /> -->
-                  </div>
-                  <div>
-                    <div>
-                      {{ service.name[languageStore.language] }}
-                    </div>
-                    <div>
-                      {{ service.serviceProviderCount }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-else class="q-py-xs"></div>
-    <div
-      class="container-section-py-xs-0"
-      v-if="publicSliderStore?.sliderData?.slider1?.length != 0"
-    >
-      <div class="inner-section-px-0">
-        <div class="full-width">
-          <topSlide slide="slider1" />
-        </div>
-      </div>
-    </div>
-    <div
-      class="container-section-py-xs"
-      v-if="servicePublicStore?.allServices.length >= 12"
-    >
-      <div class="inner-section">
-        <div class="full-width">
-          <div class="q-py-md">
-            <div class="row q-col-gutter-sm">
-              <div
-                class="col-lg-3 col-md-3 col-sm-2 col-3"
-                v-for="(
-                  service, index
-                ) in servicePublicStore?.allServices?.slice(12, 24)"
-                :key="index"
-              >
-                <div
-                  class="text-center cursor-pointer service-item"
-                  @click="
-                    $router.push('/service_categorys_list/' + service._id);
-                    selectedServiceAndCategory.serviceId = service._id;
-                    selectedServiceAndCategory.serviceName = service.name;
-                  "
-                >
-                  <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
-                  <div class="icon-relative-cont">
-                    <!-- <q-img  src="/images/hexagonalshape.svg"
-                    style="width: 56px; height: 48px;"
-                    /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape">
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      class="absolute-top-center service-icon"
-                      v-if="service.icon"
-                      fit
-                      :src="web_root_url + service.icon"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      v-else
-                      class="absolute-top-center service-icon"
-                      fit
-                      src="/images/placeholder_image.png"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <div
-                      class="absolute-top-center service-icon gradient-bg"
-                    ></div>
-                    <!-- <q-img fit
-                    style="max-width: 50px; max-height: 50px;"
-                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
-                    /> -->
-                  </div>
-                  <div>
-                    <div>
-                      {{ service.name[languageStore.language] }}
-                    </div>
-                    <div>
-                      {{ service.serviceProviderCount }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-else class="q-py-xs"></div>
-    <div
-      class="container-section-py-xs-0"
-      v-if="publicSliderStore?.sliderData?.slider2?.length != 0"
-    >
-      <div class="inner-section-px-0">
-        <div class="full-width">
-          <topSlide slide="slider2" />
-        </div>
-      </div>
-    </div>
-    <div
-      class="container-section-py-xs"
-      v-if="servicePublicStore?.allServices.length >= 24"
-    >
-      <div class="inner-section">
-        <div class="full-width">
-          <div class="q-py-md">
-            <div class="row q-col-gutter-sm">
-              <div
-                class="col-lg-3 col-md-3 col-sm-2 col-3"
-                v-for="(
-                  service, index
-                ) in servicePublicStore?.allServices?.slice(24, 36)"
-                :key="index"
-              >
-                <div
-                  class="text-center cursor-pointer service-item"
-                  @click="
-                    $router.push('/service_categorys_list/' + service._id);
-                    selectedServiceAndCategory.serviceId = service._id;
-                    selectedServiceAndCategory.serviceName = service.name;
-                  "
-                >
-                  <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
-                  <div class="icon-relative-cont">
-                    <!-- <q-img  src="/images/hexagonalshape.svg"
-                    style="width: 56px; height: 48px;"
-                    /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape">
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      class="absolute-top-center service-icon"
-                      v-if="service.icon"
-                      fit
-                      :src="web_root_url + service.icon"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      v-else
-                      class="absolute-top-center service-icon"
-                      fit
-                      src="/images/placeholder_image.png"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <div
-                      class="absolute-top-center service-icon gradient-bg"
-                    ></div>
-                    <!-- <q-img fit
-                    style="max-width: 50px; max-height: 50px;"
-                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
-                    /> -->
-                  </div>
-                  <div>
-                    <div>
-                      {{ service.name[languageStore.language] }}
-                    </div>
-                    <div>
-                      {{ service.serviceProviderCount }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-else class="q-py-xs"></div>
-    <div
-      class="container-section-py-xs-0"
-      v-if="publicSliderStore?.sliderData?.slider3?.length != 0"
-    >
-      <div class="inner-section-px-0">
-        <div class="full-width">
-          <topSlide slide="slider3" />
-        </div>
-      </div>
-    </div>
-    <div
-      class="container-section-py-xs"
-      v-if="servicePublicStore?.allServices.length >= 36"
-    >
-      <div class="inner-section">
-        <div class="full-width">
-          <div class="q-py-md">
-            <div class="row q-col-gutter-sm">
-              <div
-                class="col-lg-3 col-md-3 col-sm-2 col-3"
-                v-for="(
-                  service, index
-                ) in servicePublicStore?.allServices?.slice(36, 48)"
-                :key="index"
-              >
-                <div
-                  class="text-center cursor-pointer service-item"
-                  @click="
-                    $router.push('/service_categorys_list/' + service._id);
-                    selectedServiceAndCategory.serviceId = service._id;
-                    selectedServiceAndCategory.serviceName = service.name;
-                  "
-                >
-                  <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
-                  <div class="icon-relative-cont">
-                    <!-- <q-img  src="/images/hexagonalshape.svg"
-                    style="width: 56px; height: 48px;"
-                    /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape">
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      class="absolute-top-center service-icon"
-                      v-if="service.icon"
-                      fit
-                      :src="web_root_url + service.icon"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      v-else
-                      class="absolute-top-center service-icon"
-                      fit
-                      src="/images/placeholder_image.png"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <div
-                      class="absolute-top-center service-icon gradient-bg"
-                    ></div>
-                    <!-- <q-img fit
-                    style="max-width: 50px; max-height: 50px;"
-                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
-                    /> -->
-                  </div>
-                  <div>
-                    <div>
-                      {{ service.name[languageStore.language] }}
-                    </div>
-                    <div>
-                      {{ service.serviceProviderCount }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-else class="q-py-xs"></div>
-    <div
-      class="container-section-py-xs-0"
-      v-if="publicSliderStore?.sliderData?.slider4?.length != 0"
-    >
-      <div class="inner-section-px-0">
-        <div class="full-width">
-          <topSlide slide="slider4" />
-        </div>
-      </div>
-    </div>
-    <div
-      class="container-section-py-xs"
-      v-if="servicePublicStore?.allServices.length >= 48"
-    >
-      <div class="inner-section">
-        <div class="full-width">
-          <div class="q-py-md">
-            <div class="row q-col-gutter-sm">
-              <div
-                class="col-lg-3 col-md-3 col-sm-2 col-3"
-                v-for="(
-                  service, index
-                ) in servicePublicStore?.allServices?.slice(48, 60)"
-                :key="index"
-              >
-                <div
-                  class="text-center cursor-pointer service-item"
-                  @click="
-                    $router.push('/service_categorys_list/' + service._id);
-                    selectedServiceAndCategory.serviceId = service._id;
-                    selectedServiceAndCategory.serviceName = service.name;
-                  "
-                >
-                  <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
-                  <div class="icon-relative-cont">
-                    <!-- <q-img  src="/images/hexagonalshape.svg"
-                    style="width: 56px; height: 48px;"
-                    /> -->
-                    <q-img src="/images/roundedsquareshape.svg" class="shape">
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      class="absolute-top-center service-icon"
-                      v-if="service.icon"
-                      fit
-                      :src="web_root_url + service.icon"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <q-img
-                      v-else
-                      class="absolute-top-center service-icon"
-                      fit
-                      src="/images/placeholder_image.png"
-                    >
-                      <template v-slot:loading> </template>
-                    </q-img>
-                    <div
-                      class="absolute-top-center service-icon gradient-bg"
-                    ></div>
-                    <!-- <q-img fit
-                    style="max-width: 50px; max-height: 50px;"
-                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
-                    /> -->
-                  </div>
-                  <div>
-                    <div>
-                      {{ service.name[languageStore.language] }}
-                    </div>
-                    <div>
-                      {{ service.serviceProviderCount }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container-section-py-xs">
-      <div class="inner-section">
-        <div class="full-width px-sm">
-            <div class="row q-col-gutter-md">
-              <div
-                class="col-3 cursor-pointer"
-                style="flex: 1"
-                v-for="(topProvider, index) in topSuggestedStore?.topSuggested"
-                :key="index"
-                @click="
-                  $router.push('/service_provider/'+topProvider._id)
-                "
-              >
-                <q-card class="q-pa-sm fs-12 text-center border-primary" style="height: 100%">
-                  <q-img
-                    v-if="topProvider.image"
-                    width="55px"
-                    height="55px"
-                    :src="topProvider.image"
-                    />
-                    <q-img
-                    v-else
-                    height="55px"
-                    width="55px"
-                    src="/images/user-placeholder.jpg"
-                  />
-                  <div>
-                    {{ topProvider.serviceTitle[languageStore.language] }}
-                  </div>
-                  <div>{{ topProvider.name[languageStore.language] }}</div>
-                </q-card>
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div v-else class="container-section-py-sm">
+  <div class="container-section-py-xs" v-if="$q.screen.gt.sm">
     <div class="inner-section">
       <div class="full-width">
-        {{ $t("noInfo") }}
+        <q-card class="bg-primary border-primary q-pa-sm">
+          <div class="row q-col-gutter-md">
+            <div class="col-2">
+              <div class="text-white fs-20">Profile - 2343</div>
+              <div class="text-white fs-20">View - 2343</div>
+            </div>
+            <div class="col-8">
+              <q-card class="q-pa-md bg-orange-8 text-white">
+                <div class="text-center text-bold fs-24">
+                  প্রয়ােজন পূরন করুন যখন তখন
+                </div>
+                <div class="flex justify-between q-mt-md fs-18">
+                  <div class="">পন্য ব্যবসায়ী/সার্ভিস প্রভাইডার</div>
+                  <div class="text-end">স্থান</div>
+                </div>
+              </q-card>
+              <q-card class="q-pa-md q-mt-sm q-mx-lg">
+                <div class="text-center text-bold fs-20">
+                  প্রয়ােজন২৪ আপনােক স্বাগতম
+                </div>
+              </q-card>
+            </div>
+            <div class="col-2"></div>
+          </div>
+        </q-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="row q-col-gutter-sm">
+    <div class="col-3"  v-if="$q.screen.gt.sm">
+      Service providers
+      <div>Medical</div>
+      <div>Hospital</div>
+      <div>Clinic</div>
+      <div>It Service</div>
+      <div>Sub mistri</div>
+    </div>
+    <div class="col-12 col-md-9">
+      <div
+        v-if="
+          servicePublicStore.allServices &&
+          servicePublicStore.allServices.length >= 0
+        "
+      >
+        <div
+          class="container-section-py-xs"
+          v-if="servicePublicStore?.allServices.length >= 1"
+        >
+          <div class="inner-section">
+            <div class="full-width">
+              <div class="q-py-md">
+                <div class="row q-col-gutter-sm">
+                  <div
+                    class="col-lg-3 col-md-3 col-sm-2 col-3"
+                    v-for="(
+                      service, index
+                    ) in servicePublicStore?.allServices?.slice(0, 12)"
+                    :key="index"
+                  >
+                    <div
+                      class="text-center cursor-pointer service-item"
+                      @click="
+                        $router.push('/service_categorys_list/' + service._id);
+                        selectedServiceAndCategory.serviceId = service._id;
+                        selectedServiceAndCategory.serviceName = service.name;
+                      "
+                    >
+                      <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
+                      <div class="icon-relative-cont">
+                        <!-- <q-img  src="/images/hexagonalshape.svg"
+                    style="width: 56px; height: 48px;"
+                    /> -->
+                        <q-img
+                          src="/images/roundedsquareshape.svg"
+                          class="shape"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          class="absolute-top-center service-icon"
+                          v-if="service.icon"
+                          fit
+                          :src="web_root_url + service.icon"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          v-else
+                          class="absolute-top-center service-icon"
+                          fit
+                          src="/images/placeholder_image.png"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <div
+                          class="absolute-top-center service-icon gradient-bg"
+                        ></div>
+                        <!-- <q-img fit
+                    style="max-width: 50px; max-height: 50px;"
+                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
+                    /> -->
+                      </div>
+                      <div>
+                        <div>
+                          {{ service.name[languageStore.language] }}
+                        </div>
+                        <div>
+                          {{ service.serviceProviderCount }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-else class="q-py-xs"></div>
+        <div
+          class="container-section-py-xs-0"
+          v-if="publicSliderStore?.sliderData?.slider1?.length != 0"
+        >
+          <div class="inner-section-px-0">
+            <div class="full-width">
+              <topSlide slide="slider1" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="container-section-py-xs"
+          v-if="servicePublicStore?.allServices.length >= 12"
+        >
+          <div class="inner-section">
+            <div class="full-width">
+              <div class="q-py-md">
+                <div class="row q-col-gutter-sm">
+                  <div
+                    class="col-lg-3 col-md-3 col-sm-2 col-3"
+                    v-for="(
+                      service, index
+                    ) in servicePublicStore?.allServices?.slice(12, 24)"
+                    :key="index"
+                  >
+                    <div
+                      class="text-center cursor-pointer service-item"
+                      @click="
+                        $router.push('/service_categorys_list/' + service._id);
+                        selectedServiceAndCategory.serviceId = service._id;
+                        selectedServiceAndCategory.serviceName = service.name;
+                      "
+                    >
+                      <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
+                      <div class="icon-relative-cont">
+                        <!-- <q-img  src="/images/hexagonalshape.svg"
+                    style="width: 56px; height: 48px;"
+                    /> -->
+                        <q-img
+                          src="/images/roundedsquareshape.svg"
+                          class="shape"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          class="absolute-top-center service-icon"
+                          v-if="service.icon"
+                          fit
+                          :src="web_root_url + service.icon"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          v-else
+                          class="absolute-top-center service-icon"
+                          fit
+                          src="/images/placeholder_image.png"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <div
+                          class="absolute-top-center service-icon gradient-bg"
+                        ></div>
+                        <!-- <q-img fit
+                    style="max-width: 50px; max-height: 50px;"
+                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
+                    /> -->
+                      </div>
+                      <div>
+                        <div>
+                          {{ service.name[languageStore.language] }}
+                        </div>
+                        <div>
+                          {{ service.serviceProviderCount }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-else class="q-py-xs"></div>
+        <div
+          class="container-section-py-xs-0"
+          v-if="publicSliderStore?.sliderData?.slider2?.length != 0"
+        >
+          <div class="inner-section-px-0">
+            <div class="full-width">
+              <topSlide slide="slider2" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="container-section-py-xs"
+          v-if="servicePublicStore?.allServices.length >= 24"
+        >
+          <div class="inner-section">
+            <div class="full-width">
+              <div class="q-py-md">
+                <div class="row q-col-gutter-sm">
+                  <div
+                    class="col-lg-3 col-md-3 col-sm-2 col-3"
+                    v-for="(
+                      service, index
+                    ) in servicePublicStore?.allServices?.slice(24, 36)"
+                    :key="index"
+                  >
+                    <div
+                      class="text-center cursor-pointer service-item"
+                      @click="
+                        $router.push('/service_categorys_list/' + service._id);
+                        selectedServiceAndCategory.serviceId = service._id;
+                        selectedServiceAndCategory.serviceName = service.name;
+                      "
+                    >
+                      <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
+                      <div class="icon-relative-cont">
+                        <!-- <q-img  src="/images/hexagonalshape.svg"
+                    style="width: 56px; height: 48px;"
+                    /> -->
+                        <q-img
+                          src="/images/roundedsquareshape.svg"
+                          class="shape"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          class="absolute-top-center service-icon"
+                          v-if="service.icon"
+                          fit
+                          :src="web_root_url + service.icon"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          v-else
+                          class="absolute-top-center service-icon"
+                          fit
+                          src="/images/placeholder_image.png"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <div
+                          class="absolute-top-center service-icon gradient-bg"
+                        ></div>
+                        <!-- <q-img fit
+                    style="max-width: 50px; max-height: 50px;"
+                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
+                    /> -->
+                      </div>
+                      <div>
+                        <div>
+                          {{ service.name[languageStore.language] }}
+                        </div>
+                        <div>
+                          {{ service.serviceProviderCount }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-else class="q-py-xs"></div>
+        <div
+          class="container-section-py-xs-0"
+          v-if="publicSliderStore?.sliderData?.slider3?.length != 0"
+        >
+          <div class="inner-section-px-0">
+            <div class="full-width">
+              <topSlide slide="slider3" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="container-section-py-xs"
+          v-if="servicePublicStore?.allServices.length >= 36"
+        >
+          <div class="inner-section">
+            <div class="full-width">
+              <div class="q-py-md">
+                <div class="row q-col-gutter-sm">
+                  <div
+                    class="col-lg-3 col-md-3 col-sm-2 col-3"
+                    v-for="(
+                      service, index
+                    ) in servicePublicStore?.allServices?.slice(36, 48)"
+                    :key="index"
+                  >
+                    <div
+                      class="text-center cursor-pointer service-item"
+                      @click="
+                        $router.push('/service_categorys_list/' + service._id);
+                        selectedServiceAndCategory.serviceId = service._id;
+                        selectedServiceAndCategory.serviceName = service.name;
+                      "
+                    >
+                      <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
+                      <div class="icon-relative-cont">
+                        <!-- <q-img  src="/images/hexagonalshape.svg"
+                    style="width: 56px; height: 48px;"
+                    /> -->
+                        <q-img
+                          src="/images/roundedsquareshape.svg"
+                          class="shape"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          class="absolute-top-center service-icon"
+                          v-if="service.icon"
+                          fit
+                          :src="web_root_url + service.icon"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          v-else
+                          class="absolute-top-center service-icon"
+                          fit
+                          src="/images/placeholder_image.png"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <div
+                          class="absolute-top-center service-icon gradient-bg"
+                        ></div>
+                        <!-- <q-img fit
+                    style="max-width: 50px; max-height: 50px;"
+                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
+                    /> -->
+                      </div>
+                      <div>
+                        <div>
+                          {{ service.name[languageStore.language] }}
+                        </div>
+                        <div>
+                          {{ service.serviceProviderCount }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-else class="q-py-xs"></div>
+        <div
+          class="container-section-py-xs-0"
+          v-if="publicSliderStore?.sliderData?.slider4?.length != 0"
+        >
+          <div class="inner-section-px-0">
+            <div class="full-width">
+              <topSlide slide="slider4" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="container-section-py-xs"
+          v-if="servicePublicStore?.allServices.length >= 48"
+        >
+          <div class="inner-section">
+            <div class="full-width">
+              <div class="q-py-md">
+                <div class="row q-col-gutter-sm">
+                  <div
+                    class="col-lg-3 col-md-3 col-sm-2 col-3"
+                    v-for="(
+                      service, index
+                    ) in servicePublicStore?.allServices?.slice(48, 60)"
+                    :key="index"
+                  >
+                    <div
+                      class="text-center cursor-pointer service-item"
+                      @click="
+                        $router.push('/service_categorys_list/' + service._id);
+                        selectedServiceAndCategory.serviceId = service._id;
+                        selectedServiceAndCategory.serviceName = service.name;
+                      "
+                    >
+                      <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
+                      <div class="icon-relative-cont">
+                        <!-- <q-img  src="/images/hexagonalshape.svg"
+                    style="width: 56px; height: 48px;"
+                    /> -->
+                        <q-img
+                          src="/images/roundedsquareshape.svg"
+                          class="shape"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          class="absolute-top-center service-icon"
+                          v-if="service.icon"
+                          fit
+                          :src="web_root_url + service.icon"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <q-img
+                          v-else
+                          class="absolute-top-center service-icon"
+                          fit
+                          src="/images/placeholder_image.png"
+                        >
+                          <template v-slot:loading> </template>
+                        </q-img>
+                        <div
+                          class="absolute-top-center service-icon gradient-bg"
+                        ></div>
+                        <!-- <q-img fit
+                    style="max-width: 50px; max-height: 50px;"
+                    src="https://cdn.pixabay.com/photo/2019/11/06/05/47/stethoscope-4605241_1280.png"
+                    /> -->
+                      </div>
+                      <div>
+                        <div>
+                          {{ service.name[languageStore.language] }}
+                        </div>
+                        <div>
+                          {{ service.serviceProviderCount }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-section-py-xs">
+          <div class="inner-section">
+            <div class="full-width px-sm">
+              <div class="row q-col-gutter-md">
+                <div
+                  class="col-3 cursor-pointer"
+                  style="flex: 1"
+                  v-for="(
+                    topProvider, index
+                  ) in topSuggestedStore?.topSuggested"
+                  :key="index"
+                  @click="$router.push('/service_provider/' + topProvider._id)"
+                >
+                  <q-card
+                    class="q-pa-sm fs-12 text-center border-primary"
+                    style="height: 100%"
+                  >
+                    <q-img
+                      v-if="topProvider.image"
+                      width="55px"
+                      height="55px"
+                      :src="topProvider.image"
+                    />
+                    <q-img
+                      v-else
+                      height="55px"
+                      width="55px"
+                      src="/images/user-placeholder.jpg"
+                    />
+                    <div>
+                      {{ topProvider.serviceTitle[languageStore.language] }}
+                    </div>
+                    <div>{{ topProvider.name[languageStore.language] }}</div>
+                  </q-card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else class="container-section-py-sm">
+        <div class="inner-section">
+          <div class="full-width">
+            {{ $t("noInfo") }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import MarqueeText from 'vue-marquee-text-component'
+import MarqueeText from "vue-marquee-text-component";
 import { useLocalStorage } from "@vueuse/core";
 import { useMeta } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
@@ -488,7 +552,7 @@ topSuggestedStore.getTopSuggestedProvider();
 
 const dashboardStore = usePublicDashboardStore();
 // get dashboard data
-dashboardStore.getDashboardData()
+dashboardStore.getDashboardData();
 const selectedServiceAndCategory = useLocalStorage(
   "selected-service-and-category",
   {}
@@ -513,7 +577,7 @@ districtStore.getAllDistricts();
 // moving text useMovingTextStore
 
 const movingTextStore = useMovingTextStore();
-movingTextStore.getMovingTextData()
+movingTextStore.getMovingTextData();
 onMounted(() => {
   // if (
   //   userBrowsingLocationLocalStore.value.district instanceof Object &&
@@ -725,26 +789,26 @@ useMeta(metaData);
   top: 5px;
   z-index: 999999999;
 }
-.marque-animation{
+.marque-animation {
   display: inline-block;
   width: 100%;
   overflow: hidden;
 }
-.marque-text{
-  text-wrap:nowrap;
+.marque-text {
+  text-wrap: nowrap;
   width: fit-content;
   text-align: center;
   min-width: 100%;
   animation: marqueanimation 80s linear 0s infinite forwards;
 }
-.marque-text:hover{
+.marque-text:hover {
   animation-play-state: paused;
 }
 @keyframes marqueanimation {
-  0%{
+  0% {
     transform: translateX(35%);
   }
-  100%{
+  100% {
     transform: translateX(-100%);
   }
 }
