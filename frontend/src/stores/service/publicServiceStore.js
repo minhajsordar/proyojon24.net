@@ -22,7 +22,29 @@ export const usePublicServiceStore = defineStore('Publice service store', () => 
     try {
       const responseData = await api.request(config);
       responseData.data.sort((a, b) => a.order - b.order);
-      allServices.value = responseData.data;
+      allServices.value = responseData.data
+      getServiceCategorys()
+      loader.hideLoader()
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+    }
+  }
+  const getServiceCategorys = async () => {
+    const config = {
+      method: "get",
+      url: "api/service_categorys/all",
+      headers: {
+        "Content-Type": "application/json",
+
+      }
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      allServices.value.map((service) =>{
+        service.serviceCategorys = responseData.data.filter(d=>d.service === service._id)
+      });
       loader.hideLoader()
     } catch (error) {
       console.log(error);

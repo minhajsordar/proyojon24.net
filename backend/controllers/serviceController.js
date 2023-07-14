@@ -1,11 +1,12 @@
 import expressAsyncHandler from "express-async-handler";
 import Service from '../models/serviceModel.js'
+import ServiceCategory from '../models/serviceCategoryModel.js'
 
 // @desc get Service
 // @route Put api/Service
 // @acess Privet
 const getServices = expressAsyncHandler(async (req, res) => {
-    const pageSize =  Number(req.query.pageSize) || 50;
+    const pageSize = Number(req.query.pageSize) || 50;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {
@@ -35,7 +36,7 @@ const getServiceById = expressAsyncHandler(async (req, res) => {
     if (service) {
         service.viewCount += 1
         const updatedService = await service.save()
-        
+
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json(updatedService)
     } else {
@@ -114,12 +115,12 @@ const createService = expressAsyncHandler(async (req, res) => {
         icon
     } = req.body
     const service = new Service({
-        user:req.user._id,
+        user: req.user._id,
         name,
         description,
         coverImage,
         icon,
-        viewCount:0
+        viewCount: 0
     })
     const createdService = await service.save()
     res.status(201).json(createdService)
