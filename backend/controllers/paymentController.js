@@ -100,7 +100,7 @@ const getPendingPaymentList = expressAsyncHandler(async (req, res) => {
   }
   const pageSize = Number(req.query.pageSize) || 30;
   const page = Number(req.query.pageNumber) || 1;
-  const count = await Payment.countDocuments({})
+  const count = await Payment.countDocuments({ ...keywords })
   const payments = await Payment.find({ ...keywords }).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1))
   res.json({ payments, page, pages: Math.ceil(count / pageSize) })
 })

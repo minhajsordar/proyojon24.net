@@ -144,6 +144,9 @@ export default {
     pending_nid_verification: 'Pending Nid Verification',
     data_analisis: 'Data Analisis',
     service_and_payment_configuration: 'Service and Payment Configuration',
+    how_it_works:'How it works',
+register:'Sign up',
+login:'Login',
   },
   location:{
     division:'Division',

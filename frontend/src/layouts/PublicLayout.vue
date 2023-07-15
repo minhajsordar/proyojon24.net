@@ -3,8 +3,9 @@
     <!-- !$q.screen.gt.sm -->
     <q-header
       class="text-white"
-      :class="[$q.screen.gt.sm ? 'bg-accent-public' : 'bg-red-8']"
+      :class="[$q.screen.gt.sm ? 'bg-white' : 'bg-accent']"
       height-hint="61.59"
+      bordered
     >
       <userProfileHeader />
     </q-header>
@@ -105,8 +106,7 @@
           flat
           round
           style="padding: 3px"
-          class="bg-accent text-white absolute-add-serviceporvider"
-          :class="[$q.screen.gt.sm ? 'bg-accent' : 'bg-green']"
+          class="bg-accent text-white absolute-add-serviceporvider bg-accent"
           @click="menuManager"
         >
           <div
@@ -284,7 +284,7 @@ onMounted(() => {
 @media screen and (max-width: 1024px) {
   #footer-bg-svg {
     .fill-path {
-      fill: $green;
+      fill: $accent;
     }
   }
 }

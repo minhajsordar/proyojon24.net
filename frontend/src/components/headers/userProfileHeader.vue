@@ -2,134 +2,39 @@
   <q-toolbar class="q-py-none q-px-md">
     <q-item>
       <q-item-section side>
-        <div class="flex">
-          <q-avatar
-            round
-            size="40px"
-            clickable
-            v-ripple
-            @click="profileClickManager"
-          >
-            <img
-              v-if="authStore?.loginUserInfo?.profileImage"
-              :src="web_root_url + authStore?.loginUserInfo?.profileImage"
-            />
-            <img v-else src="/images/user-placeholder.jpg" />
-          </q-avatar>
-          <div class="q-ml-xs text-white">
-            <div>
-              <q-img
-                class="dashboard-data border-radius-sm"
-                src="/images/service_provider_count.jpg"
-              />
-              {{
-                $convertNumberIntoDecimal(
-                  dashboardStore.dashboardData?.totalUser
-                )
-              }}
-            </div>
-            <div>
-              <q-img
-                class="dashboard-data border-radius-sm"
-                src="/images/service_provider_view.jpeg"
-              />
-              {{
-                $convertNumberIntoDecimal(
-                  dashboardStore.dashboardData?.totalView
-                )
-              }}
-            </div>
-          </div>
-        </div>
-        <!-- <q-item-label
-
-          class="text-white"
-          v-if="authStore?.loginUserInfo?.name"
-          >{{
-            authStore?.loginUserInfo?.name[languageStore.language]
-          }}</q-item-label
-        >
-        <q-item-label v-else class="text-white fs-12 q-mt-xs"
-        clickable v-ripple @click="profileClickManager"
-        >
-          <div>Guest User</div>
-          <div class="fs-10">Login/Register</div>
-        </q-item-label>
-        <q-item-label
-          v-if="authStore?.loginUserInfo"
-          caption
-          class="text-white"
-        >
-          {{
-            authStore?.loginUserInfo?.permission == "superAdmin"
-              ? "Super Admin"
-              : authStore?.loginUserInfo?.permission == "admin"
-              ? "Admin"
-              : authStore?.loginUserInfo?.permission == "self"
-              ? "Service Provider"
-              : authStore?.loginUserInfo?.permission
-              ? "Admin " + authStore?.loginUserInfo.permission
-              : "Guest"
-          }}
-        </q-item-label> -->
-        <!-- <q-item-label
-          v-if="!authStore?.loginUserInfo"
-          caption
-          class="text-white"
-        >
-          Login/Register
-        </q-item-label> -->
+        <div class="fs-24 text-bold cursor-pointer proyojon24-text" @click="$router.push('/home')">Proyojon24</div>
       </q-item-section>
-      <!-- <q-item-section>
-        <div>
-          <q-img
-            class="dashboard-data border-radius-sm"
-            src="/images/service_provider_count.jpg"
-          />
-          {{ dashboardStore.dashboardData?.totalUser }}.
-        </div>
-        <div>
-          <q-img
-            class="dashboard-data border-radius-sm"
-            src="/images/service_provider_view.jpeg"
-          />
-          {{ dashboardStore.dashboardData?.totalView }}.
-        </div>
-      </q-item-section> -->
     </q-item>
+
+    <q-space />
     <div
       v-if="$q.screen.gt.sm"
       class="GL__toolbar-link q-ml-xs q-gutter-md text-body2 text-weight-bold row items-center no-wrap cursor-pointer"
     >
-      <!-- <router-link v-for="(menuItem,index) in header_menus" :key="index" :to="menuItem.link" exact-active-class="text-white">{{
-        $t(menuItem.name)
-      }}</router-link> -->
-      <router-link to="/home" exact-active-class="text-white">{{
+      <router-link to="/home" exact-active-class="text-primary">{{
         $t("headermenus.home")
       }}</router-link>
+      <router-link to="/how_it_works" exact-active-class="text-primary">{{
+        $t("headermenus.how_it_works")
+      }}</router-link>
+      <router-link to="/profile" exact-active-class="text-primary">{{
+        $t("headermenus.service_profile")
+      }}</router-link>
+      <router-link to="/register" exact-active-class="text-primary" v-if="!authStore.loginUserInfo">
+        <q-icon class="fs-18 q-mb-xs" name="person_add"/>
+        {{
+        $t("headermenus.register")
+      }}</router-link>
+      <router-link to="/login" exact-active-class="text-primary" v-if="!authStore.loginUserInfo">
+        <q-icon class="fs-18 q-mb-xs" name="person"/>
+        {{
+        $t("headermenus.login")
+      }}</router-link>
       <!-- <router-link
-        v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
-        to="/locations"
-        active-class="text-white"
-        >{{ $t("headermenus.locations") }}</router-link
-      > -->
-      <router-link
         v-if="authStore?.loginUserInfo && authStore?.loginUserInfo?.permission"
         to="/users"
         active-class="text-white"
         >{{ $t("headermenus.users") }}</router-link
-      >
-      <!-- <router-link
-        v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
-        to="/services"
-        active-class="text-white"
-        >{{ $t("headermenus.services") }}</router-link
-      >
-      <router-link
-        v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
-        to="/banners_create_update"
-        active-class="text-white"
-        >{{ $t("headermenus.banners") }}</router-link
       > -->
       <router-link
         v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
@@ -138,94 +43,14 @@
         @click="menuControllerStore.leftDashboardOpen = true"
         >{{ $t("dashboard") }}</router-link
       >
-      <!-- <router-link
-        v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
-        to="/moving_text"
-        active-class="text-white"
-        >{{ $t("movingtext") }}</router-link
-      >
-      <router-link
-        v-if="
-          authStore?.loginUserInfo &&
-          [
-            'superAdmin',
-            'admin',
-            'district',
-            'division',
-            'subDistrict',
-            'union',
-          ].includes(authStore?.loginUserInfo?.permission)
-        "
-        to="/service_provider_pending_list"
-        active-class="text-white"
-        >{{ $t("headermenus.pending_list") }}</router-link
-      >
-      <router-link
-        v-if="authStore?.loginUserInfo?.permission == 'admin'"
-        to="/notification_list"
-        active-class="text-white"
-        >{{ $t("notification.list") }}</router-link
-      > -->
     </div>
-    <q-space />
 
     <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-      <q-btn
-        v-if="authStore.loginUserInfo && $q.screen.gt.sm"
-        dense
-        flat
-        @click="$router.push('direct_message')"
-      >
-        <q-icon name="email" size="25px" />
-        <!-- <q-badge class="absolute-top-right fs-10" color="red" style="padding: 1px 4px"/> -->
-      </q-btn>
-      <q-btn dense flat @click="$router.push('notifications')">
-        <q-icon name="notifications" size="25px" />
-        <q-badge
-          v-show="notificationStore?.last7DaysNotification?.length != 0"
-          :label="notificationStore?.last7DaysNotification?.length"
-          class="absolute-top-right fs-10"
-          color="red"
-          style="padding: 1px 4px"
-        />
-      </q-btn>
-      <q-btn dense flat>
-        <div class="row items-center no-wrap">
-          <q-icon name="language" size="20px" />
-          {{ $t("language") }}
-          <q-icon
-            name="arrow_drop_down"
-            size="16px"
-            style="margin-left: -2px"
-          />
-        </div>
-        <q-menu auto-close>
-          <q-list dense style="min-width: 140px">
-            <q-item
-              clickable
-              class="GL__menu-link"
-              @click="languageStore.switchToBn"
-            >
-              <q-item-section>বাংলা</q-item-section>
-            </q-item>
-            <q-item
-              clickable
-              class="GL__menu-link"
-              @click="languageStore.switchToEn"
-            >
-              <q-item-section>English</q-item-section>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </q-btn>
       <q-btn v-if="authStore.loginUserInfo" dense flat no-wrap>
         <q-avatar rounded size="20px">
           <img src="/images/user-placeholder.jpg" />
-          <!-- <q-icon name="settings_input_component" size="20px" /> -->
         </q-avatar>
         <q-icon name="arrow_drop_down" size="16px" />
-        <!-- <q-icon name="person" size="26px" /> -->
-
         <q-menu auto-close>
           <q-list dense style="min-width: 140px">
             <q-item class="GL__menu-link-signed-in">
@@ -298,6 +123,8 @@
           </q-list>
         </q-menu>
       </q-btn>
+      <q-btn label="বাংলা" size="md" color="grey-8" @click="languageStore.switchToBn" v-if="languageStore.language == 'en'" />
+      <q-btn label="English" size="md" color="grey-8" @click="languageStore.switchToEn" v-else />
     </div>
     <publicMobileMenus />
   </q-toolbar>
@@ -352,6 +179,13 @@ const profileClickManager = () => {
 </script>
 
 <style lang="sass">
+.proyojon24-text
+  background-clip: text !important
+  -webkit-background-clip: text !important
+  -moz-background-clip: text !important
+  color: transparent
+  background: rgb(255,0,46)
+  background: linear-gradient(0deg, rgba(255,197,41,1) 0%, rgba(166,87,0,1) 100%)
 .GL
   &__select-GL__menu-link
     .default-type
@@ -365,7 +199,7 @@ const profileClickManager = () => {
         visibility: visible
   &__toolbar-link
     a
-      color: rgb(209, 233, 255)
+      color: $accent
       text-decoration: none
       &:hover
         opacity: 0.7

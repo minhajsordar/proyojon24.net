@@ -50,7 +50,7 @@ export const sendOtp = () => {
         api_key: "GMA6nXsLWvC4uXd0UbN0",
         senderid: "8809617611783",
         number: "8801835158205",
-        message: "is your proyojon24.net otp"
+        message: "Dear your proyojon24 verification code is - "
     };
 
     axios.post('http://bulksmsbd.net/api/smsapi', data)

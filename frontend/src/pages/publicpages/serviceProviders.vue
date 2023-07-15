@@ -76,16 +76,17 @@
                   style="height: 220px"
                   id="scroll-area-with-virtual-scroll-1"
                 >
-                  <q-btn
-                    flat
-                    class="sidebar-links full-width bg-blue-grey-1"
-                    :class="{
-                      'bg-blue-grey-3': route.params.id == serviceCategory._id,
-                    }"
+                <div
                     v-for="(
                       serviceCategory, index
                     ) in serviceCategoryStore.allServiceCategoryList"
-                    :key="index"
+                    :key="index">
+                  <q-btn
+                    flat
+                    class="sidebar-links full-width bg-blue-grey-1 q-py-sm"
+                    :class="{
+                      'bg-blue-grey-3': route.params.id == serviceCategory._id,
+                    }"
                     @click="
                       getServiceProviders(serviceCategory._id);
                       selectedServiceAndCategory.serviceCategoryId =
@@ -96,22 +97,9 @@
                   >
                     {{ serviceCategory.name[languageStore.language] }}
                   </q-btn>
+                  <q-separator/>
+                </div>
                 </q-scroll-area>
-
-                <!-- <q-btn
-                  flat
-                  class="sidebar-links full-width bg-blue-grey-1"
-                  :class="{
-                    'bg-blue-grey-3': route.params.id == serviceCategory._id,
-                  }"
-                  v-for="(
-                    serviceCategory, index
-                  ) in serviceCategoryStore.allServiceCategoryList"
-                  :key="index"
-                  @click="getServiceProviders(serviceCategory._id)"
-                >
-                  {{ serviceCategory.name[languageStore.language] }}
-                </q-btn> -->
               </q-card>
             </div>
             <div class="col-lg-9 col-sm-8 col-xs-12 col-12">

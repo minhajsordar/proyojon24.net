@@ -4,7 +4,7 @@
     persistent
     full-height
   >
-    <q-card class="q-pa-md">
+    <q-card class="q-pa-md dialog-card-width">
       <div class="flex justify-between q">
         <div>{{ $t("selectCategory") }}</div>
         <q-icon
@@ -14,21 +14,25 @@
         />
       </div>
       <q-separator class="q-my-md" />
-      <div class="">
+      <div
+        v-for="(
+          serviceCategory, index
+        ) in serviceCategoryStore.allServiceCategoryList"
+        :key="index"
+      >
         <q-btn
           flat
           class="sidebar-links full-width bg-blue-grey-1"
           :class="{
             'bg-blue-grey-3': route.params.id == serviceCategory._id,
           }"
-          v-for="(
-            serviceCategory, index
-          ) in serviceCategoryStore.allServiceCategoryList"
-          :key="index"
-          @click="getServiceProviders(serviceCategory._id);
+          @click="
+            getServiceProviders(serviceCategory._id);
 
-          selectedServiceAndCategory.serviceCategoryId = serviceCategory._id
-              selectedServiceAndCategory.serviceCategoryName = serviceCategory.name"
+            selectedServiceAndCategory.serviceCategoryId = serviceCategory._id;
+            selectedServiceAndCategory.serviceCategoryName =
+              serviceCategory.name;
+          "
           v-close-popup
         >
           {{ serviceCategory.name[languageStore.language] }}
@@ -49,19 +53,33 @@ import { ref, onBeforeMount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const userBrowsingLocationLocalStore = useLocalStorage("browsing-location", {});
-const selectedServiceAndCategory = useLocalStorage('selected-service-and-category',{})
+const selectedServiceAndCategory = useLocalStorage(
+  "selected-service-and-category",
+  {}
+);
 const publicUserStore = usePublicUserStore();
 const languageStore = useLanguageStore();
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 const serviceProviderStore = useServiceProviderStore();
 const serviceCategoryStore = useServiceCategoryStore();
-serviceCategoryStore.getAllServiceCategorys(selectedServiceAndCategory.value.serviceId)
+serviceCategoryStore.getAllServiceCategorys(
+  selectedServiceAndCategory.value.serviceId
+);
 
 const getServiceProviders = (id) => {
   serviceProviderStore.getPublicServiceProviders(id);
   router.push("/service_providers_list/" + id);
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.dialog-card-width {
+  width: 500px;
+}
+@media screen and (max-width: 600px) {
+  .dialog-card-width {
+    width: 300px;
+  }
+}
+</style>

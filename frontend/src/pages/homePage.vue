@@ -1,6 +1,6 @@
 <template>
   <!-- TODO Later we will need this anal -->
-  <div class="container-section-py-xs">
+  <div class="container-section-py-xs" v-if="!$q.screen.gt.sm">
     <div class="inner-section">
       <div class="full-width">
         <marquee-text
@@ -21,8 +21,22 @@
         <q-card class="bg-primary border-primary q-pa-sm">
           <div class="row q-col-gutter-md">
             <div class="col-2">
-              <div class="text-white fs-20">Profile - 2343</div>
-              <div class="text-white fs-20">View - 2343</div>
+              <div class="text-white fs-20">
+                Profile -
+                {{
+                  $convertNumberIntoDecimal(
+                    dashboardStore.dashboardData?.totalUser
+                  )
+                }}
+              </div>
+              <div class="text-white fs-20">
+                View -
+                {{
+                  $convertNumberIntoDecimal(
+                    dashboardStore.dashboardData?.totalView
+                  )
+                }}
+              </div>
             </div>
             <div class="col-8">
               <q-card class="q-pa-md bg-orange-8 text-white">
@@ -36,7 +50,15 @@
               </q-card>
               <q-card class="q-pa-md q-mt-sm q-mx-lg">
                 <div class="text-center text-bold fs-20">
-                  প্রয়ােজন২৪ আপনােক স্বাগতম
+                  <marquee-text
+                    :duration="movingTextStore?.movingTextData?.speed || 60"
+                    class="text-primary"
+                    :paused="isPaused"
+                    @mouseenter="isPaused = !isPaused"
+                    @mouseleave="isPaused = false"
+                  >
+                    {{ movingTextStore?.movingTextData?.announcement }}
+                  </marquee-text>
                 </div>
               </q-card>
             </div>

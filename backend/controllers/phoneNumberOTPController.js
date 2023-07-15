@@ -37,7 +37,7 @@ const createPhoneNumberOTP = expressAsyncHandler(async (req, res) => {
       api_key: "GMA6nXsLWvC4uXd0UbN0",
       senderid: "8809617611783",
       number: phoneNumberPrefix(phoneNumberOTP.phone),
-      message: `${phoneNumberOTP.otp} is your proyojon24.net otp`
+      message: `Dear your proyojon24 verification code is - ${phoneNumberOTP.otp}`
     };
     // send otp notification to bd mobile phone number
     axios.post('http://bulksmsbd.net/api/smsapi', data)

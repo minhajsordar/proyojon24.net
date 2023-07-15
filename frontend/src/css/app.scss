@@ -7,12 +7,12 @@ body,
   background-size: cover;
   background-repeat: no-repeat;
   // background: rgb(255,239,221);
-  background: linear-gradient(
-    45deg,
-    rgba(255, 239, 221, 0.3) 0%,
-    rgba(194, 233, 255, 0.3) 55%,
-    rgba(245, 195, 255, 0.3) 100%
-  );
+  // background: linear-gradient(
+  //   45deg,
+  //   rgba(255, 239, 221, 0.3) 0%,
+  //   rgba(194, 233, 255, 0.3) 55%,
+  //   rgba(245, 195, 255, 0.3) 100%
+  // );
 }
 @media screen and (max-width: 1024px) {
   body,
