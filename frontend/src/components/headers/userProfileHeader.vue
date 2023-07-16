@@ -39,7 +39,7 @@
       <router-link
         v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
         to="/dashboard"
-        active-class="text-white"
+        exact-active-class="text-primary"
         @click="menuControllerStore.leftDashboardOpen = true"
         >{{ $t("dashboard") }}</router-link
       >
