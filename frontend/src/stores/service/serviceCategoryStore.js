@@ -61,7 +61,8 @@ export const useServiceCategoryStore = defineStore('service category store', () 
       coverImage: null,
       service: null,
       icon: null,
-      order: 1
+      order: 1,
+      premiumRegistrationFee: 1,
     })
   const emptyServiceCategoryInfo = () => {
     imageIcon.value = null
@@ -80,6 +81,7 @@ imageCover.value = null
     serviceCategoryInfo.coverImage = null
     serviceCategoryInfo.icon = null
     serviceCategoryInfo.order = 1
+    serviceCategoryInfo.premiumRegistrationFee = 1
   }
   const openServiceCategoryCreateDialogManager = () => {
     emptyServiceCategoryInfo()
@@ -91,7 +93,8 @@ imageCover.value = null
       "service",
       "coverImage",
       "icon",
-      "order"
+      "order",
+      "premiumRegistrationFee",
     ]
     openServiceCategoryEditDialog.value = true
     serviceCategoryInfo.id = data?._id
@@ -109,7 +112,8 @@ imageCover.value = null
       "service",
       "coverImage",
       "icon",
-      "order"
+      "order",
+      "premiumRegistrationFee",
     ]
     openServiceCategoryPreviewDialog.value = true
     serviceCategoryInfo.id = data?._id
@@ -260,7 +264,8 @@ imageCover.value = null
       "service",
       "coverImage",
       "icon",
-      "order"
+      "order",
+      "premiumRegistrationFee",
     ]
     const data = {}
     serviceCategoryInfoKeys.forEach((value, index) => {

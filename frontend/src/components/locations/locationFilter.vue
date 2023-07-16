@@ -119,11 +119,11 @@ const districtFilterFn =(val, update)=>{
 
 }
 
-const subDistrictOptions = ref(subDistrictStore.allSubDistricts)
+const subDistrictOptions = ref(subDistrictStore.subDistrictList?.subDistricts)
 const subDistrictFilterFn =(val, update)=>{
         if (val === '') {
           update(() => {
-            subDistrictOptions.value = subDistrictStore.allSubDistricts
+            subDistrictOptions.value = subDistrictStore.subDistrictList?.subDistricts
 
             // here you have access to "ref" which
             // is the Vue reference of the QSelect
@@ -133,7 +133,7 @@ const subDistrictFilterFn =(val, update)=>{
 
         update(() => {
           const needle = val.toLowerCase()
-          subDistrictOptions.value = subDistrictStore.allSubDistricts.filter(v => {
+          subDistrictOptions.value = subDistrictStore.subDistrictList?.subDistricts.filter(v => {
             console.log(v)
             return v.name[languageStore.language].toLowerCase().indexOf(needle) > -1
           })
@@ -141,11 +141,11 @@ const subDistrictFilterFn =(val, update)=>{
 
 }
 
-const unionOptions = ref(unionStore.allUnions)
+const unionOptions = ref(unionStore.unionList?.unions)
 const unionFilterFn =(val, update)=>{
         if (val === '') {
           update(() => {
-            unionOptions.value = unionStore.allUnions
+            unionOptions.value = unionStore.unionList?.unions
 
             // here you have access to "ref" which
             // is the Vue reference of the QSelect
@@ -155,7 +155,7 @@ const unionFilterFn =(val, update)=>{
 
         update(() => {
           const needle = val.toLowerCase()
-          unionOptions.value = unionStore.allUnions.filter(v => {
+          unionOptions.value = unionStore.unionList?.unions.filter(v => {
             console.log(v)
             return v.name[languageStore.language].toLowerCase().indexOf(needle) > -1
           })

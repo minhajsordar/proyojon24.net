@@ -180,6 +180,23 @@
             </div>
             <div class="col-12">
               <div class="row">
+                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
+                  {{ $t("premiumRegistrationFee") }}
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
+                  <q-input
+                    outlined
+                    dense
+                    type="number"
+                    :min="0"
+                    v-model="serviceCategoryStore.serviceCategoryInfo.premiumRegistrationFee"
+                    :rules="[required]"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
                 <q-btn :label="$t('addnew')" @click="createServiceManager" color="light-green-8"
               glossy />
               </div>

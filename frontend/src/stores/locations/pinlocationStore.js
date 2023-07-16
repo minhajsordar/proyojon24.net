@@ -65,6 +65,10 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
 
   }
   const getGlobalPinlocations = async () => {
+    const params = {}
+    if(browsingLocation.value?.union){
+      params.unionId = browsingLocation.value.union._id
+    }
     const config = {
       method: "get",
       url: "api/pinlocations/all",
@@ -78,6 +82,7 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
       locationListGlobal.value.pinlocations = responseData.data;
       loader.hideLoader()
       allPinlocationsLoading.value = false
+      getPinlocationListByBrowsingUnionId()
     } catch (error) {
       console.log(error);
       loader.hideLoader()

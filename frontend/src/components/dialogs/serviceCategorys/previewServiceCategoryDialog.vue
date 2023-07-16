@@ -93,6 +93,16 @@
             </div>
             <div class="col-12">
               <div class="row">
+                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
+                  {{ $t("premiumRegistrationFee") }}
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
+                  {{ serviceCategoryStore.serviceCategoryInfo?.premiumRegistrationFee }}
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
                 <q-btn label="closse" color="primary"
               glossy icon="arrow_back" @click="serviceCategoryStore.openServiceCategoryPreviewDialog = false"/>
               </div>

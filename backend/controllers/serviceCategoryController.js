@@ -109,7 +109,7 @@ const updateServiceCategory = expressAsyncHandler(async (req, res) => {
         description,
         coverImage,
         icon,
-        order
+        order,premiumRegistrationFee
     } = req.body
     const serviceCategory = await ServiceCategory.findById(req.params.id)
     if (serviceCategory) {
@@ -130,6 +130,9 @@ const updateServiceCategory = expressAsyncHandler(async (req, res) => {
         if(order){
             serviceCategory.order = order
         }
+        if(premiumRegistrationFee){
+            serviceCategory.premiumRegistrationFee = premiumRegistrationFee
+        }
         const updatedServiceCategory = await serviceCategory.save()
         res.status(201).json(updatedServiceCategory)
     } else {
@@ -148,7 +151,8 @@ const createServiceCategory = expressAsyncHandler(async (req, res) => {
         description,
         coverImage,
         icon,
-        order
+        order,
+        premiumRegistrationFee
     } = req.body
     const serviceCategory = new ServiceCategory({
         user:req.user._id,
@@ -157,7 +161,8 @@ const createServiceCategory = expressAsyncHandler(async (req, res) => {
         description,
         coverImage,
         icon,
-        order
+        order,
+        premiumRegistrationFee
     })
     const createdServiceCategory = await serviceCategory.save()
     res.status(201).json(createdServiceCategory)

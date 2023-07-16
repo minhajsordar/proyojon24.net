@@ -143,7 +143,8 @@ export const useUnionStore = defineStore('union store', () => {
     try {
       const responseData = await api.request(config);
       openUnionCreateDialog.value = false
-      getUnionList()
+      // getUnionList()
+      getUnionListFromServer()
       wardStore.getGlobalWards()
       loader.hideLoader()
       Notify.create({
@@ -189,7 +190,7 @@ export const useUnionStore = defineStore('union store', () => {
     try {
       const responseData = await api.request(config);
       openUnionEditDialog.value = false
-      getUnionList()
+      getUnionListFromServer()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
@@ -208,7 +209,8 @@ export const useUnionStore = defineStore('union store', () => {
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      getUnionList()
+      // getUnionList()
+      getUnionListFromServer()
       loader.hideLoader()
     } catch (error) {
       console.log(error);
