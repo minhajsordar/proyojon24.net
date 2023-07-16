@@ -33,17 +33,8 @@ const getServiceProviders = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider
 // @acess Privet
 const getPublicServiceProviders = expressAsyncHandler(async (req, res) => {
-    // console.log(req.query.keyword)
-    // const keyword = {}
-    //     const pageSize = Number(req.query.pageSize) || 50;
-    // const page = Number(req.query.pageNumber) || 1;
-    // query params
-    // description
-    // serviceProviderLocation.exact
-    // specialties
-    // extraCources
-    // serviceTitle
-    // serviceList
+    const pageSize = Number(req.query.pageSize) || 30;
+    const page = Number(req.query.pageNumber) || 1;
     const keywords = req.query.keywords ? {
         "keywords": {
             $regex: req.query.keywords,
@@ -68,16 +59,15 @@ const getPublicServiceProviders = expressAsyncHandler(async (req, res) => {
     if (req.query.unionId) {
         keywords["serviceProviderLocation.union._id"] = req.query.unionId
     }
-    if (req.query.pinlocationId) {
-        keywords["serviceProviderLocation.pinlocation._id"] = req.query.pinlocationId
-    }
     if (req.query.suggested) {
         keywords.suggested = req.query.suggested
     }
+    console.log(keywords)
     keywords.approved = true
-    const serviceProviders = await ServiceProvider.find({ ...keywords }).populate('user').select('name image serviceProviderLocation serviceTitle viewCount rankCount rating numReviews createdAt suggested')
+    const count = await ServiceProvider.countDocuments({ ...keywords })
+    const serviceProviders = await ServiceProvider.find({ ...keywords }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(200).json(serviceProviders)
+    res.status(200).json({ serviceProviders, page, pages: Math.ceil(count / pageSize) })
 })
 // @desc get service provider by id
 // @route Put api/ServiceProvider/:id

@@ -36,10 +36,16 @@
               </div>
               <div class="col-lg-6 col-sm-12 col-xs-12 col-12">
                 <div class="flex full-width relative-position">
-                  <q-input class="searchbar" outlined dense />
+                  <q-input
+                    v-model="serviceProviderStore.searchKeyword"
+                    class="searchbar"
+                    outlined
+                    dense
+                  />
                   <q-btn
                     class="bg-primary text-white search-btn"
                     icon="search"
+                    @click="searchByKeyword"
                   />
                 </div>
               </div>
@@ -48,9 +54,7 @@
           <div class="row q-col-gutter-md">
             <div class="col-lg-3 col-md-4 col-4" v-if="$q.screen.gt.xs">
               <q-card class="bg-white border-radius-xs q-pa-md">
-                <div
-                  class="bg-primary text-center text-white fs-19 q-pa-xs"
-                >
+                <div class="bg-primary text-center text-white fs-19 q-pa-xs">
                   {{ $t("services.service_category") }}
                 </div>
 
@@ -76,79 +80,108 @@
                   style="height: 220px"
                   id="scroll-area-with-virtual-scroll-1"
                 >
-                <div
+                  <div
                     v-for="(
                       serviceCategory, index
                     ) in serviceCategoryStore.allServiceCategoryList"
-                    :key="index">
-                  <q-btn
-                    flat
-                    class="sidebar-links full-width bg-blue-grey-1 q-py-sm"
-                    :class="{
-                      'bg-blue-grey-3': route.params.id == serviceCategory._id,
-                    }"
-                    @click="
-                      getServiceProviders(serviceCategory._id);
-                      selectedServiceAndCategory.serviceCategoryId =
-                        serviceCategory._id;
-                      selectedServiceAndCategory.serviceCategoryName =
-                        serviceCategory.name;
-                    "
+                    :key="index"
                   >
-                    {{ serviceCategory.name[languageStore.language] }}
-                  </q-btn>
-                  <q-separator/>
-                </div>
+                    <q-btn
+                      flat
+                      class="sidebar-links full-width bg-blue-grey-1 q-py-sm"
+                      :class="{
+                        'bg-blue-grey-3':
+                          route.params.id == serviceCategory._id,
+                      }"
+                      @click="
+                        getServiceProviders(serviceCategory._id);
+                        selectedServiceAndCategory.serviceCategoryId =
+                          serviceCategory._id;
+                        selectedServiceAndCategory.serviceCategoryName =
+                          serviceCategory.name;
+                      "
+                    >
+                      {{ serviceCategory.name[languageStore.language] }}
+                    </q-btn>
+                    <q-separator />
+                  </div>
                 </q-scroll-area>
               </q-card>
             </div>
             <div class="col-lg-9 col-sm-8 col-xs-12 col-12">
               <q-card class="q-pa-md">
-                <div
-                  v-if="
-                    serviceProviderStore?.suggestedServiceProvidersList?.length >
-                    0
-                  "
-                >
-                  <div class="fs-18 text-bold">
-                    {{ $t("services.suggestions") }}
-                  </div>
-                  <q-separator class="q-mb-sm"></q-separator>
-                  <div class="row q-col-gutter-sm">
-                    <div
-                      class="col-lg-6 col-md-6 col-sm-12 col-12"
-                      v-for="(
-                        serviceProvider, index
-                      ) in serviceProviderStore.suggestedServiceProvidersList"
-                      :key="index"
-                    >
-                      <serviceProviderListCard
-                        :serviceProvider="serviceProvider"
-                      />
-                    </div>
-                  </div>
-
-                  <q-separator class="q-mb-sm"></q-separator>
-                </div>
                 <div class="fs-18 text-bold">
                   {{ $t("services.service_provider") }}
                 </div>
                 <q-separator class="q-mb-sm"></q-separator>
-                <div
-                  v-if="
-                    serviceProviderStore?.allServiceProvidersList &&
-                    serviceProviderStore?.allServiceProvidersList.length == 0 &&
-                    serviceProviderStore?.suggestedServiceProvidersList &&
-                    serviceProviderStore?.suggestedServiceProvidersList.length == 0
-                  "
-                  class="text-center"
-                >
-                  {{ $t("noInfo") }}
-                  <q-separator class="q-mb-sm"></q-separator>
-                </div>
                 <div class="row q-col-gutter-sm">
-
-                  <div class="col-12">
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <serviceProviderListCard
+                      register
+                      class="bg-green-1"
+                      :serviceProvider="{
+                        name: {
+                          bn: 'আপনি কি সার্ভিসটি প্রদান করতে চান? আপনার তথ্য প্রদান করুন।',
+                          en: 'Do you want to provide service? Fill up your informations.',
+                        },
+                        serviceProviderLocation: {
+                          division: {
+                            name: {
+                              bn: 'বিভাগ',
+                              en: 'Division',
+                            },
+                          },
+                          district: {
+                            name: {
+                              bn: 'জেলা',
+                              en: 'District',
+                            },
+                          },
+                          subDistrict: {
+                            name: {
+                              bn: 'উপজেলা',
+                              en: 'Uazela',
+                            },
+                          },
+                          union: {
+                            name: {
+                              bn: 'স্থান',
+                              en: 'Location',
+                            },
+                          },
+                          pinlocation: {
+                            name: {
+                              bn: null,
+                              en: null,
+                            },
+                            _id: null,
+                          },
+                        },
+                        specialties: {
+                          bn: null,
+                          en: null,
+                        },
+                        serviceTitle: {
+                          bn: 'সেবার শিরোনাম',
+                          en: 'Service Title',
+                        },
+                        suggested: false,
+                        _id: '647436a153654e270485a5b7',
+                        service: '646ddf32944253664c042aa9',
+                        serviceCategory: '646de0ea944253664c042afa',
+                        image: '/uploads/service-provider-common.jpeg',
+                        rankCount: 1.5,
+                        keywords: null,
+                        rating: 0,
+                        numReviews: 0,
+                        reviews: [],
+                        createdAt: '2023-05-29T05:22:41.902Z',
+                        updatedAt: '2023-05-29T05:34:23.007Z',
+                        __v: 1,
+                      }"
+                    />
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                     <serviceProviderListCard
                       register
                       class="bg-green-1"
@@ -216,17 +249,38 @@
                   </div>
                   <div
                     class="col-lg-6 col-md-6 col-sm-12 col-12"
-                    v-for="(
-                      serviceProvider, index
-                    ) in serviceProviderStore.allServiceProvidersList"
+                    v-for="(serviceProvider, index) in serviceProviderStore
+                      .allServiceProvidersList?.serviceProviders"
                     :key="index"
                   >
                     <serviceProviderListCard
                       :serviceProvider="serviceProvider"
                     />
                   </div>
+                  <div
+                    class="flex justify-center full-width q-mt-md"
+                    v-if="
+                      serviceProviderStore.allServiceProvidersList?.pages >
+                      serviceProviderStore.allServiceProvidersList?.page
+                    "
+                  >
+                    <q-btn label="show more" rounded bordered size="sm" @click="showMoreServiceProviders" />
+                  </div>
                 </div>
-
+                <div
+                  v-if="
+                    serviceProviderStore?.allServiceProvidersList &&
+                    serviceProviderStore?.allServiceProvidersList.length == 0 &&
+                    serviceProviderStore?.suggestedServiceProvidersList
+                      .serviceProviders &&
+                    serviceProviderStore?.suggestedServiceProvidersList
+                      .serviceProviders.length == 0
+                  "
+                  class="text-center"
+                >
+                  {{ $t("noInfo") }}
+                  <q-separator class="q-mb-sm"></q-separator>
+                </div>
               </q-card>
             </div>
             <!-- <div class="col-lg-2 col-md-4 col-4" v-if="$q.screen.gt.md">service providers3</div> -->
@@ -284,6 +338,23 @@ onMounted(() => {
 const getServiceProviders = (id) => {
   serviceProviderStore.getPublicServiceProviders(id);
   router.push("/service_providers_list/" + id);
+};
+const searchByKeyword = () => {
+  if (route.params.id) {
+    serviceProviderStore.getPublicServiceProviders(route.params.id);
+  }
+};
+const showMoreServiceProviders = () => {
+  if (
+    serviceProviderStore.allServiceProvidersList?.pages >
+    serviceProviderStore.serviceProviderPageNumber
+  ) {
+    serviceProviderStore.serviceProviderPageNumber =
+      serviceProviderStore.allServiceProvidersList?.page + 1;
+  }
+  if (route.params.id) {
+    serviceProviderStore.getPublicServiceProvidersNextPages(route.params.id);
+  }
 };
 
 const metaData = {

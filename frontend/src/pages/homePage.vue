@@ -5,7 +5,7 @@
       <div class="full-width">
         <marquee-text
           :duration="movingTextStore?.movingTextData?.speed || 60"
-          class="text-primary"
+          class="text-black"
           :paused="isPaused"
           @mouseenter="isPaused = !isPaused"
           @mouseleave="isPaused = false"
@@ -52,7 +52,7 @@
                 <div class="text-center text-bold fs-20">
                   <marquee-text
                     :duration="movingTextStore?.movingTextData?.speed || 60"
-                    class="text-primary"
+                    class="text-black"
                     :paused="isPaused"
                     @mouseenter="isPaused = !isPaused"
                     @mouseleave="isPaused = false"

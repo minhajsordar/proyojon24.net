@@ -17,7 +17,7 @@
           <q-img :src="web_root_url+serviceProvider.image" />
         </q-card-section>
         <q-card-section class="description-section q-pa-sm">
-          <div class="text-bold flex justify-between">
+          <div class="text-bold flex justify-between" v-if='!register'>
             <div v-if='serviceProvider.user?.nidVerified'>{{$t('nid_verified')}}</div>
             <div v-else>{{$t('nid_not_verified')}}</div>
             <div v-if='serviceProvider.user?.isAvailable'>{{$t('available')}}</div>

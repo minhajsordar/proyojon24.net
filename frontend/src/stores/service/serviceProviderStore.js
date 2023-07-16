@@ -14,7 +14,7 @@ import { useSubDistrictStore } from '../locations/subDistrictStore';
 import { useDistrictStore } from '../locations/districtStore';
 import { useDivisionStore } from '../locations/divisionStore';
 import { useSearchServiceStore } from './searchService';
-import { Notify,Dialog } from 'quasar';
+import { Notify, Dialog } from 'quasar';
 import { useI18n } from "vue-i18n";
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
@@ -40,9 +40,9 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     paginationCurrent = ref(1),
     imageIcon = ref(null),
     imageCover = reactive({
-      imageCover1 : null,
-      imageCover2 : null,
-      imageCover3 : null,
+      imageCover1: null,
+      imageCover2: null,
+      imageCover3: null,
     }),
     selectedServiceCategory = ref(null),
     filteredByServiseCategoryId = ref(null),
@@ -239,14 +239,14 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       bn: null,
       en: null,
     }
-    serviceProviderInfo.phoneNumber1 =null
-    serviceProviderInfo.phoneNumber2 =null
-    serviceProviderInfo.facebook =null
-    serviceProviderInfo.whatsapp =null
-    serviceProviderInfo.imo =null
-    serviceProviderInfo.email =null
-    serviceProviderInfo.experience =null
-    serviceProviderInfo.twitter =null
+    serviceProviderInfo.phoneNumber1 = null
+    serviceProviderInfo.phoneNumber2 = null
+    serviceProviderInfo.facebook = null
+    serviceProviderInfo.whatsapp = null
+    serviceProviderInfo.imo = null
+    serviceProviderInfo.email = null
+    serviceProviderInfo.experience = null
+    serviceProviderInfo.twitter = null
     serviceProviderInfo.keywords = []
   }
   const openServiceProviderCreateDialogManager = () => {
@@ -358,12 +358,34 @@ export const useServiceProviderStore = defineStore('service provider store', () 
   const suggestedServiceProvidersList = ref([])
   const allServiceProvidersListLoading = ref(false)
   const currentServiceProvidersListCount = ref(0)
+  const serviceProviderPageNumber = ref(1)
+  const searchKeyword = ref('')
   const getPublicServiceProviders = async (id) => {
     allServiceProvidersListLoading.value = true
     const params = {}
     if (id) {
       params.serviceCategoryId = id
     }
+    if (searchKeyword.value !== '') {
+      params.keywords = searchKeyword.value
+    }
+    params.pageNumber = 1
+    if (publicUserStore.browsingLocation.pinlocation) {
+      params.pinlocationId = publicUserStore.browsingLocation.pinlocation._id
+    }
+    else if (publicUserStore.browsingLocation.union) {
+      params.unionId = publicUserStore.browsingLocation.union._id
+    }
+    else if (publicUserStore.browsingLocation.subDistrict) {
+      params.subDistrictId = publicUserStore.browsingLocation.subDistrict._id
+    }
+    else if (publicUserStore.browsingLocation.district) {
+      params.districtId = publicUserStore.browsingLocation.district._id
+    }
+    else if (publicUserStore.browsingLocation.division) {
+      params.divisionId = publicUserStore.browsingLocation.division._id
+    }
+
     const config = {
       method: "get",
       url: "api/service_providers/all",
@@ -375,9 +397,57 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      allServiceProvidersList.value = responseData.data.filter(e=>e.suggested == false);
-      suggestedServiceProvidersList.value =  responseData.data.filter(e=>e.suggested == true)
+      allServiceProvidersList.value = responseData.data
+      loader.hideLoader()
+      allServiceProvidersListLoading.value = false
+    } catch (error) {
+      console.log(error);
+      loader.hideLoader()
+      allServiceProvidersListLoading.value = false
+    }
+  }
+  const getPublicServiceProvidersNextPages = async (id) => {
+    allServiceProvidersListLoading.value = true
+    const params = {}
+    if (id) {
+      params.serviceCategoryId = id
+    }
+    if (searchKeyword.value !== '') {
+      params.keywords = searchKeyword.value
+    }
+    if (serviceProviderPageNumber.value) {
+      params.pageNumber = serviceProviderPageNumber.value
+    }
+    if (publicUserStore.browsingLocation.pinlocation) {
+      params.pinlocationId = publicUserStore.browsingLocation.pinlocation._id
+    }
+    else if (publicUserStore.browsingLocation.union) {
+      params.unionId = publicUserStore.browsingLocation.union._id
+    }
+    else if (publicUserStore.browsingLocation.subDistrict) {
+      params.subDistrictId = publicUserStore.browsingLocation.subDistrict._id
+    }
+    else if (publicUserStore.browsingLocation.district) {
+      params.districtId = publicUserStore.browsingLocation.district._id
+    }
+    else if (publicUserStore.browsingLocation.division) {
+      params.divisionId = publicUserStore.browsingLocation.division._id
+    }
 
+    const config = {
+      method: "get",
+      url: "api/service_providers/all",
+      headers: {
+        "Content-Type": "application/json",
+
+      }, params
+    };
+    loader.showLoader()
+    try {
+      const responseData = await api.request(config);
+      allServiceProvidersList.value.page = responseData.data.page
+      allServiceProvidersList.value.pages = responseData.data.pages
+      allServiceProvidersList.value.serviceProviders.push(...responseData.data.serviceProviders)
       loader.hideLoader()
       allServiceProvidersListLoading.value = false
     } catch (error) {
@@ -476,20 +546,20 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.district._id = serviceProviderLocationR.district._id
     serviceProviderInfo.serviceProviderLocation.subDistrict.name = serviceProviderLocationR.subDistrict.name
     serviceProviderInfo.serviceProviderLocation.subDistrict._id = serviceProviderLocationR.subDistrict._id
-    if(serviceProviderLocationR.union?._id){
+    if (serviceProviderLocationR.union?._id) {
       serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
       serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
     }
-    if(serviceProviderLocationR.pinlocation?._id){
+    if (serviceProviderLocationR.pinlocation?._id) {
       serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
       serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
     }
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
 
-    if(!(loginUser.value.permission == 'admin' || loginUser.value.permission == 'superAdmin' || loginUser.value.permission !== 'self')){
+    if (!(loginUser.value.permission == 'admin' || loginUser.value.permission == 'superAdmin' || loginUser.value.permission !== 'self')) {
       serviceProviderInfo.user = loginUser.value._id
     }
-    const data = {...serviceProviderInfo, ...serviceProviderRegisterInfo}
+    const data = { ...serviceProviderInfo, ...serviceProviderRegisterInfo }
     const config = {
       method: "post",
       url: "api/service_providers/user_and_provider",
@@ -504,7 +574,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     try {
       const responseData = await api.request(config);
       openServiceProviderCreateDialog.value = false
-      if(loginUser.value.permission == 'admin'){
+      if (loginUser.value.permission == 'admin') {
         getServiceProviderList()
       }
 
@@ -544,17 +614,17 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.serviceProviderLocation.district._id = serviceProviderLocationR.district._id
     serviceProviderInfo.serviceProviderLocation.subDistrict.name = serviceProviderLocationR.subDistrict.name
     serviceProviderInfo.serviceProviderLocation.subDistrict._id = serviceProviderLocationR.subDistrict._id
-    if(serviceProviderLocationR.union?._id){
+    if (serviceProviderLocationR.union?._id) {
       serviceProviderInfo.serviceProviderLocation.union.name = serviceProviderLocationR.union.name
       serviceProviderInfo.serviceProviderLocation.union._id = serviceProviderLocationR.union._id
     }
-    if(serviceProviderLocationR.pinlocation?._id){
+    if (serviceProviderLocationR.pinlocation?._id) {
       serviceProviderInfo.serviceProviderLocation.pinlocation.name = serviceProviderLocationR.pinlocation.name
       serviceProviderInfo.serviceProviderLocation.pinlocation._id = serviceProviderLocationR.pinlocation._id
     }
     serviceProviderInfo.serviceProviderLocation.exact = serviceProviderLocationR.exact
 
-    if(!(loginUser.value.permission == 'admin' || loginUser.value.permission == 'superAdmin' || loginUser.value.permission !== 'self')){
+    if (!(loginUser.value.permission == 'admin' || loginUser.value.permission == 'superAdmin' || loginUser.value.permission !== 'self')) {
       serviceProviderInfo.user = loginUser.value._id
     }
     const data = serviceProviderInfo
@@ -571,7 +641,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     try {
       const responseData = await api.request(config);
       openServiceProviderCreateDialog.value = false
-      if(loginUser.value.permission == 'admin'){
+      if (loginUser.value.permission == 'admin') {
         getServiceProviderList()
       }
 
@@ -737,8 +807,8 @@ export const useServiceProviderStore = defineStore('service provider store', () 
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
-      },data:{
-        _id : id
+      }, data: {
+        _id: id
       }
     };
     try {
@@ -864,7 +934,10 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     allServiceProvidersList,
     allServiceProvidersListLoading,
     suggestedServiceProvidersList,
+    searchKeyword,
+    serviceProviderPageNumber,
     getPublicServiceProviders,
+    getPublicServiceProvidersNextPages,
     addToSuggestionServiceProvider,
     removeFromSuggestionServiceProvider,
 

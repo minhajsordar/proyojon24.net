@@ -65,6 +65,9 @@ export const useUnionStore = defineStore('union store', () => {
       headers: {
         "Content-Type": "application/json"
       },
+      params:{
+        subDistrictId: browsingLocation.value.subDistrict._id
+      }
     };
     loader.showLoader()
     try {
