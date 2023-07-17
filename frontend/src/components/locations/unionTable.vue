@@ -93,4 +93,5 @@ const paginationFunc = () => {
   // unionStore.getUnionList();
   unionStore.getUnionListFromServer();
 };
+// unionStore.getUnionListFromServer();
 </script>

@@ -91,14 +91,6 @@ import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 
 const router = useRouter();
 const authStore = useAuthStore();
-onMounted(() => {
-  if (!authStore.checkLogin()) {
-    router.push("/");
-  }
-  if(!authStore.loginUserInfo.permission == 'superAdmin' || !authStore.loginUserInfo.permission == 'admin'){
-    router.push("/profile")
-  }
-});
 const languageStore = useLanguageStore();
 const tab = ref("division");
 const divisionStore = useDivisionStore();
@@ -107,18 +99,32 @@ const subDistrictStore = useSubDistrictStore();
 const unionStore = useUnionStore();
 const pinlocationStore = usePinlocationStore();
 
-divisionStore.getDivisionList();
-districtStore.getDistrictList();
-subDistrictStore.getSubDistrictListByBrowsingDistrictId();
-// unionStore.getUnionListByBrowsingSubDistrictId();
-unionStore.getUnionListFromServer();
-pinlocationStore.getPinlocationListByBrowsingUnionId();
 const publicUserStore = usePublicUserStore();
 const applyFilter = () => {
   subDistrictStore.getSubDistrictListByBrowsingDistrictId();
-  unionStore.getUnionListByBrowsingSubDistrictId();
+  // unionStore.getUnionListByBrowsingSubDistrictId();
+  unionStore.getUnionListFromServer();
   pinlocationStore.getPinlocationListByBrowsingUnionId();
 };
+
+onMounted(() => {
+  if (!authStore.checkLogin()) {
+    router.push("/");
+  }
+  if (
+    !authStore.loginUserInfo.permission == "superAdmin" ||
+    !authStore.loginUserInfo.permission == "admin"
+  ) {
+    router.push("/profile");
+  }
+
+  divisionStore.getDivisionList();
+  districtStore.getDistrictList();
+  subDistrictStore.getSubDistrictListByBrowsingDistrictId();
+  // unionStore.getUnionListByBrowsingSubDistrictId();
+  unionStore.getUnionListFromServer();
+  pinlocationStore.getPinlocationListByBrowsingUnionId();
+});
 const metaData = {
   // sets document title
   title: "Locations",

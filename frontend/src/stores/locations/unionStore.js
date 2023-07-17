@@ -10,6 +10,8 @@ import { useWardStore } from './wardStore';
 import { usePublicUserStore } from '../user/publicStore';
 import { unions } from "src/global_js/staticLocation"
 import { Notify } from 'quasar';
+import { Loading, QSpinnerIos } from "quasar";
+import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 const locationListGlobal = useLocalStorage('global-location-list', {})
@@ -54,30 +56,37 @@ export const useUnionStore = defineStore('union store', () => {
 
   }
   const getUnionListFromServer = async () => {
+    Loading.show({
+      group: 'get-unionlist',
+      spinner: QSpinnerIos,
+      spinnerColor: 'white',
+      messageColor: 'white',
+      message: 'Loading...',
+    })
     unionListLoading.value = true
     const params = {
       pageNumber: unionPage.value
     }
-    unionList.value.unions = unions
+    if(browsingLocation.value?.subDistrict){
+      params.subDistrictId = browsingLocation.value?.subDistrict?._id
+    }
+    // unionList.value.unions = unions
     const config = {
       method: "get",
       url: "api/unions/all",
       headers: {
         "Content-Type": "application/json"
       },
-      params:{
-        subDistrictId: browsingLocation.value.subDistrict._id
-      }
+      params
     };
-    loader.showLoader()
     try {
       const responseData = await api.request(config);
-      unionList.value.unions = responseData.data;
-      loader.hideLoader()
+      unionList.value = responseData.data;
+      Loading.hide('get-unionlist')
       unionListLoading.value = false
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      Loading.hide('get-unionlist')
       unionListLoading.value = false
 
     }
@@ -116,7 +125,6 @@ export const useUnionStore = defineStore('union store', () => {
       allUnionsLoading.value = false
 
     }
-
   }
   const getAllUnions = async (id) => {
     if (id) {
@@ -150,7 +158,7 @@ export const useUnionStore = defineStore('union store', () => {
       Notify.create({
         message: "Successfully Created a union/powroshova",
         type: "positive",
-        position:"center"
+        position: "center"
       })
     } catch (error) {
       console.log(error);
@@ -158,7 +166,7 @@ export const useUnionStore = defineStore('union store', () => {
       Notify.create({
         message: "Failed Created a union/powroshova",
         type: "negative",
-        position:"center"
+        position: "center"
       })
     }
   }
