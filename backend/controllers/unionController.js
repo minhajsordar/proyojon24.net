@@ -7,7 +7,7 @@ import commonWardList from '../data/ward.js'
 // @route Put api/unions
 // @acess Privet
 const getUnions = expressAsyncHandler(async (req, res) => {
-    const pageSize =  Number(req.query.pageSize) || 30;
+    const pageSize =  Number(req.query.pageSize) || 20;
     const page = Number(req.query.pageNumber) || 1;
     const keywords = req.query.keywords ? {
         name: {
@@ -24,7 +24,7 @@ const getUnions = expressAsyncHandler(async (req, res) => {
 // @route Put api/unions
 // @acess Privet
 const getAllUnions = expressAsyncHandler(async (req, res) => {
-    const pageSize =  Number(req.query.pageSize) || 5;
+    const pageSize =  Number(req.query.pageSize) || 20;
     const page = Number(req.query.pageNumber) || 1;
     const keywords = req.query.subDistrictId? {"parent._id":req.query.subDistrictId}:{}
 
