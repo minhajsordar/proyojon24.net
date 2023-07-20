@@ -30,11 +30,35 @@
           <div class='text-bold '>
             <span>{{serviceProvider.serviceTitle[languageStore.language]}}</span>
           </div>
-          <!-- <q-separator/>
-          <div class="text-blue-grey-10">
+          <!-- <q-separator/> -->
+          <!-- <div class="text-blue-grey-10">
             <span>{{$t('mobile')}}: <q-icon class="bg-primary text-white" name="call"/> {{enToBnToEn('০১', languageStore.language)}}xxxxxxxxx</span>
           </div> -->
           <!-- <q-separator/> -->
+
+          <div v-if="serviceProvider.user?._id"  class='text-bold '>
+                {{ $t("joined_date") }}:
+                {{
+                  enToBnToEn(
+                    date.formatDate(
+                      serviceProvider?.user?.createdAt,
+                      "YYYY-MM-DD HH:mm:ss"
+                    ),
+                    languageStore.language
+                  )
+                }}, {{ $t("registration_no") }}:
+                <span v-if="serviceProvider?.user?.registrationNo"
+                  >{{
+                    "000000000".slice(
+                        0,
+                        9 -
+                          serviceProvider?.user?.registrationNo.toString()
+                            .length
+                      ) +
+                        serviceProvider?.user?.registrationNo.toString()
+                  }}
+                </span>
+              </div>
           <div class="fs-12 text-bold">
             <q-icon class="bg-primary text-white " name="location_on"/>
             <span v-if="serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]"> {{ " "+serviceProvider.serviceProviderLocation?.division?.name[languageStore.language]}} </span>
@@ -62,6 +86,7 @@
 import { useLanguageStore } from 'src/stores/lang/languageSettingsStore';
 import { web_root_url } from 'src/global_constant/root_url';
 import { enToBnToEn } from'src/global_js/utils.js';
+import {date} from 'quasar'
 defineProps({
   serviceProvider:{
     type:Object,

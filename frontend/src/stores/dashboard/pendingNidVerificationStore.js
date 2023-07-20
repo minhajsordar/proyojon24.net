@@ -65,15 +65,15 @@ export const usePendingNidVerificationStore = defineStore('pending nid verificat
       }
     };
     pendingNidVerificationListLoading.value = true
-    loader.showLoader()
+    CustomLoading('put-pending-verification').showLoading()
     try {
       const responseData = await api.request(config);
       pendingNidVerificationList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('put-pending-verification').hideLoading()
       pendingNidVerificationListLoading.value = false
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('put-pending-verification').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -97,15 +97,15 @@ export const usePendingNidVerificationStore = defineStore('pending nid verificat
       }
     };
     pendingNidVerificationListLoading.value = true
-    loader.showLoader()
+    CustomLoading('put-users-pendinglist').showLoading()
     try {
       const responseData = await api.request(config);
       pendingNidVerificationList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('put-users-pendinglist').hideLoading()
       pendingNidVerificationListLoading.value = false
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('put-users-pendinglist').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",

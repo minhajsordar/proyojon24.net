@@ -110,6 +110,9 @@ const userSchema = mongoose.Schema({
             type: String,
             default: null,
         }
+    },
+    registrationNo: {
+        type: Number,
     }
 }, {
     timestamps: true

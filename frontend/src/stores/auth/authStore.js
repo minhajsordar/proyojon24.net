@@ -7,6 +7,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useLanguageStore } from '../lang/languageSettingsStore';
 import { Notify, date } from "quasar";
+import { CustomLoading } from 'src/global_js/loadiingApi';
 import { useUserStore } from '../user/userStore';
 // room
 import { useRoomsStore } from "src/stores/message/roomStore";
@@ -64,13 +65,13 @@ export const useAuthStore = defineStore('auth store', () => {
         password: userAuthInfo.password
       }
     };
-    loader.showLoader()
+    CustomLoading('post-user-login').showLoading()
     try {
       const responseData = await api.request(config);
       loginUser.value = responseData.data
       loginUserInfo.value = responseData.data;
       isAvailable.value = responseData.data.isAvailable
-      loader.hideLoader()
+      CustomLoading('post-user-login').hideLoading()
       Notify.create({
         position: "top",
         type: "positive",
@@ -90,7 +91,7 @@ export const useAuthStore = defineStore('auth store', () => {
       });
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('post-user-login').hideLoading()
       rememberUserData()
       Notify.create({
         position: "center",
@@ -165,15 +166,15 @@ export const useAuthStore = defineStore('auth store', () => {
       },
       data
     };
-    loader.showLoader()
+    CustomLoading('patch-users').showLoading()
     try {
       const responseData = await api.request(config);
-      loader.hideLoader()
+      CustomLoading('patch-users').hideLoading()
       userStore.getUserList();
 
     } catch (error) {
-      loader.hideLoader()
       console.log(error);
+      CustomLoading('patch-users').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -246,19 +247,18 @@ export const useAuthStore = defineStore('auth store', () => {
       },
       data
     };
-    loader.showLoader()
+    CustomLoading('put-users').showLoading()
     try {
       const responseData = await api.request(config);
       loginUser.value = responseData.data
       loginUserInfo.value = responseData.data;
-      loader.hideLoader()
       isAuthorized.value = true
       rememberUserData()
       languageStore.switchToBn()
-      loader.hideLoader()
+      CustomLoading('put-users').hideLoading()
     } catch (error) {
-      loader.hideLoader()
       console.log(error);
+      CustomLoading('put-users').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -279,11 +279,14 @@ export const useAuthStore = defineStore('auth store', () => {
         isAvailable: isAvailable.value
       }
     };
+    CustomLoading('put-users').showLoading()
     try {
       const responseData = await api.request(config);
       loginUserInfo.value.isAvailable = responseData.data.isAvailable
+      CustomLoading('put-users').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('put-users').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -307,11 +310,14 @@ export const useAuthStore = defineStore('auth store', () => {
         image: updateUserInfo[field]
       }
     };
+    CustomLoading('post-user-upload').showLoading()
     try {
       const responseData = await api.request(config);
       updateUserInfo[replace] = responseData.data
+      CustomLoading('post-user-upload').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('post-user-upload').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",

@@ -7,6 +7,7 @@ import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { useServiceStore } from './serviceStore';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -80,7 +81,6 @@ imageCover.value = null
       }
     serviceCategoryInfo.coverImage = null
     serviceCategoryInfo.icon = null
-    serviceCategoryInfo.order = 1
     serviceCategoryInfo.premiumRegistrationFee = 1
   }
   const openServiceCategoryCreateDialogManager = () => {
@@ -139,15 +139,14 @@ imageCover.value = null
 
       },params
     };
-    loader.showLoader()
+    CustomLoading('get-service-categorys').showLoading()
     try {
       const responseData = await api.request(config);
-      responseData.data.serviceCategorys.sort((a,b)=>a.order - b.order);
       serviceCategoryList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-service-categorys').hideLoading()
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-service-categorys').hideLoading()
     }
   }
   const getAllServiceCategorys = async (id) => {
@@ -163,15 +162,14 @@ imageCover.value = null
 
       },params
     };
-    loader.showLoader()
+    CustomLoading('get-service-categorys-all').showLoading()
     try {
       const responseData = await api.request(config);
-      responseData.data.sort((a,b)=>a.order - b.order);
       allServiceCategoryList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-service-categorys-all').hideLoading()
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-service-categorys-all').hideLoading()
     }
   }
   const getFilteredServiceCategoryByService = async () => {
@@ -184,15 +182,14 @@ imageCover.value = null
 
       }
     };
-    loader.showLoader()
+    CustomLoading('get-service-categorys-service').showLoading()
     try {
       const responseData = await api.request(config);
-      responseData.data.serviceCategorys.sort((a,b)=>a.order - b.order);
       serviceCategoryList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-service-categorys-service').hideLoading()
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-service-categorys-service').hideLoading()
     }
   }
   const createServiceCategory = async () => {
@@ -209,12 +206,12 @@ imageCover.value = null
 
       }, data
     };
-    loader.showLoader()
+    CustomLoading('post-service-categorys').showLoading()
     try {
       const responseData = await api.request(config);
       openServiceCategoryCreateDialog.value = false
       getServiceCategoryList()
-      loader.hideLoader()
+      CustomLoading('post-service-categorys').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
@@ -222,7 +219,7 @@ imageCover.value = null
       });
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('post-service-categorys').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -246,11 +243,14 @@ imageCover.value = null
         image:imageIcon.value
       }
     };
+    CustomLoading('upload-icon-service-categroy').showLoading()
     try {
       const responseData = await api.request(config);
       serviceCategoryInfo.icon = responseData.data
+      CustomLoading('upload-icon-service-categroy').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('upload-icon-service-categroy').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -289,20 +289,20 @@ imageCover.value = null
 
       },data
     };
-    loader.showLoader()
+    CustomLoading('put-service-categorys').showLoading()
     try {
       const responseData = await api.request(config);
       openServiceCategoryEditDialog.value = false
       getServiceCategoryList()
-      loader.hideLoader()
+      CustomLoading('put-service-categorys').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('put-service-categorys').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   const deleteServiceCategory = async () => {
@@ -315,19 +315,19 @@ imageCover.value = null
 
       }
     };
-    loader.showLoader()
+    CustomLoading('delete-service-categorys').showLoading()
     try {
       const responseData = await api.request(config);
       getServiceCategoryList()
-      loader.hideLoader()
+      CustomLoading('delete-service-categorys').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('delete-service-categorys').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   return {

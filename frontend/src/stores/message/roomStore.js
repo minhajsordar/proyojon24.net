@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { Notify, date } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 import { socket } from 'src/socket/socket';
 import { useAuthStore } from '../auth/authStore';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
@@ -27,6 +28,7 @@ export const useRoomsStore = defineStore('rooms store', () => {
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }
     }
+    CustomLoading('get-room').showLoading()
     try {
       const responseData = await api.request(config);
       myRooms.value = responseData.data;
@@ -34,9 +36,11 @@ export const useRoomsStore = defineStore('rooms store', () => {
       responseData.data.rooms.forEach(room => {
         socket.emit("joinRoom", room)
       })
+      CustomLoading('get-room').hideLoading()
 
     } catch (error) {
       console.log(error);
+      CustomLoading('get-room').hideLoading()
     }
   }
   const createRoom = async (id) => {
@@ -52,15 +56,15 @@ export const useRoomsStore = defineStore('rooms store', () => {
 
       }, data
     };
-    loader.showLoader()
+    CustomLoading('post-room').showLoading()
     try {
       const responseData = await api.request(config);
       router.push('direct_message/' + responseData.data._id)
       getMyRooms()
-      loader.hideLoader()
+      CustomLoading('post-room').hideLoading()
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('post-room').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",

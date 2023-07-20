@@ -29,11 +29,6 @@ const serviceCategorySchema = new mongoose.Schema({
         required: true,
         default: 0
     },
-    order: {
-        type: Number,
-        required: true,
-        default: 0
-    },
     premiumRegistrationFee: {
         type: Number,
         required: true,

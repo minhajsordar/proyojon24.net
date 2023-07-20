@@ -45,7 +45,9 @@
                 </div>
                 <div class="flex justify-between q-mt-md fs-18">
                   <div class="">পন্য ব্যবসায়ী/সার্ভিস প্রভাইডার</div>
-                  <div class="text-end">স্থান</div>
+                  <!-- <div class="text-end">স্থান</div> -->
+                  <div class="text-end">
+            <locationInput/></div>
                 </div>
               </q-card>
               <q-card class="q-pa-md q-mt-sm q-mx-lg">
@@ -590,7 +592,7 @@ import { useTopSuggestedStore } from "src/stores/service/topSuggestedStore";
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
 import { useMovingTextStore } from "src/stores/movingtext/movingtextGet.js";
 import homepageSidebar from "src/components/sidebar/homepageSidebar.vue";
-
+import locationInput from "src/components/location/locationInput.vue"
 const isPaused = ref(false);
 const publicSliderStore = usePublicSliderStore();
 publicSliderStore.getSliderData();

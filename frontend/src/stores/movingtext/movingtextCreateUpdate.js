@@ -5,6 +5,7 @@ import loader from 'loader-animation'
 import { ref, reactive } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 loader.title = 'Requesting To Server...'
 export const useMovingTextCreateUpdateStore = defineStore('moving text create Update store', () => {
   const authStore = useAuthStore()
@@ -19,6 +20,7 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
         "Content-Type": "application/json",
       }
     };
+    CustomLoading('get-moving-text').showLoading()
     try {
       const responseData = await api.request(config);
       movingTextData.value = responseData.data
@@ -26,8 +28,10 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
         movingText.value = responseData.data[0].announcement
         speed.value = responseData.data[0].speed
       }
+      CustomLoading('get-moving-text').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('get-moving-text').hideLoading()
     }
   }
   const updateMovingTextManager =()=>{
@@ -48,11 +52,11 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }, data
     };
-    loader.showLoader()
+    CustomLoading('post-moving-text').showLoading()
     try {
       const responseData = await api.request(config);
       movingTextData.value[0] = responseData.data
-      loader.hideLoader()
+      CustomLoading('post-moving-text').hideLoading()
       Notify.create({
         message: "Successfully Created Moving Text",
         type: "positive",
@@ -60,7 +64,7 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
       })
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('post-moving-text').hideLoading()
       Notify.create({
         message: "Failed to Create Moving Text",
         type: "negative",
@@ -79,11 +83,11 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }, data
     };
-    loader.showLoader()
+    CustomLoading('put-moving-text').showLoading()
     try {
       const responseData = await api.request(config);
       movingTextData.value[0] = responseData.data
-      loader.hideLoader()
+      CustomLoading('put-moving-text').hideLoading()
       Notify.create({
         message: "Successfully Updated Moving Text",
         type: "positive",
@@ -91,7 +95,7 @@ export const useMovingTextCreateUpdateStore = defineStore('moving text create Up
       })
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('put-moving-text').hideLoading()
       Notify.create({
         message: "Failed to Update Moving Text",
         type: "negative",

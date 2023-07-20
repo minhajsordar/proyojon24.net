@@ -6,6 +6,7 @@ import { encode64 } from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -50,7 +51,7 @@ export const useUserStore = defineStore('user store', () => {
           en: 'Rajbari'
         },
         isActive: true,
-        permission : 'admin'
+        permission: 'admin'
       },
       {
         name: {
@@ -101,11 +102,11 @@ export const useUserStore = defineStore('user store', () => {
 
       }
     };
-    loader.showLoader()
+    CustomLoading('get-user-list').showLoading()
     try {
       const responseData = await api.request(config);
       userList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-user-list').hideLoading()
     } catch (error) {
       console.log(error);
       Notify.create({
@@ -113,7 +114,7 @@ export const useUserStore = defineStore('user store', () => {
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
+      CustomLoading('get-user-list').hideLoading()
     }
   }
   const createUser = async () => {
@@ -127,11 +128,11 @@ export const useUserStore = defineStore('user store', () => {
 
       }, data
     };
-    loader.showLoader()
+    CustomLoading('create-user').showLoading()
     try {
       const responseData = await api.request(config);
       getUserList()
-      loader.hideLoader()
+      CustomLoading('create-user').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
@@ -139,7 +140,7 @@ export const useUserStore = defineStore('user store', () => {
       });
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('create-user').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -162,13 +163,13 @@ export const useUserStore = defineStore('user store', () => {
       "permission"
     ]
     const data = {}
-    userInfoKeys.forEach((value,index)=>{
-      if(userInfo[value] instanceof Object){
-        if(userInfo[value].bn && userInfo[value].bn){
+    userInfoKeys.forEach((value, index) => {
+      if (userInfo[value] instanceof Object) {
+        if (userInfo[value].bn && userInfo[value].bn) {
           data[value] = userInfo[value]
         }
-      }else if(userInfo[value]){
-          data[value] = userInfo[value]
+      } else if (userInfo[value]) {
+        data[value] = userInfo[value]
 
       }
     })
@@ -181,11 +182,13 @@ export const useUserStore = defineStore('user store', () => {
 
       }
     };
-    loader.showLoader()
+
+    CustomLoading('update-user').showLoading()
     try {
       const responseData = await api.request(config);
       getUserList()
-      loader.hideLoader()
+
+      CustomLoading('update-user').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
@@ -193,7 +196,7 @@ export const useUserStore = defineStore('user store', () => {
       });
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('update-user').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -211,11 +214,11 @@ export const useUserStore = defineStore('user store', () => {
 
       }
     };
-    loader.showLoader()
+    CustomLoading('delete-user').showLoading()
     try {
       const responseData = await api.request(config);
       getUserList()
-      loader.hideLoader()
+      CustomLoading('delete-user').hideLoading()
     } catch (error) {
       console.log(error);
       Notify.create({
@@ -223,7 +226,8 @@ export const useUserStore = defineStore('user store', () => {
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
+
+      CustomLoading('delete-user').hideLoading()
     }
   }
   const requestDeleteUserProfile = async () => {
@@ -234,21 +238,24 @@ export const useUserStore = defineStore('user store', () => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${loginUser.value.token}`
 
-      },body:{
+      }, body: {
         note: deleteNote.value
       }
     };
-    loader.showLoader()
+
+    CustomLoading('delete-request-user').showLoading()
     try {
       const responseData = await api.request(config);
-      loader.hideLoader()
+
+      CustomLoading('delete-request-user').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
         message: "Your Profile Is Under Review, Once We Confirm Your Profile Will Delete Permanently.",
       });
     } catch (error) {
-      loader.hideLoader()
+
+      CustomLoading('delete-request-user').hideLoading()
       console.log(error);
       Notify.create({
         position: "center",

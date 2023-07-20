@@ -15,7 +15,7 @@
             {{ service.name[languageStore.language] }}
           </div> -->
           <q-item :to="'/service_categorys_list/'+service._id" dense class="bg-blue-grey-3 text-black q-px-sm q-py-md">
-                <q-item-section>{{ service.name[languageStore.language] }}</q-item-section>
+                <q-item-section>{{ service.name[languageStore.language] }} ({{ service.serviceProviderCount }})</q-item-section>
               </q-item>
               <q-separator/>
           <q-list class="rounded-borders text-black ">
@@ -30,7 +30,8 @@
               <q-item :to="'/service_providers_list/'+category._id" dense class="bg-blue-grey-1 text-black q-py-md q-pl-lg">
                 <q-item-section>{{
                   category.name[languageStore.language]
-                }}</q-item-section>
+                }} ({{ category.serviceProviderCount }})
+                </q-item-section>
               </q-item>
 
               <q-separator/>

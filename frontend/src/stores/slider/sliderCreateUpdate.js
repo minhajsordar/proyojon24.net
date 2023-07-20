@@ -5,6 +5,7 @@ import loader from 'loader-animation'
 import { ref, reactive } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 loader.title = 'Requesting To Server...'
 export const usePublicSliderCreateUpdateStore = defineStore('public slider create Update store', () => {
   const authStore = useAuthStore()
@@ -26,16 +27,16 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }, data
     };
-    loader.showLoader()
+    CustomLoading('post-sliders').showLoading()
     try {
       const responseData = await api.request(config);
-      loader.hideLoader()
+      CustomLoading('post-sliders').hideLoading()
       Notify.create({
         message: "Successfully Created Banner Image"
       })
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('post-sliders').hideLoading()
       Notify.create({
         message: "Failed to Create Banner Image"
       })
@@ -43,7 +44,6 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
   }
   const updateSlider = async () => {
     const data = { ...sliderInfo }
-
     const config = {
       method: "put",
       url: "api/sliders/" + sliderInfo.id,
@@ -52,18 +52,18 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
         "Authorization": `Bearer ${authStore.loginUserInfo.token}`
       }, data
     };
-    loader.showLoader()
+    CustomLoading('put-sliders').showLoading()
     try {
       const responseData = await api.request(config);
-      loader.hideLoader()
+      CustomLoading('put-sliders').hideLoading()
       Notify.create({
         message: "Successfully Updated Banner Image",
         type: "positive",
-        position:"center"
+        position: "center"
       })
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('put-sliders').hideLoading()
     }
   }
   const uploadSliderImage = async (slidercount, imageposition) => {
@@ -81,11 +81,14 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
         image: sliderInfo[slidercount][imageposition]
       }
     };
+    CustomLoading('upload-image-sliders').showLoading()
     try {
       const responseData = await api.request(config);
       sliderInfo[slidercount][imageposition] = responseData.data
+      CustomLoading('upload-image-sliders').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('upload-image-sliders').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -102,6 +105,7 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
         "Content-Type": "application/json",
       }
     };
+    CustomLoading('get-image-sliders').showLoading()
     try {
       const responseData = await api.request(config);
       sliderInfo.id = responseData.data[0]._id
@@ -109,7 +113,9 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
       sliderInfo.slider2 = responseData.data[0].slider2
       sliderInfo.slider3 = responseData.data[0].slider3
       sliderInfo.slider4 = responseData.data[0].slider4
+      CustomLoading('get-image-sliders').hideLoading()
     } catch (error) {
+      CustomLoading('get-image-sliders').hideLoading()
       console.log(error);
     }
   }

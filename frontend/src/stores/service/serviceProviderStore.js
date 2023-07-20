@@ -16,6 +16,7 @@ import { useDivisionStore } from '../locations/divisionStore';
 import { useSearchServiceStore } from './searchService';
 import { Notify, Dialog } from 'quasar';
 import { useI18n } from "vue-i18n";
+import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -394,15 +395,15 @@ export const useServiceProviderStore = defineStore('service provider store', () 
 
       }, params
     };
-    loader.showLoader()
+    CustomLoading('get-service-providers-all').showLoading()
     try {
       const responseData = await api.request(config);
       allServiceProvidersList.value = responseData.data
-      loader.hideLoader()
+      CustomLoading('get-service-providers-all').hideLoading()
       allServiceProvidersListLoading.value = false
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-service-providers-all').hideLoading()
       allServiceProvidersListLoading.value = false
     }
   }
@@ -477,7 +478,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      responseData.data.serviceProviders.sort((a, b) => a.order - b.order);
       serviceProviderList.value = responseData.data;
       loader.hideLoader()
     } catch (error) {
@@ -523,7 +523,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     loader.showLoader()
     try {
       const responseData = await api.request(config);
-      responseData.data.serviceProviders.sort((a, b) => a.order - b.order);
       serviceProviderList.value = responseData.data;
       loader.hideLoader()
     } catch (error) {

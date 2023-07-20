@@ -64,15 +64,15 @@ export const usePendingPaymentStore = defineStore('pending payment store', () =>
       }
     };
     pendingPaymentListLoading.value = true
-    loader.showLoader()
+    CustomLoading('put-payments').showLoading()
     try {
       const responseData = await api.request(config);
       pendingPaymentList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('put-payments').hideLoading()
       pendingPaymentListLoading.value = false
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('put-payments').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -95,15 +95,15 @@ export const usePendingPaymentStore = defineStore('pending payment store', () =>
       }
     };
     pendingPaymentListLoading.value = true
-    loader.showLoader()
+    CustomLoading('put-payments-id').showLoading()
     try {
       const responseData = await api.request(config);
       pendingPaymentList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('put-payments-id').hideLoading()
       pendingPaymentListLoading.value = false
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('put-payments-id').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",

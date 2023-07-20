@@ -6,6 +6,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { socket } from "src/socket/socket";
 import { Notify, date } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -35,6 +36,7 @@ export const useMessageStore = defineStore('message store', () => {
         user2: selectedRoomUser2.value.user._id
       }
     };
+    CustomLoading('get-message').showLoading()
     try {
       const responseData = await api.request(config);
       responseData.data.messages = responseData.data.messages.sort(function (b, a) {
@@ -43,9 +45,11 @@ export const useMessageStore = defineStore('message store', () => {
       messageList.value = responseData.data
       nextPageNumber.value = responseData.data.page + 1
       messageListLoading.value = false
+      CustomLoading('get-message').hideLoading()
     } catch (error) {
       console.log(error);
       messageListLoading.value = false
+      CustomLoading('get-message').hideLoading()
     }
   }
   const getPreviousMessages = async () => {
@@ -69,6 +73,7 @@ export const useMessageStore = defineStore('message store', () => {
         pageNumber: nextPageNumber.value
       }
     };
+    CustomLoading('get-message-s').showLoading()
     try {
       const responseData = await api.request(config);
       responseData.data.messages = responseData.data.messages.sort(function (b, a) {
@@ -78,9 +83,11 @@ export const useMessageStore = defineStore('message store', () => {
       messageList.value.page = responseData.data.page
       nextPageNumber.value = responseData.data.page + 1
       messageListLoading.value = false
+      CustomLoading('get-message-s').hideLoading()
     } catch (error) {
       console.log(error);
       messageListLoading.value = false
+      CustomLoading('get-message-s').hideLoading()
     }
   }
   const createMessage = async () => {
@@ -102,14 +109,17 @@ export const useMessageStore = defineStore('message store', () => {
     };
     messageSending.value = true
     messageSent.value = false
+    CustomLoading('post-message').showLoading()
     try {
       const responseData = await api.request(config);
       getMessages()
       messageSending.value = true
       messageSent.value = false
       messageContent.value = ""
+      CustomLoading('post-message').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('post-message').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",

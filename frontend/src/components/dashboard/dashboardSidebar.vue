@@ -14,7 +14,7 @@
       <q-item-section>{{ $t("headermenus.data_analisis") }}</q-item-section>
       <q-separator />
     </q-item>
-    <q-item
+    <!-- <q-item
       clickable
       v-ripple
       v-if="
@@ -29,7 +29,7 @@
         <q-item-label>{{ $t("headermenus.service_and_payment_configuration") }}</q-item-label>
       </q-item-section>
       <q-separator />
-    </q-item>
+    </q-item> -->
     <q-item
       clickable
       v-ripple

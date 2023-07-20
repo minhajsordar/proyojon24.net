@@ -63,6 +63,7 @@
             color="black"
             outlined
             dense
+            :disable="publicUserStore.browsingLocation.district == null"
             clearable
             use-input
             input-debounce="0"
@@ -89,6 +90,7 @@
             bg-color="white"
             color="black"
             outlined
+            :disable="publicUserStore.browsingLocation.subDistrict == null"
             dense
             clearable
             use-input
@@ -117,6 +119,7 @@
             color="black"
             outlined
             dense
+            :disable="publicUserStore.browsingLocation.union == null"
             clearable
             use-input
             input-debounce="0"

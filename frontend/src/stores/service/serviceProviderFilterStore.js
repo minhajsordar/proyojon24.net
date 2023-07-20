@@ -8,6 +8,7 @@ import { useAuthStore } from '../auth/authStore';
 import { useServiceProviderStore } from 'src/stores/service/serviceProviderStore';
 import { usePublicUserStore } from 'src/stores/user/publicStore';
 import { Notify, Dialog } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 import { useI18n } from "vue-i18n";
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
@@ -37,15 +38,15 @@ export const useServiceProviderFilterStore = defineStore('service provider filte
         "Content-Type": "application/json",
       }, params
     };
-    loader.showLoader()
+    CustomLoading('get-service-providers-all').showLoading()
     try {
       const responseData = await api.request(config);
       serviceProviderStore.allServiceProvidersList = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-service-providers-all').hideLoading()
       serviceProviderStore.allServiceProvidersListLoading = false;
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-service-providers-all').hideLoading()
       serviceProviderStore.allServiceProvidersListLoading = false;
     }
   }
@@ -80,15 +81,15 @@ export const useServiceProviderFilterStore = defineStore('service provider filte
 
       }, params
     };
-    loader.showLoader()
+    CustomLoading('get-service-providers-allc').showLoading()
     try {
       const responseData = await api.request(config);
       serviceProviderStore.allServiceProvidersList = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-service-providers-allc').hideLoading()
       serviceProviderStore.allServiceProvidersListLoading = false
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-service-providers-allc').hideLoading()
       serviceProviderStore.allServiceProvidersListLoading = false
     }
   }

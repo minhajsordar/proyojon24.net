@@ -143,24 +143,6 @@
             </div> -->
             <div class="col-12">
               <div class="row">
-                <div class="col-lg-4 col-md-5 col-sm-12 col-12 fs-16 text-bold">
-                  {{ $t("serial") }}
-                </div>
-                <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-                  <q-input
-                    ref="serialEl"
-                    outlined
-                    dense
-                    type="number"
-                    :min="0"
-                    v-model="serviceStore.serviceInfo.order"
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="row">
                 <q-btn :label="$t('addnew')"  color="light-green-8"
               glossy @click="createServiceManager" />
               </div>

@@ -30,6 +30,13 @@ export const usePublicUserStore = defineStore('Public user store', () => {
   const districtStore = useDistrictStore();
   districtStore.getAllDistricts();
 
+  const openBrowsingLocationManager = () => {
+    openBrowsingLocationDialog.value = true
+    updateBrowsingSubDistrict()
+    updateBrowsingUnion()
+    updateBrowsingPinlocation()
+  }
+
   const updateBrowsingDistrict = () => {
     userBrowsingLocationLocalStore.value.district =
       browsingLocation.district;
@@ -51,14 +58,15 @@ export const usePublicUserStore = defineStore('Public user store', () => {
   const updateBrowsingSubDistrict = () => {
     userBrowsingLocationLocalStore.value.subDistrict =
       browsingLocation.subDistrict;
-    unionStore.getAllUnions(browsingLocation.subDistrict?._id)
+      console.log(userBrowsingLocationLocalStore.value.subDistrict?._id);
+    unionStore.getAllUnions(userBrowsingLocationLocalStore.value.subDistrict?._id)
     userBrowsingLocationLocalStore.value.union = browsingLocation.union = null
     userBrowsingLocationLocalStore.value.pinlocation = browsingLocation.pinlocation = null
   };
   const updateBrowsingUnion = () => {
     userBrowsingLocationLocalStore.value.union =
       browsingLocation.union;
-      pinlocationStore.getAllPinlocations(browsingLocation.union?._id)
+    pinlocationStore.getAllPinlocations(userBrowsingLocationLocalStore.value.union?._id)
     userBrowsingLocationLocalStore.value.pinlocation = browsingLocation.pinlocation = null
   };
   const updateBrowsingPinlocation = () => {
@@ -87,6 +95,7 @@ export const usePublicUserStore = defineStore('Public user store', () => {
 
   return {
     openBrowsingLocationDialog,
+    openBrowsingLocationManager,
     openFilterByServiceCategoryDialog,
     browsingLocation,
     updateBrowsingDistrict,

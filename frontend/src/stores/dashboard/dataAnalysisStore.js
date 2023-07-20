@@ -5,6 +5,7 @@ import loader from 'loader-animation'
 import { ref, reactive } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 loader.title = 'Requesting To Server...'
 export const useDataAnalysisStore = defineStore('data analysis store', () => {
   const authStore = useAuthStore()
@@ -18,11 +19,14 @@ export const useDataAnalysisStore = defineStore('data analysis store', () => {
         "Authorization": `Bearer ${authStore.loginUserInfo?.token}`
       }
     };
+    CustomLoading('get-dashboard-data-analysis').showLoading()
     try {
       const responseData = await api.request(config);
       dataAnalysisGraph.value = responseData.data
+      CustomLoading('get-dashboard-data-analysis').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('get-dashboard-data-analysis').hideLoading()
     }
   }
   return {

@@ -62,10 +62,9 @@ const getPublicServiceProviders = expressAsyncHandler(async (req, res) => {
     if (req.query.suggested) {
         keywords.suggested = req.query.suggested
     }
-    console.log(keywords)
     keywords.approved = true
     const count = await ServiceProvider.countDocuments({ ...keywords })
-    const serviceProviders = await ServiceProvider.find({ ...keywords }).limit(pageSize).skip(pageSize * (page - 1))
+    const serviceProviders = await ServiceProvider.find({ ...keywords }).limit(pageSize).skip(pageSize * (page - 1)).populate({path:'user',select: 'registrationNo createdAt'})
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ serviceProviders, page, pages: Math.ceil(count / pageSize) })
 })
@@ -102,7 +101,7 @@ const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getServiceProviderById = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.findById(req.params.id)
+    const serviceProvider = await ServiceProvider.findById(req.params.id).populate({path:'user',select: 'registrationNo createdAt'})
     if (serviceProvider) {
 
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');

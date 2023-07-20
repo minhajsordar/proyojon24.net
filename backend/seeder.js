@@ -21,7 +21,7 @@ connectDB()
 
 export const importData = async () => {
   try {
-    await User.deleteMany()
+    // await User.deleteMany()
     // await DailyUser.deleteMany()
     // await MonthlyUser.deleteMany()
     // await ProfileViewModel.deleteMany()
@@ -34,7 +34,7 @@ export const importData = async () => {
 
     // const serviceCat = await ServiceCategory.updateMany({}, { viewCount: 0, serviceProviderCount: 0 })
     // const serviceM = await Service.updateMany({}, { viewCount: 0, serviceProviderCount: 0 })
-    const createdUsers = await User.insertMany(users)
+    // const createdUsers = await User.insertMany(users)
     // const today = new Date().setHours(0, 0, 0, 0); // Get current date
     // const dailyUser = await DailyUser.findOne({ date: today });
 
@@ -59,9 +59,13 @@ export const importData = async () => {
     //   const newMonthlyUser = new MonthlyUser({ year, month, userCount: createdUsers.length });
     //   await newMonthlyUser.save();
     // }
-
+    const users = await User.find({})
+    for(let i = 0; i < users.length; i++) {
+      const query = { _id: users[i]._id };
+      await User.findOneAndUpdate(query, { registrationNo: i+1 })
+    }
     console.log('Data Imported!')
-    process.exit()
+    // process.exit(0)
   } catch (error) {
     console.error(`${error}`)
     process.exit(1)

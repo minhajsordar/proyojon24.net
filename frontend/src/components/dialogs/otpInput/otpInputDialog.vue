@@ -3,6 +3,9 @@
 
     <q-card>
     <q-card-section class="text-center">
+      <q-img class="otp-receive-image" src="/images/otp-receive-image.svg"/>
+    </q-card-section>
+    <q-card-section class="text-center">
       <div class="fs-24 text-bold">
         Verification code
       </div>
@@ -89,5 +92,9 @@ input::placeholder {
   font-size: 15px;
   text-align: center;
   font-weight: 600;
+}
+
+.otp-receive-image{
+  width: 200px;
 }
 </style>

@@ -5,6 +5,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import loader from 'loader-animation'
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 loader.title = 'Requesting To Server...'
 export const usePublicServiceStore = defineStore('Publice service store', () => {
   const router = useRouter(),
@@ -18,16 +19,15 @@ export const usePublicServiceStore = defineStore('Publice service store', () => 
 
       }
     };
-    loader.showLoader()
+    CustomLoading('get-services-all').showLoading()
     try {
       const responseData = await api.request(config);
-      responseData.data.sort((a, b) => a.order - b.order);
       allServices.value = responseData.data
       getServiceCategorys()
-      loader.hideLoader()
+      CustomLoading('get-services-all').hideLoading()
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-services-all').hideLoading()
     }
   }
   const getServiceCategorys = async () => {
@@ -39,16 +39,16 @@ export const usePublicServiceStore = defineStore('Publice service store', () => 
 
       }
     };
-    loader.showLoader()
+    CustomLoading('get-service-categorys-all').showLoading()
     try {
       const responseData = await api.request(config);
       allServices.value.map((service) =>{
         service.serviceCategorys = responseData.data.filter(d=>d.service === service._id)
       });
-      loader.hideLoader()
+      CustomLoading('get-service-categorys-all').hideLoading()
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-service-categorys-all').hideLoading()
     }
   }
   return {

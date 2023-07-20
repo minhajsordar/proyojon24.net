@@ -56,18 +56,11 @@ export const useUnionStore = defineStore('union store', () => {
 
   }
   const getUnionListFromServer = async () => {
-    Loading.show({
-      group: 'get-unionlist',
-      spinner: QSpinnerIos,
-      spinnerColor: 'white',
-      messageColor: 'white',
-      message: 'Loading...',
-    })
     unionListLoading.value = true
     const params = {
       pageNumber: unionPage.value
     }
-    if(browsingLocation.value?.subDistrict){
+    if (browsingLocation.value?.subDistrict) {
       params.subDistrictId = browsingLocation.value?.subDistrict?._id
     }
     // unionList.value.unions = unions
@@ -79,14 +72,15 @@ export const useUnionStore = defineStore('union store', () => {
       },
       params
     };
+    CustomLoading('get-all-union-list').showLoading()
     try {
       const responseData = await api.request(config);
       unionList.value = responseData.data;
-      Loading.hide('get-unionlist')
+      CustomLoading('get-all-union-list').hideLoading()
       unionListLoading.value = false
     } catch (error) {
       console.log(error);
-      Loading.hide('get-unionlist')
+      CustomLoading('get-all-union-list').hideLoading()
       unionListLoading.value = false
 
     }
@@ -113,26 +107,49 @@ export const useUnionStore = defineStore('union store', () => {
         "Content-Type": "application/json"
       },
     };
-    loader.showLoader()
+    CustomLoading('get-all-unions').showLoading()
     try {
       const responseData = await api.request(config);
       locationListGlobal.value.unions = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-all-unions').hideLoading()
       allUnionsLoading.value = false
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-all-unions').hideLoading()
       allUnionsLoading.value = false
 
     }
   }
   const getAllUnions = async (id) => {
     if (id) {
-      allUnions.value = unions.filter(e => {
-        return e.parent._id === id
-      })
+      unionListLoading.value = true
+      const params = {
+        pageSize: 500
+      }
+      params.subDistrictId = id
+      // unionList.value.unions = unions
+      const config = {
+        method: "get",
+        url: "api/unions/all",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        params
+      };
+      CustomLoading('get-all-union-list').showLoading()
+      try {
+        const responseData = await api.request(config);
+        allUnions.value = responseData.data.unions;
+        CustomLoading('get-all-union-list').hideLoading()
+        unionListLoading.value = false
+      } catch (error) {
+        console.log(error);
+        CustomLoading('get-all-union-list').hideLoading()
+        unionListLoading.value = false
+
+      }
     } else {
-      allUnions.value = unions
+      // allUnions.value = unions
     }
 
   }
@@ -147,14 +164,14 @@ export const useUnionStore = defineStore('union store', () => {
       },
       data
     };
-    loader.showLoader()
+    CustomLoading('post-union').showLoading()
     try {
       const responseData = await api.request(config);
       openUnionCreateDialog.value = false
       // getUnionList()
       getUnionListFromServer()
       wardStore.getGlobalWards()
-      loader.hideLoader()
+      CustomLoading('post-union').hideLoading()
       Notify.create({
         message: "Successfully Created a union/powroshova",
         type: "positive",
@@ -162,7 +179,7 @@ export const useUnionStore = defineStore('union store', () => {
       })
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('post-union').hideLoading()
       Notify.create({
         message: "Failed Created a union/powroshova",
         type: "negative",
@@ -194,15 +211,15 @@ export const useUnionStore = defineStore('union store', () => {
       },
       data
     };
-    loader.showLoader()
+    CustomLoading('put-unions').showLoading()
     try {
       const responseData = await api.request(config);
       openUnionEditDialog.value = false
       getUnionListFromServer()
-      loader.hideLoader()
+      CustomLoading('put-unions').hideLoading()
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('put-unions').hideLoading()
     }
   }
   const deleteUnion = async () => {
@@ -214,15 +231,15 @@ export const useUnionStore = defineStore('union store', () => {
         "Content-Type": "application/json"
       }
     };
-    loader.showLoader()
+    CustomLoading('delete-unions').showLoading()
     try {
       const responseData = await api.request(config);
       // getUnionList()
       getUnionListFromServer()
-      loader.hideLoader()
+      CustomLoading('delete-unions').hideLoading()
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('delete-unions').hideLoading()
     }
   }
   return {

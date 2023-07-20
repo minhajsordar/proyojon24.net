@@ -4,6 +4,7 @@ import loader from 'loader-animation'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 import { isObjEmpty } from 'src/global_js/utils';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
@@ -54,15 +55,15 @@ export const usePaymentStore = defineStore('payment store', () => {
       }
     };
     myPaymentListLoading.value = true
-    loader.showLoader()
+    CustomLoading('get-payment-user').showLoading()
     try {
       const responseData = await api.request(config);
       myPaymentList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-payment-user').hideLoading()
       myPaymentListLoading.value = false
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-payment-user').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -81,14 +82,17 @@ export const usePaymentStore = defineStore('payment store', () => {
 
       }
     };
+    CustomLoading('get-registration-fee').showLoading()
     try {
       const responseData = await api.request(config);
       if(!isObjEmpty(responseData.data)){
         registrationFeePaid.value = true
       }
+      CustomLoading('get-registration-fee').hideLoading()
     } catch (error) {
       console.log(error);
       registrationFeePaid.value = false
+      CustomLoading('get-registration-fee').hideLoading()
     }
   }
   const makePayment = async () => {
@@ -102,11 +106,11 @@ export const usePaymentStore = defineStore('payment store', () => {
 
       }, data
     };
-    loader.showLoader()
+    CustomLoading('post-payment').showLoading()
     try {
       const responseData = await api.request(config);
       getMyPaymentList()
-      loader.hideLoader()
+      CustomLoading('post-payment').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
@@ -116,7 +120,7 @@ export const usePaymentStore = defineStore('payment store', () => {
     } catch (error) {
       openPaymentDialog.value = false
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('post-payment').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -135,11 +139,11 @@ export const usePaymentStore = defineStore('payment store', () => {
 
       }, data
     };
-    loader.showLoader()
+    CustomLoading('post-registration-fee').showLoading()
     try {
       const responseData = await api.request(config);
       getMyPaymentList()
-      loader.hideLoader()
+      CustomLoading('post-registration-fee').hideLoading()
       registrationFeePaid.value = true
       Notify.create({
         position: "center",
@@ -150,7 +154,7 @@ export const usePaymentStore = defineStore('payment store', () => {
     } catch (error) {
       openRegistrationFeeDialog.value = false
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('post-registration-fee').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -168,11 +172,11 @@ export const usePaymentStore = defineStore('payment store', () => {
 
       }
     };
-    loader.showLoader()
+    CustomLoading('delete-payments').showLoading()
     try {
       const responseData = await api.request(config);
       getMyPaymentList()
-      loader.hideLoader()
+      CustomLoading('delete-payments').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
@@ -180,7 +184,7 @@ export const usePaymentStore = defineStore('payment store', () => {
       });
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('delete-payments').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",

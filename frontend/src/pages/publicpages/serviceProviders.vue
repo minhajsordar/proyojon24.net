@@ -31,7 +31,7 @@
                 <q-btn
                   class="bg-primary text-white full-width"
                   :label="$t('searchInfoByLocation')"
-                  @click="publicUserStore.openBrowsingLocationDialog = true"
+                  @click="publicUserStore.openBrowsingLocationManager"
                 />
               </div>
               <div class="col-lg-6 col-sm-12 col-xs-12 col-12">
@@ -101,7 +101,7 @@
                           serviceCategory.name;
                       "
                     >
-                      {{ serviceCategory.name[languageStore.language] }}
+                      {{ serviceCategory.name[languageStore.language] }} ({{serviceCategory.serviceProviderCount}})
                     </q-btn>
                     <q-separator />
                   </div>

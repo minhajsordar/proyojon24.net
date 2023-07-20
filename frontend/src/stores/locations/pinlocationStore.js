@@ -23,9 +23,9 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
     allPinlocationsLoading = ref(false),
     pinlocationListLoading = ref(false),
     pinlocationList = ref({
-      page:1,
-      pages:1,
-      pinlocations:[]
+      page: 1,
+      pages: 1,
+      pinlocations: []
     }),
     pinlocationInfo = reactive({
       id: null,
@@ -47,7 +47,7 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
     const params = {
       pageNumber: pinlocationPage.value
     }
-      pinlocationList.value.pinlocations = locationListGlobal.value.pinlocations;
+    pinlocationList.value.pinlocations = locationListGlobal.value.pinlocations;
 
   }
   const getPinlocationListByBrowsingUnionId = async () => {
@@ -55,18 +55,18 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
     const params = {
       pageNumber: pinlocationPage.value
     }
-    pinlocationList.value.pinlocations = locationListGlobal.value.pinlocations.filter(e=>{
-      if(browsingLocation.value.union){
+    pinlocationList.value.pinlocations = locationListGlobal.value.pinlocations.filter(e => {
+      if (browsingLocation.value.union) {
         return e.parent._id === browsingLocation.value.union._id
-      }else{
+      } else {
         return true
       }
-      })
+    })
 
   }
   const getGlobalPinlocations = async () => {
     const params = {}
-    if(browsingLocation.value?.union){
+    if (browsingLocation.value?.union) {
       params.unionId = browsingLocation.value.union._id
     }
     const config = {
@@ -75,6 +75,7 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
       headers: {
         "Content-Type": "application/json"
       },
+      params
     };
     loader.showLoader()
     try {
@@ -93,10 +94,31 @@ export const usePinlocationStore = defineStore('pinlocation store', () => {
   const getAllPinlocations = async (id) => {
     const params = {}
     if (id && id != undefined) {
-      allPinlocations.value = locationListGlobal.value.pinlocations.filter(e=>{
-        return e.parent._id === id
-      })
-    }else{
+      const params = {
+        pageSize: 1000
+      }
+      params.unionId = id
+      const config = {
+        method: "get",
+        url: "api/pinlocations/all",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        params
+      };
+      loader.showLoader()
+      try {
+        const responseData = await api.request(config);
+        allPinlocations.value = responseData.data;
+        loader.hideLoader()
+        allPinlocationsLoading.value = false
+        getPinlocationListByBrowsingUnionId()
+      } catch (error) {
+        console.log(error);
+        loader.hideLoader()
+        allPinlocationsLoading.value = false
+      }
+    } else {
       allPinlocations.value = locationListGlobal.value.pinlocations
     }
 

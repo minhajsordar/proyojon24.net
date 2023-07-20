@@ -6,6 +6,7 @@ import { encode64 } from 'src/global_js/utils'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { Notify,date } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -49,11 +50,11 @@ export const useNotificationStore = defineStore('notification store', () => {
         "Content-Type": "application/json",
       }
     };
-    loader.showLoader()
+    CustomLoading('get-common-notifications').showLoading()
     try {
       const responseData = await api.request(config);
       notificationList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-common-notifications').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
@@ -61,7 +62,7 @@ export const useNotificationStore = defineStore('notification store', () => {
       });
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-common-notifications').hideLoading()
     }
   }
   const getPublishedNotification = async () => {
@@ -75,6 +76,7 @@ export const useNotificationStore = defineStore('notification store', () => {
         published: true
       }
     };
+    CustomLoading('get-common-notifications-p').showLoading()
     try {
       const responseData = await api.request(config);
       publishedNotification.value = responseData.data;
@@ -84,8 +86,10 @@ export const useNotificationStore = defineStore('notification store', () => {
       publishedNotification.value = responseData.data.notifications.filter(e=>{
         return date.getDateDiff(new Date(), e.updatedAt, "days") >= 7
       })
+      CustomLoading('get-common-notifications-p').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('get-common-notifications-p').hideLoading()
     }
   }
   const createNotification = async () => {
@@ -99,12 +103,12 @@ export const useNotificationStore = defineStore('notification store', () => {
 
       }, data
     };
-    loader.showLoader()
+    CustomLoading('post-common-notifications').showLoading()
     try {
       const responseData = await api.request(config);
       getNotificationList()
       openCreateNotificationDialog.value = false
-      loader.hideLoader()
+      CustomLoading('post-common-notifications').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
@@ -112,12 +116,12 @@ export const useNotificationStore = defineStore('notification store', () => {
       });
     } catch (error) {
       console.log(error);
+      CustomLoading('post-common-notifications').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   const updateNotification = async () => {
@@ -131,12 +135,12 @@ export const useNotificationStore = defineStore('notification store', () => {
 
       },data
     };
-    loader.showLoader()
+    CustomLoading('put-common-notifications').showLoading()
     try {
       const responseData = await api.request(config);
       getNotificationList()
       openEditNotificationDialog.value = false
-      loader.hideLoader()
+      CustomLoading('put-common-notifications').hideLoading()
     } catch (error) {
       console.log(error);
       Notify.create({
@@ -144,7 +148,7 @@ export const useNotificationStore = defineStore('notification store', () => {
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
+      CustomLoading('put-common-notifications').hideLoading()
     }
   }
   const deleteNotification = async () => {
@@ -157,19 +161,19 @@ export const useNotificationStore = defineStore('notification store', () => {
 
       }
     };
-    loader.showLoader()
+    CustomLoading('delete-common-notifications').showLoading()
     try {
       const responseData = await api.request(config);
       getNotificationList()
-      loader.hideLoader()
+      CustomLoading('delete-common-notifications').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('delete-common-notifications').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   return {

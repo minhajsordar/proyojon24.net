@@ -76,7 +76,7 @@ export default {
   approved: 'এপ্রুভ',
   reject: 'বাতিল',
   joined_date: 'অন্তর্ভুক্ত',
-  registration_no: 'রেজি নং',
+  registration_no: 'রেজি',
   details: 'বিস্তারিত',
   create_new_account: 'নতুন একাউন্ট তৈরি করুন',
   already_have_account: 'ইতিমধ্যে একাউন্ট তৈরি করা আছে',

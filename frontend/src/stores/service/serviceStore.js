@@ -6,6 +6,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -65,7 +66,6 @@ export const useServiceStore = defineStore('service store', () => {
       }
     serviceInfo.coverImage = null
     serviceInfo.icon = null
-    serviceInfo.order = 1
   }
   const openServiceCreateDialogManager = () => {
     emptyServiceInfo()
@@ -115,20 +115,19 @@ export const useServiceStore = defineStore('service store', () => {
 
       },params
     };
-    loader.showLoader()
+    CustomLoading('get-services').showLoading()
     try {
       const responseData = await api.request(config);
-      responseData.data.services.sort((a, b) => a.order - b.order);
       serviceList.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-services').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('get-services').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   const getAllServices = async () => {
@@ -141,15 +140,14 @@ export const useServiceStore = defineStore('service store', () => {
 
       }
     };
-    loader.showLoader()
+    CustomLoading('get-services-all').showLoading()
     try {
       const responseData = await api.request(config);
-      responseData.data.sort((a, b) => a.order - b.order);
       serviceList.value.services = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-services-all').hideLoading()
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('get-services-all').hideLoading()
     }
   }
   const createService = async () => {
@@ -163,12 +161,12 @@ export const useServiceStore = defineStore('service store', () => {
 
       }, data
     };
-    loader.showLoader()
+    CustomLoading('post-services').showLoading()
     try {
       const responseData = await api.request(config);
       openServiceCreateDialog.value = false
       getServiceList()
-      loader.hideLoader()
+      CustomLoading('post-services').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
@@ -176,7 +174,7 @@ export const useServiceStore = defineStore('service store', () => {
       });
     } catch (error) {
       console.log(error);
-      loader.hideLoader()
+      CustomLoading('post-services').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -200,11 +198,14 @@ export const useServiceStore = defineStore('service store', () => {
         image: imageIcon.value
       }
     };
+    CustomLoading('service-image-upload').showLoading()
     try {
       const responseData = await api.request(config);
       serviceInfo.icon = responseData.data
+      CustomLoading('service-image-upload').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('service-image-upload').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -240,20 +241,20 @@ export const useServiceStore = defineStore('service store', () => {
 
       }, data
     };
-    loader.showLoader()
+    CustomLoading('put-services-by-id').showLoading()
     try {
       const responseData = await api.request(config);
       openServiceEditDialog.value = false
       getServiceList()
-      loader.hideLoader()
+      CustomLoading('put-services-by-id').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('put-services-by-id').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   const deleteService = async () => {
@@ -266,19 +267,19 @@ export const useServiceStore = defineStore('service store', () => {
 
       }
     };
-    loader.showLoader()
+    CustomLoading('delete-service').showLoading()
     try {
       const responseData = await api.request(config);
       getServiceList()
-      loader.hideLoader()
+      CustomLoading('delete-service').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('delete-service').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
         message: error.response.data.message,
       });
-      loader.hideLoader()
     }
   }
   return {

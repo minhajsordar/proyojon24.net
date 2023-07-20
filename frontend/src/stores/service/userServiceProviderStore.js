@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 import { usePinlocationStore } from '../locations/pinlocationStore';
 import { useUnionStore } from '../locations/unionStore';
 import { useSubDistrictStore } from '../locations/subDistrictStore';
@@ -44,7 +45,7 @@ export const useUserServiceProviderStore = defineStore('user service provider st
         user: loginUser.value._id
       }
     };
-    loader.showLoader()
+    CustomLoading('get-user-service-provider').showLoading()
     userServiceProviderLoading.value = true
     try {
       const responseData = await api.request(config);
@@ -55,11 +56,11 @@ export const useUserServiceProviderStore = defineStore('user service provider st
         fillUpBasicInfo()
       }
       userServiceProviderLoading.value = false
-      loader.hideLoader()
+      CustomLoading('get-user-service-provider').hideLoading()
     } catch (error) {
       console.log(error);
       userServiceProviderLoading.value = false
-      loader.hideLoader()
+      CustomLoading('get-user-service-provider').hideLoading()
     }
   }
   const fillUpUserServiceProviderInfo = (data) => {

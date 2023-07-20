@@ -76,7 +76,7 @@ export default {
   approved: 'Approve',
   reject: 'Reject',
   joined_date: 'Joined',
-  registration_no: 'Registration No',
+  registration_no: 'Registration',
   details: 'Details',
   create_new_account: 'Create Your Account',
   already_have_account: 'Already An Account',

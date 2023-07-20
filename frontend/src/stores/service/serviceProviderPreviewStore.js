@@ -6,6 +6,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -24,19 +25,19 @@ export const useServiceProviderPreviewStore = defineStore('service provider prev
 
       }
     };
-    loader.showLoader()
+    CustomLoading('get-service-providers-preview').showLoading()
     try {
       const responseData = await api.request(config);
       serviceProviderPreview.value = responseData.data;
-      loader.hideLoader()
+      CustomLoading('get-service-providers-preview').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('get-service-providers-preview').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
         message: "Service provider not found",
       });
-      loader.hideLoader()
     }
   }
   return {

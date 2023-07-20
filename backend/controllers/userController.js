@@ -31,6 +31,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
       isAvailable: user.isAvailable,
       permission: user.permission,
       premiumUserEndDate: user.premiumUserEndDate,
+      registrationNo: user.registrationNo,
       hasServiceProviderProfile: user.hasServiceProviderProfile,
       token: generateToken(user._id),
     })
@@ -119,6 +120,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       isActive: user.isActive,
       isAvailable: user.isAvailable,
       permission: user.permission,
+      registrationNo: user.registrationNo,
       token: generateToken(user._id),
     })
   } else {
@@ -145,6 +147,7 @@ const getUserProfile = expressAsyncHandler(async (req, res) => {
       presentAddress: user.presentAddress,
       permanentAddress: user.permanentAddress,
       permission: user.permission,
+      registrationNo: user.registrationNo,
       isActive: user.isActive,
       isAvailable: user.isAvailable,
     })
@@ -354,6 +357,7 @@ const updateUser = expressAsyncHandler(async (req, res) => {
       presentAddress: updatedUser.presentAddress,
       permanentAddress: updatedUser.permanentAddress,
       permission: updatedUser.permission,
+      registrationNo: updatedUser.registrationNo,
       isActive: updatedUser.isActive,
       isAvailable: updatedUser.isAvailable,
       token: generateToken(updatedUser._id),

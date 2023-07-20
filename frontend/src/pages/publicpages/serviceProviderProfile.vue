@@ -162,27 +162,27 @@
                 >
               </div>
               <q-separator />
-              <div v-if="serviceProviderStore.serviceProvider?.createdAt">
+              <div v-if="serviceProviderStore.serviceProvider?.user">
                 {{ $t("joined_date") }}:
                 {{
                   enToBnToEn(
                     date.formatDate(
-                      serviceProviderStore.serviceProvider?.createdAt,
+                      serviceProviderStore.serviceProvider?.user?.createdAt,
                       "YYYY-MM-DD HH:mm:ss"
                     ),
                     languageStore.language
                   )
                 }}, {{ $t("registration_no") }}:
-                <span v-if="serviceProviderStore.serviceProvider"
+                <span v-if="serviceProviderStore.serviceProvider.user"
                   >{{
                     enToBnToEn(
                       "000000000".slice(
                         0,
                         9 -
-                          serviceProviderStore.serviceProvider?.registrationNo.toString()
+                          serviceProviderStore.serviceProvider?.user?.registrationNo.toString()
                             .length
                       ) +
-                        serviceProviderStore.serviceProvider?.registrationNo.toString(),
+                        serviceProviderStore.serviceProvider?.user?.registrationNo.toString(),
                       languageStore.language
                     )
                   }}

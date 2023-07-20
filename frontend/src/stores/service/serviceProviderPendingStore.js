@@ -6,6 +6,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { reactive, ref } from 'vue';
 import { useAuthStore } from '../auth/authStore';
 import { Notify } from 'quasar';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
 loader.title = 'Requesting To Server...'
@@ -29,17 +30,17 @@ export const useServiceProviderPendingStore = defineStore('service provider pend
 
       }
     };
-    loader.showLoader()
+    CustomLoading('get-service-providers-pendinglist').showLoading()
     serviceProviderPendingListLoading.value = true
     try {
       const responseData = await api.request(config);
       serviceProviderPendingList.value = responseData.data;
       serviceProviderPendingListLoading.value = false
-      loader.hideLoader()
+      CustomLoading('get-service-providers-pendinglist').hideLoading()
     } catch (error) {
       console.log(error);
       serviceProviderPendingListLoading.value = false
-      loader.hideLoader()
+      CustomLoading('get-service-providers-pendinglist').hideLoading()
     }
   }
   const approveServiceProviderProfile = async (id,dataCollector) => {
@@ -55,13 +56,14 @@ export const useServiceProviderPendingStore = defineStore('service provider pend
         dataCollectorId: dataCollector
       }
     };
-    loader.showLoader()
+    CustomLoading('patch-service-providers').showLoading()
     try {
       const responseData = await api.request(config);
       getServiceProviderPendingList()
-      loader.hideLoader()
+      CustomLoading('patch-service-providers').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('patch-service-providers').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -84,13 +86,14 @@ export const useServiceProviderPendingStore = defineStore('service provider pend
         dataCollectorId: dataCollector
       }
     };
-    loader.showLoader()
+    CustomLoading('patch-service-providers').showLoading()
     try {
       const responseData = await api.request(config);
       getServiceProviderPendingList()
-      loader.hideLoader()
+      CustomLoading('patch-service-providers').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('patch-service-providers').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
