@@ -1,1 +1,0 @@
-import{dI as s,dJ as i}from"./index.c64f1b6d.js";const a=o=>({showLoading:()=>{s.show({group:o,spinner:i,spinnerColor:"white",messageColor:"white",message:"Loading..."})},hideLoading:()=>{s.hide(o)}});export{a as C};
