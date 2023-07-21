@@ -107,7 +107,7 @@
       to="/moving_text"
     >
       <q-item-section avatar>
-        <q-icon name="T" />
+        <q-icon name="title" />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ $t("movingtext") }}</q-item-label>
@@ -126,7 +126,7 @@
         <q-icon name="pending_actions" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t("headermenus.pending_list") }}</q-item-label>
+        <q-item-label>{{ $t("headermenus.pending_list") }} <q-badge color="red" v-if="pendingForApprovalListCountStore?.pendingCount">{{ pendingForApprovalListCountStore?.pendingCount?.serviceProviderPending }}</q-badge></q-item-label>
       </q-item-section>
       <q-separator />
     </q-item>
@@ -142,7 +142,7 @@
         <q-icon name="payments" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t("headermenus.pending_payments") }}</q-item-label>
+        <q-item-label>{{ $t("headermenus.pending_payments") }} <q-badge color="red" v-if="pendingForApprovalListCountStore?.pendingCount">{{ pendingForApprovalListCountStore?.pendingCount?.paymentPending }}</q-badge></q-item-label>
       </q-item-section>
       <q-separator />
     </q-item>
@@ -155,10 +155,10 @@
       to="/pending_nid_verification"
     >
       <q-item-section avatar>
-        <q-icon name="payments" />
+        <q-icon name="badge" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ $t("headermenus.pending_nid_verification") }}</q-item-label>
+        <q-item-label>{{ $t("headermenus.pending_nid_verification") }} <q-badge color="red" v-if="pendingForApprovalListCountStore?.pendingCount">{{ pendingForApprovalListCountStore?.pendingCount?.nidPending }}</q-badge></q-item-label>
       </q-item-section>
       <q-separator />
     </q-item>
