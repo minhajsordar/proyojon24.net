@@ -24,7 +24,7 @@ router.route('/preview/:id')
 router.route('/service/:id')
     .get(protect, anyAdmin, getServiceCategoryByService)
 router.route('/service_category_by_service_category/:id')
-    .get(protect, getServiceCategoryByServiceByCategory)
+    .get(getServiceCategoryByServiceByCategory)
 
 
 
