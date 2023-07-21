@@ -57,7 +57,7 @@
             </swiper>
           </q-card-section>
         </q-card>
-        <q-card class="full-width hover-serviceprovider-card cursor-pointer">
+        <q-card class="full-width cursor-pointer">
           <div class="listcard-cont">
             <q-card-section class="image-section q-pa-sm">
               <q-img
@@ -229,6 +229,20 @@
               >
                 <q-separator />
                 <div class="q-py-sm">
+                  <q-btn
+                    class="q-ml-xs"
+                    label="Send Message"
+                    size="sm"
+                    color="primary"
+                    @click="createRoomManager($route.params.id)"
+                  />
+                </div>
+              </div>
+              <div
+                class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+              >
+                <q-separator />
+                <div class="q-py-sm">
                   <span
                     class="fs-18"
                     v-if="serviceProviderStore.serviceProvider?.phoneNumber1"
@@ -293,10 +307,7 @@
                     width="25px"
                     src="/images/whatsapp.svg"
                   />
-                  <span
-                    class="fs-16 q-mt-sm"
-
-                  >
+                  <span class="fs-16 q-mt-sm">
                     <a
                       :href="`//api.whatsapp.com/send?phone=${serviceProviderStore.serviceProvider?.whatsapp}&text=Hello`"
                       title="Share on whatsapp"
@@ -322,9 +333,7 @@
                     width="25px"
                     src="/images/imo.svg"
                   />
-                  <span
-                    class="fs-16 q-mt-sm"
-                  >
+                  <span class="fs-16 q-mt-sm">
                     {{
                       enToBnToEn(
                         serviceProviderStore.serviceProvider?.imo,
@@ -395,7 +404,7 @@
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
-import { useQuasar, useMeta, date } from "quasar";
+import { useQuasar, useMeta, date, Notify } from "quasar";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useI18n } from "vue-i18n";
 import { usePublicServiceStore } from "src/stores/service/publicServiceStore.js";
@@ -411,6 +420,15 @@ import "swiper/css";
 
 import "swiper/css/pagination";
 import "./style.css";
+
+import { useRoomsStore } from "src/stores/message/roomStore";
+import { useLocalStorage } from "@vueuse/core";
+import { useAuthStore } from "src/stores/auth/authStore";
+
+const myRooms = useLocalStorage("myrooms", {});
+
+const authStore = useAuthStore();
+const roomStore = useRoomsStore();
 const modules = [Autoplay, Pagination, Navigation, EffectFade];
 const { t } = useI18n();
 const languageStore = useLanguageStore();
@@ -427,7 +445,26 @@ if (route.params.id) {
 setTimeout(() => {
   serviceProviderStore.increaseServiceProviderView(route.params.id);
 }, 5000);
-
+const createRoomManager = (id) => {
+  if(authStore.loginUserInfo == null){
+    Notify.create({
+        position: "center",
+        type: "negative",
+        message: 'Please login first',
+      });
+      return
+  }
+  for (let room of myRooms.value.rooms) {
+    if (
+      room.participants[0].user._id == id ||
+      room.participants[1].user._id == id
+    ) {
+      router.push("direct_message/" + room._id);
+      return;
+    }
+  }
+  roomStore.createRoom(id);
+};
 const metaData = {
   // sets document title
   title: "Service Provider",
@@ -474,4 +511,9 @@ useMeta(metaData);
   font-size: 6px !important;
   padding: 1px;
 }
+// @media screen and (min-width:1000px) {
+//   .profile-image-section{
+//     height: 300px;
+//   }
+// }
 </style>

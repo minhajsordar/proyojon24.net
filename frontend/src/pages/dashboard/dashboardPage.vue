@@ -10,7 +10,7 @@
                   <q-icon name="visibility" class="text-h4" />
                   <div class="q-mt-md fs-18">Total View</div>
                   <q-separator class="q-my-md" />
-                  <div class="text-h4">{{ dashboardStore.dashboardData?.totalView }}</div>
+                  <div class="text-h4">{{ $convertNumberIntoDecimal(dashboardStore.dashboardData?.totalView) }}</div>
                 </div>
               </q-card-section>
             </q-card>
@@ -22,7 +22,7 @@
                   <q-icon name="person" class="text-h4" />
                   <div class="q-mt-md fs-18">Total User</div>
                   <q-separator class="q-my-md" />
-                  <div class="text-h4">{{ dashboardStore.dashboardData?.totalUser }}</div>
+                  <div class="text-h4">{{ $convertNumberIntoDecimal(dashboardStore.dashboardData?.totalUser) }}</div>
                 </div>
               </q-card-section>
             </q-card>
@@ -34,7 +34,7 @@
                   <q-icon name="workspace_premium" class="text-h4" />
                   <div class="q-mt-md fs-18">Total Premium User</div>
                   <q-separator class="q-my-md" />
-                  <div class="text-h4">{{ dataAnalysisGraph?.paidRegistration }}</div>
+                  <div class="text-h4">{{ $convertNumberIntoDecimal(dataAnalysisGraph?.paidRegistration) }}</div>
                 </div>
               </q-card-section>
             </q-card>

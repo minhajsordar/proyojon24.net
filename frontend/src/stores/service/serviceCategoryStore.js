@@ -172,6 +172,26 @@ imageCover.value = null
       CustomLoading('get-service-categorys-all').hideLoading()
     }
   }
+  const getServiceCategoryByServiceCategoryId = async (id) => {
+    const config = {
+      method: "get",
+      url: "api/service_categorys/service_category_by_service_category/"+id,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${loginUser.value.token}`
+
+      }
+    };
+    CustomLoading('get-service-categorys-service').showLoading()
+    try {
+      const responseData = await api.request(config);
+      allServiceCategoryList.value = responseData.data;
+      CustomLoading('get-service-categorys-service').hideLoading()
+    } catch (error) {
+      console.log(error);
+      CustomLoading('get-service-categorys-service').hideLoading()
+    }
+  }
   const getFilteredServiceCategoryByService = async () => {
     const config = {
       method: "get",
@@ -340,6 +360,7 @@ imageCover.value = null
     paginationCurrent,
     selectedServiceCategory,
     allServiceCategoryList,
+    getServiceCategoryByServiceCategoryId,
     serviceCategoryList,
     serviceCategoryInfo,
     serviceCategoryPage,

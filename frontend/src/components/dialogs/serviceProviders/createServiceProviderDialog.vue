@@ -830,7 +830,7 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("addProfileImage") }}*
-                  <span class="fs-10">Max 100KB</span>
+                  <span class="fs-10">Max 100KB (width 200 height 200)</span>
                 </div>
                 <div class="col-12">
                   <q-file
@@ -856,7 +856,7 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("addcoverimage") }}*
-                  <span class="fs-10">Max 150KB</span>
+                  <span class="fs-10">Max 150KB (width 720 height 300)</span>
                 </div>
                 <div class="col-12">
                   <q-file
@@ -889,7 +889,7 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("addcoverimage") }}
-                  <span class="fs-10">Max 150KB</span>
+                  <span class="fs-10">Max 150KB (width 720 height 300)</span>
                 </div>
                 <div class="col-12">
                   <q-file
@@ -920,7 +920,7 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("addcoverimage") }}
-                  <span class="fs-10">Max 150KB</span>
+                  <span class="fs-10">Max 150KB (width 720 height 300)</span>
                 </div>
                 <div class="col-12">
                   <q-file

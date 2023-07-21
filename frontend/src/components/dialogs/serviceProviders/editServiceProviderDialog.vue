@@ -708,7 +708,7 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("addProfileImage") }}*
-                  <span class="fs-10">Max 200kb</span>
+                  <span class="fs-10">Max 100KB (width 200 height 200)</span>
                 </div>
                 <div class="col-12">
                   <q-file
@@ -716,9 +716,10 @@
                     outlined
                     dense
                     v-model="serviceProviderStore.imageIcon"
+                    :rules="[fileValidate]"
                     label="Add png image"
-                    accept=".png,"
-                    max-total-size="20480"
+                    accept=".png, .jpg, .jpeg"
+                    max-total-size="100000"
                     use-chips
                     @update:model-value="serviceProviderStore.uploadIcon"
                     @rejected="onRejected"
@@ -733,12 +734,12 @@
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("addcoverimage") }}*
-                  <span class="fs-10">Max 150KB</span>
+                  <span class="fs-10">Max 150KB (width 720 height 300)</span>
                 </div>
                 <div class="col-12">
                   <q-file
-                  ref="coverImageEl"
-                  outlined
+                    ref="coverImageEl"
+                    outlined
                     dense
                     v-model="serviceProviderStore.imageCover.imageCover1"
                     :rules="[fileValidate]"
@@ -746,9 +747,14 @@
                     accept=".jpg, .png, .jpeg"
                     max-total-size="1500000"
                     use-chips
-                    @update:model-value="()=>{
-                      serviceProviderStore.uploadCoverImage('imageCover1','serviceImage1')
-                    }"
+                    @update:model-value="
+                      () => {
+                        serviceProviderStore.uploadCoverImage(
+                          'imageCover1',
+                          'serviceImage1'
+                        );
+                      }
+                    "
                     @rejected="onRejected"
                   >
                     <template v-slot:prepend>
@@ -760,50 +766,54 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}*
-                  <span class="fs-10">Max 150KB</span>
+                  {{ $t("addcoverimage") }}
+                  <span class="fs-10">Max 150KB (width 720 height 300)</span>
                 </div>
                 <div class="col-12">
                   <q-file
-                  ref="coverImageEl"
-                  outlined
+                    outlined
                     dense
                     v-model="serviceProviderStore.imageCover.imageCover2"
-                    :rules="[fileValidate]"
-                    label="Add image"
-                    accept=".jpg, .png, .jpeg"
-                    max-total-size="1500000"
-                    use-chips
-                    @update:model-value="()=>{
-                      serviceProviderStore.uploadCoverImage('imageCover2','serviceImage2')
-                    }"
-                    @rejected="onRejected"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="cloud_upload" /> </template
-                  ></q-file>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}*
-                  <span class="fs-10">Max 150KB</span>
-                </div>
-                <div class="col-12">
-                  <q-file
-                  ref="coverImageEl"
-                  outlined
-                    dense
-                    v-model="serviceProviderStore.imageCover.imageCover3"
-                    :rules="[fileValidate]"
                     label="Add image"
                     accept=".jpg, .png, .jpeg"
                     max-total-size="1500000"
                     use-chips
                     @update:model-value="
-                      serviceProviderStore.uploadCoverImage('imageCover3','serviceImage3')
+                      () => {
+                        serviceProviderStore.uploadCoverImage(
+                          'imageCover2',
+                          'serviceImage2'
+                        );
+                      }
+                    "
+                    @rejected="onRejected"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="cloud_upload" /> </template
+                  ></q-file>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("addcoverimage") }}
+                  <span class="fs-10">Max 150KB (width 720 height 300)</span>
+                </div>
+                <div class="col-12">
+                  <q-file
+                    outlined
+                    dense
+                    v-model="serviceProviderStore.imageCover.imageCover3"
+                    label="Add image"
+                    accept=".jpg, .png, .jpeg"
+                    max-total-size="1500000"
+                    use-chips
+                    @update:model-value="
+                      serviceProviderStore.uploadCoverImage(
+                        'imageCover3',
+                        'serviceImage3'
+                      )
                     "
                     @rejected="onRejected"
                   >

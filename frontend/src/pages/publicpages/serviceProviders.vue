@@ -334,6 +334,7 @@ onMounted(() => {
     router.push("/allservices");
   }
   searchLocationStore.updateAllLocationByBrowsingLocation();
+  serviceCategoryStore.getServiceCategoryByServiceCategoryId(route.params.id);
 });
 const getServiceProviders = (id) => {
   serviceProviderStore.getPublicServiceProviders(id);

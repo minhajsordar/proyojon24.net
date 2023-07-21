@@ -7,7 +7,7 @@ import {
     updateServiceCategory,
     createServiceCategory,
     getServiceCategoryByService,
-    getAllServiceCategorys
+    getAllServiceCategorys, getServiceCategoryByServiceByCategory
 } from '../controllers/serviceCategoryController.js'
 import {  protect, superAdmin, anyAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router()
@@ -23,6 +23,8 @@ router.route('/preview/:id')
     .get(protect, anyAdmin,getServiceCategoryByIdPreview)
 router.route('/service/:id')
     .get(protect, anyAdmin, getServiceCategoryByService)
+router.route('/service_category_by_service_category/:id')
+    .get(protect, getServiceCategoryByServiceByCategory)
 
 
 

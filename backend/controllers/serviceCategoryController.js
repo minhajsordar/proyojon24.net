@@ -13,8 +13,8 @@ const getServiceCategorys = expressAsyncHandler(async (req, res) => {
             $options: 'i'
         }
     } : {}
-    if(req.query.serviceId){
-        keyword.service=req.query.serviceId
+    if (req.query.serviceId) {
+        keyword.service = req.query.serviceId
     }
     const count = await ServiceCategory.countDocuments({ ...keyword })
     const serviceCategorys = await ServiceCategory.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
@@ -25,7 +25,17 @@ const getServiceCategorys = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceCategory
 // @acess Privet
 const getAllServiceCategorys = expressAsyncHandler(async (req, res) => {
-    const keyword = req.query.serviceId? {service:req.query.serviceId}:{}
+    const keyword = req.query.serviceId ? { service: req.query.serviceId } : {}
+    const serviceCategorys = await ServiceCategory.find({ ...keyword })
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(200).json(serviceCategorys)
+})
+// @desc get ServiceCategory
+// @route Put api/ServiceCategory
+// @acess Privet
+const getServiceCategoryByServiceByCategory = expressAsyncHandler(async (req, res) => {
+    const serviceCategory = await ServiceCategory.findById(req.params.id)
+    const keyword = req.query.serviceId ? { service: serviceCategory.service } : {}
     const serviceCategorys = await ServiceCategory.find({ ...keyword })
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json(serviceCategorys)
@@ -39,7 +49,7 @@ const getServiceCategoryById = expressAsyncHandler(async (req, res) => {
     if (serviceCategory) {
         serviceCategory.viewCount += 1
         const updatedServiceCategory = await serviceCategory.save()
-        
+
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.json(updatedServiceCategory)
     } else {
@@ -68,7 +78,7 @@ const getServiceCategoryByIdPreview = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceCategoryBy Service/:id
 // @acess Privet
 const getServiceCategoryByService = expressAsyncHandler(async (req, res) => {
-    const pageSize =  Number(req.query.pageSize) || 10;
+    const pageSize = Number(req.query.pageSize) || 10;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword ? {
         name: {
@@ -76,8 +86,8 @@ const getServiceCategoryByService = expressAsyncHandler(async (req, res) => {
             $options: 'i'
         }
     } : {}
-    const count = await ServiceCategory.find({service:req.params.id}).countDocuments({ ...keyword })
-    const serviceCategorys = await ServiceCategory.find({service:req.params.id}).limit(pageSize).skip(pageSize * (page - 1))
+    const count = await ServiceCategory.find({ service: req.params.id }).countDocuments({ ...keyword })
+    const serviceCategorys = await ServiceCategory.find({ service: req.params.id }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ serviceCategorys, page, pages: Math.ceil(count / pageSize) })
 
@@ -115,19 +125,19 @@ const updateServiceCategory = expressAsyncHandler(async (req, res) => {
     if (serviceCategory) {
         serviceCategory.user = req.user._id
         serviceCategory.name = name
-        if(service){
+        if (service) {
             serviceCategory.service = service
         }
-        if(description){
+        if (description) {
             serviceCategory.description = description
         }
-        if(coverImage){
+        if (coverImage) {
             serviceCategory.coverImage = coverImage
         }
-        if(icon){
+        if (icon) {
             serviceCategory.icon = icon
         }
-        if(premiumRegistrationFee){
+        if (premiumRegistrationFee) {
             serviceCategory.premiumRegistrationFee = premiumRegistrationFee
         }
         const updatedServiceCategory = await serviceCategory.save()
@@ -151,7 +161,7 @@ const createServiceCategory = expressAsyncHandler(async (req, res) => {
         premiumRegistrationFee
     } = req.body
     const serviceCategory = new ServiceCategory({
-        user:req.user._id,
+        user: req.user._id,
         name,
         service,
         description,
@@ -172,5 +182,6 @@ export {
     getServiceCategoryByService,
     deleteServiceCategory,
     updateServiceCategory,
-    createServiceCategory
+    createServiceCategory,
+    getServiceCategoryByServiceByCategory
 }
