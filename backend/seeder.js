@@ -64,7 +64,7 @@ export const importData = async () => {
       const query = { _id: users[i]._id };
       await User.findOneAndUpdate(query, { registrationNo: i + 1 })
     }
-    await Counter.findOneAndUpdate({ _id: 'userRegistrationCounter' }, { registrationNo: users.length + 1 })
+    await Counter.findByIdAndUpdate('userRegistrationCounter', { sequenceValue: users.length + 1 })
     console.log('Data Imported!')
     // process.exit(0)
   } catch (error) {
