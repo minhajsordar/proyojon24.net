@@ -58,12 +58,18 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     password,
     phone
   } = req.body
-  const userExist = await User.findOne({ email, username, phone })
+  const userExists = await User.findOne({
+    $or: [
+      { phone },
+      { email },
+      { username }
+    ]
 
-  if (userExist) {
+  })
+  if (userExists) {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(400)
-    throw new Error('User already exists with this email, username or phone')
+    throw new Error('User already exists with this phone or username or email.')
   }
 
   const user = await User.create({
