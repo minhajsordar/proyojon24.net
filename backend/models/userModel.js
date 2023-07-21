@@ -9,14 +9,14 @@ const counterSchema = new mongoose.Schema({
 export const Counter = mongoose.model('Counter', counterSchema);
 async function getNextId(counterName) {
     const counter = await Counter.findByIdAndUpdate(
-      counterName,
-      { $inc: { sequenceValue: 1 } },
-      { new: true, upsert: true }
+        counterName,
+        { $inc: { sequenceValue: 1 } },
+        { new: true, upsert: true }
     );
-  
+
     return counter.sequenceValue;
-  }
-  
+}
+
 const userSchema = mongoose.Schema({
     name: {
         bn: { type: String, required: true },
@@ -101,11 +101,15 @@ const userSchema = mongoose.Schema({
         type: Date,
         default: new Date(),
     },
+    registrationType: {
+        type: String,
+        default: 'free',
+    },
     deleteRequest: {
         requested: {
             type: Boolean,
             default: false,
-        }, 
+        },
         note: {
             type: String,
             default: null,
@@ -113,6 +117,9 @@ const userSchema = mongoose.Schema({
     },
     registrationNo: {
         type: Number,
+    },
+    reference: {
+        type: String,
     }
 }, {
     timestamps: true
@@ -124,7 +131,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 userSchema.pre('save', async function (next) {
     if (!this.registrationNo) {
         this.registrationNo = await getNextId('userRegistrationCounter');
-      }
+    }
     if (!this.isModified('password')) {
         next()
     }

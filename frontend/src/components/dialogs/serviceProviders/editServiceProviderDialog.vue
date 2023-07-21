@@ -818,6 +818,20 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
+                  {{ $t("keywords") }}*
+                </div>
+                <div class="col-12">
+                  <q-input
+                    v-model="serviceProviderStore.serviceProviderInfo.keywords"
+                    outlined
+                    dense
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
                   {{ $t("rank") }}
                 </div>
                 <div class="col-12">
@@ -831,7 +845,7 @@
                   />
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">

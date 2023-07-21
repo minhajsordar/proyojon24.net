@@ -168,7 +168,7 @@
           no-caps
           @click="
             () => {
-              if (authStore.loginUserInfo.permission == 'superAdmin') {
+              if (authStore.loginUserInfo?.permission == 'superAdmin') {
                 menuControllerStore.toggleDashboardDrawer();
               } else {
                 menuControllerStore.headerMenuMobileScreen = true;

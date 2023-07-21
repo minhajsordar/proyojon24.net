@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-12">
                   <div class="text-bold">
-                    {{ $t('phoneNumber') }}
+                    {{ $t('AccoountPhoneNumber') }}
                   </div>
                   <q-input
                     ref="phoneNumberEl"

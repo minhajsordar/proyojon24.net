@@ -33,6 +33,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
       premiumUserEndDate: user.premiumUserEndDate,
       registrationNo: user.registrationNo,
       hasServiceProviderProfile: user.hasServiceProviderProfile,
+      reference: user.reference,
       token: generateToken(user._id),
     })
   } else {
@@ -45,6 +46,11 @@ const authUser = expressAsyncHandler(async (req, res) => {
 
 const registerUser = expressAsyncHandler(async (req, res) => {
   const {
+    bankAccountName,
+    phoneNumber,
+    transactionId,
+    amount,
+    reference,
     name,
     email,
     username,
@@ -71,6 +77,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
   }
 
   const user = await User.create({
+    reference,
     name,
     email,
     username,
@@ -121,6 +128,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       isAvailable: user.isAvailable,
       permission: user.permission,
       registrationNo: user.registrationNo,
+      reference: user.reference,
       token: generateToken(user._id),
     })
   } else {
@@ -150,6 +158,7 @@ const getUserProfile = expressAsyncHandler(async (req, res) => {
       registrationNo: user.registrationNo,
       isActive: user.isActive,
       isAvailable: user.isAvailable,
+      reference: user.reference,
     })
   } else {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
@@ -360,6 +369,7 @@ const updateUser = expressAsyncHandler(async (req, res) => {
       registrationNo: updatedUser.registrationNo,
       isActive: updatedUser.isActive,
       isAvailable: updatedUser.isAvailable,
+      reference: updatedUser.reference,
       token: generateToken(updatedUser._id),
     })
   } else {

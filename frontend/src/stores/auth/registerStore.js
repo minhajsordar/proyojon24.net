@@ -45,6 +45,11 @@ export const useRegisterStore = defineStore('register store', () => {
       email: null,
       password: null,
       password2: null,
+      bankAccountName: "",
+      phoneNumber: "",
+      transactionId: "",
+      amount: 0,
+      reference: null,
     })
   const matchPassword = () => {
     if (newUserInfo.password == newUserInfo.password2) {
@@ -54,19 +59,32 @@ export const useRegisterStore = defineStore('register store', () => {
     }
   }
   const registerNewUser = async () => {
+    const data = {
+      name: newUserInfo.name,
+      phone: newUserInfo.phone,
+      username: newUserInfo.username,
+      email: newUserInfo.email,
+      password: newUserInfo.password,
+      reference: newUserInfo.reference
+    }
+    if (
+      newUserInfo.bankAccountName &&
+      newUserInfo.phoneNumber &&
+      newUserInfo.transactionId &&
+      newUserInfo.amount
+    ) {
+      data.bankAccountName = newUserInfo.bankAccountName
+      data.phoneNumber = newUserInfo.phoneNumber
+      data.transactionId = newUserInfo.transactionId
+      data.amount = newUserInfo.amount
+    }
     const config = {
       method: "post",
       url: "api/users/register",
       headers: {
         "Content-Type": "application/json"
       },
-      data: {
-        name: newUserInfo.name,
-        phone: newUserInfo.phone,
-        username: newUserInfo.username,
-        email: newUserInfo.email,
-        password: newUserInfo.password
-      }
+      data
     };
     loader.showLoader()
 

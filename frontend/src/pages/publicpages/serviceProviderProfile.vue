@@ -284,6 +284,7 @@
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+                v-if="serviceProviderStore.serviceProvider?.whatsapp"
               >
                 <q-separator />
                 <div class="q-py-sm">
@@ -294,7 +295,7 @@
                   />
                   <span
                     class="fs-16 q-mt-sm"
-                    v-if="serviceProviderStore.serviceProvider?.whatsapp"
+
                   >
                     <a
                       :href="`//api.whatsapp.com/send?phone=${serviceProviderStore.serviceProvider?.whatsapp}&text=Hello`"
@@ -312,6 +313,7 @@
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+                v-if="serviceProviderStore.serviceProvider?.imo"
               >
                 <q-separator />
                 <div class="q-py-sm">
@@ -322,7 +324,6 @@
                   />
                   <span
                     class="fs-16 q-mt-sm"
-                    v-if="serviceProviderStore.serviceProvider?.imo"
                   >
                     {{
                       enToBnToEn(
@@ -335,6 +336,7 @@
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+                v-if="serviceProviderStore.serviceProvider?.facebook"
               >
                 <q-separator />
                 <div class="q-py-sm">
@@ -354,6 +356,7 @@
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+                v-if="serviceProviderStore.serviceProvider?.twitter"
               >
                 <q-separator />
                 <div class="q-py-sm">
@@ -369,6 +372,7 @@
               </div>
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
+                v-if="serviceProviderStore.serviceProvider?.email"
               >
                 <q-separator />
                 <div class="q-py-sm">

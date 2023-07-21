@@ -9,6 +9,7 @@
                 <tr>
                   <th>{{ $t("serial") }}</th>
                   <th>{{ $t("issue_date") }}</th>
+                  <th>{{ $t("userId") }}</th>
                   <th>{{ $t("transactionId") }}</th>
                   <th>{{ $t("amount") }}</th>
                   <th>{{ $t("premium_account_periods") }}</th>
@@ -33,6 +34,7 @@
                       date.formatDate(payment.createdAt, "YYYY-MM-DD  HH:mm:ss")
                     }}
                   </td>
+                  <td>{{ payment.user.registrationNo }}</td>
                   <td>{{ payment.transactionId }}</td>
                   <td>{{ payment.amount }}</td>
                   <td>{{ payment.periods }}</td>

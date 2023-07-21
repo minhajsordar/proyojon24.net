@@ -63,6 +63,7 @@ const approveOrRejectPayment = expressAsyncHandler(async (req, res) => {
     payment.note = req.body.note
     payment.approvedOrRejectedBy = req.user._id
     const updatedPayment = await payment.save()
+    await User.findByIdAndUpdate(payment.user, {})
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.json(updatedPayment)
   } else {
@@ -86,7 +87,7 @@ const getPaymentList = expressAsyncHandler(async (req, res) => {
   }
   const pageSize = Number(req.query.pageSize) || 30;
   const page = Number(req.query.pageNumber) || 1;
-  const count = await Payment.countDocuments({})
+  const count = await Payment.countDocuments({...keywords})
   const payments = await Payment.find({ ...keywords }).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1))
   res.json({ payments, page, pages: Math.ceil(count / pageSize) })
 })
@@ -101,7 +102,7 @@ const getPendingPaymentList = expressAsyncHandler(async (req, res) => {
   const pageSize = Number(req.query.pageSize) || 30;
   const page = Number(req.query.pageNumber) || 1;
   const count = await Payment.countDocuments({ ...keywords })
-  const payments = await Payment.find({ ...keywords }).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1))
+  const payments = await Payment.find({ ...keywords }).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1)).populate({path:'user',select: 'registrationNo'})
   res.json({ payments, page, pages: Math.ceil(count / pageSize) })
 })
 

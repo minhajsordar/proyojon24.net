@@ -792,16 +792,14 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}*
+                  {{ $t("addcoverimage") }}
                   <span class="fs-10">Max 150KB</span>
                 </div>
                 <div class="col-12">
                   <q-file
-                  ref="coverImageEl"
                   outlined
                     dense
                     v-model="serviceProviderStore.imageCover.imageCover2"
-                    :rules="[fileValidate]"
                     label="Add image"
                     accept=".jpg, .png, .jpeg"
                     max-total-size="1500000"
@@ -820,16 +818,14 @@
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
-                  {{ $t("addcoverimage") }}*
+                  {{ $t("addcoverimage") }}
                   <span class="fs-10">Max 150KB</span>
                 </div>
                 <div class="col-12">
                   <q-file
-                  ref="coverImageEl"
                   outlined
                     dense
                     v-model="serviceProviderStore.imageCover.imageCover3"
-                    :rules="[fileValidate]"
                     label="Add image"
                     accept=".jpg, .png, .jpeg"
                     max-total-size="1500000"
@@ -861,7 +857,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-12 col-12">
+            <!-- <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
                 <div class="col-12 text-bold">
                   {{ $t("rank") }}
@@ -877,7 +873,7 @@
                   />
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col-12">
               <div class="row">
                 <q-btn
@@ -944,6 +940,7 @@ const serviceTitleEnEl = ref(null);
 const serviceTitleBnEl = ref(null);
 const serviceListEnEl = ref(null);
 const serviceListinBn = ref(null);
+const passwordEl = ref(null);
 
 const createServiceManager = () => {
   grandParentEl.value.validate();
@@ -955,8 +952,10 @@ const createServiceManager = () => {
   nameBnEl.value.validate();
   iconEl.value.validate();
   coverImageEl.value.validate();
+  phoneNumberEnEl.value.validate();
   serviceTitleEnEl.value.validate();
   serviceTitleBnEl.value.validate();
+  passwordEl.value.validate();
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
@@ -969,6 +968,7 @@ const createServiceManager = () => {
     phoneNumberEnEl.value.hasError ||
     serviceTitleEnEl.value.hasError ||
     serviceTitleBnEl.value.hasError ||
+    passwordEl.value.hasError ||
     coverImageEl.value.hasError
   ) {
     return;
