@@ -4,6 +4,7 @@ import ServiceProvider from '../models/serviceProviderModel.js'
 import DailyUser from '../models/dailyUserModel.js'
 import MonthlyUser from '../models/monthlyUserModel.js'
 import DailyProfileView from '../models/dailyProfileViewModel.js'
+import Payment from '../models/paymentModel.js'
 
 const userDashboardData = expressAsyncHandler(async (req, res) => {
   let totalUser = await User.countDocuments({})
@@ -77,6 +78,21 @@ const getMonthlyUserProfileView = expressAsyncHandler(async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch monthly user profile view data' });
   }
 })
+const pendingForApprovalList = expressAsyncHandler(async (req, res) => {
+
+  // pending payment
+  const paymentPending = await Payment.countDocuments({
+    status: 'pending',
+  })
+  // pending service provider
+  const serviceProviderPending = await ServiceProvider.countDocuments({ waitingForApproval: true })
+
+  // pending nid
+  const nidPending = await User.countDocuments({
+    nidStatus: 'pending'
+  })
+  res.json({ nidPending, serviceProviderPending, paymentPending })
+})
 
 export {
   userDashboardData,
@@ -85,4 +101,5 @@ export {
   getMonthlyUser,
   getMonthlyUserProfileView,
   totalPremiumUsers,
+  pendingForApprovalList,
 }

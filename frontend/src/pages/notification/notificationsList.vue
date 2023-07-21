@@ -5,7 +5,7 @@
         <q-card class="border-primary q-pa-md">
           <div>
             <div class="flex justify-between">
-              <div class="fs-18">{{ $t("headermenus.pending_list") }}</div>
+              <div class="fs-18">{{ $t("headermenus.notification_list") }}</div>
               <q-btn
                 class="btn-h-22"
                 color="positive"

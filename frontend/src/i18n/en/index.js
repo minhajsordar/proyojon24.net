@@ -133,6 +133,7 @@ export default {
   headermenus: {
     home: "Home",
     pending_list: 'Pending Service Profile List',
+    notification_list: 'Notification List',
     locations: 'Locations',
     users: 'Users',
     addnew_users: 'Add New User',

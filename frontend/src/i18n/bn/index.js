@@ -133,6 +133,7 @@ export default {
   headermenus: {
     home: "হোম",
     pending_list: 'অপেক্ষ্যমান সাভিস প্রোফাইল তালিকা',
+    notification_list: 'নটিফিকেশন তালিকা',
     locations: 'স্থান সমূহ',
     addnew_locations: 'নতুন স্থান যুক্ত করুন',
     users: 'ব্যবহার কারী গন',

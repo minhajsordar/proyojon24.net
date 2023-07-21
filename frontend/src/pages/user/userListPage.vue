@@ -16,7 +16,7 @@
                 <tr>
                   <th>{{ $t("serial") }}</th>
                   <th>{{ $t("name") }}</th>
-                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("registration") }}</th>
+                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("registration_no") }}</th>
                   <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("email") }}</th>
                   <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("phone") }}</th>
                   <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("joined_date") }}</th>

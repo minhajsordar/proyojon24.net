@@ -50,7 +50,7 @@ export const usePaymentStore = defineStore('payment store', () => {
         "Authorization": `Bearer ${loginUser.value.token}`
 
       },params:{
-        pageSize: 1,
+        pageSize: 30,
         pageNumber: currentPage.value
       }
     };

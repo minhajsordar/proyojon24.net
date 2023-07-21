@@ -25,7 +25,7 @@ export const usePendingNidVerificationStore = defineStore('pending nid verificat
         "Authorization": `Bearer ${loginUser.value.token}`
 
       }, params: {
-        pageSize: 2,
+        pageSize: 30,
         pageNumber: currentPage.value
       }
     };

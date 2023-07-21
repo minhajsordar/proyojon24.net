@@ -183,8 +183,11 @@
 <script setup>
 import { useLocalStorage } from "@vueuse/core";
 import { useAuthStore } from "src/stores/auth/authStore";
+import { usePendingForApprovalListCountStore } from "src/stores/dashboard/pendingForApprovalListCountStore";
 import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
 const menuControllerStore = useMenuControllerStore();
+const pendingForApprovalListCountStore = usePendingForApprovalListCountStore();
 const authStore = useAuthStore();
+pendingForApprovalListCountStore.getPendingCount()
 </script>
 <style></style>
