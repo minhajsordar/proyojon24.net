@@ -60,10 +60,11 @@ export const importData = async () => {
     //   await newMonthlyUser.save();
     // }
     const users = await User.find({})
-    for(let i = 0; i < users.length; i++) {
+    for (let i = 0; i < users.length; i++) {
       const query = { _id: users[i]._id };
-      await User.findOneAndUpdate(query, { registrationNo: i+1 })
+      await User.findOneAndUpdate(query, { registrationNo: i + 1 })
     }
+    await Counter.findOneAndUpdate({ _id: 'userRegistrationCounter' }, { registrationNo: users.length + 1 })
     console.log('Data Imported!')
     // process.exit(0)
   } catch (error) {

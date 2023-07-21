@@ -34,7 +34,7 @@
                   <q-icon name="workspace_premium" class="text-h4" />
                   <div class="q-mt-md fs-18">Total Premium User</div>
                   <q-separator class="q-my-md" />
-                  <div class="text-h4">{{ dataAnalysisGraph?.premiumUser }}</div>
+                  <div class="text-h4">{{ dataAnalysisGraph?.paidRegistration }}</div>
                 </div>
               </q-card-section>
             </q-card>
