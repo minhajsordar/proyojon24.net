@@ -148,6 +148,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       experience: null,
       keywords: null,
       registrationNo: null,
+      bankAccountName: "",
+      phoneNumber: "",
+      transactionId: "",
+      amount: 0,
+      reference: null,
     })
   const emptyServiceProviderInfo = () => {
     imageIcon.value = null
@@ -249,6 +254,11 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     serviceProviderInfo.experience = null
     serviceProviderInfo.twitter = null
     serviceProviderInfo.keywords = []
+    serviceProviderInfo.bankAccountName = ""
+    serviceProviderInfo.phoneNumber = ""
+    serviceProviderInfo.transactionId = ""
+    serviceProviderInfo.amount = 0
+    serviceProviderInfo.reference = null
   }
   const openServiceProviderCreateDialogManager = () => {
     emptyServiceProviderInfo()
@@ -277,7 +287,12 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "email",
       "experience",
       "twitter",
-      "keywords"
+      "keywords",
+      "bankAccountName",
+      "phoneNumber",
+      "transactionId",
+      "amount",
+      "reference",
     ]
     serviceProviderInfoKeys.forEach((keys, index) => {
       serviceProviderInfo[keys] = data[keys]
@@ -336,7 +351,12 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       "email",
       "experience",
       "twitter",
-      "keywords"
+      "keywords",
+      "bankAccountName",
+      "phoneNumber",
+      "transactionId",
+      "amount",
+      "reference",
     ]
     openServiceProviderPreviewDialog.value = true
     serviceProviderInfoKeys.forEach((keys, index) => {
@@ -559,6 +579,17 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       serviceProviderInfo.user = loginUser.value._id
     }
     const data = { ...serviceProviderInfo, ...serviceProviderRegisterInfo }
+    if (
+      serviceProviderInfo.bankAccountName &&
+      serviceProviderInfo.phoneNumber &&
+      serviceProviderInfo.transactionId &&
+      serviceProviderInfo.amount
+    ) {
+      data.bankAccountName = serviceProviderInfo.bankAccountName
+      data.phoneNumber = serviceProviderInfo.phoneNumber
+      data.transactionId = serviceProviderInfo.transactionId
+      data.amount = serviceProviderInfo.amount
+    }
     const config = {
       method: "post",
       url: "api/service_providers/user_and_provider",

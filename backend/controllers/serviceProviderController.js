@@ -5,6 +5,7 @@ import Service from '../models/serviceModel.js'
 import User from '../models/userModel.js'
 import DailyProfileView from '../models/dailyProfileViewModel.js'
 import DailyServiceProviderView from '../models/dailyServiceProviderViewModel.js'
+import Payment from '../models/paymentModel.js'
 
 // @desc get ServiceProvider
 // @route Put api/ServiceProvider
@@ -64,7 +65,7 @@ const getPublicServiceProviders = expressAsyncHandler(async (req, res) => {
     }
     keywords.approved = true
     const count = await ServiceProvider.countDocuments({ ...keywords })
-    const serviceProviders = await ServiceProvider.find({ ...keywords }).limit(pageSize).skip(pageSize * (page - 1)).populate({path:'user',select: 'registrationNo createdAt'})
+    const serviceProviders = await ServiceProvider.find({ ...keywords }).limit(pageSize).skip(pageSize * (page - 1)).populate({ path: 'user', select: 'registrationNo createdAt' })
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ serviceProviders, page, pages: Math.ceil(count / pageSize) })
 })
@@ -101,7 +102,7 @@ const getUserServiceProvider = expressAsyncHandler(async (req, res) => {
 // @route Put api/ServiceProvider/:id
 // @acess Privet
 const getServiceProviderById = expressAsyncHandler(async (req, res) => {
-    const serviceProvider = await ServiceProvider.findById(req.params.id).populate({path:'user',select: 'registrationNo createdAt'})
+    const serviceProvider = await ServiceProvider.findById(req.params.id).populate({ path: 'user', select: 'registrationNo createdAt' })
     if (serviceProvider) {
 
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
@@ -352,7 +353,7 @@ const createServiceProviderViewCount = expressAsyncHandler(async (req, res) => {
             dailyServiceProviderView.viewCount += 1;
             await dailyServiceProviderView.save();
         } else {
-            const newDailyServiceProviderView = new DailyServiceProviderView({ date: today,serviceProvider: serviceProvider._id, viewCount: 1 });
+            const newDailyServiceProviderView = new DailyServiceProviderView({ date: today, serviceProvider: serviceProvider._id, viewCount: 1 });
             await newDailyServiceProviderView.save();
         }
 
@@ -489,7 +490,12 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
         twitter,
         experience,
         rankCount,
-        keywords
+        keywords,
+        reference,
+        bankAccountName,
+        phoneNumber,
+        transactionId,
+        amount
     } = req.body
 
     // register
@@ -518,10 +524,28 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
         username,
         password,
         phone: phoneNumber1,
-        hasServiceProviderProfile: true
+        hasServiceProviderProfile: true,
+        reference
     })
 
     if (user) {
+
+        // create registration payment 
+        if (
+            bankAccountName !== '' &&
+            phoneNumber !== '' &&
+            transactionId !== '' &&
+            amount !== 0
+        ) {
+            await Payment.create({
+                user: user._id,
+                bankAccountName,
+                phoneNumber,
+                transactionId,
+                amount
+            })
+        }
+
         const serviceProvider = new ServiceProvider({
             dataCollector: req.user._id,
             dataUpdatedBy: req.user._id,

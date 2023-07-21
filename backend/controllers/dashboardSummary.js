@@ -29,6 +29,9 @@ const getDataAnalysis = expressAsyncHandler(async (req, res) => {
       $gte: new Date()
     }
   }).countDocuments({})
+  let paidRegistration = await User.find({
+    registrationType: 'paid'
+  }).countDocuments({})
 
   const dailyProfileView = await DailyProfileView.find().sort({ createdAt: 'desc' }).limit(30);
   const dailyUsers = await DailyUser.find().sort({ createdAt: 'desc' }).limit(30);
@@ -37,7 +40,7 @@ const getDataAnalysis = expressAsyncHandler(async (req, res) => {
     dailyUsers && monthlyUsers) {
     res.json({
       dailyProfileView,
-      dailyUsers, monthlyUsers, premiumUser
+      dailyUsers, monthlyUsers, premiumUser, paidRegistration
     });
   }
   else {

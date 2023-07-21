@@ -43,11 +43,84 @@
       <q-card-section>
         <q-card class="border-primary q-pa-md">
           <div class="row q-col-gutter-sm">
+            <!-- payment -->
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="text-bold">{{ $t("accountType") }}*</div>
+              <q-select
+                v-model="accountType"
+                stack-label
+                outlined
+                dense
+                :options="['Free', 'Paid']"
+              />
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="text-bold">{{ $t("Reference") }}*</div>
+              <q-input
+                v-model="serviceProviderStore.serviceProviderRegisterInfo.reference"
+                stack-label
+                outlined
+                dense
+              />
+            </div>
+            <div class="col-12" v-if="accountType == 'Paid'">
+              <div class="row q-col-gutter-xs">
+                <div class="col-sm-6 col-xs-12 col-12">
+              <div class="text-bold">{{ $t("bankAccountName") }}*</div>
+                  <q-select
+                    ref="bankAccountNameEl"
+                    v-model="serviceProviderStore.serviceProviderRegisterInfo.bankAccountName"
+                    outlined
+                    :options="['bKash', 'Dutch Bangla', 'Nagad']"
+                    dense
+                    stack-label
+                    :rules="[required]"
+                  />
+                </div>
+                <div class="col-sm-6 col-xs-12 col-12">
+              <div class="text-bold">{{ $t("AccoountPhoneNumber") }}*</div>
+                  <q-input
+                    ref="phoneNumberEl"
+                    v-model="serviceProviderStore.serviceProviderRegisterInfo.phoneNumber"
+                    outlined
+                    dense
+                    stack-label
+                    :rules="[mobileNoBd]"
+                  />
+                </div>
+                <div class="col-sm-6 col-xs-12 col-12">
+              <div class="text-bold">{{ $t("transactionId") }}*</div>
+                  <q-input
+                    ref="transactionIdEl"
+                    v-model="serviceProviderStore.serviceProviderRegisterInfo.transactionId"
+                    outlined
+                    dense
+                    stack-label
+                    :rules="[required]"
+                  />
+                </div>
+                <div class="col-sm-6 col-xs-12 col-12">
+              <div class="text-bold">{{ $t("amount") }}*</div>
+                  <q-input
+                    ref="amountEl"
+                    v-model="serviceProviderStore.serviceProviderRegisterInfo.amount"
+                    outlined
+                    dense
+                    stack-label
+                    type="number"
+                    :rules="[required]"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- payment -->
             <div class="col-sm-6 col-xs-6 col-12">
-              <div class="text-bold">{{ $t('username') }}*</div>
+              <div class="text-bold">{{ $t("username") }}*</div>
               <q-input
                 ref="usernameEl"
-                v-model="serviceProviderStore.serviceProviderRegisterInfo.username"
+                v-model="
+                  serviceProviderStore.serviceProviderRegisterInfo.username
+                "
                 stack-label
                 outlined
                 dense
@@ -55,7 +128,7 @@
               />
             </div>
             <div class="col-sm-6 col-xs-6 col-12">
-              <div class="text-bold">{{ $t('email') }}*</div>
+              <div class="text-bold">{{ $t("email") }}*</div>
               <q-input
                 ref="emailEl"
                 v-model="serviceProviderStore.serviceProviderRegisterInfo.email"
@@ -67,11 +140,13 @@
               />
             </div>
             <div class="col-sm-6 col-xs-6 col-12">
-              <div class="text-bold">{{ $t('full_name_bangla') }}*</div>
+              <div class="text-bold">{{ $t("full_name_bangla") }}*</div>
 
               <q-input
                 ref="nameBnEl"
-                v-model="serviceProviderStore.serviceProviderRegisterInfo.name.bn"
+                v-model="
+                  serviceProviderStore.serviceProviderRegisterInfo.name.bn
+                "
                 stack-label
                 outlined
                 dense
@@ -79,11 +154,13 @@
               />
             </div>
             <div class="col-sm-6 col-xs-6 col-12">
-              <div class="text-bold">{{ $t('full_name_english') }}*</div>
+              <div class="text-bold">{{ $t("full_name_english") }}*</div>
 
               <q-input
                 ref="nameEnEl"
-                v-model="serviceProviderStore.serviceProviderRegisterInfo.name.en"
+                v-model="
+                  serviceProviderStore.serviceProviderRegisterInfo.name.en
+                "
                 stack-label
                 outlined
                 dense
@@ -91,10 +168,12 @@
               />
             </div>
             <div class="col-sm-6 col-xs-6 col-12">
-              <div class="text-bold">{{ $t('password') }}*</div>
+              <div class="text-bold">{{ $t("password") }}*</div>
               <q-input
                 ref="passwordEl"
-                v-model="serviceProviderStore.serviceProviderRegisterInfo.password"
+                v-model="
+                  serviceProviderStore.serviceProviderRegisterInfo.password
+                "
                 stack-label
                 outlined
                 dense
@@ -111,15 +190,20 @@
               </q-input>
             </div>
             <div class="col-sm-6 col-xs-6 col-12">
-              <div class="text-bold">{{ $t('confirm_password') }}*</div>
+              <div class="text-bold">{{ $t("confirm_password") }}*</div>
 
               <q-input
                 ref="confirmPasswordEl"
-                v-model="serviceProviderStore.serviceProviderRegisterInfo.password2"
+                v-model="
+                  serviceProviderStore.serviceProviderRegisterInfo.password2
+                "
                 stack-label
                 outlined
                 dense
-                :rules="[required, serviceProviderStore.serviceProviderRegisterInfo]"
+                :rules="[
+                  required,
+                  serviceProviderStore.serviceProviderRegisterInfo,
+                ]"
                 :type="isPwdC ? 'password' : 'text'"
               >
                 <template v-slot:append>
@@ -144,7 +228,7 @@
                     "
                     outlined
                     dense
-                    :rules="[required]"
+                    :rules="[required, mobileNoBd]"
                   />
                 </div>
               </div>
@@ -159,6 +243,7 @@
                     "
                     outlined
                     dense
+                    :rules="[mobileNoBd]"
                   />
                 </div>
               </div>
@@ -428,67 +513,71 @@
             </div>
 
             <div class="col-sm-6 col-xs-12 col-12">
-            <div class="row">
-              <div class="col-12 text-bold">
-                {{ $t("imo") }}
-              </div>
-              <div class="col-12">
-                <q-input
-                  v-model="serviceProviderStore.serviceProviderInfo.imo"
-                  outlined
-                  dense
-                  :rules="[mobileNoBd]"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-xs-12 col-12">
-            <div class="row">
-              <div class="col-12 text-bold">
-                {{ $t("twitter") }}
-              </div>
-              <div class="col-12">
-                <q-input
-                  v-model="serviceProviderStore.serviceProviderInfo.twitter"
-                  outlined
-                  dense
-                />
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("imo") }}
+                </div>
+                <div class="col-12">
+                  <q-input
+                    v-model="serviceProviderStore.serviceProviderInfo.imo"
+                    outlined
+                    dense
+                    :rules="[mobileNoBd]"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-sm-6 col-xs-12 col-12">
-            <div class="row">
-              <div class="col-12 text-bold">
-                {{ $t("email") }}
-              </div>
-              <div class="col-12">
-                <q-input
-                  v-model="serviceProviderStore.serviceProviderInfo.email"
-                  outlined
-                  dense
-                />
-              </div>
-            </div>
-          </div>
-          <!-- social end -->
-          <!-- serviceTitle start -->
-          <div class="col-sm-6 col-xs-12 col-12">
-            <div class="row">
-              <div class="col-12 text-bold">
-                {{ $t("experience") }}
-              </div>
-              <div class="col-12">
-                <q-input
-                  v-model="serviceProviderStore.serviceProviderInfo.experience"
-                  outlined
-                  dense
-                />
-              </div>
-            </div>
-          </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("serviceTitleinen") }}*</div>
+                <div class="col-12 text-bold">
+                  {{ $t("twitter") }}
+                </div>
+                <div class="col-12">
+                  <q-input
+                    v-model="serviceProviderStore.serviceProviderInfo.twitter"
+                    outlined
+                    dense
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("email") }}
+                </div>
+                <div class="col-12">
+                  <q-input
+                    v-model="serviceProviderStore.serviceProviderInfo.email"
+                    outlined
+                    dense
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- social end -->
+            <!-- serviceTitle start -->
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("experience") }}
+                </div>
+                <div class="col-12">
+                  <q-input
+                    v-model="
+                      serviceProviderStore.serviceProviderInfo.experience
+                    "
+                    outlined
+                    dense
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="row">
+                <div class="col-12 text-bold">
+                  {{ $t("serviceTitleinen") }}*
+                </div>
                 <div class="col-12">
                   <q-input
                     ref="serviceTitleEnEl"
@@ -504,7 +593,9 @@
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">{{ $t("serviceTitleinbn") }}*</div>
+                <div class="col-12 text-bold">
+                  {{ $t("serviceTitleinbn") }}*
+                </div>
                 <div class="col-12">
                   <q-input
                     ref="serviceTitleBnEl"
@@ -769,8 +860,8 @@
                 </div>
                 <div class="col-12">
                   <q-file
-                  ref="coverImageEl"
-                  outlined
+                    ref="coverImageEl"
+                    outlined
                     dense
                     v-model="serviceProviderStore.imageCover.imageCover1"
                     :rules="[fileValidate]"
@@ -778,9 +869,14 @@
                     accept=".jpg, .png, .jpeg"
                     max-total-size="1500000"
                     use-chips
-                    @update:model-value="()=>{
-                      serviceProviderStore.uploadCoverImage('imageCover1','serviceImage1')
-                    }"
+                    @update:model-value="
+                      () => {
+                        serviceProviderStore.uploadCoverImage(
+                          'imageCover1',
+                          'serviceImage1'
+                        );
+                      }
+                    "
                     @rejected="onRejected"
                   >
                     <template v-slot:prepend>
@@ -797,16 +893,21 @@
                 </div>
                 <div class="col-12">
                   <q-file
-                  outlined
+                    outlined
                     dense
                     v-model="serviceProviderStore.imageCover.imageCover2"
                     label="Add image"
                     accept=".jpg, .png, .jpeg"
                     max-total-size="1500000"
                     use-chips
-                    @update:model-value="()=>{
-                      serviceProviderStore.uploadCoverImage('imageCover2','serviceImage2')
-                    }"
+                    @update:model-value="
+                      () => {
+                        serviceProviderStore.uploadCoverImage(
+                          'imageCover2',
+                          'serviceImage2'
+                        );
+                      }
+                    "
                     @rejected="onRejected"
                   >
                     <template v-slot:prepend>
@@ -823,7 +924,7 @@
                 </div>
                 <div class="col-12">
                   <q-file
-                  outlined
+                    outlined
                     dense
                     v-model="serviceProviderStore.imageCover.imageCover3"
                     label="Add image"
@@ -831,7 +932,10 @@
                     max-total-size="1500000"
                     use-chips
                     @update:model-value="
-                      serviceProviderStore.uploadCoverImage('imageCover3','serviceImage3')
+                      serviceProviderStore.uploadCoverImage(
+                        'imageCover3',
+                        'serviceImage3'
+                      )
                     "
                     @rejected="onRejected"
                   >
@@ -845,9 +949,7 @@
             <!-- rank start -->
             <div class="col-sm-6 col-xs-12 col-12">
               <div class="row">
-                <div class="col-12 text-bold">
-                  {{ $t("keywords") }}*
-                </div>
+                <div class="col-12 text-bold">{{ $t("keywords") }}*</div>
                 <div class="col-12">
                   <q-input
                     v-model="serviceProviderStore.serviceProviderInfo.keywords"
@@ -893,7 +995,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { Notify } from "quasar";
-import { requiredSelector, required, fileValidate } from "src/global_js/utils";
+import { requiredSelector, required, fileValidate, mobileNoBd } from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useUserStore } from "src/stores/user/userStore";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
@@ -923,6 +1025,7 @@ const searchLocationStore = useSearchLocationStore();
 searchLocationStore.updateAllLocation();
 const searchServiceStore = useSearchServiceStore();
 
+const accountType = ref("Free");
 const maximizedToggle = ref(true);
 const grandParentEl = ref(null);
 const parentEl = ref(null);
@@ -942,6 +1045,11 @@ const serviceListEnEl = ref(null);
 const serviceListinBn = ref(null);
 const passwordEl = ref(null);
 
+const bankAccountNameEl = ref(null);
+const phoneNumberEl = ref(null);
+const transactionIdEl = ref(null);
+const amountEl = ref(null);
+
 const createServiceManager = () => {
   grandParentEl.value.validate();
   parentEl.value.validate();
@@ -956,6 +1064,24 @@ const createServiceManager = () => {
   serviceTitleEnEl.value.validate();
   serviceTitleBnEl.value.validate();
   passwordEl.value.validate();
+
+
+  if (accountType.value == "Paid") {
+    bankAccountNameEl.value.validate();
+    phoneNumberEl.value.validate();
+    transactionIdEl.value.validate();
+    amountEl.value.validate();
+    if (
+      bankAccountNameEl.value.hasError ||
+      phoneNumberEl.value.hasError ||
+      transactionIdEl.value.hasError ||
+      amountEl.value.hasError
+    ) {
+      return;
+    }
+  }
+
+
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
