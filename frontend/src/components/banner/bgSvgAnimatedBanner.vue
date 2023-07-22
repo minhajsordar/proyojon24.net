@@ -42,7 +42,7 @@
             width="5479"
             height="1589"
             transform="translate(-7.04 -30.4) scale(0.24)"
-            xlink:href="./output-desing1.png"
+            xlink:href="./output-desing1.jpg"
           />
         </g>
         <g class="cls-3">
@@ -56,7 +56,7 @@
             width="5479"
             height="1589"
             transform="translate(-7.04 -30.4) scale(0.24)"
-            xlink:href="./output-desing2.png"
+            xlink:href="./output-desing2.jpg"
           />
         </g>
       </g>
