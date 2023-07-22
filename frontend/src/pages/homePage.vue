@@ -5,7 +5,7 @@
       <div class="full-width">
         <marquee-text
           :duration="movingTextStore?.movingTextData?.speed || 60"
-          class="text-black"
+          class="text-black q-mt-md"
           :paused="isPaused"
           @mouseenter="isPaused = !isPaused"
           @mouseleave="isPaused = false"
@@ -17,8 +17,8 @@
   </div>
   <div class="container-section-py-xs" v-if="$q.screen.gt.sm">
     <div class="inner-section">
-      <div class="full-width">
-        <q-card class="bg-teal-1 border-primary q-pa-sm">
+      <div class="full-width relative-position border-primary border-radius-md" style="overflow: hidden">
+        <q-card class="bg-transparent q-pa-sm">
           <div class="row q-col-gutter-md">
             <div class="col-2"></div>
             <div class="col-8">
@@ -77,6 +77,9 @@
             <div class="col-2"></div>
           </div>
         </q-card>
+        <div class="absolute-top-left" style="z-index: -1">
+          <bgSvgAnimatedBanner/>
+        </div>
       </div>
     </div>
   </div>
@@ -602,6 +605,7 @@ import { useTopSuggestedStore } from "src/stores/service/topSuggestedStore";
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
 import { useMovingTextStore } from "src/stores/movingtext/movingtextGet.js";
 import homepageSidebar from "src/components/sidebar/homepageSidebar.vue";
+import bgSvgAnimatedBanner from "src/components/banner/bgSvgAnimatedBanner.vue";
 const isPaused = ref(false);
 const publicSliderStore = usePublicSliderStore();
 publicSliderStore.getSliderData();
