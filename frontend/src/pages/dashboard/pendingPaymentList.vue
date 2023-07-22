@@ -34,7 +34,7 @@
                       date.formatDate(payment.createdAt, "YYYY-MM-DD  HH:mm:ss")
                     }}
                   </td>
-                  <td>{{ payment.user.registrationNo }}</td>
+                  <td>{{ payment.user?.registrationNo }}</td>
                   <td>{{ payment.transactionId }}</td>
                   <td>{{ payment.amount }}</td>
                   <td>{{ payment.periods }}</td>

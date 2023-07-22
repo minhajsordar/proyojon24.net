@@ -16,6 +16,15 @@ export const generateOTP = () => {
     const OTP = otpGenerator.generate(OTP_LENGTH, OTP_CONFIG);
     return OTP;
 };
+export const generateOTPPassword = () => {
+    const OTP = otpGenerator.generate(8, {
+        digits: true,
+        lowerCaseAlphabets: true,
+        upperCaseAlphabets: false,
+        specialChars: true,
+    });
+    return OTP;
+};
 export const isPhoneOtpValid = (phoneOtpExpiresAt) => {
     const currentDateTime = new Date();
     const otpExpiresAt = new Date(phoneOtpExpiresAt);
@@ -26,6 +35,12 @@ export const chechResendOtpIfBelow2minutes = (phoneOtpExpiresAt) => {
     const currentDateTime = new Date();
     const otpExpiresAt = new Date(phoneOtpExpiresAt);
     otpExpiresAt.setMinutes(otpExpiresAt.getMinutes() - (otpExpirationMinutes - 2));
+    return otpExpiresAt > currentDateTime;
+}
+export const chechResendOtpIfUp2minutes = (phoneOtpExpiresAt) => {
+    const currentDateTime = new Date();
+    const otpExpiresAt = new Date(phoneOtpExpiresAt);
+    otpExpiresAt.setMinutes(otpExpiresAt.getMinutes() + 2);
     return otpExpiresAt > currentDateTime;
 }
 export const createOtpExpirationTime = () => {

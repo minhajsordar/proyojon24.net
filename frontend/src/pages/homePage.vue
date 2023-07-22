@@ -18,37 +18,47 @@
   <div class="container-section-py-xs" v-if="$q.screen.gt.sm">
     <div class="inner-section">
       <div class="full-width">
-        <q-card class="bg-primary border-primary q-pa-sm">
+        <q-card class="bg-teal-1 border-primary q-pa-sm">
           <div class="row q-col-gutter-md">
-            <div class="col-2">
-              <div class="text-white fs-20">
-                Profile -
-                {{
-                  $convertNumberIntoDecimal(
-                    dashboardStore.dashboardData?.totalUser
-                  )
-                }}
-              </div>
-              <div class="text-white fs-20">
-                View -
-                {{
-                  $convertNumberIntoDecimal(
-                    dashboardStore.dashboardData?.totalView
-                  )
-                }}
-              </div>
-            </div>
+            <div class="col-2"></div>
             <div class="col-8">
-              <q-card class="q-pa-md bg-orange-8 text-white">
+              <q-card class="q-pa-md bg-primary text-white">
                 <div class="text-center text-bold fs-24">
                   প্রয়ােজন পূরন করুন যখন তখন
                 </div>
-                <div class="flex justify-between q-mt-md fs-18">
-                  <div class="">পন্য ব্যবসায়ী/সার্ভিস প্রভাইডার</div>
-                  <!-- <div class="text-end">স্থান</div> -->
-                  <div class="text-end">
-            <locationInput/></div>
+                <div class="flex">
+                  <div class="text-white bg-blue-7 q-pa-sm text-bold border-blue-4 border-radius-sm">ঘরে বসেই সব সেবা</div>
+                  <q-space/>
+                  <q-btn class="text-white bg-blue-7 border-blue-4" label="Sign Up" to="/register" flat/>
                 </div>
+                <div class="flex justify-center q-mt-xs">
+                  <div class="text-center text-bold flex" style="width: 250px">
+                    <div class="text-white fs-20">
+                      Profile -
+                      {{
+                        $convertNumberIntoDecimal(
+                          dashboardStore.dashboardData?.totalUser
+                        )
+                      }}
+                    </div>
+                    <q-space/>
+                    <div class="text-white fs-20">
+                      View -
+                      {{
+                        $convertNumberIntoDecimal(
+                          dashboardStore.dashboardData?.totalView
+                        )
+                      }}
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="flex justify-between q-mt-md fs-18">
+                  <div class="">পন্য ব্যবসায়ী/সার্ভিস প্রভাইডার</div>
+                  <div class="text-end">স্থান</div>
+                  <div class="text-end">
+
+                  </div>
+                </div> -->
               </q-card>
               <q-card class="q-pa-md q-mt-sm q-mx-lg">
                 <div class="text-center text-bold fs-20">
@@ -592,7 +602,6 @@ import { useTopSuggestedStore } from "src/stores/service/topSuggestedStore";
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
 import { useMovingTextStore } from "src/stores/movingtext/movingtextGet.js";
 import homepageSidebar from "src/components/sidebar/homepageSidebar.vue";
-import locationInput from "src/components/location/locationInput.vue"
 const isPaused = ref(false);
 const publicSliderStore = usePublicSliderStore();
 publicSliderStore.getSliderData();

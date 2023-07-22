@@ -8,24 +8,36 @@
           <q-img :src="web_root_url + serviceProvider.image" />
         </q-card-section>
         <q-card-section class="description-section q-pa-sm">
-          <div class="text-bold flex justify-between" v-if="!register">
-            <div v-if="serviceProvider.user?.nidVerified">
-              {{ $t("nid_verified") }}
-            </div>
-            <div v-else>{{ $t("nid_not_verified") }}</div>
-            <div v-if="serviceProvider.user?.isAvailable">
-              {{ $t("available") }}
-            </div>
-            <div v-else>{{ $t("not_available") }}</div>
-          </div>
-          <div class="text-bold">
+          <div class="text-bold text-blue-8" v-if="register">
             {{ serviceProvider.name[languageStore.language] }}
           </div>
-          <!-- <q-separator/> -->
-          <div class="text-bold">
-            <span>{{
-              serviceProvider.serviceTitle[languageStore.language]
-            }}</span>
+          <div class="row q-col-gutter-sm">
+            <div class="col-6">
+              <div class="text-bold text-blue-8" v-if="!register">
+                {{ serviceProvider.name[languageStore.language] }}
+              </div>
+              <!-- <q-separator/> -->
+              <div class="text-bold">
+                <span>{{
+                  serviceProvider.serviceTitle[languageStore.language]
+                }}</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="flex justify-end text-bold" v-if="!register">
+                <div v-if="serviceProvider.user?.nidVerified" class="text-green">
+                  <q-icon style="margin-bottom: 3px" name="badge"/>
+                  {{ $t("nid_verified") }}
+                </div>
+                <div v-else>
+                  <q-icon style="margin-bottom: 3px" name="badge"/>
+                  {{ $t("nid_not_verified") }}</div>
+                <div v-if="serviceProvider.user?.isAvailable" class="text-green">
+                  {{ $t("available") }}
+                </div>
+                <div v-else>{{ $t("not_available") }}</div>
+              </div>
+            </div>
           </div>
           <!-- <q-separator/> -->
           <!-- <div class="text-blue-grey-10">
@@ -33,7 +45,7 @@
           </div> -->
           <!-- <q-separator/> -->
 
-          <div v-if="serviceProvider.user?._id" class="text-bold">
+          <!-- <div v-if="serviceProvider.user?._id" class="text-bold">
             {{ $t("joined_date") }}:
             {{
               enToBnToEn(
@@ -52,7 +64,7 @@
                 ) + serviceProvider?.user?.registrationNo.toString()
               }}
             </span>
-          </div>
+          </div> -->
           <div class="fs-12 text-bold">
             <q-icon class="bg-primary text-white" name="location_on" />
             <span
@@ -121,7 +133,7 @@
           <div class="row q-col-gutter-sm">
             <div class="col-6">
               <q-btn
-                class="full-width text-bold"
+                class="full-width text-bold text-primary border-primary"
                 :label="
                   $t('view') +
                   ' ' +
@@ -132,8 +144,8 @@
             </div>
             <div class="col-6">
               <q-btn
-                class="full-width text-bold"
-                :label="register? $t('headermenus.register'):$t('details')"
+                class="full-width text-bold text-white bg-primary"
+                :label="register ? $t('headermenus.register') : $t('details')"
                 size="sm"
                 @click="
                   () => {

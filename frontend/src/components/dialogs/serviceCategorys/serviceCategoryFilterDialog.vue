@@ -64,9 +64,9 @@ const router = useRouter();
 const route = useRoute();
 const serviceProviderStore = useServiceProviderStore();
 const serviceCategoryStore = useServiceCategoryStore();
-serviceCategoryStore.getAllServiceCategorys(
-  selectedServiceAndCategory.value.serviceId
-);
+// serviceCategoryStore.getAllServiceCategorys(
+//   selectedServiceAndCategory.value.serviceId
+// );
 
 const getServiceProviders = (id) => {
   serviceProviderStore.getPublicServiceProviders(id);

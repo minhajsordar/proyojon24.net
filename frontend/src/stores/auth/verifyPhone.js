@@ -58,22 +58,7 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
     };
     try {
       await api.request(config);
-      Dialog.create({
-        title: "Check your phone for otp",
-        message: "Enter otp or verify from https://proyojon24.net/profile",
-        ok: {
-          push: true
-        },
-        persistent: true,
-        prompt: {
-          model: "",
-          type: "text", // optional
-        },
-      }).onOk((data) => {
-        verifyOtpCodeWhileRegistration(data)
-      }).onCancel(() => {
-        router.push('/login')
-      });
+      openOtpVerificationDialogManager()
     } catch (error) {
       console.log(error);
       Notify.create({
@@ -101,6 +86,7 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
       const responseData = await api.request(config);
       authStore.loginUserInfo.phoneVerified = true
       openOtpVerificationDialog.value = false
+      router.push('/service_provider_profile')
     } catch (error) {
       console.log(error);
       openOtpVerificationDialog.value = false

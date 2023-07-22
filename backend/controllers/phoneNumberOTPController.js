@@ -13,14 +13,14 @@ const createPhoneNumberOTP = expressAsyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Phone number is verified')
   }
-  let existPhoneNumberOTP = await PhoneNumberOTP.findOne({ phone: req.user.phone })
+  let existPhoneNumberOTP = await PhoneNumberOTP.find({ phone: req.user.phone }).sort({ createdAt: 'desc' })
 
-  if (existPhoneNumberOTP) {
-    if (chechResendOtpIfBelow2minutes(existPhoneNumberOTP.otpExpiresAt)) {
+  if (existPhoneNumberOTP[0]) {
+    if (chechResendOtpIfBelow2minutes(existPhoneNumberOTP[0].otpExpiresAt)) {
       res.status(401)
       throw new Error('OTP already sent. Please verify your otp or try 2 minutes later')
     } else {
-      await existPhoneNumberOTP.deleteOne()
+      await PhoneNumberOTP.deleteMany({ phone: req.user.phone })
     }
   }
 
@@ -39,13 +39,15 @@ const createPhoneNumberOTP = expressAsyncHandler(async (req, res) => {
       number: phoneNumberPrefix(phoneNumberOTP.phone),
       message: `Dear your proyojon24 verification code is - ${phoneNumberOTP.otp}`
     };
+    console.log(phoneNumberOTP.otp)
     // send otp notification to bd mobile phone number
     axios.post('http://bulksmsbd.net/api/smsapi', data)
       .then((otpres) => {
-        // console.log(`Status: ${otpres.status}`);
-        // console.log('Body: ', otpres.data);
+        console.log(`Status: ${otpres.status}`);
+        console.log('Body: ', otpres.data);
         res.status(otpres.status).json("otp sent successfully")
-      }).catch((err) => {
+        // res.status(200).json("otp sent successfully")
+        }).catch((err) => {
         phoneNumberOTP.deleteOne()
         res.status(400).json("Otp Server Error.")
         // console.error(err);

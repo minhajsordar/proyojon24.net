@@ -40,6 +40,7 @@ const routes = [
       { path: '/home', component: () => import('pages/homePage.vue') },
       { path: '/login', name: 'login', component: () => import('pages/auth/loginPage.vue') },
       { path: '/register', component: () => import('pages/auth/registerView.vue') },
+      { path: '/forget_password', component: () => import('pages/auth/forgetPassword.vue') },
       { path: '/service_categorys_list/:id', component: () => import('pages/publicpages/serviceCategorys.vue') },
       { path: '/service_providers_list/:id', component: () => import('pages/publicpages/serviceProviders.vue') },
       { path: '/service_provider/:id', component: () => import('pages/publicpages/serviceProviderProfile.vue') },

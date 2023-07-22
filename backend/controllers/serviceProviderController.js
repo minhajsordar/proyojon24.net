@@ -536,7 +536,8 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
                 bankAccountName,
                 phoneNumber,
                 transactionId,
-                amount
+                amount,
+                paymentFor : "registration"
             })
         }
 

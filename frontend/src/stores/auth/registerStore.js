@@ -138,7 +138,7 @@ export const useRegisterStore = defineStore('register store', () => {
         authStore.rememberUserData()
         languageStore.switchToBn()
         myRooms.value = null
-        otpVerificationStore.openOtpVerificationDialogManager()
+        otpVerificationStore.getOtpVerificationCodeWhileRegistration()
         // router.push('/service_provider_profile')
       }).onCancel(() => {
         router.push('/login')

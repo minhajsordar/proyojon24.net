@@ -5,6 +5,12 @@ import DailyUser from '../models/dailyUserModel.js'
 import MonthlyUser from '../models/monthlyUserModel.js'
 import generateToken from "../utils/generateToken.js";
 import Payment from '../models/paymentModel.js'
+import PhoneNumberOTP from '../models/phoneNumberOTPModel.js'
+import axios from 'axios';
+import {
+  generateOTPPassword, isPhoneOtpValid, createOtpExpirationTime,
+  chechResendOtpIfUp2minutes, phoneNumberPrefix
+} from '../config/otp.js'
 
 const authUser = expressAsyncHandler(async (req, res) => {
   const { phoneOremail, password } = req.body
@@ -33,6 +39,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
       permission: user.permission,
       premiumUserEndDate: user.premiumUserEndDate,
       registrationNo: user.registrationNo,
+      registrationType: user.registrationType,
       hasServiceProviderProfile: user.hasServiceProviderProfile,
       reference: user.reference,
       token: generateToken(user._id),
@@ -121,7 +128,8 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         bankAccountName,
         phoneNumber,
         transactionId,
-        amount
+        amount,
+        paymentFor: "registration"
       })
     }
 
@@ -140,6 +148,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       isAvailable: user.isAvailable,
       permission: user.permission,
       registrationNo: user.registrationNo,
+      registrationType: user.registrationType,
       reference: user.reference,
       token: generateToken(user._id),
     })
@@ -168,6 +177,7 @@ const getUserProfile = expressAsyncHandler(async (req, res) => {
       permanentAddress: user.permanentAddress,
       permission: user.permission,
       registrationNo: user.registrationNo,
+      registrationType: user.registrationType,
       isActive: user.isActive,
       isAvailable: user.isAvailable,
       reference: user.reference,
@@ -379,6 +389,7 @@ const updateUser = expressAsyncHandler(async (req, res) => {
       permanentAddress: updatedUser.permanentAddress,
       permission: updatedUser.permission,
       registrationNo: updatedUser.registrationNo,
+      registrationType: updatedUser.registrationType,
       isActive: updatedUser.isActive,
       isAvailable: updatedUser.isAvailable,
       reference: updatedUser.reference,
@@ -390,12 +401,62 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     throw new Error('User not found')
   }
 })
+// Update user profile
+// route PUT api/user/profile
+// acess Privet
+const resetPassword = expressAsyncHandler(async (req, res) => {
+  const user = await User.findOne({ phone: req.body.phone })
+  if (user) {
+    if (chechResendOtpIfUp2minutes(user.updatedAt)) {
+      res.status(401)
+      throw new Error('OTP already sent. Please verify your otp or try 2 minutes later')
+    }
+
+    const otpPassword = generateOTPPassword()
+
+    if (otpPassword) {
+      // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+      const data = {
+        api_key: "GMA6nXsLWvC4uXd0UbN0",
+        senderid: "8809617611783",
+        number: phoneNumberPrefix(user.phone),
+        message: `Dear user, your proyojon24 one-time password is - ${otpPassword}`
+      };
+      // console.log(otpPassword)
+      // send otp notification to bd mobile phone number
+      // user.password = otpPassword
+      //     await user.save()
+      //     console.log(otpPassword)
+      // res.status(200).json("otp sent successfully")
+      axios.post('http://bulksmsbd.net/api/smsapi', data)
+        .then(async (otpres) => {
+          console.log(`Status: ${otpres.status}`);
+          console.log('Body: ', otpres.data);
+
+          user.password = otpPassword
+          await user.save()
+          res.status(otpres.status).json({ message: "Your password has been reset. Check your phone for password." })
+        }).catch((err) => {
+          res.status(400).json("Otp Server Error. Try again later.")
+          // console.error(err);
+        });
+    }
+    // user.password = otpPassword
+    // await user.save()
+    // res.status(200).send("Your password has been reset")
+  } else {
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(404)
+    throw new Error(`No user found with this "${req.body.phone}" phone number`)
+  }
+})
 
 export {
   authUser,
   registerUser,
   getUserProfile,
   updateUserProfile,
+  resetPassword,
   getUsers,
   getNidPendingUsers,
   approveOrRejectNid,

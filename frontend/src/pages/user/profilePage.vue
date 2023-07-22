@@ -65,6 +65,9 @@
                   @update:model-value="authStore.updateUserAvailablity"
                 />
               </div>
+              <div>
+                {{ authStore.loginUserInfo?.registrationType == 'paid' ? "Premium Register User": "Free Register User" }}
+              </div>
             </div>
           </div>
         </q-card>

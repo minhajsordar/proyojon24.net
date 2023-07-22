@@ -224,7 +224,7 @@
               <div class="q-mt-sm q-pa-sm bg-accent text-yellow text-center">
                 <span class="fs-18"> {{ $t("contact") }} </span>
               </div>
-              <div
+              <!-- <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >
                 <q-separator />
@@ -237,7 +237,7 @@
                     @click="createRoomManager($route.params.id)"
                   />
                 </div>
-              </div>
+              </div> -->
               <div
                 class="col-lg-6 col-sm-6 col-xs-12 col-12 text-center cursor-pointer"
               >

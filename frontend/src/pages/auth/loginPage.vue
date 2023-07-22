@@ -44,9 +44,9 @@
                       <small class="form-label" for="login-password"
                         >Password</small
                       >
-                      <a>
+                      <router-link to="/forget_password">
                         <small>Forgot Password?</small>
-                      </a>
+                      </router-link>
                     </div>
                     <div
                       class="input-group input-group-merge form-password-toggle"
