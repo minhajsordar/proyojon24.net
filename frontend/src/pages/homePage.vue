@@ -23,18 +23,18 @@
             <div class="col-2"></div>
             <div class="col-8">
               <q-card class="q-pa-md bg-primary text-white">
-                <div class="text-center text-bold fs-24">
-                  প্রয়ােজন পূরন করুন যখন তখন
+                <div class="text-center text-bold fs-28">
+                  প্রয়ােজন পূরণ করুন যখন তখন
                 </div>
                 <div class="flex">
-                  <div class="text-white bg-blue-7 q-pa-sm text-bold border-blue-4 border-radius-sm">ঘরে বসেই সব সেবা</div>
+                  <div class="text-white bg-lime-7 q-pa-sm text-bold border-lime-4 border-radius-sm dancing-button">ঘরে বসেই সব সেবা</div>
                   <q-space/>
-                  <q-btn class="text-white bg-blue-7 border-blue-4" label="Sign Up" to="/register" flat/>
+                  <q-btn class="text-white bg-orange-7 border-orange-4 dancing-button" label="Sign Up" to="/register" flat/>
                 </div>
                 <div class="flex justify-center q-mt-xs">
-                  <div class="text-center text-bold flex" style="width: 250px">
-                    <div class="text-white fs-20">
-                      Profile -
+                  <div class="text-center text-bold flex border-pink-12 bg-pink-4 q-px-sm q-py-xs" style="width: 250px">
+                    <div class="text-whtie fs-20">
+                      Users -
                       {{
                         $convertNumberIntoDecimal(
                           dashboardStore.dashboardData?.totalUser
@@ -43,7 +43,7 @@
                     </div>
                     <q-space/>
                     <div class="text-white fs-20">
-                      View -
+                      Views -
                       {{
                         $convertNumberIntoDecimal(
                           dashboardStore.dashboardData?.totalView

@@ -7,48 +7,47 @@
       <div style="max-width: 350px">
         <q-list bordered>
           <div
-
-          v-for="(service, index) in servicePublicStore?.allServices"
+            v-for="(service, index) in servicePublicStore?.allServices"
             :key="index"
-            >
-            <q-expansion-item
-            group="somegroup"
-            :label="
-              service.name[languageStore.language] +
-              ' (' +
-              service.serviceProviderCount +
-              ')'
-            "
-            header-class="text-black bg-blue-grey-2"
           >
-            <q-card>
-              <q-list class="rounded-borders text-black">
-                <div
-                  v-for="(category, index2) in service?.serviceCategorys"
-                  :key="index2"
-                >
-                  <!-- <q-btn
+            <q-expansion-item
+              group="somegroup"
+              :label="
+                service.name[languageStore.language] +
+                ' (' +
+                service.serviceProviderCount +
+                ')'
+              "
+              header-class="text-black bg-blue-2"
+            >
+              <q-card>
+                <q-list class="rounded-borders text-black">
+                  <div
+                    v-for="(category, index2) in service?.serviceCategorys"
+                    :key="index2"
+                  >
+                    <!-- <q-btn
             class="text-black border-radius-sm q-pl-md q-py-xs fs-18 full-width"
           >
           </q-btn> -->
-                  <q-item
-                    :to="'/service_providers_list/' + category._id"
-                    dense
-                    class="bg-blue-grey-1 text-black q-py-md q-pl-lg"
-                  >
-                    <q-item-section
-                      >{{ category.name[languageStore.language] }} ({{
-                        category.serviceProviderCount
-                      }})
-                    </q-item-section>
-                  </q-item>
+                    <q-item
+                      :to="'/service_providers_list/' + category._id"
+                      dense
+                      class="bg-blue-grey-1 text-black q-py-md q-pl-lg"
+                    >
+                      <q-item-section
+                        >{{ category.name[languageStore.language] }} ({{
+                          category.serviceProviderCount
+                        }})
+                      </q-item-section>
+                    </q-item>
 
-                  <q-separator />
-                </div>
-              </q-list>
-            </q-card>
-          </q-expansion-item>
-          <q-separator />
+                    <q-separator />
+                  </div>
+                </q-list>
+              </q-card>
+            </q-expansion-item>
+            <q-separator />
           </div>
         </q-list>
       </div>

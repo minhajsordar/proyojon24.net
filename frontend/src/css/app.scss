@@ -427,9 +427,31 @@ width: calc(100% - 100px);
   background: radial-gradient(ellipse farthest-corner at left bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
   radial-gradient(ellipse farthest-corner at right top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
 }
+.border-white{
+  border: 2px solid white
+}
 .border-blue-4{
   border: 2px solid $blue-4
 }
 .border-orange-4{
   border: 2px solid $orange-4
+}
+.border-lime-4{
+  border: 2px solid $lime-4
+}
+.border-purple-6{
+  border: 2px solid $purple-6
+}
+.border-pink-12{
+  border: 2px solid white
+}
+.dancing-button{
+  animation: dancingButton 3s ease 0s infinite forwards;
+}
+@keyframes dancingButton {
+0%,100%{
+  transform: scale(1);
+}50%{
+  transform: scale(1.2);
+}
 }

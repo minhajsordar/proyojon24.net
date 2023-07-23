@@ -29,13 +29,13 @@
                   <q-icon style="margin-bottom: 3px" name="badge"/>
                   {{ $t("nid_verified") }}
                 </div>
-                <div v-else>
+                <div v-else  class="text-red">
                   <q-icon style="margin-bottom: 3px" name="badge"/>
                   {{ $t("nid_not_verified") }}</div>
                 <div v-if="serviceProvider.user?.isAvailable" class="text-green">
                   {{ $t("available") }}
                 </div>
-                <div v-else>{{ $t("not_available") }}</div>
+                <div v-else class="text-red">{{ $t("not_available") }}</div>
               </div>
             </div>
           </div>
@@ -133,7 +133,8 @@
           <div class="row q-col-gutter-sm">
             <div class="col-6">
               <q-btn
-                class="full-width text-bold text-primary border-primary"
+              :ripple="false"
+                class="full-width text-bold text-purple-6 border-purple-6"
                 :label="
                   $t('view') +
                   ' ' +
