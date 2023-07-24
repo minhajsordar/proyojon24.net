@@ -3,7 +3,7 @@
     <!-- !$q.screen.gt.sm -->
     <q-header
       class="text-white"
-      :class="[$q.screen.gt.sm ? 'bg-white' : 'bg-accent']"
+      :class="[$q.screen.gt.sm ? 'background-glass-white' : 'bg-accent']"
       height-hint="61.59"
       bordered
     >
@@ -380,5 +380,9 @@ onMounted(() => {
   to {
     background-position: 200% 0;
   }
+}
+.background-glass-white{
+  backdrop-filter: blur(5px);
+    background-color: rgba(254,254,254,0.9) !important;
 }
 </style>

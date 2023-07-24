@@ -3,7 +3,7 @@
     <div class="inner-section">
       <div class="full-width">
         <div class="q-py-md bg-primary text-center fs-26 title-underline">
-          <span>Proyojon24</span>{{ $t("headermenus.how_it_works") }}
+          <span>Proyojon24 </span>{{ $t("headermenus.how_to_register") }}
         </div>
 
         <div>

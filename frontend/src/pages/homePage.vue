@@ -86,11 +86,11 @@
   <div class="container-section-py-xs">
     <div class="inner-section">
       <div class="full-width">
-        <div class="row q-col-gutter-sm">
-          <div class="col-3" v-if="$q.screen.gt.sm">
+        <div class="flex q-col-gutter-sm">
+          <div style="width: 250px" v-if="$q.screen.gt.sm">
             <homepageSidebar />
           </div>
-          <div class="col-12 col-md-9">
+          <div :class="[$q.screen.gt.sm? 'full-250': 'full-width']">
             <div
               v-if="
                 servicePublicStore.allServices &&
@@ -875,5 +875,8 @@ useMeta(metaData);
   100% {
     transform: translateX(-100%);
   }
+}
+.full-250{
+  width: calc(100% - 250px)
 }
 </style>

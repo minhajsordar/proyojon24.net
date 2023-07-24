@@ -7,6 +7,8 @@
           <div>
             {{ $t("already_have_account") }}?
             <router-link to="/login">{{ $t("signin") }}</router-link>
+            {{ $t('or') }}
+            <router-link to="/how_to_register">{{ $t("headermenus.how_to_register") }}</router-link>
           </div>
         </div>
         <q-card class="q-pa-md q-mt-md">

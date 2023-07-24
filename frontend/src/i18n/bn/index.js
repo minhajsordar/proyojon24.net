@@ -148,7 +148,8 @@ export default {
     data_analisis: 'ডেটা এনালাইসিস',
     service_and_payment_configuration: 'সা‍র্ভিস এবং পেমেন্ট কনফিগারেশন',
     how_it_works: 'কিভাবে কাজ করে',
-    register: 'রেজিস্ট্রেশন করুন',
+    how_to_register: 'কিভাবে সাইন আপ করে',
+    register: 'সাইন আপ করুন',
     login: 'লগইন করুন',
   },
   location: {

@@ -167,6 +167,7 @@
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
+                  ref="serialEl"
                     outlined
                     dense
                     type="number"

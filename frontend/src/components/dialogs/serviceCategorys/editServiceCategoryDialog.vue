@@ -167,6 +167,7 @@
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-12 col-12">
                   <q-input
+                  ref="serialEl"
                     outlined
                     dense
                     type="number"
@@ -211,10 +212,12 @@ const createServiceManager = () => {
   parentEl.value.validate();
   nameEnEl.value.validate();
   nameBnEl.value.validate();
+  serialEl.value.validate();
   if (
     parentEl.value.hasError ||
     nameEnEl.value.hasError ||
-    nameBnEl.value.hasError
+    nameBnEl.value.hasError||
+    serialEl.value.hasError
   ) {
     return;
   }

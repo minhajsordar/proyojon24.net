@@ -46,6 +46,7 @@ const routes = [
       { path: '/service_provider/:id', component: () => import('pages/publicpages/serviceProviderProfile.vue') },
       { path: '/notifications', component: () => import('pages/publicpages/commonNotifications.vue') },
       { path: '/how_it_works', component: () => import('pages/howItWorks.vue') },
+      { path: '/how_to_register', component: () => import('pages/howToRegister.vue') },
       //   ]
       // },
       // {

@@ -4,7 +4,7 @@
       {{ $t("headermenus.services") }}
     </div>
     <q-card class="q-pa-xs">
-      <div style="max-width: 350px">
+      <div style="max-width: 250px">
         <q-list bordered>
           <div
             v-for="(service, index) in servicePublicStore?.allServices"
