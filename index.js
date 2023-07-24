@@ -1,5 +1,4 @@
-import { unlink } from 'node:fs';
-import { readdir } from 'node:fs';
+import { readdir,unlink } from 'node:fs';
 
 readdir('./uploads', (err, data) => {
   if (err) throw err;

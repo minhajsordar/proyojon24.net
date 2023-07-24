@@ -24,7 +24,7 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="flex justify-end text-bold" v-if="!register">
+              <div class="flex justify-end text-bold fs-12" v-if="!register">
                 <div
                   v-if="serviceProvider.user?.isAvailable"
                   class="text-green"
