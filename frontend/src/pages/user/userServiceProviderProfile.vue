@@ -51,6 +51,7 @@
                         ? opt.name[languageStore.language]
                         : null
                   "
+                  @update:model-value="updateRegistrationAmount"
                   options-dense
                   outlined
                   dense
@@ -59,6 +60,90 @@
               </div>
             </div>
           </div>
+          <!-- payment -->
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="text-bold">{{ $t("accountType") }}*</div>
+            <q-select
+              v-model="accountType"
+              stack-label
+              outlined
+              dense
+              :options="['Free', 'Paid']"
+            />
+          </div>
+          <div class="col-sm-6 col-xs-12 col-12">
+            <div class="text-bold">{{ $t("Reference") }}*</div>
+            <q-input
+              v-model="
+                serviceProviderStore.serviceProviderRegisterInfo.reference
+              "
+              stack-label
+              outlined
+              dense
+            />
+          </div>
+          <div class="col-12" v-if="accountType == 'Paid'">
+            <div class="row q-col-gutter-xs">
+              <div class="col-sm-6 col-xs-12 col-12">
+                <div class="text-bold">{{ $t("bankAccountName") }}*</div>
+                <q-select
+                  ref="bankAccountNameEl"
+                  v-model="
+                    serviceProviderStore.serviceProviderRegisterInfo
+                      .bankAccountName
+                  "
+                  outlined
+                  :options="['bKash', 'Dutch Bangla', 'Nagad']"
+                  dense
+                  stack-label
+                  :rules="[required]"
+                />
+              </div>
+              <div class="col-sm-6 col-xs-12 col-12">
+                <div class="text-bold">{{ $t("AccoountPhoneNumber") }}*</div>
+                <q-input
+                  ref="phoneNumberEl"
+                  v-model="
+                    serviceProviderStore.serviceProviderRegisterInfo.phoneNumber
+                  "
+                  outlined
+                  dense
+                  stack-label
+                  :rules="[mobileNoBd]"
+                />
+              </div>
+              <div class="col-sm-6 col-xs-12 col-12">
+                <div class="text-bold">{{ $t("transactionId") }}*</div>
+                <q-input
+                  ref="transactionIdEl"
+                  v-model="
+                    serviceProviderStore.serviceProviderRegisterInfo
+                      .transactionId
+                  "
+                  outlined
+                  dense
+                  stack-label
+                  :rules="[required]"
+                />
+              </div>
+              <div class="col-sm-6 col-xs-12 col-12">
+                <div class="text-bold">{{ $t("amount") }}*</div>
+                <q-input
+                  ref="amountEl"
+                  v-model="
+                    serviceProviderStore.serviceProviderRegisterInfo.amount
+                  "
+                  outlined
+                  disable
+                  dense
+                  stack-label
+                  type="number"
+                  :rules="[required]"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- payment -->
           <!-- start service provider location -->
           <div class="col-sm-6 col-xs-6 col-6">
             <div class="row">
@@ -861,6 +946,7 @@ const searchLocationStore = useSearchLocationStore();
 searchLocationStore.updateAllLocation();
 const searchServiceStore = useSearchServiceStore();
 
+const accountType = ref("Free");
 const maximizedToggle = ref(true);
 const grandParentEl = ref(null);
 const parentEl = ref(null);
@@ -879,6 +965,11 @@ const serviceTitleEnEl = ref(null);
 const serviceTitleBnEl = ref(null);
 const keywordsEl = ref(null);
 const validationEnabled = ref(false);
+
+const bankAccountNameEl = ref(null);
+const phoneNumberEl = ref(null);
+const transactionIdEl = ref(null);
+const amountEl = ref(null);
 
 const createServiceManager = () => {
   if (!isObjEmpty(userServiceProviderStore.userServiceProvider)) {
@@ -900,6 +991,22 @@ const createServiceManager = () => {
   serviceTitleEnEl.value.validate();
   serviceTitleBnEl.value.validate();
   keywordsEl.value.validate();
+
+  if (accountType.value == "Paid") {
+    bankAccountNameEl.value.validate();
+    phoneNumberEl.value.validate();
+    transactionIdEl.value.validate();
+    amountEl.value.validate();
+    if (
+      bankAccountNameEl.value.hasError ||
+      phoneNumberEl.value.hasError ||
+      transactionIdEl.value.hasError ||
+      amountEl.value.hasError
+    ) {
+      return;
+    }
+  }
+
   if (
     grandParentEl.value.hasError ||
     parentEl.value.hasError ||
@@ -929,6 +1036,9 @@ const onRejected = (rejectedEntries) => {
   });
 };
 
+const updateRegistrationAmount =(val)=>{
+  serviceProviderStore.serviceProviderRegisterInfo.amount = val.premiumRegistrationFee
+}
 const divisionOptions = ref(divisionStore.allDivisions);
 const divisionFilterFn = (val, update) => {
   if (val === "") {

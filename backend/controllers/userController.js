@@ -4,7 +4,6 @@ import ServiceProvider from '../models/serviceProviderModel.js'
 import DailyUser from '../models/dailyUserModel.js'
 import MonthlyUser from '../models/monthlyUserModel.js'
 import generateToken from "../utils/generateToken.js";
-import Payment from '../models/paymentModel.js'
 import PhoneNumberOTP from '../models/phoneNumberOTPModel.js'
 import axios from 'axios';
 import {
@@ -54,10 +53,6 @@ const authUser = expressAsyncHandler(async (req, res) => {
 
 const registerUser = expressAsyncHandler(async (req, res) => {
   const {
-    bankAccountName,
-    phoneNumber,
-    transactionId,
-    amount,
     reference,
     name,
     email,
@@ -115,22 +110,6 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     } else {
       const newMonthlyUser = new MonthlyUser({ year, month, userCount: 1 });
       await newMonthlyUser.save();
-    }
-    // create registration payment 
-    if (
-      bankAccountName !== '' &&
-      phoneNumber !== '' &&
-      transactionId !== '' &&
-      amount !== 0
-    ) {
-      await Payment.create({
-        user: user._id,
-        bankAccountName,
-        phoneNumber,
-        transactionId,
-        amount,
-        paymentFor: "registration"
-      })
     }
 
     res.status(201).json({

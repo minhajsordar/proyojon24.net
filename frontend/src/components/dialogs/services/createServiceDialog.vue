@@ -174,11 +174,9 @@ const createServiceManager = () => {
   nameEnEl.value.validate();
   nameBnEl.value.validate();
   iconEl.value.validate();
-  serialEl.value.validate();
   if (
     nameEnEl.value.hasError ||
     iconEl.value.hasError ||
-    serialEl.value.hasError ||
     nameBnEl.value.hasError
   ) {
     return;

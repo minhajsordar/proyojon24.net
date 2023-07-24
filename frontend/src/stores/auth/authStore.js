@@ -187,15 +187,15 @@ export const useAuthStore = defineStore('auth store', () => {
     if (
       updateUserInfo.email == "" && updateUserInfo.name.bn == "" &&
       updateUserInfo.name.en == "" && updateUserInfo.phone == "" &&
-      updateUserInfo.password == "" && updateUserInfo.nidNo == "" &&
+      updateUserInfo.password3 == "" && updateUserInfo.nidNo == "" &&
       updateUserInfo.nidImage == null && updateUserInfo.profileImage == null &&
       updateUserInfo.presentAddress.bn == "" && updateUserInfo.presentAddress.en == "" &&
       updateUserInfo.permanentAddress.bn == "" && updateUserInfo.permanentAddress.en == ""
     ) {
-      console.log("failed")
+      console.log("null value")
       return
     }
-    if (updateUserInfo.password !== updateUserInfo.password2) {
+    if (updateUserInfo.password3 !== updateUserInfo.password4) {
       return
     }
     if (updateUserInfo.nidImage instanceof File) {
@@ -213,6 +213,9 @@ export const useAuthStore = defineStore('auth store', () => {
       }
     }
     const data = {}
+    if (updateUserInfo.password3 !== "") {
+      data.password = updateUserInfo.password3
+    }
     if (updateUserInfo.email !== "") {
       data.email = updateUserInfo.email
     }

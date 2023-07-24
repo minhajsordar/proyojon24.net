@@ -68,7 +68,7 @@ const fillInput = (value) => {
   otpInput.value?.fillInput(value);
 };
 </script>
-<style>
+<style scoped>
 .otp-input {
   width: 40px;
   height: 40px;

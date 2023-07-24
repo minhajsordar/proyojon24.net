@@ -2,11 +2,7 @@
   <q-card class="q-pa-md border-primary">
     <div class="flex justify-between q-mb-md">
       <div class="fs-20 text-bold">Personal Details</div>
-      <q-btn
-        :label="$t('goback')"
-        color="primary"
-        @click="$router.back()"
-      />
+      <q-btn :label="$t('goback')" color="primary" @click="$router.back()" />
     </div>
     <div class="full-width">
       <q-separator />
@@ -48,7 +44,7 @@
         </div>
         <div class="col-sm-6 col-xs-12 col-12">
           <q-input
-          ref="confirmPassEl"
+            ref="confirmPassEl"
             v-model="authStore.updateUserInfo.password4"
             label="Confirm Password"
             type="password"
@@ -173,10 +169,9 @@
         </div>
         <div class="col-12">
           <q-btn
-            @click="registerManager"
+            @click="updateManager"
             class="full-width bg-primary text-white btn-h-39"
-
-        :label="$t('update')"
+            :label="$t('update')"
             stack-label
             outlined
             dense
@@ -203,9 +198,11 @@ const router = useRouter();
 const route = useRoute();
 const registerStore = useRegisterStore();
 const confirmPassEl = ref(null);
-const registerManager = () => {
-  confirmPassEl.value.validate()
-  if (authStore.updateUserInfo.password !== authStore.updateUserInfo.password2) {
+const updateManager = () => {
+  confirmPassEl.value.validate();
+  if (
+    authStore.updateUserInfo.password3 !== authStore.updateUserInfo.password4
+  ) {
     Notify.create({
       position: "center",
       type: "negative",
@@ -216,13 +213,13 @@ const registerManager = () => {
   authStore.updateUserProfile();
 };
 
-const checkMatchPassword =(val)=>{
-  if(authStore.updateUserInfo.password3 == val){
-    return true
-  }else{
-    "Password Not Matched"
+const checkMatchPassword = (val) => {
+  if (authStore.updateUserInfo.password3 == val) {
+    return true;
+  } else {
+    ("Password Not Matched");
   }
-}
+};
 
 onMounted(() => {
   if (route.query.namebn) {

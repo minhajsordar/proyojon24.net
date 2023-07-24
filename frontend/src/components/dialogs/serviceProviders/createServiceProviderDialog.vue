@@ -43,77 +43,6 @@
       <q-card-section>
         <q-card class="border-primary q-pa-md">
           <div class="row q-col-gutter-sm">
-            <!-- payment -->
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="text-bold">{{ $t("accountType") }}*</div>
-              <q-select
-                v-model="accountType"
-                stack-label
-                outlined
-                dense
-                :options="['Free', 'Paid']"
-              />
-            </div>
-            <div class="col-sm-6 col-xs-12 col-12">
-              <div class="text-bold">{{ $t("Reference") }}*</div>
-              <q-input
-                v-model="serviceProviderStore.serviceProviderRegisterInfo.reference"
-                stack-label
-                outlined
-                dense
-              />
-            </div>
-            <div class="col-12" v-if="accountType == 'Paid'">
-              <div class="row q-col-gutter-xs">
-                <div class="col-sm-6 col-xs-12 col-12">
-              <div class="text-bold">{{ $t("bankAccountName") }}*</div>
-                  <q-select
-                    ref="bankAccountNameEl"
-                    v-model="serviceProviderStore.serviceProviderRegisterInfo.bankAccountName"
-                    outlined
-                    :options="['bKash', 'Dutch Bangla', 'Nagad']"
-                    dense
-                    stack-label
-                    :rules="[required]"
-                  />
-                </div>
-                <div class="col-sm-6 col-xs-12 col-12">
-              <div class="text-bold">{{ $t("AccoountPhoneNumber") }}*</div>
-                  <q-input
-                    ref="phoneNumberEl"
-                    v-model="serviceProviderStore.serviceProviderRegisterInfo.phoneNumber"
-                    outlined
-                    dense
-                    stack-label
-                    :rules="[mobileNoBd]"
-                  />
-                </div>
-                <div class="col-sm-6 col-xs-12 col-12">
-              <div class="text-bold">{{ $t("transactionId") }}*</div>
-                  <q-input
-                    ref="transactionIdEl"
-                    v-model="serviceProviderStore.serviceProviderRegisterInfo.transactionId"
-                    outlined
-                    dense
-                    stack-label
-                    :rules="[required]"
-                  />
-                </div>
-                <div class="col-sm-6 col-xs-12 col-12">
-              <div class="text-bold">{{ $t("amount") }}*</div>
-                  <q-input
-                    ref="amountEl"
-                    v-model="serviceProviderStore.serviceProviderRegisterInfo.amount"
-                    outlined
-                    dense
-                    stack-label
-                    type="number"
-                    :rules="[required]"
-                  />
-                </div>
-              </div>
-            </div>
-            <!-- payment -->
             <div class="col-sm-6 col-xs-6 col-12">
               <div class="text-bold">{{ $t("username") }}*</div>
               <q-input
@@ -294,6 +223,7 @@
                           ? opt.name[languageStore.language]
                           : null
                     "
+                    @update:model-value="updateRegistrationAmount"
                     options-dense
                     outlined
                     dense
@@ -302,6 +232,91 @@
                 </div>
               </div>
             </div>
+            <!-- payment -->
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="text-bold">{{ $t("accountType") }}*</div>
+              <q-select
+                v-model="accountType"
+                stack-label
+                outlined
+                dense
+                :options="['Free', 'Paid']"
+              />
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
+              <div class="text-bold">{{ $t("Reference") }}*</div>
+              <q-input
+                v-model="
+                  serviceProviderStore.serviceProviderRegisterInfo.reference
+                "
+                stack-label
+                outlined
+                dense
+              />
+            </div>
+            <div class="col-12" v-if="accountType == 'Paid'">
+              <div class="row q-col-gutter-xs">
+                <div class="col-sm-6 col-xs-12 col-12">
+                  <div class="text-bold">{{ $t("bankAccountName") }}*</div>
+                  <q-select
+                    ref="bankAccountNameEl"
+                    v-model="
+                      serviceProviderStore.serviceProviderRegisterInfo
+                        .bankAccountName
+                    "
+                    outlined
+                    :options="['bKash', 'Dutch Bangla', 'Nagad']"
+                    dense
+                    stack-label
+                    :rules="[required]"
+                  />
+                </div>
+                <div class="col-sm-6 col-xs-12 col-12">
+                  <div class="text-bold">{{ $t("AccoountPhoneNumber") }}*</div>
+                  <q-input
+                    ref="phoneNumberEl"
+                    v-model="
+                      serviceProviderStore.serviceProviderRegisterInfo
+                        .phoneNumber
+                    "
+                    outlined
+                    dense
+                    stack-label
+                    :rules="[mobileNoBd]"
+                  />
+                </div>
+                <div class="col-sm-6 col-xs-12 col-12">
+                  <div class="text-bold">{{ $t("transactionId") }}*</div>
+                  <q-input
+                    ref="transactionIdEl"
+                    v-model="
+                      serviceProviderStore.serviceProviderRegisterInfo
+                        .transactionId
+                    "
+                    outlined
+                    dense
+                    stack-label
+                    :rules="[required]"
+                  />
+                </div>
+                <div class="col-sm-6 col-xs-12 col-12">
+                  <div class="text-bold">{{ $t("amount") }}*</div>
+                  <q-input
+                    ref="amountEl"
+                    v-model="
+                      serviceProviderStore.serviceProviderRegisterInfo.amount
+                    "
+                    outlined
+                    disable
+                    dense
+                    stack-label
+                    type="number"
+                    :rules="[required]"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- payment -->
             <!-- start service provider location -->
             <div class="col-sm-6 col-xs-6 col-6">
               <div class="row">
@@ -995,7 +1010,12 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { Notify } from "quasar";
-import { requiredSelector, required, fileValidate, mobileNoBd } from "src/global_js/utils";
+import {
+  requiredSelector,
+  required,
+  fileValidate,
+  mobileNoBd,
+} from "src/global_js/utils";
 import { useLanguageStore } from "src/stores/lang/languageSettingsStore";
 import { useUserStore } from "src/stores/user/userStore";
 import { useServiceCategoryStore } from "src/stores/service/serviceCategoryStore";
@@ -1065,7 +1085,6 @@ const createServiceManager = () => {
   serviceTitleBnEl.value.validate();
   passwordEl.value.validate();
 
-
   if (accountType.value == "Paid") {
     bankAccountNameEl.value.validate();
     phoneNumberEl.value.validate();
@@ -1080,7 +1099,6 @@ const createServiceManager = () => {
       return;
     }
   }
-
 
   if (
     grandParentEl.value.hasError ||
@@ -1110,7 +1128,9 @@ const onRejected = (rejectedEntries) => {
     message: `Choosen file size too big`,
   });
 };
-
+const updateRegistrationAmount =(val)=>{
+  serviceProviderStore.serviceProviderRegisterInfo.amount = val.premiumRegistrationFee
+}
 const divisionOptions = ref(divisionStore.allDivisions);
 const divisionFilterFn = (val, update) => {
   if (val === "") {

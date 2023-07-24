@@ -67,17 +67,6 @@ export const useRegisterStore = defineStore('register store', () => {
       password: newUserInfo.password,
       reference: newUserInfo.reference
     }
-    if (
-      newUserInfo.bankAccountName &&
-      newUserInfo.phoneNumber &&
-      newUserInfo.transactionId &&
-      newUserInfo.amount
-    ) {
-      data.bankAccountName = newUserInfo.bankAccountName
-      data.phoneNumber = newUserInfo.phoneNumber
-      data.transactionId = newUserInfo.transactionId
-      data.amount = newUserInfo.amount
-    }
     const config = {
       method: "post",
       url: "api/users/register",

@@ -391,7 +391,6 @@ const getTopServiceProvider = expressAsyncHandler(async (req, res) => {
 // @route create api/ServiceProviders/
 // @acess Privet/Admin
 const createServiceProvider = expressAsyncHandler(async (req, res) => {
-
     const serviceByUser = await ServiceProvider.findOne({ user: req.user._id })
     if (serviceByUser) {
         res.status(400)
@@ -409,6 +408,7 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         degree,
         description,
         serviceTitle,
+        phoneNumber,
         phoneNumber1,
         phoneNumber2,
         facebook,
@@ -420,6 +420,7 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         rankCount,
         keywords
     } = req.body
+
     const serviceProvider = new ServiceProvider({
         dataCollector: req.user._id,
         dataUpdatedBy: req.user._id,
@@ -452,6 +453,25 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
     const createdServiceProvider = await serviceProvider.save()
     req.user.hasServiceProviderProfile = true
     await req.user.save()
+
+    
+    // create registration payment 
+    if (
+      bankAccountName !== '' &&
+      phoneNumber !== '' &&
+      transactionId !== '' &&
+      amount !== 0
+    ) {
+      await Payment.create({
+        user: req.user._id,
+        bankAccountName,
+        phoneNumber,
+        transactionId,
+        amount,
+        paymentFor: "registration"
+      })
+    }
+
     const serviceById = await Service.findById(service)
     serviceById.serviceProviderCount += 1
     await serviceById.save()

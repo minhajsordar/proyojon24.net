@@ -16,12 +16,12 @@
             <div class="row q-col-gutter-md">
               <div class="col-sm-6 col-xs-12 col-12">
                 <q-select
-                  label="Account Type"
-                  v-model="accountType"
+                  label="Account For"
+                  v-model="accountFor"
                   stack-label
                   outlined
                   dense
-                  :options="['Free', 'Paid']"
+                  :options="['Own', 'Other']"
                 />
               </div>
               <div class="col-sm-6 col-xs-12 col-12">
@@ -30,58 +30,9 @@
                   v-model="registerStore.newUserInfo.reference"
                   stack-label
                   outlined
+                  :disable="accountFor == 'Own'"
                   dense
                 />
-              </div>
-              <div class="col-12" v-if="accountType == 'Paid'">
-                <div class="row q-col-gutter-xs">
-                  <div class="col-sm-6 col-xs-12 col-12">
-                    <q-select
-                      :label="$t('bankAccountName')"
-                      ref="bankAccountNameEl"
-                      v-model="registerStore.newUserInfo.bankAccountName"
-                      outlined
-                      :options="['bKash', 'Dutch Bangla', 'Nagad']"
-                      dense
-                      stack-label
-                      :rules="[required]"
-                    />
-                  </div>
-                  <div class="col-sm-6 col-xs-12 col-12">
-                    <q-input
-                      :label="$t('AccoountPhoneNumber')"
-                      ref="phoneNumberEl"
-                      v-model="registerStore.newUserInfo.phoneNumber"
-                      outlined
-                      dense
-                      stack-label
-                      :rules="[mobileNoBd]"
-                    />
-                  </div>
-                  <div class="col-sm-6 col-xs-12 col-12">
-                    <q-input
-                      :label="$t('transactionId')"
-                      ref="transactionIdEl"
-                      v-model="registerStore.newUserInfo.transactionId"
-                      outlined
-                      dense
-                      stack-label
-                      :rules="[required]"
-                    />
-                  </div>
-                  <div class="col-sm-6 col-xs-12 col-12">
-                    <q-input
-                      :label="$t('amount')"
-                      ref="amountEl"
-                      v-model="registerStore.newUserInfo.amount"
-                      outlined
-                      dense
-                      stack-label
-                      type="number"
-                      :rules="[required]"
-                    />
-                  </div>
-                </div>
               </div>
               <div class="col-sm-6 col-xs-12 col-12">
                 <div class="row q-col-gutter-xs">
@@ -215,7 +166,7 @@ import {
 } from "src/global_js/utils";
 import { useRegisterStore } from "src/stores/auth/registerStore";
 import { useRoute, useRouter } from "vue-router";
-const accountType = ref("Free");
+const accountFor = ref("Own");
 const isPwd = ref(true);
 const isPwdC = ref(true);
 const router = useRouter();
@@ -241,21 +192,6 @@ const registerManager = () => {
   phoneEl.value.validate();
   fullnameBnEl.value.validate();
   fullnameEnEl.value.validate();
-
-  if (accountType.value == "Paid") {
-    bankAccountNameEl.value.validate();
-    phoneNumberEl.value.validate();
-    transactionIdEl.value.validate();
-    amountEl.value.validate();
-    if (
-      bankAccountNameEl.value.hasError ||
-      phoneNumberEl.value.hasError ||
-      transactionIdEl.value.hasError ||
-      amountEl.value.hasError
-    ) {
-      return;
-    }
-  }
 
   if (
     usernameEl.value.hasError ||
