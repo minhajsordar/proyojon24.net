@@ -61,7 +61,7 @@
             </div>
           </div>
           <!-- payment -->
-          <div class="col-sm-6 col-xs-12 col-12">
+          <div class="col-sm-6 col-xs-12 col-12" v-if="!authStore.loginUserInfo?.hasServiceProviderProfile">
             <div class="text-bold">{{ $t("accountType") }}*</div>
             <q-select
               v-model="accountType"
@@ -71,25 +71,14 @@
               :options="['Free', 'Paid']"
             />
           </div>
-          <div class="col-sm-6 col-xs-12 col-12">
-            <div class="text-bold">{{ $t("Reference") }}*</div>
-            <q-input
-              v-model="
-                serviceProviderStore.serviceProviderRegisterInfo.reference
-              "
-              stack-label
-              outlined
-              dense
-            />
-          </div>
-          <div class="col-12" v-if="accountType == 'Paid'">
+          <div class="col-12" v-if="accountType == 'Paid' && !authStore.loginUserInfo?.hasServiceProviderProfile">
             <div class="row q-col-gutter-xs">
               <div class="col-sm-6 col-xs-12 col-12">
                 <div class="text-bold">{{ $t("bankAccountName") }}*</div>
                 <q-select
                   ref="bankAccountNameEl"
                   v-model="
-                    serviceProviderStore.serviceProviderRegisterInfo
+                    serviceProviderStore.serviceProviderInfo
                       .bankAccountName
                   "
                   outlined
@@ -104,7 +93,7 @@
                 <q-input
                   ref="phoneNumberEl"
                   v-model="
-                    serviceProviderStore.serviceProviderRegisterInfo.phoneNumber
+                    serviceProviderStore.serviceProviderInfo.phoneNumber
                   "
                   outlined
                   dense
@@ -117,7 +106,7 @@
                 <q-input
                   ref="transactionIdEl"
                   v-model="
-                    serviceProviderStore.serviceProviderRegisterInfo
+                    serviceProviderStore.serviceProviderInfo
                       .transactionId
                   "
                   outlined
@@ -131,7 +120,7 @@
                 <q-input
                   ref="amountEl"
                   v-model="
-                    serviceProviderStore.serviceProviderRegisterInfo.amount
+                    serviceProviderStore.serviceProviderInfo.amount
                   "
                   outlined
                   disable
@@ -1037,7 +1026,7 @@ const onRejected = (rejectedEntries) => {
 };
 
 const updateRegistrationAmount =(val)=>{
-  serviceProviderStore.serviceProviderRegisterInfo.amount = val.premiumRegistrationFee
+  serviceProviderStore.serviceProviderInfo.amount = val.premiumRegistrationFee
 }
 const divisionOptions = ref(divisionStore.allDivisions);
 const divisionFilterFn = (val, update) => {

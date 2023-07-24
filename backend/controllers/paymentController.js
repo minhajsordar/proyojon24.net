@@ -64,7 +64,7 @@ const approveOrRejectPayment = expressAsyncHandler(async (req, res) => {
     payment.approvedOrRejectedBy = req.user._id
     const updatedPayment = await payment.save()
     if(updatedPayment.status === 'approved' && updatedPayment.paymentFor === 'registration'){
-      await User.findByIdAndUpdate(payment.user, {registrationType: 'paid'})
+      const userid = await User.findByIdAndUpdate(payment.user, {registrationType: 'paid'})
     }
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.json(updatedPayment)

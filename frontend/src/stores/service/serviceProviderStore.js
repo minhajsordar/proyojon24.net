@@ -657,6 +657,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
     if (!(loginUser.value.permission == 'admin' || loginUser.value.permission == 'superAdmin' || loginUser.value.permission !== 'self')) {
       serviceProviderInfo.user = loginUser.value._id
     }
+    const data = serviceProviderInfo
     if (
       serviceProviderInfo.bankAccountName &&
       serviceProviderInfo.phoneNumber &&
@@ -668,7 +669,6 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       data.transactionId = serviceProviderInfo.transactionId
       data.amount = serviceProviderInfo.amount
     }
-    const data = serviceProviderInfo
     const config = {
       method: "post",
       url: "api/service_providers",

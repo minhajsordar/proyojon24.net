@@ -408,7 +408,6 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         degree,
         description,
         serviceTitle,
-        phoneNumber,
         phoneNumber1,
         phoneNumber2,
         facebook,
@@ -418,7 +417,12 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         email,
         experience,
         rankCount,
-        keywords
+        keywords,
+        reference,
+        bankAccountName,
+        phoneNumber,
+        transactionId,
+        amount
     } = req.body
 
     const serviceProvider = new ServiceProvider({
