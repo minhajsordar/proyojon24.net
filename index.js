@@ -1,16 +1,14 @@
-import otpGenerator from 'otp-generator'
+import { unlink } from 'node:fs';
+import { readdir } from 'node:fs';
 
-const OTP_LENGTH = 6
-// The OTP_CONFIG is an object that looks like 
-const OTP_CONFIG = {
-    digits: true,
-    lowerCaseAlphabets: false,
-    upperCaseAlphabets: false,
-    specialChars: false,
-}
-export const otpExpirationMinutes = 10;
-export const generateOTP = () => {
-    const OTP = otpGenerator.generate(OTP_LENGTH, OTP_CONFIG);
-    return OTP;
-};
-console.log(generateOTP())
+readdir('./uploads', (err, data) => {
+  if (err) throw err;
+  console.log(data);
+  data.forEach(file =>{
+    unlink(`./uploads/${file}`, (err) => {
+        if (err) throw err;
+        console.log(`successfully deleted /uploads/${file}`);
+      });
+  })
+  console.log(data);
+}); 
