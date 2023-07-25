@@ -28,7 +28,9 @@
         >
           <img
             class="q-message-avatar q-message-avatar--received"
-            :src="web_root_url + message.sender?.profileImage"
+            :src="web_root_url + (message.sender?.profileImage
+              ? message.sender?.profileImage
+              : '/images/user-placeholder.jpg')"
             aria-hidden="true"
           />
           <div class="">

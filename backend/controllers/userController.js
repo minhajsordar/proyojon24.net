@@ -340,8 +340,10 @@ const updateUser = expressAsyncHandler(async (req, res) => {
     if (req.body.permanentAddress?.en) {
       user.permanentAddress.en = req.body.permanentAddress?.en
     }
-    if (req.body.password) {
-      user.password = req.body.password
+    if (req.body.hasOwnProperty('password')) {
+      if(req.body.password != ''){
+        user.password = req.body.password
+      }
     }
     if (req.body.hasOwnProperty("isAvailable")) {
       user.isAvailable = req.body.isAvailable

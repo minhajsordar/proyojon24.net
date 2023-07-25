@@ -237,5 +237,7 @@ onMounted(() => {
   if (route.query.phone) {
     registerStore.newUserInfo.phone = route.query.phone;
   }
+  authStore.updateUserInfo.password3 = ""
+  authStore.updateUserInfo.password4 = ""
 });
 </script>

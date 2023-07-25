@@ -13,6 +13,7 @@ const getPersonalRooms = expressAsyncHandler(async (req, res) => {
     const count = await PersonalRoom.countDocuments({ ...keyword })
     const rooms = await PersonalRoom.find({ ...keyword })
         .populate('participants.user', 'name profileImage')
+        .populate('participants.user', 'name profileImage')
         .populate('messages', 'content seen')
         .sort({ updatedAt: -1 })
         .limit(pageSize).skip(pageSize * (page - 1))
@@ -25,13 +26,22 @@ const getPersonalRooms = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const createPersonalRoom = expressAsyncHandler(async (req, res) => {
     if (req.body.recipient) {
-        // const roomExist = await PersonalRoom.find({})
-        console.log({ user: req.body.user }, { user: req.body.recipient })
-        const personalRooms = new PersonalRoom({
-            participants: [{ user: req.body.user }, { user: req.body.recipient }]
+        const roomExist = await PersonalRoom.find({
+            'participants.user': {
+                $all: [req.body.user, req.body.recipient]
+              }
         })
-        const createdPersonalRoom = await personalRooms.save()
-        res.status(201).json(createdPersonalRoom)
+        if(roomExist.length == 0) {
+            const personalRooms = new PersonalRoom({
+                participants: [{ user: req.body.user }, { user: req.body.recipient }]
+            })
+            const createdPersonalRoom = await personalRooms.save()
+            res.status(201).json(createdPersonalRoom)
+        }else{
+
+            res.status(401)
+            throw new Error('Duplicate room.')
+        }
     } else {
         res.status(404)
         throw new Error('Recipient not provided.')

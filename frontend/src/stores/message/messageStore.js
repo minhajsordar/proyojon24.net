@@ -69,7 +69,7 @@ export const useMessageStore = defineStore('message store', () => {
         "Authorization": `Bearer ${loginUser.value.token}`
       }, params: {
         user1: loginUser.value._id,
-        user2: selectedRoomUser2.value.user._id,
+        user2: selectedRoomUser2.value?.user?._id,
         pageNumber: nextPageNumber.value
       }
     };

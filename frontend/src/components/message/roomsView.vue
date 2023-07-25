@@ -4,11 +4,21 @@
       <q-avatar>
         <img
           v-if="room.participants[0].user._id !== authStore.loginUserInfo._id"
-          :src="web_root_url + room.participants[0]?.user?.profileImage"
+          :src="
+            web_root_url +
+            (room.participants[0]?.user?.profileImage
+              ? room.participants[0]?.user?.profileImage
+              : '/images/user-placeholder.jpg')
+          "
         />
         <img
           v-else
-          :src="web_root_url + room.participants[1]?.user?.profileImage"
+          :src="
+            web_root_url +
+            (room.participants[1]?.user?.profileImage
+              ? room.participants[1]?.user?.profileImage
+              : '/images/user-placeholder.jpg')
+          "
         />
       </q-avatar>
     </q-item-section>
@@ -101,7 +111,12 @@ var audio = new Audio("/sounds/new_messenge_ton.mp3"); // path to file
 socket.on("new_message", (args) => {
   roomStore.getMyRooms();
   if (args._doc.sender._id !== authStore.loginUserInfo._id) {
-    if(roomStore.myRoomList?.rooms[0]._id === route.params.id && messageStore.messageList.messages[messageStore.messageList.messages.length - 1]._id !== args._doc._id) {
+    if (
+      roomStore.myRoomList?.rooms[0]._id === route.params.id &&
+      messageStore.messageList.messages[
+        messageStore.messageList.messages.length - 1
+      ]._id !== args._doc._id
+    ) {
       messageStore.messageList.messages.push(args._doc);
     }
     audio.play();
