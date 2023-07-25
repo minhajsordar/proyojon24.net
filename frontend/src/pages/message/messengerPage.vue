@@ -12,8 +12,10 @@
 
     <q-drawer v-model="drawer" show-if-above :width="300" :breakpoint="500">
       <q-scroll-area class="fit">
+        <q-separator vertical/>
         <q-list bordered class="rounded-borders" style="max-width: 350px">
           <q-item-label header>Messages List</q-item-label>
+          <q-separator/>
           <div v-if="roomStore.myRoomList">
             <div v-for="(room, index) in roomStore.myRoomList?.rooms" :key="index">
               <roomsView :room="room" />

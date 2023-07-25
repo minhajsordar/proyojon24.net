@@ -25,6 +25,7 @@ const getPersonalRooms = expressAsyncHandler(async (req, res) => {
 // @acess Privet/Admin
 const createPersonalRoom = expressAsyncHandler(async (req, res) => {
     if (req.body.recipient) {
+        // const roomExist = await PersonalRoom.find({})
         const personalRooms = new PersonalRoom({
             participants: [{ user: req.user._id }, { user: req.body.recipient }]
         })

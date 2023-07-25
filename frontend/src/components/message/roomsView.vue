@@ -4,11 +4,11 @@
       <q-avatar>
         <img
           v-if="room.participants[0].user._id !== authStore.loginUserInfo._id"
-          :src="web_root_url + room.participants[0].user.profileImage"
+          :src="web_root_url + room.participants[0]?.user?.profileImage"
         />
         <img
           v-else
-          :src="web_root_url + room.participants[1].user.profileImage"
+          :src="web_root_url + room.participants[1]?.user?.profileImage"
         />
       </q-avatar>
     </q-item-section>
@@ -16,11 +16,11 @@
     <q-item-section>
       <q-item-label lines="1">
         <span
-          v-if="room.participants[0].user._id !== authStore.loginUserInfo._id"
-          >{{ room.participants[0].user.name[languageStore.language] }}</span
+          v-if="room.participants[0].user?._id !== authStore.loginUserInfo._id"
+          >{{ room.participants[0].user?.name[languageStore.language] }}</span
         >
         <span v-else>{{
-          room.participants[1].user.name[languageStore.language]
+          room.participants[1].user?.name[languageStore.language]
         }}</span>
       </q-item-label>
       <q-item-label caption lines="2" v-if="room?.messages">

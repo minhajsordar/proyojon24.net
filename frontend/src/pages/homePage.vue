@@ -528,11 +528,10 @@
               </div>
               <div class="container-section-py-xs">
                 <div class="inner-section">
-                  <div class="full-width px-sm">
+                  <div class="full-width q-px-sm">
                     <div class="row q-col-gutter-md">
                       <div
-                        class="col-3 cursor-pointer"
-                        style="flex: 1"
+                        class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-6 cursor-pointer"
                         v-for="(
                           topProvider, index
                         ) in topSuggestedStore?.topSuggested"
@@ -549,7 +548,7 @@
                             v-if="topProvider.image"
                             width="55px"
                             height="55px"
-                            :src="topProvider.image"
+                            :src="web_root_url + topProvider.image"
                           />
                           <q-img
                             v-else

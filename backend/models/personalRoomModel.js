@@ -16,6 +16,6 @@ const personalRoomSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
-
+personalRoomSchema.index({ 'participants.user': 1 }, { unique: true });
 const PersonalRoom = mongoose.model('PersonalRoom', personalRoomSchema);
 export default PersonalRoom

@@ -119,8 +119,17 @@ const confirm = (data) => {
   });
 };
 const createRoomManager = (id) => {
-  for(let room of myRooms.value.rooms){
-    if(room.participants[0].user._id == id || room.participants[1].user._id == id){
+  if(authStore.loginUserInfo == null){
+    Notify.create({
+        position: "center",
+        type: "negative",
+        message: 'Please login first',
+      });
+      return
+  }
+
+  for(let room of roomStore.myRoomList.rooms){
+    if(room.participants[0]?.user?._id == id || room.participants[1]?.user?._id == id){
       router.push('direct_message/'+room._id)
       return
     }

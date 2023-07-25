@@ -454,10 +454,10 @@ const createRoomManager = (id) => {
       });
       return
   }
-  for (let room of myRooms.value.rooms) {
+  for (let room of roomStore.myRoomList.rooms) {
     if (
-      room.participants[0].user._id == id ||
-      room.participants[1].user._id == id
+      room.participants[0]?.user?._id == id ||
+      room.participants[1]?.user?._id == id
     ) {
       router.push("direct_message/" + room._id);
       return;
