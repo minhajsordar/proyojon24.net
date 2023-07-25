@@ -25,7 +25,7 @@
                     ref="bankAccountNameEl"
                     v-model="paymentStore.paymentInfo.bankAccountName"
                     outlined
-                    :options="['bKash', 'Dutch Bangla', 'Nagad']"
+                    :options="['bKash 01956853831 (personal)', 'Dutch Bangla', 'Nagad']"
                     dense
                     :rules="[required]"
                   />
