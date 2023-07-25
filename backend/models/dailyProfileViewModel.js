@@ -5,7 +5,6 @@ const dailyProfileViewSchema = new mongoose.Schema({
   date: {
     type: Date,
     required: true,
-    unique: true,
   },
   viewCount: {
     type: Number,

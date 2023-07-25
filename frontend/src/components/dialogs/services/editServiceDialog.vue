@@ -172,10 +172,8 @@ const coverImageEl = ref(null);
 const createServiceManager = () => {
   nameEnEl.value.validate();
   nameBnEl.value.validate();
-  iconEl.value.validate();
   if (
     nameEnEl.value.hasError ||
-    iconEl.value.hasError ||
     nameBnEl.value.hasError
   ) {
     return;

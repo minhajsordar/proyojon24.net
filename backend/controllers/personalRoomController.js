@@ -26,8 +26,9 @@ const getPersonalRooms = expressAsyncHandler(async (req, res) => {
 const createPersonalRoom = expressAsyncHandler(async (req, res) => {
     if (req.body.recipient) {
         // const roomExist = await PersonalRoom.find({})
+        console.log({ user: req.body.user }, { user: req.body.recipient })
         const personalRooms = new PersonalRoom({
-            participants: [{ user: req.user._id }, { user: req.body.recipient }]
+            participants: [{ user: req.body.user }, { user: req.body.recipient }]
         })
         const createdPersonalRoom = await personalRooms.save()
         res.status(201).json(createdPersonalRoom)

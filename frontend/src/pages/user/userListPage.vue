@@ -6,21 +6,36 @@
           <div>
             <div class="fs-18">{{ $t("headermenus.users") }}</div>
             <q-separator class="q-my-sm" />
-            <q-markup-table
-              flat
-              bordered
-              separator="cell"
-              class="text-left"
-            >
+            <q-markup-table flat bordered separator="cell" class="text-left">
               <thead class="bg-blue-grey-2">
                 <tr>
                   <th>{{ $t("serial") }}</th>
                   <th>{{ $t("name") }}</th>
-                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("registration_no") }}</th>
-                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("email") }}</th>
-                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("phone") }}</th>
-                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("joined_date") }}</th>
-                  <th v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">{{ $t("permission") }}</th>
+                  <th
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
+                    {{ $t("registration_no") }}
+                  </th>
+                  <th
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
+                    {{ $t("email") }}
+                  </th>
+                  <th
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
+                    {{ $t("phone") }}
+                  </th>
+                  <th
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
+                    {{ $t("joined_date") }}
+                  </th>
+                  <th
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
+                    {{ $t("permission") }}
+                  </th>
                   <th>{{ $t("action") }}</th>
                 </tr>
               </thead>
@@ -31,28 +46,45 @@
                   :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
                 >
                   <td>
-                    {{ enToBnToEn(String(index+1), languageStore.language) }}
+                    {{ enToBnToEn(String(index + 1), languageStore.language) }}
                   </td>
                   <td>
                     {{ user.name[languageStore.language] }}
-                  <!-- <span v-if="user.permission == 'superAdmin'">(Super Admin)</span>
+                    <!-- <span v-if="user.permission == 'superAdmin'">(Super Admin)</span>
                   <span v-else-if="user.permission == 'admin'">(Admin)</span>
                   <span v-else>({{ user.permission }})</span> -->
                   </td>
-                  <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
+                  <td
+                    style="width: 300px"
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
                     {{ user.registrationNo }}
                   </td>
-                  <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
+                  <td
+                    style="width: 300px"
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
                     {{ user.email }}
                   </td>
-                  <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
+                  <td
+                    style="width: 300px"
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
                     {{ user.phone }}
                   </td>
-                  <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
-                    {{ date.formatDate(user?.createdAt,'YYYY-MM-DD HH:mm:ss') }}
+                  <td
+                    style="width: 300px"
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
+                    {{
+                      date.formatDate(user?.createdAt, "YYYY-MM-DD HH:mm:ss")
+                    }}
                   </td>
-                  <td style="width: 300px;" v-if="authStore?.loginUserInfo?.permission == 'superAdmin'">
-                    <userPermission :user="user"/>
+                  <td
+                    style="width: 300px"
+                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                  >
+                    <userPermission :user="user" />
                   </td>
                   <td>
                     <q-btn
@@ -64,7 +96,9 @@
                       @click="createRoomManager(user._id)"
                     />
                     <q-btn
-                    v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+                      v-if="
+                        authStore?.loginUserInfo?.permission == 'superAdmin'
+                      "
                       class="q-ml-xs"
                       :label="$t('delete')"
                       size="sm"
@@ -93,12 +127,12 @@ import { useAuthStore } from "src/stores/auth/authStore";
 import { onMounted, ref } from "vue";
 import { enToBnToEn } from "src/global_js/utils";
 import { useRouter } from "vue-router";
-import  userPermission  from "src/components/profile/userPermission.vue";
+import userPermission from "src/components/profile/userPermission.vue";
 import { useLocalStorage } from "@vueuse/core";
 
- const myRooms = useLocalStorage('myrooms', {})
+const myRooms = useLocalStorage("myrooms", {});
 
-const roomStore = useRoomsStore()
+const roomStore = useRoomsStore();
 const router = useRouter();
 const authStore = useAuthStore();
 const $q = useQuasar();
@@ -107,7 +141,7 @@ const userStore = useUserStore();
 
 const { userList } = storeToRefs(userStore);
 const languageStore = useLanguageStore();
-const adminUserType = ref('self')
+const adminUserType = ref("self");
 const confirm = (data) => {
   $q.dialog({
     title: t("confirm"),
@@ -119,22 +153,26 @@ const confirm = (data) => {
   });
 };
 const createRoomManager = (id) => {
-  if(authStore.loginUserInfo == null){
+  if (authStore.loginUserInfo == null) {
     Notify.create({
-        position: "center",
-        type: "negative",
-        message: 'Please login first',
-      });
-      return
+      position: "center",
+      type: "negative",
+      message: "Please login first",
+    });
+    return;
   }
-
-  for(let room of roomStore.myRoomList.rooms){
-    if(room.participants[0]?.user?._id == id || room.participants[1]?.user?._id == id){
-      router.push('direct_message/'+room._id)
-      return
+  if (roomStore.myRoomList) {
+    for (let room of roomStore.myRoomList.rooms) {
+      if (
+        room.participants[0]?.user?._id == id ||
+        room.participants[1]?.user?._id == id
+      ) {
+        router.push("direct_message/" + room._id);
+        return;
+      }
     }
   }
-  roomStore.createRoom(id)
+  roomStore.createRoom(id);
 };
 onMounted(() => {
   authStore.checkLogin();

@@ -45,14 +45,15 @@ export const useRoomsStore = defineStore('rooms store', () => {
   }
   const createRoom = async (id) => {
     const data = {
-      recipient: id
+      user: authStore.loginUserInfo._id,
+      recipient: id,
     }
     const config = {
       method: "post",
       url: "api/room",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${loginUser.value.token}`
+        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
       }, data
     };

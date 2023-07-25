@@ -279,10 +279,10 @@ const suggestServiceProvider = expressAsyncHandler(async (req, res) => {
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
         if (req.user.permission == 'superAdmin') {
-            if (suggested) {
+            if (req.body.hasOwnProperty("suggested")) {
                 serviceProvider.suggested = suggested
             }
-            if (topSuggested) {
+            if (req.body.hasOwnProperty("topSuggested")) {
                 serviceProvider.topSuggested = topSuggested
             }
         }

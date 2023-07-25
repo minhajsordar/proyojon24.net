@@ -5,7 +5,6 @@ const dailyUserSchema = new mongoose.Schema({
     date: {
         type: Date,
         required: true,
-        unique: true,
     },
     userCount: {
         type: Number,
