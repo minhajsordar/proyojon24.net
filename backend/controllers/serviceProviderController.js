@@ -202,6 +202,15 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
     } = req.body
     const serviceProvider = await ServiceProvider.findById(req.params.id)
     if (serviceProvider) {
+        // update service count
+        const serviceById = await Service.findById(service)
+        serviceById.serviceProviderCount -= 1
+        await serviceById.save()
+        // update service category count
+        const serviceCategoryById = await ServiceCategory.findById(serviceCategory)
+        serviceCategoryById.serviceProviderCount -= 1
+        await serviceCategoryById.save()
+
         serviceProvider.dataUpdatedBy = req.user._id,
             serviceProvider.dataUpdatedHistory.push(req.user._id)
         serviceProvider.serviceCategory = serviceCategory
@@ -226,7 +235,19 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceProvider.keywords = keywords
         serviceProvider.approved = false
         serviceProvider.waitingForApproval = true
+
         const updatedServiceProvider = await serviceProvider.save()
+        if(updatedServiceProvider){
+            // update service count
+            const serviceById = await Service.findById(service)
+            serviceById.serviceProviderCount += 1
+            await serviceById.save()
+            // update service category count
+            const serviceCategoryById = await ServiceCategory.findById(serviceCategory)
+            serviceCategoryById.serviceProviderCount += 1
+            await serviceCategoryById.save()
+        }
+
         res.status(201).json(updatedServiceProvider)
     } else {
         res.status(404)
@@ -458,22 +479,22 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
     req.user.hasServiceProviderProfile = true
     await req.user.save()
 
-    
+
     // create registration payment 
     if (
-      bankAccountName !== '' &&
-      phoneNumber !== '' &&
-      transactionId !== '' &&
-      amount !== 0
+        bankAccountName !== '' &&
+        phoneNumber !== '' &&
+        transactionId !== '' &&
+        amount !== 0
     ) {
-      await Payment.create({
-        user: req.user._id,
-        bankAccountName,
-        phoneNumber,
-        transactionId,
-        amount,
-        paymentFor: "registration"
-      })
+        await Payment.create({
+            user: req.user._id,
+            bankAccountName,
+            phoneNumber,
+            transactionId,
+            amount,
+            paymentFor: "registration"
+        })
     }
 
     const serviceById = await Service.findById(service)
@@ -525,17 +546,17 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
     // register
     const userExists = await User.findOne({
         $or: [
-          { phone: phoneNumber1},
-          { email },
-          { username }
+            { phone: phoneNumber1 },
+            { email },
+            { username }
         ]
-    
-      })
-      if (userExists) {
+
+    })
+    if (userExists) {
         // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
         res.status(400)
         throw new Error('User already exists with this phone or username or email.')
-      }
+    }
     const user = await User.create({
         name,
         email,
@@ -561,7 +582,7 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
                 phoneNumber,
                 transactionId,
                 amount,
-                paymentFor : "registration"
+                paymentFor: "registration"
             })
         }
 

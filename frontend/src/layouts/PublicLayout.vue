@@ -2,8 +2,7 @@
   <q-layout class="background-pattern" view="hHh LpR fFf">
     <!-- !$q.screen.gt.sm -->
     <q-header
-      class="text-white"
-      :class="[$q.screen.gt.sm ? 'background-glass-white' : 'bg-accent']"
+      class="text-white background-glass-white"
       height-hint="61.59"
       bordered
     >

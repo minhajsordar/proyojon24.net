@@ -2,22 +2,53 @@
   <!-- TODO Later we will need this anal -->
   <div class="container-section-py-xs" v-if="!$q.screen.gt.sm">
     <div class="inner-section">
-      <div class="full-width">
-        <marquee-text
-          :duration="movingTextStore?.movingTextData?.speed || 60"
-          class="text-black q-mt-md"
-          :paused="isPaused"
-          @mouseenter="isPaused = !isPaused"
-          @mouseleave="isPaused = false"
-        >
-          {{ movingTextStore?.movingTextData?.announcement }}
-        </marquee-text>
+      <div class="full-width relative-position q-pa-sm bg-primary">
+        <q-card class="q-pa-xs">
+          <div class="flex justify-center">
+            <div
+              class="text-center text-bold flex border-pink-12"
+              style="width: 250px"
+            >
+              <div class="text-black fs-20">
+                Users -
+                {{
+                  $convertNumberIntoDecimal(
+                    dashboardStore.dashboardData?.totalUser
+                  )
+                }}
+              </div>
+              <q-space />
+              <div class="text-black fs-20">
+                Views -
+                {{
+                  $convertNumberIntoDecimal(
+                    dashboardStore.dashboardData?.totalView
+                  )
+                }}
+              </div>
+            </div>
+          </div>
+          <q-card class="">
+            <marquee-text
+              :duration="movingTextStore?.movingTextData?.speed || 60"
+              class="text-black fs-18"
+              :paused="isPaused"
+              @mouseenter="isPaused = !isPaused"
+              @mouseleave="isPaused = false"
+            >
+              {{ movingTextStore?.movingTextData?.announcement }}
+            </marquee-text>
+          </q-card>
+        </q-card>
       </div>
     </div>
   </div>
   <div class="container-section-py-xs" v-if="$q.screen.gt.sm">
     <div class="inner-section">
-      <div class="full-width relative-position border-primary border-radius-md" style="overflow: hidden">
+      <div
+        class="full-width relative-position border-primary border-radius-md"
+        style="overflow: hidden"
+      >
         <q-card class="bg-transparent q-pa-sm">
           <div class="row q-col-gutter-md">
             <div class="col-2"></div>
@@ -27,12 +58,24 @@
                   প্রয়ােজন পূরণ করুন যখন তখন
                 </div>
                 <div class="flex">
-                  <div class="text-white bg-lime-7 q-pa-sm text-bold border-lime-4 border-radius-sm dancing-button">ঘরে বসেই সব সেবা</div>
-                  <q-space/>
-                  <q-btn class="text-white bg-orange-7 border-orange-4 dancing-button" label="Sign Up" to="/register" flat/>
+                  <div
+                    class="text-white bg-lime-7 q-pa-sm text-bold border-lime-4 border-radius-sm dancing-button"
+                  >
+                    ঘরে বসেই সব সেবা
+                  </div>
+                  <q-space />
+                  <q-btn
+                    class="text-white bg-orange-7 border-orange-4 dancing-button"
+                    label="Sign Up"
+                    to="/register"
+                    flat
+                  />
                 </div>
                 <div class="flex justify-center q-mt-xs">
-                  <div class="text-center text-bold flex border-pink-12 bg-pink-4 q-px-sm q-py-xs" style="width: 250px">
+                  <div
+                    class="text-center text-bold flex border-pink-12 bg-pink-4 q-px-sm q-py-xs"
+                    style="width: 250px"
+                  >
                     <div class="text-whtie fs-20">
                       Users -
                       {{
@@ -41,7 +84,7 @@
                         )
                       }}
                     </div>
-                    <q-space/>
+                    <q-space />
                     <div class="text-white fs-20">
                       Views -
                       {{
@@ -78,7 +121,7 @@
           </div>
         </q-card>
         <div class="absolute-top-left" style="z-index: -1">
-          <bgSvgAnimatedBanner/>
+          <bgSvgAnimatedBanner />
         </div>
       </div>
     </div>
@@ -90,7 +133,7 @@
           <div style="width: 250px" v-if="$q.screen.gt.sm">
             <homepageSidebar />
           </div>
-          <div :class="[$q.screen.gt.sm? 'full-250': 'full-width']">
+          <div :class="[$q.screen.gt.sm ? 'full-250' : 'full-width']">
             <div
               v-if="
                 servicePublicStore.allServices &&
@@ -526,45 +569,66 @@
                   </div>
                 </div>
               </div>
+              <q-separator />
               <div class="container-section-py-xs">
                 <div class="inner-section">
-                  <div class="full-width q-px-sm">
-                    <div class="row q-col-gutter-md">
+                  <div class="full-width">
+                    <div class="row q-col-gutter-sm">
                       <div
-                        class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-6 cursor-pointer"
+                        class="col-lg-3 col-md-3 col-sm-2 col-3"
                         v-for="(
                           topProvider, index
                         ) in topSuggestedStore?.topSuggested"
                         :key="index"
-                        @click="
-                          $router.push('/service_provider/' + topProvider._id)
-                        "
                       >
-                        <q-card
-                          class="q-pa-sm fs-12 text-center border-primary"
-                          style="height: 100%"
+                        <div
+                          class="text-center cursor-pointer service-item"
+                          @click="
+                            $router.push('/service_provider/' + topProvider._id)
+                          "
                         >
-                          <q-img
-                            v-if="topProvider.image"
-                            width="55px"
-                            height="55px"
-                            :src="web_root_url + topProvider.image"
-                          />
-                          <q-img
-                            v-else
-                            height="55px"
-                            width="55px"
-                            src="/images/user-placeholder.jpg"
-                          />
-                          <div>
-                            {{
-                              topProvider.serviceTitle[languageStore.language]
-                            }}
+                          <!-- <q-badge class="provider-count-badge" color="orange">{{ service.serviceProviderCount }}</q-badge> -->
+                          <div class="icon-relative-cont">
+                            <!-- <q-img  src="/images/hexagonalshape.svg"
+                    style="width: 56px; height: 48px;"
+                    /> -->
+                            <q-img
+                              src="/images/roundedsquareshape.svg"
+                              class="shape"
+                            >
+                              <template v-slot:loading> </template>
+                            </q-img>
+                            <q-img
+                              class="absolute-top-center service-icon"
+                              v-if="topProvider.image"
+                              fit
+                              :src="web_root_url + topProvider.image"
+                            >
+                              <template v-slot:loading> </template>
+                            </q-img>
+                            <q-img
+                              v-else
+                              class="absolute-top-center service-icon"
+                              fit
+                              src="/images/placeholder_image.png"
+                            >
+                              <template v-slot:loading> </template>
+                            </q-img>
+                            <!-- <div
+                              class="absolute-top-center service-icon gradient-bg"
+                            ></div> -->
                           </div>
                           <div>
-                            {{ topProvider.name[languageStore.language] }}
+                            <div>
+                              {{
+                                topProvider.serviceTitle[languageStore.language]
+                              }}
+                            </div>
+                            <div>
+                              {{ topProvider.name[languageStore.language] }}
+                            </div>
                           </div>
-                        </q-card>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -875,7 +939,7 @@ useMeta(metaData);
     transform: translateX(-100%);
   }
 }
-.full-250{
-  width: calc(100% - 250px)
+.full-250 {
+  width: calc(100% - 250px);
 }
 </style>
