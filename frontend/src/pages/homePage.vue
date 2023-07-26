@@ -2,44 +2,18 @@
   <!-- TODO Later we will need this anal -->
   <div class="container-section-py-xs" v-if="!$q.screen.gt.sm">
     <div class="inner-section">
-      <div class="full-width relative-position q-pa-sm bg-primary">
-        <q-card class="q-pa-xs">
-          <div class="flex justify-center">
-            <div
-              class="text-center text-bold flex border-pink-12"
-              style="width: 250px"
-            >
-              <div class="text-black fs-20">
-                Users -
-                {{
-                  $convertNumberIntoDecimal(
-                    dashboardStore.dashboardData?.totalUser
-                  )
-                }}
-              </div>
-              <q-space />
-              <div class="text-black fs-20">
-                Views -
-                {{
-                  $convertNumberIntoDecimal(
-                    dashboardStore.dashboardData?.totalView
-                  )
-                }}
-              </div>
-            </div>
-          </div>
-          <q-card class="">
-            <marquee-text
-              :duration="movingTextStore?.movingTextData?.speed || 60"
-              class="text-black fs-18"
-              :paused="isPaused"
-              @mouseenter="isPaused = !isPaused"
-              @mouseleave="isPaused = false"
-            >
-              {{ movingTextStore?.movingTextData?.announcement }}
-            </marquee-text>
-          </q-card>
-        </q-card>
+      <div class="full-width relative-position q-px-sm">
+        <div class="q-pa-xs">
+          <marquee-text
+            :duration="movingTextStore?.movingTextData?.speed || 60"
+            class="text-black fs-18"
+            :paused="isPaused"
+            @mouseenter="isPaused = !isPaused"
+            @mouseleave="isPaused = false"
+          >
+            {{ movingTextStore?.movingTextData?.announcement }}
+          </marquee-text>
+        </div>
       </div>
     </div>
   </div>
@@ -644,6 +618,39 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="full-width relative-position q-pa-sm bg-primary"
+    v-if="!$q.screen.gt.sm"
+  >
+    <div class="q-pa-xs bg-primary">
+      <div class="row">
+        <div class="text-white fs-20 col-6 text-center">
+          <div>
+            <q-icon name="person" class="q-mb-xs"/>
+            {{
+            $convertNumberIntoDecimal(dashboardStore.dashboardData?.totalUser)
+          }}</div>
+          Users
+        </div>
+        <div class="text-white fs-20 col-6 text-center">
+          <div>
+            <q-icon name="visibility" class="q-mb-xs"/>
+            {{
+            $convertNumberIntoDecimal(dashboardStore.dashboardData?.totalView)
+          }}</div>
+          Views
+
+        </div>
+        <!-- <div
+          class="text-center text-bold flex border-pink-12"
+          style="width: 350px"
+        >
+          <q-space />
+        </div> -->
       </div>
     </div>
   </div>
