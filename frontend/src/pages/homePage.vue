@@ -646,7 +646,7 @@
                 </div>
               </div>
               <div
-                class="container-section-py-xs"
+                class="container-section-py-sm"
                 v-if="
                   ourBusinessPartners.ourBusinessPartnersData
                     ?.ourBusinessPartners
