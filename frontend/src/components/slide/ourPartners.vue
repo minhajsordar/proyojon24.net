@@ -22,7 +22,7 @@
         :name="index"
       >
         <div class="q-pb-lg q-pt-xs">
-          <div>
+          <div class="flex justify-center">
           <img :src="web_root_url + partner.image" />
         </div>
         <div class="fs-14">{{ partner.name }}</div>
