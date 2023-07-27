@@ -52,6 +52,8 @@ export default {
   addnew: 'নতুন যুক্ত করুন',
   addicon: 'আইকন যুক্ত করুন',
   icon: 'আইকন',
+  image: 'ছবি',
+  subtitle: 'সাবটাইটেল',
   addProfileImage: 'প্রোফাইল ছবি',
   coverimage: 'কভার ছবি',
   addcoverimage: 'কভার ছবি যুক্ত করুন',
@@ -108,6 +110,10 @@ export default {
   view: 'ভিউ',
   details: 'বিস্তারিত',
   premium_account_periods: 'প্রিমিয়াম অ্যাকাউন্টের মেয়াদ',
+  our_partners: 'আমাদের সহযোগী',
+  partners: {
+    partners_list: 'আমাদের সহযোগী তালিকা'
+  },
   notification: {
     add: 'নতুন নটিফিকেশন যুক্ত করুন',
     edit: 'নটিফিকেশন পরিবর্তন করুন',

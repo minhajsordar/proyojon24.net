@@ -14,6 +14,8 @@
       :navigation="true"
       :modules="modules"
       class="mySwiper"
+      v-if="publicSliderStore?.sliderData"
+
     >
       <swiper-slide
         v-for="(sliderImage, index) in publicSliderStore?.sliderData[slide]"
@@ -28,18 +30,18 @@
 
 <script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Autoplay, Pagination, Navigation } from 'swiper';
+import { Autoplay, Pagination, Navigation } from "swiper";
 import "swiper/css";
 
 import "swiper/css/pagination";
-import "./style.css"
+import "./style.css";
 import { ref } from "vue";
 import { web_root_url } from "src/global_constant/root_url";
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
-const modules= [Autoplay, Pagination, Navigation]
+const modules = [Autoplay, Pagination, Navigation];
 defineProps({
   slide: {
-    type: String,
+    type: String,default: null
   },
 });
 const publicSliderStore = usePublicSliderStore();
@@ -51,5 +53,4 @@ const autoplay = ref(true);
   font-size: 6px !important;
   padding: 1px;
 }
-
 </style>

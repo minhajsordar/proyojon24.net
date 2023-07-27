@@ -40,6 +40,7 @@
     <editNotificatinoDialog />
      <!-- delete user profile -->
     <deleteUserDialog />
+    <userMobileMenusRight/>
   </div>
 </template>
 <script setup>
@@ -77,4 +78,5 @@ import createNotificationDialog from "src/components/dialogs/notification/create
 import editNotificatinoDialog from "src/components/dialogs/notification/editNotificatinoDialog.vue";
 // delete user profile
 import deleteUserDialog from "src/components/dialogs/user/deleteUserDialog.vue";
+import userMobileMenusRight from "src/components/headers/mobileView/userMobileMenusRight.vue";
 </script>

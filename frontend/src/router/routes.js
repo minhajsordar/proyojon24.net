@@ -25,14 +25,6 @@ const routes = [
     path: '/', component: () => import('pages/startingPage.vue'),
   },
   {
-    path: '/direct_message', component: () => import('pages/message/messengerPage.vue'),
-    beforeEnter: checkLogin,
-  },
-  {
-    path: '/direct_message/:id', component: () => import('pages/message/messengerPage.vue'),
-    beforeEnter: checkLogin,
-  },
-  {
     path: '/',
     component: () => import('layouts/PublicLayout.vue'),
     children: [
@@ -57,6 +49,14 @@ const routes = [
       //   path: '/direct_message/:id', component: () => import('pages/message/messengerPage.vue'),
       //   beforeEnter: checkLogin,
       // },
+      {
+        path: '/direct_message', component: () => import('pages/message/messengerPage.vue'),
+        beforeEnter: checkLogin,
+      },
+      {
+        path: '/direct_message/:id', component: () => import('pages/message/messengerPage.vue'),
+        beforeEnter: checkLogin,
+      },
       {
         path: '/service_provider_preview/:id', component: () => import('pages/user/userServiceProviderPreview.vue'),
         beforeEnter: checkLogin,
@@ -123,6 +123,10 @@ const routes = [
       },
       {
         path: '/pending_nid_verification', component: () => import('pages/dashboard/nidVerificationPendingList.vue'),
+        beforeEnter: checkLogin,
+      },
+      {
+        path: '/our_partners', component: () => import('pages/dashboard/maintainOurPartnersPage.vue'),
         beforeEnter: checkLogin,
       }
     ]

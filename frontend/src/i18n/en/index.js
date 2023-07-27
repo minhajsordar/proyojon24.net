@@ -53,6 +53,8 @@ export default {
   addicon: 'Add icon',
   addProfileImage: 'Profile Image',
   icon: 'Icon',
+  image: 'Image',
+  subtitle: 'Sub Title',
   coverimage: 'Cover image',
   addcoverimage: 'Add cover image',
   serial: 'Serial no',
@@ -108,6 +110,10 @@ export default {
   view: 'View',
   details: 'Details',
   premium_account_periods: 'Premium account periods',
+  our_partners: 'Our Partners',
+  partners: {
+    partners_list: 'List of our partners'
+  },
   notification: {
     add: 'Add new notification',
     edit: 'Edit notification',

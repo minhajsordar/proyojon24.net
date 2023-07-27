@@ -18,7 +18,7 @@
     >
       <dashboardSidebar />
     </q-drawer>
-    <q-page-container class="q-page-cont">
+    <q-page-container :class="{'q-page-cont':($route.path.split('/')[1] !== 'direct_message')}">
       <div
         class="relative-position"
         v-if="
@@ -61,7 +61,7 @@
             : 'footer-left-bare-close',
         ]"
       >
-        <footerSection/>
+        <footerSection />
         <div class="bottom-fx"></div>
       </div>
     </q-page-container>
@@ -70,7 +70,7 @@
     <otpInputDialog />
     <q-footer
       class="bg-transparent q-py-sm flex justify-around footer-c"
-      v-if="!$q.screen.gt.sm"
+      v-if="!$q.screen.gt.sm && ($route.path.split('/')[1] !== 'direct_message')"
     >
       <div class="footer-buttons">
         <q-btn
@@ -155,7 +155,7 @@
           {{ $t("bottom_menus.profile") }}
         </div>
       </div>
-      <div class="footer-buttons">
+      <!-- <div class="footer-buttons">
         <q-btn
           icon="menu"
           round
@@ -171,6 +171,33 @@
                 menuControllerStore.toggleDashboardDrawer();
               } else {
                 menuControllerStore.headerMenuMobileScreen = true;
+              }
+            }
+          "
+        />
+        <div
+          class="fs-10 footer-button-text"
+          style="position: absolute; width: 150px"
+        >
+          {{ $t("bottom_menus.menu") }}
+        </div>
+      </div> -->
+      <div class="footer-buttons">
+        <q-btn
+          icon="menu_open"
+          round
+          dense
+          flat
+          size="md"
+          color="white"
+          class="q-mr-sm"
+          no-caps
+          @click="
+            () => {
+              if (authStore.loginUserInfo) {
+                menuControllerStore.userMobileMenusRightOpen = true;
+              }else{
+                $router.push('/login')
               }
             }
           "
@@ -207,7 +234,7 @@ import publicLayoutAllDialogs from "src/components/dialogs/publicLayoutAllDialog
 import profileLayoutAllDialogs from "src/components/dialogs/profileLayoutAllDialogs.vue";
 import otpInputDialog from "src/components/dialogs/otpInput/otpInputDialog.vue";
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { usePinlocationStore } from "src/stores/locations/pinlocationStore";
 import { useSearchLocationStore } from "src/stores/service/searchLocation";
 import { useMenuControllerStore } from "src/stores/menucontroller/menuControllerStore";
@@ -380,8 +407,8 @@ onMounted(() => {
     background-position: 200% 0;
   }
 }
-.background-glass-white{
+.background-glass-white {
   backdrop-filter: blur(5px);
-    background-color: rgba(254,254,254,0.9) !important;
+  background-color: rgba(254, 254, 254, 0.9) !important;
 }
 </style>

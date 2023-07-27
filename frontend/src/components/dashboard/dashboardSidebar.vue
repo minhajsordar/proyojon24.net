@@ -104,6 +104,20 @@
       clickable
       v-ripple
       v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
+      to="/our_partners"
+    >
+      <q-item-section avatar>
+        <q-icon name="handshake" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("our_partners") }}</q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
+      v-if="authStore?.loginUserInfo?.permission == 'superAdmin'"
       to="/moving_text"
     >
       <q-item-section avatar>

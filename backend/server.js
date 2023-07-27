@@ -19,6 +19,7 @@ import personalMessageRoutes from './routes/personalMessageRoutes.js'
 import pinLocationRoutes from './routes/pinLocationRoutes.js'
 import uploadRouter from './routes/uploadRoutes.js'
 import dashboardSummaryRouter from './routes/dashboardSummaryRoute.js'
+import ourBusinessPartnersRouter from './routes/ourBusinessPartnersRoutes.js'
 import sliderRouter from './routes/sliderRoutes.js'
 import paymentRoutes from './routes/paymentRoutes.js'
 import registrationFeeRoutes from './routes/registrationFeeRoutes.js'
@@ -114,6 +115,7 @@ app.use('/api/room', personalRoomRoutes)
 app.use('/api/message', personalMessageRoutes)
 app.use('/api/pinlocations', pinLocationRoutes)
 app.use('/api/dashboard', dashboardSummaryRouter)
+app.use('/api/our_business_partners', ourBusinessPartnersRouter)
 app.use('/api/sliders', sliderRouter)
 app.use('/api/payments', paymentRoutes)
 app.use('/api/movingtext', movingTextRouter)

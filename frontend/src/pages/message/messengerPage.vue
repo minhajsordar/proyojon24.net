@@ -1,8 +1,8 @@
 <template>
-  <q-layout view="lHh Lpr lFf" container style="height: 100vh" class="shadow-2">
-    <q-header elevated  :class="[$q.screen.gt.sm?'bg-accent-public':'bg-red-8']">
+  <q-layout view="lHh Lpr lFf" container  class="shadow-2 message-layout-height">
+    <q-header elevated class="bg-accent-public">
       <q-toolbar>
-        <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+        <q-btn @click="drawer = !drawer" round dense icon="supervisor_account" />
         <q-toolbar-title>{{ messageStore.selectedRoomUser2 ? messageStore.selectedRoomUser2?.user?.name[languageStore.language] : 'Select user.' }}</q-toolbar-title>
         <q-btn flat dense
         @click="$router.push('/users')"
@@ -88,5 +88,8 @@ socket.on("new_message",(args)=>{
 <style lang="scss" scoped>
 .menu-list .q-item {
   border-radius: 0 32px 32px 0;
+}
+.message-layout-height{
+  height: calc(100vh - 63px);
 }
 </style>

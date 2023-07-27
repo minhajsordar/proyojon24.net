@@ -543,7 +543,6 @@
                   </div>
                 </div>
               </div>
-              <q-separator />
               <div class="container-section-py-xs">
                 <div class="inner-section">
                   <div class="full-width">
@@ -608,6 +607,60 @@
                   </div>
                 </div>
               </div>
+
+              <div
+                class="full-width relative-position q-pa-sm bg-primary"
+                v-if="!$q.screen.gt.sm"
+              >
+                <div class="q-pa-xs bg-primary">
+                  <div class="row">
+                    <div class="text-white fs-20 col-6 text-center">
+                      <div>
+                        <q-icon name="person" class="q-mb-xs" />
+                        {{
+                          $convertNumberIntoDecimal(
+                            dashboardStore.dashboardData?.totalUser
+                          )
+                        }}
+                      </div>
+                      Users
+                    </div>
+                    <div class="text-white fs-20 col-6 text-center">
+                      <div>
+                        <q-icon name="visibility" class="q-mb-xs" />
+                        {{
+                          $convertNumberIntoDecimal(
+                            dashboardStore.dashboardData?.totalView
+                          )
+                        }}
+                      </div>
+                      Views
+                    </div>
+                    <!-- <div
+          class="text-center text-bold flex border-pink-12"
+          style="width: 350px"
+        >
+          <q-space />
+        </div> -->
+                  </div>
+                </div>
+              </div>
+              <div
+                class="container-section-py-xs"
+                v-if="
+                  ourBusinessPartners.ourBusinessPartnersData
+                    ?.ourBusinessPartners
+                "
+              >
+                <div class="inner-section">
+                  <div class="full-width">
+                    <div class="fs-22 text-bold text-center q-pb-sm">
+                      Our Partners
+                    </div>
+                    <ourPartners />
+                  </div>
+                </div>
+              </div>
             </div>
             <div v-else class="container-section-py-sm">
               <div class="inner-section">
@@ -618,39 +671,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="full-width relative-position q-pa-sm bg-primary"
-    v-if="!$q.screen.gt.sm"
-  >
-    <div class="q-pa-xs bg-primary">
-      <div class="row">
-        <div class="text-white fs-20 col-6 text-center">
-          <div>
-            <q-icon name="person" class="q-mb-xs"/>
-            {{
-            $convertNumberIntoDecimal(dashboardStore.dashboardData?.totalUser)
-          }}</div>
-          Users
-        </div>
-        <div class="text-white fs-20 col-6 text-center">
-          <div>
-            <q-icon name="visibility" class="q-mb-xs"/>
-            {{
-            $convertNumberIntoDecimal(dashboardStore.dashboardData?.totalView)
-          }}</div>
-          Views
-
-        </div>
-        <!-- <div
-          class="text-center text-bold flex border-pink-12"
-          style="width: 350px"
-        >
-          <q-space />
-        </div> -->
       </div>
     </div>
   </div>
@@ -676,6 +696,13 @@ import { usePublicSliderStore } from "src/stores/slider/sliderGet";
 import { useMovingTextStore } from "src/stores/movingtext/movingtextGet.js";
 import homepageSidebar from "src/components/sidebar/homepageSidebar.vue";
 import bgSvgAnimatedBanner from "src/components/banner/bgSvgAnimatedBanner.vue";
+import ourPartners from "src/components/slide/ourPartners.vue";
+
+import { useOurBusinessPartnersStore } from "src/stores/dashboard/ourBusinessPartnersStore";
+const ourBusinessPartners = useOurBusinessPartnersStore();
+ourBusinessPartners.getourBusinessPartnersList();
+ourBusinessPartners.ourBusinessPartnersData?.ourBusinessPartners;
+
 const isPaused = ref(false);
 const publicSliderStore = usePublicSliderStore();
 publicSliderStore.getSliderData();

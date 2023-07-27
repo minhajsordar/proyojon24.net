@@ -1,8 +1,36 @@
 <template>
-  <q-toolbar class="q-py-none q-px-md">
+  <q-toolbar class="q-py-none q-px-md relative-position">
+    <q-icon
+    class="fs-26"
+    v-if="!$q.screen.gt.sm"
+      :class="[$q.screen.gt.sm ? '' : 'left-menus']"
+      name="menu"
+      color="accent"
+      @click="
+        () => {
+          if (authStore.loginUserInfo?.permission == 'superAdmin') {
+            menuControllerStore.toggleDashboardDrawer();
+          } else {
+            menuControllerStore.headerMenuMobileScreen = true;
+          }
+        }
+      "
+    />
+    <q-space v-if="!$q.screen.gt.sm" />
+
     <q-item>
       <q-item-section side>
-        <div class="fs-24 text-bold cursor-pointer proyojon24-text" @click="$router.push('/home')">Proyojon24</div>
+        <div class="flex items-center" @click="$router.push('/home')">
+          <img src="/images/logo.png" style="width: 35px; height: 32px" />
+          <div class="q-ml-xs">
+            <div class="fs-24 text-bold cursor-pointer proyojon24-text">
+              Proyojon24
+            </div>
+            <div class="fs-11 text-center full-width" style="margin-top: -7px">
+              Search your needs
+            </div>
+          </div>
+        </div>
       </q-item-section>
     </q-item>
 
@@ -20,16 +48,22 @@
       <router-link to="/profile" exact-active-class="text-primary">{{
         $t("headermenus.service_profile")
       }}</router-link>
-      <router-link to="/register" exact-active-class="text-primary" v-if="!authStore.loginUserInfo">
-        <q-icon class="fs-18 q-mb-xs" name="person_add"/>
-        {{
-        $t("headermenus.register")
-      }}</router-link>
-      <router-link to="/login" exact-active-class="text-primary" v-if="!authStore.loginUserInfo">
-        <q-icon class="fs-18 q-mb-xs" name="person"/>
-        {{
-        $t("headermenus.login")
-      }}</router-link>
+      <router-link
+        to="/register"
+        exact-active-class="text-primary"
+        v-if="!authStore.loginUserInfo"
+      >
+        <q-icon class="fs-18 q-mb-xs" name="person_add" />
+        {{ $t("headermenus.register") }}</router-link
+      >
+      <router-link
+        to="/login"
+        exact-active-class="text-primary"
+        v-if="!authStore.loginUserInfo"
+      >
+        <q-icon class="fs-18 q-mb-xs" name="person" />
+        {{ $t("headermenus.login") }}</router-link
+      >
       <!-- <router-link
         v-if="authStore?.loginUserInfo && authStore?.loginUserInfo?.permission"
         to="/users"
@@ -45,8 +79,11 @@
       >
     </div>
 
-    <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
-      <q-btn v-if="authStore.loginUserInfo" dense flat no-wrap>
+    <div
+      class="q-pl-sm q-gutter-sm row items-center no-wrap"
+      :class="[$q.screen.gt.sm ? '' : 'right-menus']"
+    >
+      <q-btn v-if="authStore.loginUserInfo && $q.screen.gt.sm" dense flat no-wrap>
         <q-avatar rounded size="20px">
           <img src="/images/user-placeholder.jpg" />
         </q-avatar>
@@ -123,8 +160,22 @@
           </q-list>
         </q-menu>
       </q-btn>
-      <q-btn label="বাংলা" size="md" color="grey-8" @click="languageStore.switchToBn" v-if="languageStore.language == 'en'" />
-      <q-btn label="English" size="md" color="grey-8" @click="languageStore.switchToEn" v-else />
+      <q-btn
+        label="বাংলা"
+        :size="$q.screen.gt.sm ? 'md' : 'sm'"
+        :dense="!$q.screen.gt.sm"
+        color="grey-8"
+        @click="languageStore.switchToBn"
+        v-if="languageStore.language == 'en'"
+      />
+      <q-btn
+        label="English"
+        :size="$q.screen.gt.sm ? 'md' : 'sm'"
+        :dense="!$q.screen.gt.sm"
+        color="grey-8"
+        @click="languageStore.switchToEn"
+        v-else
+      />
     </div>
     <publicMobileMenus />
   </q-toolbar>
@@ -185,7 +236,7 @@ const profileClickManager = () => {
   -moz-background-clip: text !important
   color: transparent
   background: rgb(255,0,46)
-  background: linear-gradient(0deg, rgba(255,197,41,1) 0%, rgba(166,87,0,1) 100%)
+  background: linear-gradient(64deg, #06a651 0%, #ed1c25 100%)
 .GL
   &__select-GL__menu-link
     .default-type
@@ -221,4 +272,10 @@ const profileClickManager = () => {
       display: none
 .dashboard-data
   width: 12px
+.right-menus
+  right: 5px
+  position: absolute
+.left-menus
+  left: 10px
+  position: absolute
 </style>
