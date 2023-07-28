@@ -80,6 +80,13 @@
             </q-item>
             <q-item
               clickable
+              class="GL__menu-link"
+              @click="$router.push('/my_earnings')"
+            >
+              <q-item-section>{{ $t("usermenus.my_earnings") }}</q-item-section>
+            </q-item>
+            <q-item
+              clickable
               class=""
               @click="$router.push('/premium_account_and_transactions')"
             >

@@ -128,7 +128,11 @@ const routes = [
       {
         path: '/our_partners', component: () => import('pages/dashboard/maintainOurPartnersPage.vue'),
         beforeEnter: checkLogin,
-      }
+      },
+      {
+        path: '/my_earnings', component: () => import('pages/user/myEarningsPage.vue'),
+        beforeEnter: checkLogin,
+      },
     ]
   },
 

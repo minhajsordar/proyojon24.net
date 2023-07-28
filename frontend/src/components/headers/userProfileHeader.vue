@@ -150,6 +150,13 @@
             <q-item
               clickable
               class="GL__menu-link"
+              @click="router.push('/my_earnings')"
+            >
+              <q-item-section>{{ $t("usermenus.my_earnings") }}</q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              class="GL__menu-link"
               @click="router.push('/settings')"
             >
               <q-item-section>{{ $t("usermenus.settings") }}</q-item-section>

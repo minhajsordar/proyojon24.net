@@ -9,9 +9,9 @@
         disableOnInteraction: false,
       }"
       :pagination="{
-        clickable: true,
+        clickable: false,
       }"
-      :navigation="true"
+      :navigation="false"
       :modules="modules"
       class="mySwiper"
     >
@@ -43,7 +43,7 @@ import "./style.css";
 import { ref } from "vue";
 import { web_root_url } from "src/global_constant/root_url";
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
-const modules = [Autoplay, Pagination, Navigation];
+const modules = [Autoplay];
 
 import { useOurBusinessPartnersStore } from "src/stores/dashboard/ourBusinessPartnersStore";
 const ourBusinessPartners = useOurBusinessPartnersStore()

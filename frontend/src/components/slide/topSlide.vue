@@ -9,9 +9,9 @@
         disableOnInteraction: false,
       }"
       :pagination="{
-        clickable: true,
+        clickable: false,
       }"
-      :navigation="true"
+      :navigation="false"
       :modules="modules"
       class="mySwiper"
       v-if="publicSliderStore?.sliderData"
@@ -38,7 +38,7 @@ import "./style.css";
 import { ref } from "vue";
 import { web_root_url } from "src/global_constant/root_url";
 import { usePublicSliderStore } from "src/stores/slider/sliderGet";
-const modules = [Autoplay, Pagination, Navigation];
+const modules = [Autoplay];
 defineProps({
   slide: {
     type: String,default: null
