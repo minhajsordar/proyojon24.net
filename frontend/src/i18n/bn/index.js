@@ -127,6 +127,7 @@ export default {
     premium: 'প্রিমিয়াম অ্যাকাউন্ট',
     settings: 'পরিমার্জন',
     signout: 'বাহির',
+    my_earnings: 'আমার উপার্জন',
   },
   bottom_menus: {
     home: "হোম",

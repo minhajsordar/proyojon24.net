@@ -22,6 +22,9 @@ export const useDataAnalysisStore = defineStore('data analysis store', () => {
     CustomLoading('get-dashboard-data-analysis').showLoading()
     try {
       const responseData = await api.request(config);
+      responseData.data.dailyProfileView.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      responseData.data.monthlyUsers.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      responseData.data.dailyUsers.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
       dataAnalysisGraph.value = responseData.data
       CustomLoading('get-dashboard-data-analysis').hideLoading()
     } catch (error) {

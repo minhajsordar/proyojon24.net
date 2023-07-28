@@ -127,6 +127,7 @@ export default {
     premium: 'Premium Account',
     settings: 'Settings',
     signout: 'Sign out',
+    my_earnings: 'My Earnings',
   },
   bottom_menus: {
     home: "Home",
