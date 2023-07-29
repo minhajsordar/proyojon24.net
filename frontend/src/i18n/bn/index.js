@@ -111,6 +111,7 @@ export default {
   details: 'বিস্তারিত',
   premium_account_periods: 'প্রিমিয়াম অ্যাকাউন্টের মেয়াদ',
   our_partners: 'আমাদের সহযোগী',
+  experience: 'অভিজ্ঞতা',
   partners: {
     partners_list: 'আমাদের সহযোগী তালিকা'
   },

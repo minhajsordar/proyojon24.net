@@ -65,7 +65,7 @@ const getPublicServiceProviders = expressAsyncHandler(async (req, res) => {
     }
     keywords.approved = true
     const count = await ServiceProvider.countDocuments({ ...keywords })
-    const serviceProviders = await ServiceProvider.find({ ...keywords }).limit(pageSize).skip(pageSize * (page - 1)).populate({ path: 'user', select: 'registrationNo createdAt' })
+    const serviceProviders = await ServiceProvider.find({ ...keywords }).limit(pageSize).skip(pageSize * (page - 1)).populate({ path: 'user', select: 'registrationNo createdAt isAvailable nidVerified' })
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.status(200).json({ serviceProviders, page, pages: Math.ceil(count / pageSize) })
 })

@@ -22,6 +22,12 @@
                   serviceProvider.serviceTitle[languageStore.language]
                 }}</span>
               </div>
+              <div class="text-bold">
+                {{ $t('experience')}}
+                <span>{{
+                  serviceProvider.experience
+                }}</span>
+              </div>
             </div>
             <div class="col-6">
               <div class="flex justify-end text-bold fs-12" v-if="!register">

@@ -111,6 +111,7 @@ export default {
   details: 'Details',
   premium_account_periods: 'Premium account periods',
   our_partners: 'Our Partners',
+  experience: 'Experience',
   partners: {
     partners_list: 'List of our partners'
   },
