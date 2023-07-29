@@ -22,7 +22,7 @@
                   serviceProvider.serviceTitle[languageStore.language]
                 }}</span>
               </div>
-              <div class="text-bold">
+              <div class="text-bold fs-12">
                 {{ $t('experience')}}
                 <span>{{
                   serviceProvider.experience
@@ -31,23 +31,26 @@
             </div>
             <div class="col-6">
               <div class="flex justify-end text-bold fs-12" v-if="!register">
-                <div
-                  v-if="serviceProvider.user?.isAvailable"
-                  class="text-green"
-                >
-                  {{ $t("available") }}
-                </div>
-                <div v-else class="text-red">{{ $t("not_available") }}</div>
-                <div
-                  v-if="serviceProvider.user?.nidVerified"
-                  class="text-green"
-                >
-                  <q-icon style="margin-bottom: 3px" name="badge" />
-                  {{ $t("nid_verified") }}
-                </div>
-                <div v-else class="text-red">
-                  <q-icon style="margin-bottom: 3px" name="badge" />
-                  {{ $t("nid_not_verified") }}
+                <div class="text-right">
+
+                  <div
+                    v-if="serviceProvider.user?.isAvailable"
+                    class="text-green"
+                  >
+                    {{ $t("available") }}
+                  </div>
+                  <div v-else class="text-red">{{ $t("not_available") }}</div>
+                  <div
+                    v-if="serviceProvider.user?.nidVerified"
+                    class="text-green"
+                  >
+                    <q-icon style="margin-bottom: 3px" name="badge" />
+                    {{ $t("nid_verified") }}
+                  </div>
+                  <div v-else class="text-red">
+                    <q-icon style="margin-bottom: 3px" name="badge" />
+                    {{ $t("nid_not_verified") }}
+                  </div>
                 </div>
               </div>
             </div>
