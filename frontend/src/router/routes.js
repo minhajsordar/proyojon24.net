@@ -133,6 +133,10 @@ const routes = [
         path: '/my_earnings', component: () => import('pages/user/myEarningsPage.vue'),
         beforeEnter: checkLogin,
       },
+      {
+        path: '/my_payment_methodes', component: () => import('pages/user/myPaymentMethodePage.vue'),
+        beforeEnter: checkLogin,
+      },
     ]
   },
 

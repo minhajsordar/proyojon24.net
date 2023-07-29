@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-const myPaymentMethodeSchema = new mongoose.Schema({
+const WithdrawalMethodeSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -23,9 +23,19 @@ const myPaymentMethodeSchema = new mongoose.Schema({
     required: true,
     default: false
   },
+  pendingForVerification: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  pendingForRemove: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
 }, {
   timestamps: true
 });
 
-const MyPaymentMethode = mongoose.model('MyPaymentMethode', myPaymentMethodeSchema);
-export default MyPaymentMethode
+const WithdrawalMethode = mongoose.model('WithdrawalMethode', WithdrawalMethodeSchema);
+export default WithdrawalMethode

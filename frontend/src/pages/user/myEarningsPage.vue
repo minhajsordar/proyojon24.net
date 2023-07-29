@@ -17,7 +17,7 @@
                     <q-btn label="withdraw" color="grey-8"/>
                   </div>
                   <div class="q-mt-sm">
-                    <router-link to="#">Manage Payment Methode</router-link>
+                    <router-link to="/my_payment_methodes">Manage Payment Methode</router-link>
                   </div>
                 </div>
               </q-card-section>
@@ -90,7 +90,6 @@
     </div>
   </div>
 </template>
-<script>
-export default {};
+<script setup>
 </script>
 <style lang=""></style>

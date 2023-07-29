@@ -1,23 +1,23 @@
 import expressAsyncHandler from "express-async-handler";
 import User from '../models/userModel.js'
-import MonthlyFee from '../models/monthlyFeeModel.js'
+import MyEarning from '../models/myEarningModel.js'
 
-const createMonthlyFee = expressAsyncHandler(async (req, res) => {
+const createMyEarning = expressAsyncHandler(async (req, res) => {
   const {
     employeeCount,
     amount
   } = req.body
 
-  const monthlyFee = await MonthlyFee.create({
+  const myEarning = await MyEarning.create({
     user: req.user._id,
     updatedBy: req.user._id,
     employeeCount,
     amount
   })
 
-  if (monthlyFee) {
+  if (myEarning) {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(201).json(monthlyFee)
+    res.status(201).json(myEarning)
   } else {
     res.status(400)
     throw new Error('Couldnot Create Monthly Fee Data')
@@ -27,30 +27,30 @@ const createMonthlyFee = expressAsyncHandler(async (req, res) => {
 // @desc Get all users
 // @route GET api/users
 // @acess Privet
-const getMonthlyFeeList = expressAsyncHandler(async (req, res) => {
+const getMyEarningList = expressAsyncHandler(async (req, res) => {
   const pageSize = Number(req.query.pageSize) || 30;
   const page = Number(req.query.pageNumber) || 1;
-  const count = await MonthlyFee.countDocuments({})
-  const monthlyFees = await MonthlyFee.find({ }).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1))
-  res.json({ monthlyFees, page, pages: Math.ceil(count / pageSize) })
+  const count = await MyEarning.countDocuments({})
+  const myEarnings = await MyEarning.find({ }).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1))
+  res.json({ myEarnings, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc Get all users
 // @route GET api/users
 // @acess Privet
-const updateMonthlyFee = expressAsyncHandler(async (req, res) => {
+const updateMyEarning = expressAsyncHandler(async (req, res) => {
   const {
     employeeCount,
     amount
   } = req.body
 
-const monthlyFee = await MonthlyFee.findById(req.params.id)
-  if (monthlyFee) {
-    monthlyFee.amount = amount
-    monthlyFee.employeeCount = employeeCount
-    monthlyFee.employeeCount = employeeCount
+const myEarning = await MyEarning.findById(req.params.id)
+  if (myEarning) {
+    myEarning.amount = amount
+    myEarning.employeeCount = employeeCount
+    myEarning.employeeCount = employeeCount
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(201).json(monthlyFee)
+    res.status(201).json(myEarning)
   } else {
     res.status(400)
     throw new Error('Monthly Fee Data Not Found')
@@ -60,11 +60,11 @@ const monthlyFee = await MonthlyFee.findById(req.params.id)
 // @desc Delete user
 // @route PUT api/users/:id
 // @acess Privet/Admin
-const deleteMonthlyFee = expressAsyncHandler(async (req, res) => {
-  const monthlyFee = await MonthlyFee.findById(req.params.id)
-  if (monthlyFee) {
-    await monthlyFee.deleteOne()
-    res.json({ message: 'monthlyFee removed' })
+const deleteMyEarning = expressAsyncHandler(async (req, res) => {
+  const myEarning = await MyEarning.findById(req.params.id)
+  if (myEarning) {
+    await myEarning.deleteOne()
+    res.json({ message: 'myEarning removed' })
   } else {
     res.status(404)
     throw new Error('Monthly Fee not found or you cannot delete approved payment data')
@@ -72,8 +72,8 @@ const deleteMonthlyFee = expressAsyncHandler(async (req, res) => {
 })
 
 export {
-  createMonthlyFee,
-  getMonthlyFeeList,
-  updateMonthlyFee,
-  deleteMonthlyFee,
+  createMyEarning,
+  getMyEarningList,
+  updateMyEarning,
+  deleteMyEarning,
 }
