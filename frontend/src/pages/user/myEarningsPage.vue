@@ -12,12 +12,11 @@
                   <div class="text-h3 text-bold">
                     {{ $convertNumberIntoDecimal(100) }}
                   </div>
-                  <q-separator class="q-my-md" />
-                  <div>
+                  <div class="q-mt-md">
                     <q-btn label="withdraw" color="grey-8"/>
                   </div>
                   <div class="q-mt-sm">
-                    <router-link to="/my_payment_methodes">Manage Payment Methode</router-link>
+                    <router-link to="/my_withdrawal_methodes">Manage Withdrawal Methode</router-link>
                   </div>
                 </div>
               </q-card-section>
@@ -33,6 +32,9 @@
                     {{ $convertNumberIntoDecimal(100) }}
                   </div>
                   <q-separator class="q-my-md" />
+                  <div>
+                    Earnings being cleared.
+                  </div>
                 </div>
               </q-card-section>
             </q-card>
@@ -47,6 +49,7 @@
                     {{ $convertNumberIntoDecimal(100) }}
                   </div>
                   <q-separator class="q-my-md" />
+                  <div>Your earnings since joining.</div>
                 </div>
               </q-card-section>
             </q-card>
@@ -63,7 +66,7 @@
                     <th>{{ $t("date") }}</th>
                     <th>{{ $t("activity") }}</th>
                     <th>{{ $t("description") }}</th>
-                    <th>{{ $t("ref") }}</th>
+                    <th>{{ $t("registration_no") }}</th>
                     <th>{{ $t("amount") }}</th>
                     <th>{{ $t("status") }}</th>
                   </tr>

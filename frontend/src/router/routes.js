@@ -134,7 +134,7 @@ const routes = [
         beforeEnter: checkLogin,
       },
       {
-        path: '/my_payment_methodes', component: () => import('pages/user/myPaymentMethodePage.vue'),
+        path: '/my_withdrawal_methodes', component: () => import('pages/user/myWithdrawalMethodePage.vue'),
         beforeEnter: checkLogin,
       },
     ]

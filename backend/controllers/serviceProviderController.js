@@ -6,6 +6,7 @@ import User from '../models/userModel.js'
 import DailyProfileView from '../models/dailyProfileViewModel.js'
 import DailyServiceProviderView from '../models/dailyServiceProviderViewModel.js'
 import Payment from '../models/paymentModel.js'
+import { MyEarning, MyEarningSummary } from '../models/myEarningModel.js'
 
 // @desc get ServiceProvider
 // @route Put api/ServiceProvider
@@ -237,7 +238,7 @@ const updateServiceProvider = expressAsyncHandler(async (req, res) => {
         serviceProvider.waitingForApproval = true
 
         const updatedServiceProvider = await serviceProvider.save()
-        if(updatedServiceProvider){
+        if (updatedServiceProvider) {
             // update service count
             const serviceById = await Service.findById(service)
             serviceById.serviceProviderCount += 1
@@ -408,6 +409,51 @@ const getTopServiceProvider = expressAsyncHandler(async (req, res) => {
     res.status(200).json(serviceProvider)
 })
 
+const paidRegistrationEarning = async (userId, datacollectorId) => {
+            const earnings = await MyEarning.create({
+                user: datacollectorId,
+                referance: userId,
+                activity: "Earning",
+                status: "pending",
+                amount: "30",
+                description: "Premium registration",
+            })
+            if(earnings){
+                const earningSummary = await MyEarningSummary.findOne({user: datacollectorId})
+                if(earningSummary){
+                    earningSummary.pending += 30
+                    earningSummary.save()
+                }else{
+                    await MyEarningSummary.create({
+                        user: datacollectorId,
+                        pending: 30,
+                    })
+                }
+            }
+}
+
+const freeRegistrationEarning = async (userId, datacollectorId) => {
+            const earnings = await MyEarning.create({
+                user: datacollectorId,
+                referance: userId,
+                activity: "Earning",
+                status: "pending",
+                amount: "10",
+                description: "Free registration",
+            })
+            if(earnings){
+                const earningSummary = await MyEarningSummary.findOne({user: datacollectorId})
+                if(earningSummary){
+                    earningSummary.pending += 10
+                    earningSummary.save()
+                }else{
+                    await MyEarningSummary.create({
+                        user: datacollectorId,
+                        pending: 10,
+                    })
+                }
+            }
+}
 // @desc create a ServiceProvider
 // @route create api/ServiceProviders/
 // @acess Privet/Admin
@@ -475,36 +521,47 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
         waitingForApproval: true,
         keywords
     })
+
     const createdServiceProvider = await serviceProvider.save()
-    req.user.hasServiceProviderProfile = true
-    await req.user.save()
 
+    if (createdServiceProvider) {
+        req.user.hasServiceProviderProfile = true
+        await req.user.save()
+        const datacollector = await User.findOne({reference: req.user.referance})
+        // create registration payment 
+        if (
+            bankAccountName !== '' &&
+            phoneNumber !== '' &&
+            transactionId !== '' &&
+            amount !== 0
+        ) {
+            await Payment.create({
+                user: req.user._id,
+                bankAccountName,
+                phoneNumber,
+                transactionId,
+                amount,
+                paymentFor: "registration"
+            })
+            if(datacollector){
+                paidRegistrationEarning(req.user._id, datacollector._id)
+            }
+        }else{
+            if(datacollector){
+                freeRegistrationEarning(req.user._id, datacollector._id)
+            }
+        }
 
-    // create registration payment 
-    if (
-        bankAccountName !== '' &&
-        phoneNumber !== '' &&
-        transactionId !== '' &&
-        amount !== 0
-    ) {
-        await Payment.create({
-            user: req.user._id,
-            bankAccountName,
-            phoneNumber,
-            transactionId,
-            amount,
-            paymentFor: "registration"
-        })
+        const serviceById = await Service.findById(service)
+        serviceById.serviceProviderCount += 1
+        await serviceById.save()
+
+        const serviceCategoryById = await ServiceCategory.findById(serviceCategory)
+        serviceCategoryById.serviceProviderCount += 1
+        await serviceCategoryById.save()
+        res.status(201).json(createdServiceProvider)
+
     }
-
-    const serviceById = await Service.findById(service)
-    serviceById.serviceProviderCount += 1
-    await serviceById.save()
-
-    const serviceCategoryById = await ServiceCategory.findById(serviceCategory)
-    serviceCategoryById.serviceProviderCount += 1
-    await serviceCategoryById.save()
-    res.status(201).json(createdServiceProvider)
 
 })
 
@@ -569,6 +626,7 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
 
     if (user) {
 
+        const datacollector = await User.findOne({reference})
         // create registration payment 
         if (
             bankAccountName !== '' &&
@@ -584,8 +642,14 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
                 amount,
                 paymentFor: "registration"
             })
+            if(datacollector){
+                paidRegistrationEarning(user._id, datacollector._id)
+            }
+        }else{
+            if(datacollector){
+                freeRegistrationEarning(user._id, datacollector._id)
+            }
         }
-
         const serviceProvider = new ServiceProvider({
             dataCollector: req.user._id,
             dataUpdatedBy: req.user._id,

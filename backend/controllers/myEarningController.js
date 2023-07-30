@@ -1,6 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
 import User from '../models/userModel.js'
-import MyEarning from '../models/myEarningModel.js'
+import {MyEarning, MyEarningSummary} from '../models/myEarningModel.js'
 
 const createMyEarning = expressAsyncHandler(async (req, res) => {
   const {
@@ -20,7 +20,7 @@ const createMyEarning = expressAsyncHandler(async (req, res) => {
     res.status(201).json(myEarning)
   } else {
     res.status(400)
-    throw new Error('Couldnot Create Monthly Fee Data')
+    throw new Error('Could not Create Monthly Fee Data')
   }
 })
 

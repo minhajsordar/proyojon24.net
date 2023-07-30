@@ -10,3 +10,6 @@ export NODE_OPTIONS="--max-old-space-size=8192"
 # experience ok
 # see pdf
 # related profile suggestion below profile
+
+ssh root@156.67.217.198
+path /apps/proyojon24/dest
