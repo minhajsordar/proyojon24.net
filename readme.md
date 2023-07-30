@@ -1,6 +1,6 @@
 # updating
 
-git add . && git commit -m "payment methode updated" && git push hostinger main
+git add . && git commit -m "payment methode" && git push hostinger main
 git add . && git commit -m "frontend edit option add" && git push -u origin main
 
 # increase hip memory by typing in terminal
