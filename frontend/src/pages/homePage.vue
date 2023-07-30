@@ -17,7 +17,6 @@
       </div>
     </div>
   </div>
-  hello
   <div class="container-section-py-xs" v-if="$q.screen.gt.sm">
     <div class="inner-section">
       <div
