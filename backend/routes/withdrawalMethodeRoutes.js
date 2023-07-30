@@ -1,8 +1,8 @@
 import express from "express";
-import { createWithdrawalMethode, 
+import {  createWithdrawalMethode, 
     deleteWithdrawalMethode, 
     requestDeleteWithdrawalMethode, 
-    getWithdrawalMethodeList } from "../controllers/WithdrawalMethodeController.js";
+    getWithdrawalMethodeList  } from "../controllers/withdrawalMethodeController.js";
 import { protect, superAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router()
 
