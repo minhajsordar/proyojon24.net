@@ -8,8 +8,11 @@ import { isObjEmpty } from 'src/global_js/utils';
 import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
+import { usePendingForApprovalListCountStore } from "src/stores/dashboard/pendingForApprovalListCountStore";
+
 loader.title = 'Requesting To Server...'
 export const usePendingNidVerificationStore = defineStore('pending nid verification store', () => {
+  const pendingForApprovalListCountStore = usePendingForApprovalListCountStore();
   const currentPage = ref(1)
   const rejectNote = ref("Please make sure you have paid correct amount or the transaction id is correct")
   const pendingNidVerificationList = ref(null)
@@ -71,6 +74,7 @@ export const usePendingNidVerificationStore = defineStore('pending nid verificat
       pendingNidVerificationList.value = responseData.data;
       CustomLoading('put-pending-verification').hideLoading()
       pendingNidVerificationListLoading.value = false
+      pendingForApprovalListCountStore.getPendingCount()
     } catch (error) {
       console.log(error);
       CustomLoading('put-pending-verification').hideLoading()
@@ -103,6 +107,7 @@ export const usePendingNidVerificationStore = defineStore('pending nid verificat
       pendingNidVerificationList.value = responseData.data;
       CustomLoading('put-users-pendinglist').hideLoading()
       pendingNidVerificationListLoading.value = false
+      pendingForApprovalListCountStore.getPendingCount()
     } catch (error) {
       console.log(error);
       CustomLoading('put-users-pendinglist').hideLoading()

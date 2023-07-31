@@ -137,6 +137,10 @@ const routes = [
         path: '/my_withdrawal_methodes', component: () => import('pages/user/myWithdrawalMethodePage.vue'),
         beforeEnter: checkLogin,
       },
+      {
+        path: '/pending_withdraw_list', component: () => import('pages/dashboard/pendingWithdrawList.vue'),
+        beforeEnter: checkLogin,
+      },
     ]
   },
 

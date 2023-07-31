@@ -15,7 +15,7 @@
                       <q-input
                       v-model="registrationFeeStore.registrationFeeInfo.amount"
                       ref="regFeeAmountEl"
-                      label="Amount"
+                      :label="'Amount' +  $currency_sign"
                       outlined
                       dense
                       :rules="[required]"

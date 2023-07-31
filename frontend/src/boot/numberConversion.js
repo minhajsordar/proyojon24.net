@@ -2,6 +2,9 @@ import { boot } from 'quasar/wrappers'
 export default boot(({ app }) => {
   const convertNumberIntoDecimal = function (num) {
     // Nine Zeroes for Billions
+    if(!num){
+      return 0
+    }
     return Math.abs(Number(num)) >= 1.0e9
       ? Number((Math.abs(Number(num)) / 1.0e9).toFixed(2)) + "B"
       : // Six Zeroes for Millions
@@ -14,4 +17,5 @@ export default boot(({ app }) => {
   };
 
   app.config.globalProperties.$convertNumberIntoDecimal = convertNumberIntoDecimal
+  app.config.globalProperties.$currency_sign = '৳'
 })

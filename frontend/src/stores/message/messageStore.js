@@ -123,7 +123,7 @@ export const useMessageStore = defineStore('message store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }

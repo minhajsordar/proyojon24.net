@@ -140,6 +140,7 @@ export default {
   },
   headermenus: {
     home: "হোম",
+    pending_withdraw_list: 'অপেক্ষ্যমান উত্তোলন তালিকা',
     pending_list: 'অপেক্ষ্যমান সাভিস প্রোফাইল তালিকা',
     notification_list: 'নটিফিকেশন তালিকা',
     locations: 'স্থান সমূহ',

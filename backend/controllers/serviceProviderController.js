@@ -273,6 +273,20 @@ const rankAndApprovalServiceProvider = expressAsyncHandler(async (req, res) => {
             serviceProvider.waitingForApproval = false
             serviceProvider.rejected = false
             serviceProvider.rejectNote = ""
+            const earning = await MyEarning.findOne({
+                reference: serviceProvider.user
+            })
+            console.log(earning)
+            if (earning && earning.status === 'pending') {
+                const earningSummary = await MyEarningSummary.findOne({
+                    user: earning.user
+                })
+                earningSummary.pending = Number(earningSummary.pending) - Number(earning.amount)
+                earningSummary.balance = Number(earningSummary.balance) + Number(earning.amount)
+                earning.status = 'approved'
+                await earning.save()
+                await earningSummary.save()
+            }
         }
         if (rejected) {
             serviceProvider.approved = false
@@ -410,49 +424,74 @@ const getTopServiceProvider = expressAsyncHandler(async (req, res) => {
 })
 
 const paidRegistrationEarning = async (userId, datacollectorId) => {
-            const earnings = await MyEarning.create({
-                user: datacollectorId,
-                referance: userId,
-                activity: "Earning",
-                status: "pending",
-                amount: "30",
-                description: "Premium registration",
-            })
-            if(earnings){
-                const earningSummary = await MyEarningSummary.findOne({user: datacollectorId})
-                if(earningSummary){
-                    earningSummary.pending += 30
-                    earningSummary.save()
-                }else{
-                    await MyEarningSummary.create({
-                        user: datacollectorId,
-                        pending: 30,
-                    })
-                }
+    const isExistEarning = await MyEarning.findOne({
+        reference: userId,
+    })
+    const isExistreferenceUser = await User.findById(userId)
+    if (isExistEarning) {
+        return
+    } else if (isExistreferenceUser) {
+        const earnings = await MyEarning.create({
+            user: datacollectorId,
+            reference: userId,
+            activity: "Earning",
+            status: "pending",
+            amount: "30",
+            description: "Premium registration",
+        })
+        if (earnings) {
+            const earningSummary = await MyEarningSummary.findOne({ user: datacollectorId })
+            if (earningSummary) {
+                earningSummary.pending += 30
+                earningSummary.save()
+            } else {
+                await MyEarningSummary.create({
+                    user: datacollectorId,
+                    pending: 30,
+                    balance: 0,
+                    withdrawan: 0,
+                })
             }
+        }
+    } else {
+        return
+    }
 }
 
 const freeRegistrationEarning = async (userId, datacollectorId) => {
-            const earnings = await MyEarning.create({
-                user: datacollectorId,
-                referance: userId,
-                activity: "Earning",
-                status: "pending",
-                amount: "10",
-                description: "Free registration",
-            })
-            if(earnings){
-                const earningSummary = await MyEarningSummary.findOne({user: datacollectorId})
-                if(earningSummary){
-                    earningSummary.pending += 10
-                    earningSummary.save()
-                }else{
-                    await MyEarningSummary.create({
-                        user: datacollectorId,
-                        pending: 10,
-                    })
-                }
+    const isExistEarning = await MyEarning.findOne({
+        reference: userId,
+    })
+    const isExistreferenceUser = await User.findById(userId)
+    if (isExistEarning) {
+        return
+    } else if (isExistreferenceUser) {
+
+        const earnings = await MyEarning.create({
+            user: datacollectorId,
+            reference: userId,
+            activity: "Earning",
+            status: "pending",
+            amount: "10",
+            description: "Free registration",
+        })
+        if (earnings) {
+            const earningSummary = await MyEarningSummary.findOne({ user: datacollectorId })
+            if (earningSummary) {
+                earningSummary.pending += 10
+                earningSummary.save()
+            } else {
+                await MyEarningSummary.create({
+                    user: datacollectorId,
+                    pending: 10,
+                    balance: 0,
+                    withdrawan: 0,
+                })
             }
+        }
+    } else {
+        return
+    }
 }
 // @desc create a ServiceProvider
 // @route create api/ServiceProviders/
@@ -527,7 +566,8 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
     if (createdServiceProvider) {
         req.user.hasServiceProviderProfile = true
         await req.user.save()
-        const datacollector = await User.findOne({reference: req.user.referance})
+        console.log('user reference', req.user,req.user.reference)
+        const datacollector = await User.findOne({ registrationNo: req.user.reference })
         // create registration payment 
         if (
             bankAccountName !== '' &&
@@ -543,11 +583,11 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
                 amount,
                 paymentFor: "registration"
             })
-            if(datacollector){
+            if (datacollector) {
                 paidRegistrationEarning(req.user._id, datacollector._id)
             }
-        }else{
-            if(datacollector){
+        } else {
+            if (datacollector) {
                 freeRegistrationEarning(req.user._id, datacollector._id)
             }
         }
@@ -626,7 +666,7 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
 
     if (user) {
 
-        const datacollector = await User.findOne({reference})
+        const datacollector = await User.findOne({ registrationNo: Number(reference) })
         // create registration payment 
         if (
             bankAccountName !== '' &&
@@ -642,11 +682,11 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
                 amount,
                 paymentFor: "registration"
             })
-            if(datacollector){
+            if (datacollector) {
                 paidRegistrationEarning(user._id, datacollector._id)
             }
-        }else{
-            if(datacollector){
+        } else {
+            if (datacollector) {
                 freeRegistrationEarning(user._id, datacollector._id)
             }
         }

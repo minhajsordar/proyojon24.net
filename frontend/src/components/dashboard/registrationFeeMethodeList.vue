@@ -18,7 +18,7 @@
           <td>
             {{ enToBnToEn(String(index + 1), languageStore.language) }}
           </td>
-          <td>{{ registrationFee.amount }}</td>
+          <td>{{ registrationFee.amount }} {{ $currency_sign }}</td>
           <td>{{ registrationFee.employeeCount }}</td>
           <td>
             <!-- <q-btn

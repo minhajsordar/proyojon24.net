@@ -624,7 +624,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
       loader.hideLoader()
     }
@@ -669,12 +669,13 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       data.transactionId = serviceProviderInfo.transactionId
       data.amount = serviceProviderInfo.amount
     }
+    data.reference = authStore.loginUserInfo.registrationNo
     const config = {
       method: "post",
       url: "api/service_providers",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${loginUser.value.token}`
+        "Authorization": `Bearer ${authStore.loginUserInfo.token}`
 
       }, data
     };
@@ -702,7 +703,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
       loader.hideLoader()
     }
@@ -731,7 +732,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -758,7 +759,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -906,7 +907,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
       loader.hideLoader()
     }
@@ -933,7 +934,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
       loader.hideLoader()
     }
@@ -959,7 +960,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
       loader.hideLoader()
     }

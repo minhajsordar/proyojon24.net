@@ -69,7 +69,7 @@ export const useRoomsStore = defineStore('rooms store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }

@@ -120,7 +120,7 @@ export const useNotificationStore = defineStore('notification store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -146,7 +146,7 @@ export const useNotificationStore = defineStore('notification store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
       CustomLoading('put-common-notifications').hideLoading()
     }
@@ -172,7 +172,7 @@ export const useNotificationStore = defineStore('notification store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }

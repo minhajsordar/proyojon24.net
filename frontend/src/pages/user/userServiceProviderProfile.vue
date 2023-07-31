@@ -116,7 +116,7 @@
                 />
               </div>
               <div class="col-sm-6 col-xs-12 col-12">
-                <div class="text-bold">{{ $t("amount") }}*</div>
+                <div class="text-bold">{{ $t("amount") }}{{ $currency_sign }}*</div>
                 <q-input
                   ref="amountEl"
                   v-model="

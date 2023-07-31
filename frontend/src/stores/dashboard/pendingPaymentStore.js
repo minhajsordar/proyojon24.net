@@ -8,8 +8,14 @@ import { isObjEmpty } from 'src/global_js/utils';
 import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
+import { usePendingForApprovalListCountStore } from "src/stores/dashboard/pendingForApprovalListCountStore";
 loader.title = 'Requesting To Server...'
 export const usePendingPaymentStore = defineStore('pending payment store', () => {
+
+
+const pendingForApprovalListCountStore = usePendingForApprovalListCountStore();
+
+
   const currentPage = ref(1)
   const rejectNote = ref("Please make sure you have paid correct amount or the transaction id is correct")
   const pendingPaymentList = ref(null)
@@ -70,6 +76,7 @@ export const usePendingPaymentStore = defineStore('pending payment store', () =>
       pendingPaymentList.value = responseData.data;
       CustomLoading('put-payments').hideLoading()
       pendingPaymentListLoading.value = false
+      pendingForApprovalListCountStore.getPendingCount()
     } catch (error) {
       console.log(error);
       CustomLoading('put-payments').hideLoading()
@@ -101,6 +108,7 @@ export const usePendingPaymentStore = defineStore('pending payment store', () =>
       pendingPaymentList.value = responseData.data;
       CustomLoading('put-payments-id').hideLoading()
       pendingPaymentListLoading.value = false
+      pendingForApprovalListCountStore.getPendingCount()
     } catch (error) {
       console.log(error);
       CustomLoading('put-payments-id').hideLoading()

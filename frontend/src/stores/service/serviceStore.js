@@ -126,7 +126,7 @@ export const useServiceStore = defineStore('service store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -178,7 +178,7 @@ export const useServiceStore = defineStore('service store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -209,7 +209,7 @@ export const useServiceStore = defineStore('service store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -253,7 +253,7 @@ export const useServiceStore = defineStore('service store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -278,7 +278,7 @@ export const useServiceStore = defineStore('service store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }

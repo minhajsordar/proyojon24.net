@@ -1,4 +1,4 @@
-<template lang="">
+<template >
   <div class="container-section-py-sm">
     <div class="inner-section">
       <div class="full-width">
@@ -10,13 +10,19 @@
                   <!-- <q-icon name="visibility" class="text-h4" /> -->
                   <div class="q-mt-md fs-18">Available Balance</div>
                   <div class="text-h3 text-bold">
-                    {{ $convertNumberIntoDecimal(100) }}
+                    {{ $convertNumberIntoDecimal(earningStore.myEarningList?.myEarningSummary?.balance) }}
                   </div>
                   <div class="q-mt-md">
-                    <q-btn label="withdraw" color="grey-8"/>
+                    <q-btn label="withdraw" color="grey-8"
+                    @click="earningStore.openWithdrawDialogManager"
+                    />
+                    <!-- :disable="earningStore.myEarningList?.myEarningSummary?.balance < 99" -->
+                    <div class="q-mt-sm" v-if="earningStore.myEarningList?.myEarningSummary?.balance < 99">Minimum Withdrawal Balance is 100{{ $currency_sign }}</div>
                   </div>
                   <div class="q-mt-sm">
-                    <router-link to="/my_withdrawal_methodes">Manage Withdrawal Methode</router-link>
+                    <router-link to="/my_withdrawal_methodes"
+                      >Manage Withdrawal Methode</router-link
+                    >
                   </div>
                 </div>
               </q-card-section>
@@ -29,12 +35,10 @@
                   <!-- <q-icon name="person" class="text-h4" /> -->
                   <div class="q-mt-md fs-18">Total Pending</div>
                   <div class="text-h4 text-bold">
-                    {{ $convertNumberIntoDecimal(100) }}
+                    {{ $convertNumberIntoDecimal(earningStore.myEarningList?.myEarningSummary?.pending) }}
                   </div>
                   <q-separator class="q-my-md" />
-                  <div>
-                    Earnings being cleared.
-                  </div>
+                  <div>Earnings being cleared.</div>
                 </div>
               </q-card-section>
             </q-card>
@@ -46,7 +50,7 @@
                   <!-- <q-icon name="workspace_premium" class="text-h4" /> -->
                   <div class="q-mt-md fs-18">Total Earnings</div>
                   <div class="text-h4 text-bold">
-                    {{ $convertNumberIntoDecimal(100) }}
+                    {{ $convertNumberIntoDecimal(earningStore.myEarningList?.myEarningSummary?.balance + earningStore.myEarningList?.myEarningSummary?.withdrawan) }}
                   </div>
                   <q-separator class="q-my-md" />
                   <div>Your earnings since joining.</div>
@@ -73,26 +77,50 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(user, index) in 4"
+                    v-for="(earning, index) in earningStore.myEarningList?.myEarnings"
                     :key="index"
                     :class="{ 'bg-blue-grey-1': index % 2 != 0 }"
                   >
-                    <td>4/5/2022</td>
-                    <td>earning/ Withdrawn</td>
-                    <td>Premium</td>
-                    <td>345</td>
-                    <td>100 taka</td>
-                    <td>Pending / Approved</td>
+                    <td>{{ earning.createdAt }}</td>
+                    <td>{{earning.activity}}</td>
+                    <td>{{earning.description}}</td>
+                    <td>{{earning.reference?.registrationNo}}</td>
+                    <td class="text-bold" :class="[earning.amount < 0 ?'text-red':'text-green' ]">{{earning.amount}} {{ $currency_sign }}</td>
+                    <td>{{earning.status}}</td>
                   </tr>
                 </tbody>
               </q-markup-table>
+              <q-separator class="q-mt-md" />
+              <q-pagination
+                class="q-mt-md"
+                color="blue-grey-7"
+                v-model="earningStore.currentPage"
+                :max="earningStore.myEarningList?.pages"
+                :max-pages="6"
+                boundary-numbers
+                @update:model-value="paginationFunc"
+              />
             </div>
           </q-card>
         </div>
       </div>
     </div>
   </div>
+  <withdrawEarningDialog/>
 </template>
 <script setup>
+import withdrawEarningDialog from "src/components/dialogs/user/withdrawEarningDialog.vue";
+import { useWithdrawalMethodeStore } from "src/stores/user/withdrawalMethodeStore";
+import { useEarningStore } from "src/stores/user/earningStore";
+
+const earningStore = useEarningStore();
+earningStore.getMyEarningList();
+
+const withdrawalMethodeStore = useWithdrawalMethodeStore();
+withdrawalMethodeStore.getMyWithdrawalMethodeList();
+
+const paginationFunc = () => {
+  earningStore.getMyEarningList();
+};
 </script>
-<style lang=""></style>
+<style></style>

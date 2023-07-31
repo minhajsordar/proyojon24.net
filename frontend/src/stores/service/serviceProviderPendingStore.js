@@ -9,8 +9,12 @@ import { Notify } from 'quasar';
 import { CustomLoading } from 'src/global_js/loadiingApi';
 export const suggestUserData = useLocalStorage('proyojonuserkey', {})
 export const loginUser = useLocalStorage('proyojonloginuser', {})
+import { usePendingForApprovalListCountStore } from "src/stores/dashboard/pendingForApprovalListCountStore";
+
+
 loader.title = 'Requesting To Server...'
 export const useServiceProviderPendingStore = defineStore('service provider pending store', () => {
+  const pendingForApprovalListCountStore = usePendingForApprovalListCountStore();
   const router = useRouter(),
     authStore = useAuthStore();
   const paginationCurrent = ref(1)
@@ -61,13 +65,15 @@ export const useServiceProviderPendingStore = defineStore('service provider pend
       const responseData = await api.request(config);
       getServiceProviderPendingList()
       CustomLoading('patch-service-providers').hideLoading()
+pendingForApprovalListCountStore.getPendingCount()
+
     } catch (error) {
       console.log(error);
       CustomLoading('patch-service-providers').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
       loader.hideLoader()
     }
@@ -91,13 +97,15 @@ export const useServiceProviderPendingStore = defineStore('service provider pend
       const responseData = await api.request(config);
       getServiceProviderPendingList()
       CustomLoading('patch-service-providers').hideLoading()
+pendingForApprovalListCountStore.getPendingCount()
+
     } catch (error) {
       console.log(error);
       CustomLoading('patch-service-providers').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
       loader.hideLoader()
     }

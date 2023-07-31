@@ -140,6 +140,7 @@ export default {
   },
   headermenus: {
     home: "Home",
+    pending_withdraw_list: 'Pending Withdrawal List',
     pending_list: 'Pending Service Profile List',
     notification_list: 'Notification List',
     locations: 'Locations',

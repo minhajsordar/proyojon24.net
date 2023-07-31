@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-12">
                   <div class="text-bold">
-                    {{ $t('amount') }}
+                    {{ $t('amount') }}{{ $currency_sign }}
                   </div>
                   <q-input
                     ref="amountEl"

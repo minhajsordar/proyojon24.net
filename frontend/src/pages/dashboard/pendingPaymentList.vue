@@ -36,7 +36,7 @@
                   </td>
                   <td>{{ payment.user?.registrationNo }}</td>
                   <td>{{ payment.transactionId }}</td>
-                  <td>{{ payment.amount }}</td>
+                  <td>{{ payment.amount }} {{ $currency_sign }}</td>
                   <td>{{ payment.periods }}</td>
                   <td>{{ payment.status }}</td>
                   <td>{{ payment.paymentFor }}</td>

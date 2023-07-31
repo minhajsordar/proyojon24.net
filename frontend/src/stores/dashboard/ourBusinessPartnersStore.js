@@ -146,7 +146,7 @@ export const useOurBusinessPartnersStore = defineStore('our business partners st
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }

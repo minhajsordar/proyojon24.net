@@ -9,14 +9,17 @@ const myEarningSummarySchema = new mongoose.Schema({
   balance: {
     type: Number,
     required: true,
+    default: 0
   },
   withdrawan: {
     type: Number,
     required: true,
+    default: 0
   },
   pending: {
     type: Number,
     required: true,
+    default: 0
   },
 }, {
   timestamps: true
@@ -30,7 +33,7 @@ const myEarningSchema = new mongoose.Schema({
     required: true,
     ref: 'User'
   },
-  referance: {
+  reference: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User'

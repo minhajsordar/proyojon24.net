@@ -92,7 +92,7 @@ export const usePublicSliderCreateUpdateStore = defineStore('public slider creat
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }

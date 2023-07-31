@@ -1,23 +1,36 @@
 import expressAsyncHandler from "express-async-handler";
 import User from '../models/userModel.js'
-import {MyEarning, MyEarningSummary} from '../models/myEarningModel.js'
+import { MyEarning, MyEarningSummary } from '../models/myEarningModel.js'
+import WithdrawalMethode from '../models/WithdrawalMethodeModel.js'
 
-const createMyEarning = expressAsyncHandler(async (req, res) => {
+const withdrawEarning = expressAsyncHandler(async (req, res) => {
   const {
-    employeeCount,
-    amount
+    methode
   } = req.body
-
-  const myEarning = await MyEarning.create({
-    user: req.user._id,
-    updatedBy: req.user._id,
-    employeeCount,
-    amount
-  })
-
-  if (myEarning) {
-    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(201).json(myEarning)
+  const withdrawMethode = await WithdrawalMethode.findById(methode)
+  if (withdrawMethode) {
+    const myEarningSummary = await MyEarningSummary.findOne({
+      user: req.user._id,
+    })
+    if (myEarningSummary.balance > 0) {
+      const myEarning = await MyEarning.create({
+        user: req.user._id,
+        reference: req.user._id,
+        activity: "Withdraw",
+        status: "pending",
+        amount: '-' + String(myEarningSummary.balance),
+        description: `Account phone number ${withdrawMethode.phone}, ${withdrawMethode.mobileBankName}`,
+      })
+      if (myEarning) {
+        myEarningSummary.withdrawan += myEarningSummary.balance
+        myEarningSummary.balance = 0
+        myEarningSummary.save()
+        // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+        res.status(201).json(myEarning)
+      }
+    } else {
+      res.status(201).json({ message: 'balance is zero' })
+    }
   } else {
     res.status(400)
     throw new Error('Could not Create Monthly Fee Data')
@@ -30,50 +43,50 @@ const createMyEarning = expressAsyncHandler(async (req, res) => {
 const getMyEarningList = expressAsyncHandler(async (req, res) => {
   const pageSize = Number(req.query.pageSize) || 30;
   const page = Number(req.query.pageNumber) || 1;
-  const count = await MyEarning.countDocuments({})
-  const myEarnings = await MyEarning.find({ }).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1))
-  res.json({ myEarnings, page, pages: Math.ceil(count / pageSize) })
+  const count = await MyEarning.countDocuments({ user: req.user._id, })
+  const myEarnings = await MyEarning.find({ user: req.user._id, }).populate({ path: 'reference', select: 'registrationNo' }).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1))
+  const myEarningSummary = await MyEarningSummary.findOne({
+    user: req.user._id,
+  })
+
+  res.json({ myEarnings, myEarningSummary, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc Get all users
 // @route GET api/users
 // @acess Privet
-const updateMyEarning = expressAsyncHandler(async (req, res) => {
-  const {
-    employeeCount,
-    amount
-  } = req.body
+const getWithdrawalList = expressAsyncHandler(async (req, res) => {
+  const keywords = {
+    activity: "Withdraw",
+    status: "pending",
+  }
+  const pageSize = Number(req.query.pageSize) || 30;
+  const page = Number(req.query.pageNumber) || 1;
+  const count = await MyEarning.countDocuments({ ...keywords })
+  const withdrawList = await MyEarning.find({ ...keywords }).populate({path: 'user', select: 'registrationNo'}).sort({ createdAt: 'desc' }).limit(pageSize).skip(pageSize * (page - 1))
+  res.json({ withdrawList, page, pages: Math.ceil(count / pageSize) })
+})
 
-const myEarning = await MyEarning.findById(req.params.id)
-  if (myEarning) {
-    myEarning.amount = amount
-    myEarning.employeeCount = employeeCount
-    myEarning.employeeCount = employeeCount
+// @desc Get all users
+// @route GET api/users
+// @acess Privet
+const approveWithdraw = expressAsyncHandler(async (req, res) => {
+  const withdrawEarning = await MyEarning.findById(req.params.id)
+  if (withdrawEarning) {
+    withdrawEarning.status = 'approved'
+    withdrawEarning.save()
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(201).json(myEarning)
+    res.status(201).json(withdrawEarning)
   } else {
     res.status(400)
-    throw new Error('Monthly Fee Data Not Found')
+    throw new Error('Withdraw Data Not Found')
   }
 })
 
-// @desc Delete user
-// @route PUT api/users/:id
-// @acess Privet/Admin
-const deleteMyEarning = expressAsyncHandler(async (req, res) => {
-  const myEarning = await MyEarning.findById(req.params.id)
-  if (myEarning) {
-    await myEarning.deleteOne()
-    res.json({ message: 'myEarning removed' })
-  } else {
-    res.status(404)
-    throw new Error('Monthly Fee not found or you cannot delete approved payment data')
-  }
-})
 
 export {
-  createMyEarning,
+  withdrawEarning,
   getMyEarningList,
-  updateMyEarning,
-  deleteMyEarning,
+  getWithdrawalList,
+  approveWithdraw,
 }

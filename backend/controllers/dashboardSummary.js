@@ -5,6 +5,7 @@ import DailyUser from '../models/dailyUserModel.js'
 import MonthlyUser from '../models/monthlyUserModel.js'
 import DailyProfileView from '../models/dailyProfileViewModel.js'
 import Payment from '../models/paymentModel.js'
+import {MyEarning} from '../models/myEarningModel.js'
 
 const userDashboardData = expressAsyncHandler(async (req, res) => {
   let totalUser = await User.countDocuments({})
@@ -91,7 +92,11 @@ const pendingForApprovalList = expressAsyncHandler(async (req, res) => {
   const nidPending = await User.countDocuments({
     nidStatus: 'pending'
   })
-  res.json({ nidPending, serviceProviderPending, paymentPending })
+  const withdrawPending = await MyEarning.countDocuments({
+    activity: "Withdraw",
+    status: "pending",
+  })
+  res.json({ nidPending, withdrawPending, serviceProviderPending, paymentPending })
 })
 
 export {

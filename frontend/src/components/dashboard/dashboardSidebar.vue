@@ -166,6 +166,22 @@
       v-if="
         ['superAdmin', 'admin'].includes(authStore?.loginUserInfo?.permission)
       "
+      to="/pending_withdraw_list"
+    >
+      <q-item-section avatar>
+        <q-icon name="payments" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ $t("headermenus.pending_withdraw_list") }} <q-badge color="red" v-if="pendingForApprovalListCountStore?.pendingCount">{{ pendingForApprovalListCountStore?.pendingCount?.withdrawPending }}</q-badge></q-item-label>
+      </q-item-section>
+      <q-separator />
+    </q-item>
+    <q-item
+      clickable
+      v-ripple
+      v-if="
+        ['superAdmin', 'admin'].includes(authStore?.loginUserInfo?.permission)
+      "
       to="/pending_nid_verification"
     >
       <q-item-section avatar>

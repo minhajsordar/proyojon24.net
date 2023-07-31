@@ -178,7 +178,7 @@ export const useAuthStore = defineStore('auth store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
 
@@ -265,7 +265,7 @@ export const useAuthStore = defineStore('auth store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
 
@@ -293,7 +293,7 @@ export const useAuthStore = defineStore('auth store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
 
@@ -324,7 +324,7 @@ export const useAuthStore = defineStore('auth store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }

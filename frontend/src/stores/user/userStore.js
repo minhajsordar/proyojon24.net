@@ -112,7 +112,7 @@ export const useUserStore = defineStore('user store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
       CustomLoading('get-user-list').hideLoading()
     }
@@ -200,7 +200,7 @@ export const useUserStore = defineStore('user store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -224,7 +224,7 @@ export const useUserStore = defineStore('user store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
 
       CustomLoading('delete-user').hideLoading()
@@ -260,7 +260,7 @@ export const useUserStore = defineStore('user store', () => {
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }

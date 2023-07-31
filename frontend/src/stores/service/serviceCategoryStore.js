@@ -243,7 +243,7 @@ imageCover.value = null
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -274,7 +274,7 @@ imageCover.value = null
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -321,7 +321,7 @@ imageCover.value = null
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }
@@ -346,7 +346,7 @@ imageCover.value = null
       Notify.create({
         position: "center",
         type: "negative",
-        message: error.response.data.message,
+        message: error,
       });
     }
   }

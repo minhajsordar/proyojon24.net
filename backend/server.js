@@ -24,6 +24,7 @@ import sliderRouter from './routes/sliderRoutes.js'
 import paymentRoutes from './routes/paymentRoutes.js'
 import registrationFeeRoutes from './routes/registrationFeeRoutes.js'
 import withdrawalMethodeRoutes from './routes/withdrawalMethodeRoutes.js'
+import myEarningRoutes from './routes/myEarningRoutes.js'
 import monthlyFeeRoutes from './routes/monthlyFeeRoutes.js'
 import movingTextRouter from './routes/movingTextRoutes.js'
 import phoneNumberOTPRouter from './routes/phoneNumberOTPRoutes.js'
@@ -123,6 +124,7 @@ app.use('/api/movingtext', movingTextRouter)
 app.use('/api/registrationfee', registrationFeeRoutes)
 app.use('/api/monthlyfee', monthlyFeeRoutes)
 app.use('/api/withdrawal_methode', withdrawalMethodeRoutes)
+app.use('/api/earning', myEarningRoutes)
 app.use('/api/otp', phoneNumberOTPRouter)
 app.get('/api/seeder', (req, res) => {
     importData()
