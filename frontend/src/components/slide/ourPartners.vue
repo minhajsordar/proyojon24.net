@@ -21,7 +21,7 @@
         :key="index"
         :name="index"
       >
-        <div class="q-pb-lg q-pt-xs">
+        <div class="q-pt-xs">
           <div class="flex justify-center">
           <img :src="web_root_url + partner.image" />
         </div>

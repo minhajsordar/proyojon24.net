@@ -458,3 +458,7 @@ width: calc(100% - 100px);
   transform: scale(1.2);
 }
 }
+.bg-red-green-gradient{
+  background: rgb(255,0,46);
+  background: linear-gradient(64deg, #06a651 0%, #ed1c25 100%);
+}

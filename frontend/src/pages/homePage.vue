@@ -609,10 +609,10 @@
               </div>
 
               <div
-                class="full-width relative-position q-pa-sm bg-primary"
+                class="full-width relative-position q-pa-sm bg-red-green-gradient"
                 v-if="!$q.screen.gt.sm"
               >
-                <div class="q-pa-xs bg-primary">
+                <div class="q-pa-xs">
                   <div class="row">
                     <div class="text-white fs-20 col-6 text-center">
                       <div>
