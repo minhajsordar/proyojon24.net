@@ -15,9 +15,9 @@
                   <div class="q-mt-md">
                     <q-btn label="withdraw" color="grey-8"
                     @click="earningStore.openWithdrawDialogManager"
+                    :disable="(earningStore.myEarningList?.myEarningSummary?.balance < 99) || (earningStore.myEarningList?.myEarningSummary == null)"
                     />
-                    <!-- :disable="earningStore.myEarningList?.myEarningSummary?.balance < 99" -->
-                    <div class="q-mt-sm" v-if="earningStore.myEarningList?.myEarningSummary?.balance < 99">Minimum Withdrawal Balance is 100{{ $currency_sign }}</div>
+                    <div class="q-mt-sm" v-if="(earningStore.myEarningList?.myEarningSummary?.balance < 99) || (earningStore.myEarningList?.myEarningSummary == null)">Minimum Withdrawal Balance is 100{{ $currency_sign }}</div>
                   </div>
                   <div class="q-mt-sm">
                     <router-link to="/my_withdrawal_methodes"

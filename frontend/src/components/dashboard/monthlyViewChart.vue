@@ -11,7 +11,6 @@ const { dataAnalysisGraph } = storeToRefs(dataAnalysisStore);
 
 watch(dataAnalysisGraph, () => {
   let ctx = document.getElementById("monthlyview");
-  console.log("Graph loaded", dataAnalysisGraph.value);
   let labels = dataAnalysisGraph.value.dailyProfileView.map(
     (e) => e.createdAt.split("T")[0]
   );

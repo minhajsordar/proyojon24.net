@@ -14,7 +14,6 @@ onMounted(() => {
 
 watch(dataAnalysisGraph,()=>{
   let ctx = document.getElementById("dailyuser");
-  console.log("Graph loaded",dataAnalysisGraph.value)
   let labels = dataAnalysisGraph.value.dailyUsers.map(e=>e.date.split("T")[0])
   let usercount = dataAnalysisGraph.value.dailyUsers.map(e=>e.userCount)
   let data = {
