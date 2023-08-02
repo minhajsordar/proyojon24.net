@@ -1,7 +1,9 @@
 <template>
   <q-dialog v-model="otpVerificationStore.openOtpVerificationDialog" persistent>
-
-    <q-card>
+    <q-card class="relative-position">
+      <div class="right-cros q-pa-sm"  @click="otpVerificationStore.closeOtpVerificationDialogManager">
+        <q-icon name="close" />
+      </div>
     <q-card-section class="text-center">
       <q-img class="otp-receive-image" src="/images/otp-receive-image.svg"/>
     </q-card-section>
@@ -68,7 +70,7 @@ const fillInput = (value) => {
   otpInput.value?.fillInput(value);
 };
 </script>
-<style scoped>
+<style >
 .otp-input {
   width: 40px;
   height: 40px;
@@ -88,7 +90,7 @@ const fillInput = (value) => {
   -webkit-appearance: none;
   margin: 0;
 }
-input::placeholder {
+.otp-input input::placeholder {
   font-size: 15px;
   text-align: center;
   font-weight: 600;
@@ -96,5 +98,11 @@ input::placeholder {
 
 .otp-receive-image{
   width: 200px;
+}
+.right-cros{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
 }
 </style>

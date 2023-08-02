@@ -58,7 +58,8 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     email,
     username,
     password,
-    phone
+    phone,
+    userType
   } = req.body
   const userExists = await User.findOne({
     $or: [
@@ -80,7 +81,8 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     email,
     username,
     password,
-    phone
+    phone,
+    userType
   })
 
   if (user) {

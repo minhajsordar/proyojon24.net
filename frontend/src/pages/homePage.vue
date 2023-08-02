@@ -610,7 +610,6 @@
 
               <div
                 class="full-width relative-position q-pa-sm bg-red-green-gradient"
-                v-if="!$q.screen.gt.sm"
               >
                 <div class="q-pa-xs">
                   <div class="row">

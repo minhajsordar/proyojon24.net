@@ -4,7 +4,6 @@ const otpSchema = new mongoose.Schema({
   // Other fields in your user model
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: 'User'
   },
   phone: {

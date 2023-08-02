@@ -6,6 +6,7 @@ import loader from 'loader-animation'
 import { Notify, Dialog } from 'quasar';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { CustomLoading } from 'src/global_js/loadiingApi';
 // verify_phone
 loader.title = 'Requesting To Server...'
 export const useOtpVerificationStore = defineStore('otp verification store', () => {
@@ -13,9 +14,12 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
   const router = useRouter()
   const openOtpVerificationDialog = ref(false)
   const otpInput = ref('')
-  const openOtpVerificationDialogManager=()=>{
+  const openOtpVerificationDialogManager = () => {
     openOtpVerificationDialog.value = true
     otpInput.value = ''
+  }
+  const closeOtpVerificationDialogManager = () => {
+    openOtpVerificationDialog.value = false
   }
   const getOtpVerificationCode = async (callback) => {
     const config = {
@@ -28,8 +32,10 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
         phone: authStore.loginUserInfo.phone
       }
     };
+    CustomLoading('get-otp-verirication-code').showLoading()
     try {
       const responseData = await api.request(config);
+      CustomLoading('get-otp-verirication-code').hideLoading()
       Notify.create({
         position: "center",
         type: "positive",
@@ -38,6 +44,7 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
       callback()
     } catch (error) {
       console.log(error);
+      CustomLoading('get-otp-verirication-code').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -56,11 +63,14 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
         phone: authStore.loginUserInfo.phone
       }
     };
+    CustomLoading('get-otp-verirication-code-while-registration').showLoading()
     try {
       await api.request(config);
       openOtpVerificationDialogManager()
+      CustomLoading('get-otp-verirication-code-while-registration').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('get-otp-verirication-code-while-registration').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",
@@ -69,7 +79,7 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
     }
   }
   const verifyOtpCode = async () => {
-    if(otpInput.value == ''){
+    if (otpInput.value == '') {
       return
     }
     const config = {
@@ -82,14 +92,17 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
         otp: otpInput.value
       }
     };
+    CustomLoading('verify-otp-verirication-code').showLoading()
     try {
       const responseData = await api.request(config);
       authStore.loginUserInfo.phoneVerified = true
       openOtpVerificationDialog.value = false
       router.push('/service_provider_profile')
+      CustomLoading('verify-otp-verirication-code').hideLoading()
     } catch (error) {
       console.log(error);
       openOtpVerificationDialog.value = false
+      CustomLoading('verify-otp-verirication-code').hideLoading()
 
       Notify.create({
         position: "center",
@@ -109,12 +122,15 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
         otp
       }
     };
+    CustomLoading('verify-otp-verirication-code').showLoading()
     try {
       await api.request(config);
       authStore.loginUserInfo.phoneVerified = true
       router.push('/service_provider_profile')
+      CustomLoading('verify-otp-verirication-code').hideLoading()
     } catch (error) {
       console.log(error);
+      CustomLoading('verify-otp-verirication-code').hideLoading()
     }
   }
   return {
@@ -124,6 +140,7 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
     verifyOtpCodeWhileRegistration,
     openOtpVerificationDialog,
     otpInput,
-    openOtpVerificationDialogManager
+    openOtpVerificationDialogManager,
+    closeOtpVerificationDialogManager
   }
 });

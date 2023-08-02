@@ -611,6 +611,7 @@ const createServiceProvider = expressAsyncHandler(async (req, res) => {
 const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
     const {
         username,
+        userType,
         email,
         name,
         password,
@@ -661,7 +662,8 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
         password,
         phone: phoneNumber1,
         hasServiceProviderProfile: true,
-        reference
+        reference,
+        userType
     })
 
     if (user) {

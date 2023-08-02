@@ -108,7 +108,7 @@ export const useWithdrawalMethodeStore = defineStore('withdrawal methode store',
       });
     } catch (error) {
       console.log(error);
-      CustomLoading('delete-withdrawalMethodes').hideLoading()
+      CustomLoading('create-withdrawalMethode_methode').hideLoading()
       Notify.create({
         position: "center",
         type: "negative",

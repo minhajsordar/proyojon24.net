@@ -25,7 +25,6 @@ const createPhoneNumberOTP = expressAsyncHandler(async (req, res) => {
   }
 
   const phoneNumberOTP = await PhoneNumberOTP.create({
-    user: req.user._id,
     phone: req.user.phone,
     otp: generateOTP(),
     otpExpiresAt: createOtpExpirationTime()
@@ -45,11 +44,11 @@ const createPhoneNumberOTP = expressAsyncHandler(async (req, res) => {
       .then((otpres) => {
         console.log(`Status: ${otpres.status}`);
         console.log('Body: ', otpres.data);
-        res.status(otpres.status).json("otp sent successfully")
+        res.status(otpres.status).json({ status: 'OK', message: "otp sent successfully" });
         // res.status(200).json("otp sent successfully")
-        }).catch((err) => {
+      }).catch((err) => {
         phoneNumberOTP.deleteOne()
-        res.status(400).json("Otp Server Error.")
+        res.status(400).json({ status: 'Failed', message: "Server error" })
         // console.error(err);
       });
 

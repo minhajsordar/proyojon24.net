@@ -50,6 +50,7 @@ export const useRegisterStore = defineStore('register store', () => {
       transactionId: "",
       amount: 0,
       reference: null,
+      accountType: "personal",
     })
   const matchPassword = () => {
     if (newUserInfo.password == newUserInfo.password2) {

@@ -120,6 +120,11 @@ const userSchema = mongoose.Schema({
     },
     reference: {
         type: String,
+    },
+    userType: {
+        type: String,
+        required: true,
+        default: 'personal'
     }
 }, {
     timestamps: true

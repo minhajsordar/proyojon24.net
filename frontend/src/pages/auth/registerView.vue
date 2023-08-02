@@ -104,6 +104,18 @@
               <div class="col-sm-6 col-xs-12 col-12">
                 <div class="row q-col-gutter-xs">
                   <div class="col-12">
+                    <q-select
+                      ref="accountTypeEl"
+                      v-model="registerStore.newUserInfo.accountType"
+                      :label="$t('accountType')"
+                      stack-label
+                      :options="['personal', 'business']"
+                      outlined
+                      dense
+                      :rules="[requiredSelector]"
+                    />
+                  </div>
+                  <div class="col-12">
                     <q-input
                       ref="phoneEl"
                       v-model="registerStore.newUserInfo.phone"
@@ -136,7 +148,9 @@
                       :rules="[required]"
                     />
                   </div>
-                  <div class="col-12">
+                </div>
+              </div>
+                  <div class="full-width">
                     <q-btn
                       @click="registerManager"
                       class="full-width bg-primary text-white btn-h-39"
@@ -146,8 +160,6 @@
                       dense
                     />
                   </div>
-                </div>
-              </div>
             </div>
           </q-card-section>
         </q-card>
