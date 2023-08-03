@@ -70,6 +70,7 @@ export const useServiceProviderStore = defineStore('service provider store', () 
       email: null,
       password: null,
       password2: null,
+      userType: 'personal',
     }),
     serviceProviderInfo = reactive({
       id: null,

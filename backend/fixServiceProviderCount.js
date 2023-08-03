@@ -26,6 +26,12 @@ export const importData = async () => {
       await ServiceCategory.findOneAndUpdate({ _id: serviceCat[i]._id }, { registrationNo: userCount })
     }
     await Counter.findByIdAndUpdate('userRegistrationCounter', { sequenceValue: users.length })
+    
+    const users = await User.find({})
+    for (let i = 0; i < users.length; i++) {
+      await User.findOneAndUpdate({ _id: users[i]._id }, { userType: 'personal' })
+    }
+
     console.log('Data Imported!')
     // process.exit(0)
   } catch (error) {

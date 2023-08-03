@@ -1,6 +1,8 @@
 import expressAsyncHandler from "express-async-handler";
 import User from '../models/userModel.js'
 import ServiceProvider from '../models/serviceProviderModel.js'
+import Service from '../models/serviceModel.js'
+import ServiceCategory from '../models/serviceCategoryModel.js'
 import DailyUser from '../models/dailyUserModel.js'
 import MonthlyUser from '../models/monthlyUserModel.js'
 import DailyProfileView from '../models/dailyProfileViewModel.js'
@@ -8,11 +10,15 @@ import Payment from '../models/paymentModel.js'
 import {MyEarning} from '../models/myEarningModel.js'
 
 const userDashboardData = expressAsyncHandler(async (req, res) => {
-  let totalUser = await User.countDocuments({})
+  let totalServices = await Service.countDocuments({})
+  let totalServiceCategory = await ServiceCategory.countDocuments({})
+  let totalUser = await User.countDocuments({userType: 'personal'})
+  let totalCompany = await User.countDocuments({userType: 'company'})
   let profileView = await ServiceProvider.find({})
   let totalView = profileView.reduce((a, c) => a + c.viewCount, 0)
   res.status(200)
-  res.json({ totalUser, totalView })
+  res.json({ totalUser, totalView, totalServices,
+    totalServiceCategory })
 })
 
 const totalPremiumUsers = expressAsyncHandler(async (req, res) => {

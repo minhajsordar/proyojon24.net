@@ -59,6 +59,7 @@ export const useRegisterStore = defineStore('register store', () => {
       return "Password Not Matched"
     }
   }
+  // new user reggistration api
   const registerNewUser = async () => {
     const data = {
       name: newUserInfo.name,
@@ -128,8 +129,7 @@ export const useRegisterStore = defineStore('register store', () => {
         authStore.rememberUserData()
         languageStore.switchToBn()
         myRooms.value = null
-        otpVerificationStore.getOtpVerificationCodeWhileRegistration()
-        // router.push('/service_provider_profile')
+        router.push('/service_provider_profile')
       }).onCancel(() => {
         router.push('/login')
       });
@@ -143,6 +143,7 @@ export const useRegisterStore = defineStore('register store', () => {
       });
     }
   }
+  // nid card image uploading api
   const uploadNidAndRegisterUser = async () => {
     if (!nidImage.value || typeof nidImage.value == 'string' || typeof nidImage.value == 'Object') {
       return

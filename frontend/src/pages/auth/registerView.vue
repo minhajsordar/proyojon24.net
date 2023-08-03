@@ -109,7 +109,7 @@
                       v-model="registerStore.newUserInfo.accountType"
                       :label="$t('accountType')"
                       stack-label
-                      :options="['personal', 'business']"
+                      :options="['personal', 'company']"
                       outlined
                       dense
                       :rules="[requiredSelector]"
@@ -166,6 +166,7 @@
       </div>
     </div>
   </div>
+  <otpInputRegistrationDialog/>
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
@@ -178,12 +179,15 @@ import {
 } from "src/global_js/utils";
 import { useRegisterStore } from "src/stores/auth/registerStore";
 import { useRoute, useRouter } from "vue-router";
+import { useOtpVerificationStore } from "src/stores/auth/verifyPhone";
+import otpInputRegistrationDialog from "src/components/dialogs/otpInput/otpInputRegistrationDialog.vue"
 const accountFor = ref("Own");
 const isPwd = ref(true);
 const isPwdC = ref(true);
 const router = useRouter();
 const route = useRoute();
 const registerStore = useRegisterStore();
+const otpVerificationStore = useOtpVerificationStore();
 const usernameEl = ref(null);
 const emailEl = ref(null);
 const passwordEl = ref(null);
@@ -225,7 +229,9 @@ const registerManager = () => {
       phone: registerStore.newUserInfo.phone,
     },
   });
-  registerStore.registerNewUser();
+  // at first verify phone number, check that the phone number is valid then verify that phone number
+  // finally call register user api
+  otpVerificationStore.getOtpVerificationCodeWhileRegistration()
 };
 onMounted(() => {
   if (route.query.namebn) {

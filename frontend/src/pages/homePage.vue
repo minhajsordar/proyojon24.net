@@ -45,7 +45,7 @@
                     flat
                   />
                 </div>
-                <div class="flex justify-center q-mt-xs">
+                <!-- <div class="flex justify-center q-mt-xs">
                   <div
                     class="text-center text-bold flex border-pink-12 bg-pink-4 q-px-sm q-py-xs"
                     style="width: 250px"
@@ -68,7 +68,7 @@
                       }}
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- <div class="flex justify-between q-mt-md fs-18">
                   <div class="">পন্য ব্যবসায়ী/সার্ভিস প্রভাইডার</div>
                   <div class="text-end">স্থান</div>
@@ -94,7 +94,7 @@
             <div class="col-2"></div>
           </div>
         </q-card>
-        <div class="absolute-top-left" style="z-index: -1">
+        <div style="z-index: -1; position: absolute; top: -35px; left: 0;">
           <bgSvgAnimatedBanner />
         </div>
       </div>
@@ -612,8 +612,41 @@
                 class="full-width relative-position q-pa-sm bg-red-green-gradient"
               >
                 <div class="q-pa-xs">
-                  <div class="row">
-                    <div class="text-white fs-20 col-6 text-center">
+                  <div class="flex justify-around text-center fs-17 text-white">
+                    <div class="q-px-md">
+                      <div>
+                        <q-icon name="person" class="q-mb-xs" />
+                        {{
+                          $convertNumberIntoDecimal(
+                            dashboardStore.dashboardData?.totalServices
+                          )
+                        }}
+                      </div>
+                      Services
+                    </div>
+                    <div class="q-px-md">
+                      <div>
+                        <q-icon name="person" class="q-mb-xs" />
+                        {{
+                          $convertNumberIntoDecimal(
+                            dashboardStore.dashboardData?.totalServiceCategory
+                          )
+                        }}
+                      </div>
+                      Service Category
+                    </div>
+                    <div class="q-px-md">
+                      <div>
+                        <q-icon name="person" class="q-mb-xs" />
+                        {{
+                          $convertNumberIntoDecimal(
+                            dashboardStore.dashboardData?.totalCompany
+                          )
+                        }}
+                      </div>
+                      Company
+                    </div>
+                    <div class="q-px-md">
                       <div>
                         <q-icon name="person" class="q-mb-xs" />
                         {{
@@ -622,9 +655,9 @@
                           )
                         }}
                       </div>
-                      Users
+                      Personal
                     </div>
-                    <div class="text-white fs-20 col-6 text-center">
+                    <div class="q-px-md">
                       <div>
                         <q-icon name="visibility" class="q-mb-xs" />
                         {{

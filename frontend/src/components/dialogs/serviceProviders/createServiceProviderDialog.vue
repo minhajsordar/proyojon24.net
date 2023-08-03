@@ -244,6 +244,19 @@
               />
             </div>
             <div class="col-sm-6 col-xs-12 col-12">
+              <q-select
+                v-model="
+                  serviceProviderStore.serviceProviderRegisterInfo.userType
+                "
+                :label="$t('accountType')"
+                stack-label
+                :options="['personal', 'company']"
+                outlined
+                dense
+                :rules="[requiredSelector]"
+              />
+            </div>
+            <div class="col-sm-6 col-xs-12 col-12">
               <div class="text-bold">{{ $t("Reference") }}*</div>
               <q-input
                 v-model="
@@ -265,7 +278,11 @@
                         .bankAccountName
                     "
                     outlined
-                    :options="['bKash 01956853831 (Send Money)', 'Dutch Bangla', 'Nagad']"
+                    :options="[
+                      'bKash 01956853831 (Send Money)',
+                      'Dutch Bangla',
+                      'Nagad',
+                    ]"
                     dense
                     stack-label
                     :rules="[required]"
@@ -300,7 +317,9 @@
                   />
                 </div>
                 <div class="col-sm-6 col-xs-12 col-12">
-                  <div class="text-bold">{{ $t("amount") }} {{ $currency_sign }}*</div>
+                  <div class="text-bold">
+                    {{ $t("amount") }} {{ $currency_sign }}*
+                  </div>
                   <q-input
                     ref="amountEl"
                     v-model="
@@ -1128,9 +1147,10 @@ const onRejected = (rejectedEntries) => {
     message: `Choosen file size too big`,
   });
 };
-const updateRegistrationAmount =(val)=>{
-  serviceProviderStore.serviceProviderRegisterInfo.amount = val.premiumRegistrationFee
-}
+const updateRegistrationAmount = (val) => {
+  serviceProviderStore.serviceProviderRegisterInfo.amount =
+    val.premiumRegistrationFee;
+};
 const divisionOptions = ref(divisionStore.allDivisions);
 const divisionFilterFn = (val, update) => {
   if (val === "") {
