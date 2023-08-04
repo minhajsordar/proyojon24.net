@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO Later we will need this anal -->
   <div class="container-section-py-xs" v-if="!$q.screen.gt.sm">
     <div class="inner-section">
       <div class="full-width relative-position q-px-sm">
@@ -613,7 +612,7 @@
               >
                 <div class="q-pa-xs">
                   <div class="flex justify-around text-center fs-17 text-white">
-                    <div class="q-px-md">
+                    <div class="q-px-md q-py-md">
                       <div>
                         <q-icon name="person" class="q-mb-xs" />
                         {{
@@ -624,7 +623,7 @@
                       </div>
                       Services
                     </div>
-                    <div class="q-px-md">
+                    <div class="q-px-md q-py-md">
                       <div>
                         <q-icon name="person" class="q-mb-xs" />
                         {{
@@ -635,7 +634,7 @@
                       </div>
                       Service Category
                     </div>
-                    <div class="q-px-md">
+                    <div class="q-px-md q-py-md">
                       <div>
                         <q-icon name="person" class="q-mb-xs" />
                         {{
@@ -646,7 +645,7 @@
                       </div>
                       Company
                     </div>
-                    <div class="q-px-md">
+                    <div class="q-px-md q-py-md">
                       <div>
                         <q-icon name="person" class="q-mb-xs" />
                         {{
@@ -657,7 +656,7 @@
                       </div>
                       Personal
                     </div>
-                    <div class="q-px-md">
+                    <div class="q-px-md q-py-md">
                       <div>
                         <q-icon name="visibility" class="q-mb-xs" />
                         {{
@@ -687,7 +686,7 @@
                 <div class="inner-section">
                   <div class="full-width">
                     <div class="fs-22 text-bold text-center q-pb-sm">
-                      Our Partners
+                      {{ ourBusinessPartners.ourBusinessPartnersData?.ourBusinessPartnerTitle }}
                     </div>
                     <ourPartners />
                   </div>
@@ -733,7 +732,6 @@ import ourPartners from "src/components/slide/ourPartners.vue";
 import { useOurBusinessPartnersStore } from "src/stores/dashboard/ourBusinessPartnersStore";
 const ourBusinessPartners = useOurBusinessPartnersStore();
 ourBusinessPartners.getourBusinessPartnersList();
-ourBusinessPartners.ourBusinessPartnersData?.ourBusinessPartners;
 
 const isPaused = ref(false);
 const publicSliderStore = usePublicSliderStore();

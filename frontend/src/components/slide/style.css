@@ -24,6 +24,5 @@
 .swiper-slide.our-partner-slide img {
   display: block;
   width: 100px;
-  height: 100px;
   object-fit: cover;
 }

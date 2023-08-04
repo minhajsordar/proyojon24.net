@@ -116,7 +116,7 @@ const userSchema = mongoose.Schema({
         }
     },
     registrationNo: {
-        type: Number,
+        type: String,
     },
     reference: {
         type: String,

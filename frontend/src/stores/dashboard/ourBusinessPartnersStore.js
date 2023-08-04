@@ -16,6 +16,7 @@ export const useOurBusinessPartnersStore = defineStore('our business partners st
     id: "",
   })
   const currentPage = ref(1)
+const ourBusinessPartnerSectionTitle = ref(null)
   const ourBusinessPartnersData = ref(null)
   const ourBusinessPartnerImage = ref(null)
   const openBusinessPartnersAddDialog = ref(false)
@@ -50,6 +51,7 @@ export const useOurBusinessPartnersStore = defineStore('our business partners st
     try {
       const responseData = await api.request(config);
       ourBusinessPartnersData.value = responseData.data
+      ourBusinessPartnerSectionTitle.value = responseData.data.ourBusinessPartnerTitle
       CustomLoading('registration-fee-list').hideLoading()
     } catch (error) {
       console.log(error);
@@ -179,7 +181,38 @@ export const useOurBusinessPartnersStore = defineStore('our business partners st
       })
     }
   }
-
+  const createAndUpdateOurBusinessPartnerTitle = async () => {
+    const config = {
+      method: "post",
+      url: "api/our_business_partners/our_business_partner_title",
+      headers: {
+        "Content-Type": "application/json",
+      }, data:{
+        ourBusinessPartnerTitle : ourBusinessPartnerSectionTitle.value
+      }
+    };
+    CustomLoading('business-partmer').showLoading()
+    try {
+      const responseData = await api.request(config);
+      getourBusinessPartnersList()
+      CustomLoading('business-partmer').hideLoading()
+      openBusinessPartnersAddDialog.value = false
+      Notify.create({
+        message: "Successfully Created business partner",
+        type: "positive",
+        position: "center"
+      })
+    } catch (error) {
+      console.log(error);
+      CustomLoading('business-partmer').hideLoading()
+      openBusinessPartnersAddDialog.value = false
+      Notify.create({
+        message: "Failed to Create business partner",
+        type: "negative",
+        position: "center"
+      })
+    }
+  }
   return {
     currentPage,
     ourBusinessPartnerImage,
@@ -192,6 +225,8 @@ export const useOurBusinessPartnersStore = defineStore('our business partners st
     updateOurBusinessPartners,
     deleteOurBusinessPartners,
     openBusinessPartnersUpdateDialog,
-    openBusinessPartnersUpdateManager
+    openBusinessPartnersUpdateManager,
+    createAndUpdateOurBusinessPartnerTitle,
+    ourBusinessPartnerSectionTitle
   }
 });

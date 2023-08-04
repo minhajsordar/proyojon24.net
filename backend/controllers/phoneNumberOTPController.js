@@ -109,17 +109,17 @@ const createPhoneNumberOTPWhileRegistration = expressAsyncHandler(async (req, re
     console.log(phoneNumberOTP.otp)
     res.status(200).send({ message: "ok" });
     // send otp notification to bd mobile phone number
-    // await axios.post('http://bulksmsbd.net/api/smsapi', data)
-    //   .then((otpres) => {
-    //     console.log(`Status: ${otpres.status}`);
-    //     console.log('Body: ', otpres.data);
-    //     res.status(otpres.status).json({ status: 'OK', message: "otp sent successfully" });
-    //     // res.status(200).json("otp sent successfully")
-    //   }).catch((err) => {
-    //     phoneNumberOTP.deleteOne()
-    //     res.status(400).json({ status: 'Failed', message: "Server error" })
-    //     // console.error(err);
-    //   });
+    await axios.post('http://bulksmsbd.net/api/smsapi', data)
+      .then((otpres) => {
+        console.log(`Status: ${otpres.status}`);
+        console.log('Body: ', otpres.data);
+        res.status(otpres.status).json({ status: 'OK', message: "otp sent successfully" });
+        // res.status(200).json("otp sent successfully")
+      }).catch((err) => {
+        phoneNumberOTP.deleteOne()
+        res.status(400).json({ status: 'Failed', message: "Server error" })
+        // console.error(err);
+      });
 
   } else {
     res.status(400)
@@ -132,8 +132,6 @@ const verifyOTPWhileRegistration = expressAsyncHandler(async (req, res) => {
   } = req.body
 
   let phoneNumberOTP = await PhoneNumberOTP.findOne({ phone: phone })
-  console.log(phoneNumberOTP)
-  console.log(otp)
   if (phoneNumberOTP && (phoneNumberOTP.otp == otp) && isPhoneOtpValid(phoneNumberOTP.otpExpiresAt)) {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     const phone = phoneNumberOTP.phone

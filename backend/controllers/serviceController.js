@@ -17,7 +17,7 @@ const getServices = expressAsyncHandler(async (req, res) => {
     const count = await Service.countDocuments({ ...keyword })
     const services = await Service.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1))
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(200).json({ services, page, pages: Math.ceil(count / pageSize) })
+    res.status(200).json({ services:null, page, pages: Math.ceil(count / pageSize) })
 })
 // @desc get Service
 // @route Put api/Service
@@ -25,7 +25,7 @@ const getServices = expressAsyncHandler(async (req, res) => {
 const getAllServices = expressAsyncHandler(async (req, res) => {
     const services = await Service.find({})
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(200).json(services)
+    res.status(200).json({services:null})
 })
 
 // @desc get service controller by id

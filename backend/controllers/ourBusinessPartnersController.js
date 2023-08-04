@@ -1,5 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
 import OurBusinessPartners from '../models/ourBusinessPartnersModel.js'
+import TitleSubTitle from '../models/titleSubTitleModel.js'
 
 // @desc get ourBusinessPartners
 // @route Put api/ourBusinessPartners
@@ -9,8 +10,9 @@ const getOurBusinessPartners = expressAsyncHandler(async (req, res) => {
     const page = Number(req.query.pageNumber) || 1;
     const count = await OurBusinessPartners.countDocuments({ })
     const ourBusinessPartners = await OurBusinessPartners.find({ }).limit(pageSize).skip(pageSize * (page - 1))
+    const titleSubTitles = await TitleSubTitle.find({ })
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(200).json({ ourBusinessPartners, page, pages: Math.ceil(count / pageSize) })
+    res.status(200).json({ ourBusinessPartners,ourBusinessPartnerTitle : titleSubTitles.length == 0 ? null : titleSubTitles[0]?.ourBusinessPartnerTitle, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @desc get ourBusinessPartners by id
@@ -68,6 +70,34 @@ const updateOurBusinessPartner = expressAsyncHandler(async (req, res) => {
     }
 })
 
+// @desc update a ourBusinessPartners
+// @route update api/ourBusinessPartners/
+// @acess Privet/Admin
+const updateOurBusinessPartnerSectionTitle = expressAsyncHandler(async (req, res) => {
+    const {
+        ourBusinessPartnerTitle
+    } = req.body
+    const ourBusinessPartne = await TitleSubTitle.find({})
+    if(ourBusinessPartne.length == 0 ){
+        const updatedOurBusinessPartner = await TitleSubTitle.create({
+            ourBusinessPartnerTitle
+        })
+        res.status(201).json(updatedOurBusinessPartner)
+    }
+    else{
+        console.log(ourBusinessPartne)
+        const ourBusinessPartnerTitles = await TitleSubTitle.findById({_id: ourBusinessPartne[0]._id})
+        if (ourBusinessPartnerTitles) {
+            ourBusinessPartnerTitles.ourBusinessPartnerTitle = ourBusinessPartnerTitle
+            const updatedOurBusinessPartner = await ourBusinessPartnerTitles.save()
+            res.status(201).json(updatedOurBusinessPartner)
+        } else {
+            res.status(404)
+            throw new Error('OurBusinessPartners not found')
+        }
+    }
+})
+
 // @desc create a ourBusinessPartners
 // @route create api/ourBusinessPartners/
 // @acess Privet/Admin
@@ -102,4 +132,5 @@ export {
     deleteOurBusinessPartner,
     updateOurBusinessPartner,
     createOurBusinessPartner,
+    updateOurBusinessPartnerSectionTitle
 }
