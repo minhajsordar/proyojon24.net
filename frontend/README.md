@@ -1,4 +1,4 @@
-# Proyojon24 App (frontend)
+# Proyojon24 (frontend)
 
 Proyojonio Services
 
