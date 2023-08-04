@@ -14,6 +14,7 @@ npm install
 
 ```bash
 quasar dev
+quasar mode add capacitor
 quasar dev -m android --ide
 quasar dev -m capacitor -T android
 quasar dev -m ios --ide
