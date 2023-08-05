@@ -668,7 +668,7 @@ const createUserAndServiceProvider = expressAsyncHandler(async (req, res) => {
 
     if (user) {
 
-        const datacollector = await User.findOne({ registrationNo: Number(reference) })
+        const datacollector = await User.findOne({ registrationNo: reference })
         // create registration payment 
         if (
             bankAccountName !== '' &&

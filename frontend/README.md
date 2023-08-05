@@ -68,3 +68,8 @@ quasar build
 ### Customize the configuration
 
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+
+
+https://www.amazon.com/s?i=toys-and-games&bbn=165793011&rh=n%3A165793011%2Cn%3A166164011%2Cp_36%3A-3000&dc&ds=v1%3AkhGWczh9JprZrZX54bGfKSvVHBuQBiZTxe1B88xk0oQ&_encoding=UTF8&content-id=amzn1.sym.eb39b83d-c690-496d-9f16-0a9bd66ca6c8&pd_rd_r=d46b6350-6e1f-4d5b-83ef-68ab48aa89d5&pd_rd_w=Y1b9l&pd_rd_wg=dX2Ko&pf_rd_p=eb39b83d-c690-496d-9f16-0a9bd66ca6c8&pf_rd_r=SA133MKPNHYGFRVG9KMW&qid=1691196943&rnid=165793011&ref=sr_nr_n_8
+
+https://www.amazon.com/s?i=toys-and-games&bbn=165793011&rh=n%3A165793011%2Cp_36%3A-3000&dc&_encoding=UTF8&content-id=amzn1.sym.eb39b83d-c690-496d-9f16-0a9bd66ca6c8&pd_rd_r=d46b6350-6e1f-4d5b-83ef-68ab48aa89d5&pd_rd_w=Y1b9l&pd_rd_wg=dX2Ko&pf_rd_p=eb39b83d-c690-496d-9f16-0a9bd66ca6c8&pf_rd_r=SA133MKPNHYGFRVG9KMW&qid=1663255924&rnid=386491011&ref=pd_gw_unk

@@ -14,7 +14,7 @@ async function getNextId(counterName) {
         { new: true, upsert: true }
     );
 
-    return counter.sequenceValue;
+    return `P24-${counter.sequenceValue}`;
 }
 
 const userSchema = mongoose.Schema({
