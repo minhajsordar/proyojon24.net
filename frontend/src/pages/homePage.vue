@@ -614,7 +614,8 @@
                   <div class="flex justify-around text-center fs-17 text-white">
                     <div class="q-px-md q-py-md">
                       <div>
-                        <q-icon name="person" class="q-mb-xs" />
+                        <q-img :src="web_root_url+'/images/services.png'" style="width: 20px" />
+
                         {{
                           $convertNumberIntoDecimal(
                             dashboardStore.dashboardData?.totalServices
@@ -625,7 +626,7 @@
                     </div>
                     <div class="q-px-md q-py-md">
                       <div>
-                        <q-icon name="person" class="q-mb-xs" />
+                        <q-img :src="web_root_url+'/images/service-category.png'" style="width: 20px" />
                         {{
                           $convertNumberIntoDecimal(
                             dashboardStore.dashboardData?.totalServiceCategory
@@ -639,7 +640,7 @@
                         <q-icon name="person" class="q-mb-xs" />
                         {{
                           $convertNumberIntoDecimal(
-                            dashboardStore.dashboardData?.totalCompany
+                            dashboardStore.dashboardData?.totalUser
                           )
                         }}
                       </div>
@@ -647,10 +648,10 @@
                     </div>
                     <div class="q-px-md q-py-md">
                       <div>
-                        <q-icon name="person" class="q-mb-xs" />
+                        <q-img :src="web_root_url+'/images/company.png'" style="width: 20px" />
                         {{
                           $convertNumberIntoDecimal(
-                            dashboardStore.dashboardData?.totalUser
+                            dashboardStore.dashboardData?.totalCompany
                           )
                         }}
                       </div>
