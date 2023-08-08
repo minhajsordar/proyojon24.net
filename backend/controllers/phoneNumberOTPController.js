@@ -94,7 +94,7 @@ const createPhoneNumberOTPWhileRegistration = expressAsyncHandler(async (req, re
   })
   if (userExists) {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    res.status(400)
+    res.status(400).send(userExists)
     throw new Error('User already exists with this phone or username or email.')
   }
   let existPhoneNumberOTP = await PhoneNumberOTP.find({ phone: req.body.phone }).sort({ createdAt: 'desc' })
