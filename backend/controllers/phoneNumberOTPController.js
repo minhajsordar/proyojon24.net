@@ -80,18 +80,19 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
 })
 
 const createPhoneNumberOTPWhileRegistration = expressAsyncHandler(async (req, res) => {
-
+  let userExist = await User.findOne({ phone: req.body.phone })
+  if(userExist){
+    res.status(401).json({message: 'User already exists with phone number'})
+  }
   let existPhoneNumberOTP = await PhoneNumberOTP.find({ phone: req.body.phone }).sort({ createdAt: 'desc' })
 
-  if (existPhoneNumberOTP[0]) {
-    if (chechResendOtpIfBelow2minutes(existPhoneNumberOTP[0].otpExpiresAt)) {
+  if (existPhoneNumberOTP) {
+    if (chechResendOtpIfBelow2minutes(existPhoneNumberOTP.otpExpiresAt)) {
       res.status(401)
       throw new Error('OTP already sent. Please verify your otp or try 2 minutes later')
-    } else {
-      await PhoneNumberOTP.deleteMany({ phone: req.body.phone })
     }
   }
-
+  await PhoneNumberOTP.deleteMany({ phone: req.body.phone })
   const phoneNumberOTP = await PhoneNumberOTP.create({
     phone: req.body.phone,
     otp: generateOTP(),
@@ -106,8 +107,8 @@ const createPhoneNumberOTPWhileRegistration = expressAsyncHandler(async (req, re
       number: phoneNumberPrefix(phoneNumberOTP.phone),
       message: `Dear your proyojon24 verification code is - ${phoneNumberOTP.otp}`
     };
-    console.log(phoneNumberOTP.otp)
-    res.status(200).send({ message: "ok" });
+    // console.log(phoneNumberOTP)
+    // res.status(200).send({ message: "ok" });
     // send otp notification to bd mobile phone number
     await axios.post('http://bulksmsbd.net/api/smsapi', data)
       .then((otpres) => {

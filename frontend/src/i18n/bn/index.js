@@ -5,8 +5,8 @@ export default {
   failed: 'একশন ব্যা‍র্থ',
   success: 'একশন সফল',
   register_success: 'আপনার অ্যাকাউন্ট নিবন্ধন সফল।',
-  create_service_provider: 'পরিষেবা প্রদানকারীর প্রোফাইল সম্পূর্ণ করতে ওকে ক্লিক করুন।',
-  create_service_provider_success: 'আপনার পরিষেবা প্রদানকারী অ্যাকাউন্ট তৈরি করা হয়েছে।',
+  create_service_provider: 'সেবা প্রদানকারীর প্রোফাইল সম্পূর্ণ করতে ওকে ক্লিক করুন।',
+  create_service_provider_success: 'আপনার সেবা প্রদানকারী অ্যাকাউন্ট তৈরি করা হয়েছে।',
   wait_for_confirmation: 'নিশ্চিতকরণের জন্য অপেক্ষা করুন. একবার আমরা আপনার প্রোফাইল নিশ্চিত করলে আপনার প্রোফাইল সর্বজনীনের কাছে দৃশ্যমান হবে।',
   language: 'বাং',
   serial: 'সিরিয়াল নং',
@@ -112,6 +112,13 @@ export default {
   premium_account_periods: 'প্রিমিয়াম অ্যাকাউন্টের মেয়াদ',
   our_partners: 'আমাদের সহযোগী',
   experience: 'অভিজ্ঞতা',
+  counterbar: {
+    services: 'সেবা সমূহ',
+    serviceCategory: 'সেবার ধরন সমূহ',
+    personal: 'ব্যাক্তিগত',
+    company: 'প্রতিষ্ঠান',
+    view: 'ভিউ',
+  },
   partners: {
     partners_list: 'আমাদের সহযোগী তালিকা'
   },

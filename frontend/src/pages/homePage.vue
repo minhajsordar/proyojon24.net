@@ -621,7 +621,7 @@
                           )
                         }}
                       </div>
-                      Services
+                      {{ $t('counterbar.services') }}
                     </div>
                     <div class="q-px-md q-py-md">
                       <div>
@@ -632,7 +632,7 @@
                           )
                         }}
                       </div>
-                      Service Category
+                      {{ $t('counterbar.serviceCategory') }}
                     </div>
                     <div class="q-px-md q-py-md">
                       <div>
@@ -643,7 +643,7 @@
                           )
                         }}
                       </div>
-                      Company
+                      {{ $t('counterbar.personal') }}
                     </div>
                     <div class="q-px-md q-py-md">
                       <div>
@@ -654,7 +654,7 @@
                           )
                         }}
                       </div>
-                      Personal
+                      {{ $t('counterbar.company') }}
                     </div>
                     <div class="q-px-md q-py-md">
                       <div>
@@ -665,7 +665,7 @@
                           )
                         }}
                       </div>
-                      Views
+                      {{ $t('counterbar.view') }}
                     </div>
                     <!-- <div
           class="text-center text-bold flex border-pink-12"

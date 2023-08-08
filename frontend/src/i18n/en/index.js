@@ -112,6 +112,13 @@ export default {
   premium_account_periods: 'Premium account periods',
   our_partners: 'Our Partners',
   experience: 'Experience',
+  counterbar: {
+    services: 'Services',
+    serviceCategory: 'Service Category',
+    personal: 'Personal',
+    company: 'Company',
+    view: 'View',
+  },
   partners: {
     partners_list: 'List of our partners'
   },

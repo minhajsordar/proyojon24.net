@@ -28,7 +28,7 @@ $ icongenie generate [options]
 
     # generate icons for all installed Quasar modes
     $ icongenie generate -i /path/to/icon.png
-    $ icongenie g -i icon.png
+    $ icongenie g -i icon.png --skip-trim
 
     # generate for (as example) PWA mode only
     $ icongenie generate -m pwa --icon /path/to/icon.png
