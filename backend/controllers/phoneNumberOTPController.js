@@ -80,10 +80,23 @@ const verifyOTP = expressAsyncHandler(async (req, res) => {
 })
 
 const createPhoneNumberOTPWhileRegistration = expressAsyncHandler(async (req, res) => {
-  // let userExist = await User.findOne({ phone: req.body.phone })
-  // if(userExist){
-  //   res.status(401).json({message: 'User already exists with phone number'})
-  // }
+
+  const {
+    phone, email, username
+  } = req.body
+
+  const userExists = await User.findOne({
+    $or: [
+      { phone },
+      { email },
+      { username }
+    ]
+  })
+  if (userExists) {
+    // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
+    res.status(400)
+    throw new Error('User already exists with this phone or username or email.')
+  }
   let existPhoneNumberOTP = await PhoneNumberOTP.find({ phone: req.body.phone }).sort({ createdAt: 'desc' })
 
   if (existPhoneNumberOTP) {

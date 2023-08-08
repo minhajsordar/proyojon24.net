@@ -67,7 +67,6 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       { email },
       { username }
     ]
-
   })
   if (userExists) {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');

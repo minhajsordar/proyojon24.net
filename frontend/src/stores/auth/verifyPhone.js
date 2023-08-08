@@ -70,7 +70,9 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
       headers: {
         "Content-Type": "application/json",
       }, data: {
-        phone: registrationStore.newUserInfo.phone
+        username: registrationStore.newUserInfo.username,
+        phone: registrationStore.newUserInfo.phone,
+        email: registrationStore.newUserInfo.email
       }
     };
     CustomLoading('get-otp-verirication-code-while-registration').showLoading()
