@@ -175,16 +175,7 @@
                 }}, {{ $t("registration_no") }}:
                 <span v-if="serviceProviderStore.serviceProvider.user"
                   >{{
-                    enToBnToEn(
-                      "000000000".slice(
-                        0,
-                        9 -
-                          serviceProviderStore.serviceProvider?.user?.registrationNo.toString()
-                            .length
-                      ) +
-                        serviceProviderStore.serviceProvider?.user?.registrationNo.toString(),
-                      languageStore.language
-                    )
+                    serviceProviderStore.serviceProvider?.user?.registrationNo.toString()
                   }}
                 </span>
               </div>
