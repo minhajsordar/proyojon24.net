@@ -226,12 +226,13 @@ const getNidPendingUsers = expressAsyncHandler(async (req, res) => {
 // @route GET api/users
 // @acess Privet
 const approveOrRejectNid = expressAsyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id)
+  const user = await User.findById(req.params.id)
   if (user) {
     user.nidStatus = req.body.nidStatus
     user.nidVerified = req.body.nidVerified
     user.note = req.body.note
     const updatedUser = await user.save()
+    // console.log(updatedUser)
     // res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
     res.json({
       _id: updatedUser._id,
