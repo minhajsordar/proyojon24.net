@@ -8,4 +8,4 @@ export NODE_OPTIONS="--max-old-space-size=8192"
 hello
 
 ssh root@156.67.217.198
-path /apps/proyojon24/dest
+cd apps/proyojon24/dest

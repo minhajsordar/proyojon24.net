@@ -14,8 +14,8 @@ node_modules/
 /frontend/node_modules
 /frontend/src-cordova
 /frontend/src-ssr
+frontend/
 frontend
-/frontend
 
 # build
 # /build
