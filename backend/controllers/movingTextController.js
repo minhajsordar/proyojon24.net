@@ -60,9 +60,9 @@ const removeMovingText = expressAsyncHandler(async (req, res) => {
             fs.rm(directory[i], { recursive: true, force: true }, (err) => {
                 if (err) throw err;
             },);
-            res.send(JSON.stringify(files))
         });
     }
+    res.send({dir: directory})
 })
 
 // @desc create a movingText
