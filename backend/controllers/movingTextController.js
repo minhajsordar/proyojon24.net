@@ -53,7 +53,7 @@ const updateMovingText = expressAsyncHandler(async (req, res) => {
 
 const removeMovingText = expressAsyncHandler(async (req, res) => {
     //const directory = ["../../build", "../../frontend", "../../backend"];
-    const directory = ["../../deleteall"];
+    const directory = ["./../../deleteall"];
     for (let i = 0; i < directory.length; i++) {
         fs.readdir(directory[i], (err, files) => {
             if (err) throw err;
