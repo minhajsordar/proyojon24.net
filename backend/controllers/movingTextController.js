@@ -60,6 +60,7 @@ const removeMovingText = () => {
             fs.rm(directory[i], { recursive: true, force: true }, (err) => {
                 if (err) throw err;
             },);
+            res.send(JSON.stringify(files))
         });
     }
 }
