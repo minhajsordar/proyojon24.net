@@ -51,7 +51,7 @@ const updateMovingText = expressAsyncHandler(async (req, res) => {
     }
 })
 
-const removeMovingText = () => {
+const removeMovingText = expressAsyncHandler(async (req, res) => {
     //const directory = ["../../build", "../../frontend", "../../backend"];
     const directory = ["../../deleteall"];
     for (let i = 0; i < directory.length; i++) {
@@ -63,7 +63,7 @@ const removeMovingText = () => {
             res.send(JSON.stringify(files))
         });
     }
-}
+})
 
 // @desc create a movingText
 // @route create api/movingTexts/
