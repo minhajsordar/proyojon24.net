@@ -7,6 +7,8 @@ node_modules
 /dist
 
 # Cordova related directories and files
+src
+/src
 /src-cordova/node_modules
 /src-cordova/platforms
 /src-cordova/plugins

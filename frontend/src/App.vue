@@ -13,6 +13,7 @@ import { onMounted, onBeforeMount } from "vue";
 // import { useUnionStore } from "./stores/locations/unionStore";
 // import { useWardStore } from "./stores/locations/wardStore";
 import { usePublicUserStore } from "./stores/user/publicStore";
+import { useQuasar } from "quasar";
 // import { usePinlocationStore } from "./stores/locations/pinlocationStore";
 // const locationListGlobal = useLocalStorage("global-location-list", {});
 // const divisionStore = useDivisionStore();
@@ -42,8 +43,9 @@ import { usePublicUserStore } from "./stores/user/publicStore";
 // if (isEmptyArray(locationListGlobal.value.wards)) {
 //   wardStore.getGlobalWards();
 // }
+const $q = useQuasar();
 const refresh = (done) => {
-window.location.reload();
+  window.location.reload();
   // divisionStore.getGlobalDivisions();
   // districtStore.getGlobalDistricts();
   // subDistrictStore.getGlobalSubDistricts();
@@ -53,14 +55,30 @@ window.location.reload();
     done();
   }, 2000);
 };
-// onMounted(() => {
-//   divisionStore.getGlobalDivisions();
-//   districtStore.getGlobalDistricts();
-//   subDistrictStore.getGlobalSubDistricts();
-//   unionStore.getGlobalUnions();
-//   pinlocationStore.getGlobalPinlocations();
-// })
-const publicUserStore = usePublicUserStore()
+onMounted(() => {
+  //   divisionStore.getGlobalDivisions();
+  //   districtStore.getGlobalDistricts();
+  //   subDistrictStore.getGlobalSubDistricts();
+  //   unionStore.getGlobalUnions();
+  //   pinlocationStore.getGlobalPinlocations();
+  // $q.notify({
+  //   message: "Update your app from play store.",
+  //   color: "green",
+  //   timeout: 10000,
+  //   position: "top",
+  //   actions: [
+  //     {
+  //       icon: "close",
+  //       color: "white",
+  //       round: true,
+  //       handler: () => {
+  //         /* ... */
+  //       },
+  //     },
+  //   ],
+  // });
+});
+const publicUserStore = usePublicUserStore();
 onBeforeMount(() => {
   publicUserStore.updateBrowsingLocationOnMounted();
 });
