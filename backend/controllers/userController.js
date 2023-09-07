@@ -82,7 +82,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     password,
     phone,
     userType,
-    phoneVerified: true
+    phoneVerified: false
   })
 
   if (user) {

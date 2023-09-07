@@ -231,7 +231,8 @@ const registerManager = () => {
   });
   // at first verify phone number, check that the phone number is valid then verify that phone number
   // finally call register user api
-  otpVerificationStore.getOtpVerificationCodeWhileRegistration()
+  // otpVerificationStore.getOtpVerificationCodeWhileRegistration()
+  registerStore.registerNewUser()
 };
 onMounted(() => {
   if (route.query.namebn) {

@@ -63,7 +63,7 @@ export const useOtpVerificationStore = defineStore('otp verification store', () 
     }
   }
   const getOtpVerificationCodeWhileRegistration = async () => {
-    console.log(registrationStore.newUserInfo)
+    // console.log(registrationStore.newUserInfo)
     const config = {
       method: "post",
       url: "api/otp/request_phone_verification_otp_while_registration",
