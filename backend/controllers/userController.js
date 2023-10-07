@@ -100,9 +100,9 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     }
     // Update monthly user count
 
-    const today2 = new Date();
-    const year = today2.getFullYear();
-    const month = today2.getMonth();
+    const todayDateForMonthlyCount = new Date();
+    const year = todayDateForMonthlyCount.getFullYear();
+    const month = todayDateForMonthlyCount.getMonth();
 
     const monthlyUser = await MonthlyUser.findOne({ year, month });
 
