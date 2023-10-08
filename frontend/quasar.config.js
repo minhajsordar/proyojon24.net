@@ -76,7 +76,7 @@ module.exports = configure(function (/* ctx */) {
       // minify: false,
       // polyfillModulePreload: true,
       // distDir
-      distDir:"../build",
+      distDir:"../../root@noormohammad-vps/build",
 
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
