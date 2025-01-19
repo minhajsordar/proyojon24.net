@@ -1,5 +1,5 @@
 # updating
-
+s
 git add . && git commit -m "otp verification removed while registering user" && git push hostinger main
 git add . && git commit -m "frontend edit option add" && git push -u origin main
 
